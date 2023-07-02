@@ -28,7 +28,7 @@ class ClienteStore extends FormRequest
             'num_documento'=> 'required|min:1|max:30',
             'apellido1'=>'required|min:1|max:30',
             'nombre1'=>'required|min:1|max:30',
-            'sexo'=>'required',
+            'sexo_id'=>'required',
             'fecha_nacimiento'=>'required|date_format:Y-m-d',
             'direccion_res'=>'required|min:1|max:150',
             'telefonos'=>'required|min:1|max:60',

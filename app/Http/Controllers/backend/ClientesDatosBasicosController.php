@@ -7,8 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente_datosbasico;
 use App\Models\backend\TipoDocumentoModell;
 use App\Http\Requests\InsertClientes;
+use App\Models\CiudadesModell;
+use App\Models\DepartamentosModell;
+use App\Models\GrpSangreModell;
+use App\Models\PaisModell;
+use App\Models\SexoModell;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 
 class ClientesDatosBasicosController extends Controller
 {
@@ -17,49 +23,114 @@ class ClientesDatosBasicosController extends Controller
         $this->middleware('auth');
     }
 
+    
     public function index()
     {
-   
-       $clientesBasic  = Cliente_datosbasico::where('estado_user','=','on')->get();
-       return view('backend.clientes_datos_basicos.all-cliente-basico', ['listaCli' => $clientesBasic]);        
-    }
+        $clientesDtoBasicAd = DB::table('cliente_datosbasicos')
+        ->join('tiposervicios', 'cliente_datosbasicos.tiposervicio_id','=','tiposervicios.id')
+        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
+                 'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion','cliente_datosbasicos.id_tipodoc', 'cliente_datosbasicos.nacionalidad_id',
+                 'cliente_datosbasicos.departamento_id', 'cliente_datosbasicos.ciudad_id', 'cliente_datosbasicos.fecha_nacimiento',
+                 'cliente_datosbasicos.sexo_id','cliente_datosbasicos.grupoSanguineo_id', 'cliente_datosbasicos.direccion_res',
+                 'cliente_datosbasicos.email_user', 'cliente_datosbasicos.fecha_creacion', 'cliente_datosbasicos.estado_user', 
+                 'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico')->get();
+        
+        // $clientesBasic  = Clientes::where('estado','=','on')->get();
+       
+        return $clientesDtoBasicAd;
 
-  
-    public function create() //AddClienteDatoBasic() Llama a la vista para crear clientes para datos basicos del cliente
+        // $clienteReserva  = Cliente_datosbasico::where('reserva_si_no','=','SI')->get();
+       return view('backend.clientes.admin-clientes');        
+    }
+ 
+    public function busquedaClienteDtoBasico(){
+
+    $clientesDtoBasic = DB::table('cliente_datosbasicos')
+        ->join('tiposervicios', 'cliente_datosbasicos.tiposervicio_id','=','tiposervicios.id')
+        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
+                 'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion','cliente_datosbasicos.id_tipodoc', 'cliente_datosbasicos.nacionalidad_id',
+                 'cliente_datosbasicos.departamento_id', 'cliente_datosbasicos.ciudad_id', 'cliente_datosbasicos.fecha_nacimiento',
+                 'cliente_datosbasicos.sexo_id','cliente_datosbasicos.grupoSanguineo_id', 'cliente_datosbasicos.direccion_res',
+                 'cliente_datosbasicos.email_user', 'cliente_datosbasicos.fecha_creacion', 'cliente_datosbasicos.estado_user', 
+                 'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico')
+        ->get();
+        
+        // $clientesBasic  = Clientes::where('estado','=','on')->get();
+       
+        return $clientesDtoBasic;
+
+    }
+    public function create() //Llama a la vista para crear clientes para datos basicos del cliente
         {
-           $tipoDocBasic = TipoDocumentoModell::all();     // se gusrad la consulta en la bariable $tipodocBasic
-    
-           return view('backend.clientes_datos_basicos.add_cliente_datobasico',['tipoDoc' => $tipoDocBasic]);
+           $tipoDocBasic = TipoDocumentoModell::all();     // se guarda la consulta en la bariable $tipodocBasic
+           $pais1 = PaisModell::all();
+           $departamento1 = DepartamentosModell::all();
+           $ciudad1 = CiudadesModell::all();
+           $genero1 = SexoModell::all();
+           $grupo_rh1 = GrpSangreModell::all();
+           return view('backend.clientes_datos_basicos.add_cliente_datobasico',['tipoDoc' => $tipoDocBasic, 'pais' => $pais1,
+           'departamento' => $departamento1,'ciudad' => $ciudad1, 'genero'=>$genero1, 'grupo_rh' => $grupo_rh1]);
         }        
    
 
-     public function store(InsertClientes $request)
+     public function store(Request $request)
     {
-      //return $request->all(); // para mostrar lo que trae el request
+      // return $request->all(); // para mostrar lo que trae el request
+        
+      /*Esta es una de las formas de asignación para guargar el registro
+        $Cliente_datosbasico = new Cliente_datosbasico();
+        $Cliente_datosbasico->nombre = $request->nombre;
+        $Cliente_datosbasico->apellidos = $request->apellodos;
+
+        $Cliente_datosbasico->save();
+      */
+
       
-      $cliente_basic = Cliente_datosbasico::create($request->all());
-      $clientebsco  = Cliente_datosbasico::where('estado_user','=','on')->get();
-      return view('backend.clientes_datos_basicos.all-cliente-basico', ['listaCli' => $clientebsco]);     
-      
-            //   return redirect()->route('/all-cliente-basico', $cliente_basic);           
+    /*Esta es una de las formas de asignación para guargar el registro - hace lo mosmp que el código anterio
+      $Cliente_datosbasico =Cliente_datosbasico::create([
+            'nombre' => $request->nombre,
+            'apellidos' => $request->apellodos
+      ]);
+    */
+    
+    /*Finalmente esta es la forma que usaré*/
+    $Cliente_datosbasico = Cliente_datosbasico::create($request->all());
+    return $request->all();
+    
+     /* $clientebsco  = Cliente_datosbasico::where('estado_user','=','on')->get();
+      /*return view('backend.cliente.admin-clientes', ['listaCli' => $clientebsco]);   */  
+     
     }
 
 
     public function show(Cliente_datosbasico $cliente_datosbasico)
     {
         //
-    }
+    } 
+                    
+    public function editarCliente(Request $request)
+    {   
+        
+    // $jaminson=$request['id'];
+       $selectCliBco  = Cliente_datosbasico::where('id','=',$request['id'])->get();
+       return $selectCliBco;
 
- 
+    }   
     public function edit(Cliente_datosbasico $cliente_datosbasico)
     {
-        //
+        //  
     }
 
  
-    public function update(Request $request, Cliente_datosbasico $cliente_datosbasico)
+    public function update(Cliente_datosbasico $cliente_datosbasico, Request $request)
     {
-        //
+        
+        $idCli=$request['idCliente'];
+        $cliente_datosbasico = Cliente_datosbasico::findOrFail($idCli);
+        $cliente_datosbasico->fill($request->all());
+        $cliente_datosbasico->save();  
+        return $cliente_datosbasico;      
+        
     }
 
 

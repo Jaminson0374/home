@@ -7,8 +7,9 @@
 
     <!-- Sidebar -->
     <div class="sidebar ">
+      {{-- mt-3 pb-3 mb-3 --}}
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel d-flex">
         <div class="image">
           <img src="{{asset('backend/dist/img/foto.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -44,64 +45,36 @@
             </a>
           </li>
           @if(auth()->user()->role=='Administrador')
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Informes
-                <i class="fas fa-angle-left right"></i>
-                {{-- <span class="right badge badge-danger"></span> --}}
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista de usuarios</p>
-                </a>
-              </li>              
-              <li class="nav-item" tile ="menus">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Planiallas</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ficha de usuario</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado de controles</p>
-                </a>
-              </li>              
-            </ul>            
-          </li>
           
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-users"></i>
               {{-- <i class='fas fa-user-tie' style='font-size:24px;color:rgb(183, 228, 241)'></i> --}}
               <p>
-                Usuarios
+                Procesos Administrativos
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{URL::to('/all-cliente-basico')}}" class="nav-link">
+                {{-- <a href="{{URL::to('/admin-clientes')}}" class="nav-link"> --}}
+                <a href="{{URL::to('/admin-prueba')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin de Usuario</p>
+                  <p>Admin de Usuarios</p>
                 </a>
               </li> 
+ 
               <li class="nav-item">
-                <a href="{{URL::to('/tipo-servicio')}}" class="nav-link">
+                <a href="{{URL::to('/admin-reservas')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Asignar Servicio</p>
+                  <p>Admin de Reservas</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-servicio')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin - Asignar Servicio</p>
                 </a>
               </li>                        
               <li class="nav-item" tile ="menus">
@@ -116,15 +89,9 @@
                   <p>Admin de Controles</p>
                 </a>
               </li>                                        
-              <li class="nav-item" tile ="menus">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admin Inst. Eps</p>
-                </a>
-              </li>
-    
             </ul>
           </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -138,7 +105,7 @@
               <li class="nav-item">
                 <a href="{{URL::to('/all-cliente')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Eps</p>
+                  <p>Eps/Entidades/Indep</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -162,7 +129,7 @@
               <li class="nav-item">
                 <a href="{{URL::to('/all-cliente')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Sexos</p>
+                  <p>Tipos de generos</p>
                 </a>
               </li>  
               <li class="nav-item">
@@ -245,11 +212,46 @@
             </ul>
           </li>
 
-          
-
 
           @endif
+          <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Informes
+                <i class="fas fa-angle-left right"></i>
+                {{-- <span class="right badge badge-danger"></span> --}}
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de usuarios</p>
+                </a>
+              </li>              
+              <li class="nav-item" tile ="menus">
+                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Planiallas</p>
+                </a>
+              </li>
 
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ficha de usuario</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de controles</p>
+                </a>
+              </li>              
+            </ul>            
+          </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>

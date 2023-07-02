@@ -17,18 +17,32 @@ class Clientes extends Model
              
     protected $table = 'clientes';
 
-    protected $guarded = [
+    protected $guarded = [ 
         'id',
-        'softDeletes',
+        'softDeletes', 
         'timestamps'       
     ];
-  
+ 
     public function tipodoc(): BelongsTo
     {
         
         return $this->belongsTo(TipoDocumentoModell::class, 'id_tipodoc');
      
-    }    
+    }   
+
+    public function datosBasicos(): BelongsTo
+    {
+        return $this->belongsTo(Cliente_datosbasico::class, 'datosbasicos_id');
+
+    }
+         
+    public function tipoServicios(): BelongsTo
+    {
+        return $this->belongsTo(Tiposervicio::class, 'tiposervicio_id');
+
+    }     
+    
+ 
 }
 
 //la propiedad $fillable se hace para poder hacer asingación masiva desde el controlador

@@ -24,21 +24,20 @@
         </ul>
     </div>
 @endif    
+    @foreach ($seleUsuario as $CampoBasic )
+    @endforeach
      <section class="content">
         <div class="card border-2">
              <div class="card-body text-dark tarjeta_body" >
                 <form role="form" action="{{URL::to('/insert-cliente')}}" method="post">
                     @csrf
                     {{-- tipo_servicios --}}
-                    <input type="hidden"  name='tipo_servicios' value={{'1'}}>
-                    <input type="hidden"  name='cliente_id' value={{'6'}}>
-                    
                         <div class="row justify-content-between">
                             <div class="col-sm-11">
                                 <div class="card card-primary">
                                     <div class="card-header">
-                                        <h3 class="card-title ">ASIGNACIÓN DEL SERVICIO SOLICITADO</h3>
-                                        <h3 class="card-title float-right">Tipo de servicio:  VIVIENDA ASISTIDA</h3>
+                                        <h3 class="card-title">Ingreso Institucional - ASIGNACIÓN DEL SERVICIO SOLICITADO </h3>
+                                        {{-- <h3 class="card-title float-right">USUARIO/CLIENTE:------>{{$CampoBasic->num_documento.' '.$CampoBasic->nombre.' '.$CampoBasic->apellidos }}</h3> --}}
                                     </div>
                                     <div class="card-body bg-info">
                                                                          
@@ -46,21 +45,26 @@
                                             <div class="col-sm-6">
                                             <label for="">Usuario</label>
                                             <select class="select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" name="id_user" id="selectUsuario">
-                                                   <option selected="selected" disable value=" ">Seleciona uno</option>
+                                                   <option selected="selected" disable value="{{$CampoBasic->id}}">Seleciona uno</option>
                                                
                                                     @foreach($seleUsuario as $SelectUsuario)
                                                     <option value = {{$SelectUsuario->id}}>{{$SelectUsuario->num_documento.' '.$SelectUsuario->nombre.' '.$SelectUsuario->apellidos}}</option>
                                                     @endforeach
                                                 </select>
-                                                <script>
-                                                    // var id_names2 = document.getElementById("selectTipoDoc").value ="old('id_tipodoc')"";
-                                                    // console.log("MEENSAJW"+id_names[0].tagName)
-                                                    // console.log("MEENSAJW"+id_names2)
-                                                    // document.getElementByName('id_tipodoc').value = "old('id_tipodoc')";
-                                                </script> 
-                                            </div>
- 
-                                         </div>  <!--cierra row--> 
+                                        </div>
+                                                {{-- <div>
+                                                    <input type="hidden" name="tipo_usuario" value="1">
+                                                </div>    --}}
+                                                <div class="col-sm-6">
+                                                    <label>Tipo Servicio</label>
+                                                    <select class="select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" name="tipo_servicios" id="selectServicios">
+                                                    <option selected="selected" disable value=" ">Seleciona un servicio</option>
+                                                    @foreach($tipoServicio as $tipoServi)
+                                                        <option value = {{$tipoServi->id}}>{{$tipoServi->descripcion}}</option>
+                                                    @endforeach
+                                                    </select>
+                                                </div>
+                                          </div>  <!--cierra row--> 
                                         
 
                                         <div class="row">
@@ -78,11 +82,12 @@
                                                 <option value="5">Nueva EPS</option>
                                                 <option value="6">Viva 1A</option>
                                                 <option value="7">Mutual Ser EPS</option>
+                                                <option value="8">Independiente</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-sm-4">
-                                                <label for="" >Médico Remitente</label>
+                                                <label for="" >Médico de EPS Remitente</label>
                                                 <input type="text" class="form-control text" name="medico_remitente" placeholder="Digite nombre medico remitente" value="{{old('medico_remitente')}}">
                                              </div>
                                              <div class="col-6 col-sm-4">
@@ -210,7 +215,7 @@
                                             </div>  
                                             <div class="col-sm-3">
                                                 <label for="" class="col-form-label">Estado del Servicio:</label>
-                                                <input class="form-control text"  type="checkbox" name="estado_cliente" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                <input class="form-control text"  type="checkbox" name="estado" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                             </div>                                            
                                         </div> <!--cierra row-->                                         
                                     </div>

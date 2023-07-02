@@ -39,17 +39,18 @@ Route::get('/all-tipo-servicio', [App\Http\Controllers\backend\TipoServicioContr
 
 Route::get('/tipo-servicio', [App\Http\Controllers\backend\TipoServicioController::class, 'TipoServicio'])->name('TipoServicio');
 
-
-
-
 //Administrador de Clientes
-//Route::get('/all-cliente', [App\Http\Controllers\backend\ClientesController::class, 'AllCliente'])->name('allCliente');
+//Route::get('/all-cliente-admin', [App\Http\Controllers\backend\ClientesController::class, 'AllClienteAdmin'])->name('AllClienteAdmin');
 
-Route::get('/add-cliente-index', [App\Http\Controllers\backend\ClientesController::class, 'AddClienteIndex'])->name('AddClienteIndex');
+Route::get('/admin-clientes', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminClientes');
+
+Route::get('/admin-prueba', function() {
+    return view('backend.cliente.admin-clientes');
+});
+
+Route::get('/add-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'AddClienteIndex'])->name('AddClienteIndex');
 
 Route::get('/tipo-servicio', [App\Http\Controllers\backend\ClientesController::class, 'TipoServicio'])->name('TipoServicio');
-
-//Route::get('/add-cliente-datobasic', [App\Http\Controllers\backend\ClientesController::class, 'AddClienteDatoBasic'])->name('AddClienteDatoBasic');
 
 Route::post('/insert-cliente', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertCliente');
 
@@ -61,16 +62,30 @@ Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\ClientesControl
 
 
 //Administrador de Clientes DATOS BASICOSClientesDatosBasicosController
-Route::get('/all-cliente-basico', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AllClienteBasico');
-
-// Route::get('/tipo-servicio', [App\Http\Controllers\backend\clientes_datos_basicos\ClientesDatosBasicosController::class, 'TipoServicio'])->name('TipoServicio');
 
 Route::get('/add-cliente-datobasic', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'create'])->name('AddClienteDatoBasic');
 
 Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'store'])->name('InsertClienteBasico');
+Route::get('/buscar-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'busquedaClienteDtoBasico'])->name('BuscarClienteBasico');
+Route::post('/clienteCli', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'editarCliente'])->name('ClienteEditarCli');
+Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'update'])->name('ClienteUpdateCli');
 
-// Route::get('/edit-cliente/{id}', [App\Http\Controllers\backend\clientes_datos_basicos\ClientesDatosBasicosController::class, 'EditCliente'])->name('EditCliente');
 
-// Route::post('/update-cliente/{id}', [App\Http\Controllers\backend\clientes_datos_basicos\ClientesDatosBasicosController::class, 'UpdateCliente'])->name('UpdateCliente');
+Route::get('/browsPais', [App\Http\Controllers\PaisController::class, 'index'])->name('BrowsPais');
+Route::post('/browsDpto', [App\Http\Controllers\DepartamentosController::class, 'index'])->name('BrowsDpto');
+Route::post('/browsCiudad', [App\Http\Controllers\CiudadesController::class, 'index'])->name('BrowsCiudad');
 
-// Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\clientes_datos_basicos\ClientesDatosBasicosController::class, 'DeleteCliente'])->name('DeleteCliente');
+
+//Administrador de RESERVAS
+  
+Route::get('/admin-reservas', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminReservas');
+
+Route::get('/open-reservas-servicios', [App\Http\Controllers\backend\ClientesController::class, 'openReservasAddServicios'])->name('openReservasAddServicios');
+
+// Route::get('/imagen', function() {
+//   return view('backend.cliente.imagen');
+// })
+
+Route::get('/imagen', function() {
+    return view('backend.cliente.imagen');
+});
