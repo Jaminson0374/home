@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tiposervicio extends Model
 {
-    use HasFactory;
     protected $table = 'tiposervicios';
+    use HasFactory;
+    
 
      
 }

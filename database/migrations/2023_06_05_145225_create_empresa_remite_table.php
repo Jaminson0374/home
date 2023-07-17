@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion',150)->nullable();
             $table->timestamps();
-            $table->foreignId('tipo_empresa_id')->references('id')->on('tipo_empresa_remite')->onDelete('cascade')->onUpdate('cascade');            
+            $table->string('contacto',150)->nullable()->after('descripcion');
+            $table->string('telefono',60)->nullable()->after('descripcion');
+            $table->string('direccion',200)->nullable()->after('descripcion');  
+            $table->foreignId('tipo_empresa_id')->references('id')->on('tipo_empresa_remite')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->timestamps();
         });
     }
 

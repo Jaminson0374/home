@@ -4,6 +4,7 @@ AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 class DatosBasicosClientes {
 
 	validarCampos() {
+		let focusHtml = "";
 		let campoText = "";
 		let id_tipodoc = document.getElementsByName("id_tipodoc")[0].value;
 		let num_documento = document.getElementsByName("num_documento")[0].value;
@@ -28,45 +29,59 @@ class DatosBasicosClientes {
 
 		switch (camposForm) {
 			case id_tipodoc:
+				focusHtml = "id_tipodoc"
 				campoText = 'El TIPO DOCUMENTO es requerido'
 				break;
 			case num_documento:
+				focusHtml = "num_documento"
 				campoText = 'El DOC IDENTIDAD es requerido'
 				break;
 			case nombre:
 				campoText = 'El NOMBRE es requerido'
+				focusHtml = "nombre"
 				break;
 			case apellidos:
+				focusHtml = "apellidos"
 				campoText = 'El APELLIDO es requerido'
 				break;
 			case nacionalidad_id:
+				focusHtml = "nacionalidad_id"
 				campoText = 'La NACIONALIDAD es requerida'
 				break;
 			case departamento_id:
+				focusHtml = "departamento_id"
 				campoText = 'El DPTO NACIMIENTO es requerido'
 				break;
 			case ciudad_id:
+				focusHtml = "ciudad_id" 
 				campoText = 'La CIUDAD NACIMIENTO es requerida'
 				break;
 			case fecha_nacimiento:
+				focusHtml = "fecha_nacimiento"
 				campoText = 'La F. NACIMIENTO es requerida'
 				break;
 			case sexo_id:
+				focusHtml = "sexo_id"
 				campoText = 'El GENERO es requerido'
 				break;
 			case grupoSanguineo_id:
+				focusHtml = "grupoSanguineo_id"
 				campoText = 'El GRUPO RH es requerido'
 				break;
 			case telefonos_user:
+				focusHtml =  "telefonos_user"
 				campoText = 'El TELEFONO es requerido'
 				break;
 			case direccion_res:
+				focusHtml = "direccion_res"
 				campoText = 'La DIRECCION RESIDENCIAL es requerida'
 				break;
 			case email_user:
+				focusHtml = "email_user"
 				campoText = 'El EMAIL USUARIO es requerido'
 				break;
 			case fecha_creacion:
+				focusHtml = "fecha_creacion"
 				campoText = 'La FECHA CREACIÓN/RESERVA es requerida'
 				break;
 		}
@@ -76,35 +91,34 @@ class DatosBasicosClientes {
 	/******************************************************************************************************
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
-	asignaValorEdit(data2) {
-		// elementosControl()
-		// bodyTablaDtBasic.innerHTML = "";
-		// for (let datoJson of data){
-			// let bcid="1"
-			// document.getElementById('nacionalidad_id').value = `${bcid}`
-		// for (let i = 0, celda = 1; i < data2.length; i++) {
-			let i = 0;
-			document.getElementById('id_tipodoc').value = `${data2[i].id_tipodoc}`
-			document.getElementById('num_documento').value = `${data2[i].num_documento}`
-			document.getElementById('nombre').value = `${data2[i].nombre}`
-			document.getElementById('apellidos').value = `${data2[i].apellidos}`
-			document.getElementById('nacionalidad_id').value = `${data2[i].nacionalidad_id}`
-			document.getElementById('departamento_id').value = `${data2[i].departamento_id}`
-			document.getElementById('ciudad_id').value = `${data2[i].ciudad_id}`
-			document.getElementById('fecha_nacimiento').value = `${data2[i].fecha_nacimiento}`
-			document.getElementById('edad').value = `${data2[i].edad}`
-			document.getElementById('sexo_id').value = `${data2[i].sexo_id}`
-			document.getElementById('grupoSanguineo_id').value = `${data2[i].grupoSanguineo_id}`
-			document.getElementById('telefonos_user').value = `${data2[i].telefonos_user}`
-			document.getElementById('direccion_res').value = `${data2[i].direccion_res}`
-			document.getElementById('email_user').value = `${data2[i].email_user}`
-			document.getElementById('fecha_creacion').value = `${data2[i].fecha_creacion}`
-			document.getElementById('estado_user').value = `${data2[i].estado_user}`
-			document.getElementById('diagnostico').value = `${data2[i].diagnostico}`
-			document.getElementById('observacion').value = `${data2[i].observacion}`
-			document.getElementById('idCliente').value = `${data2[i].id}`
-		// }
+	asignaValorEdit(data) {
+		console.log(data)
+		document.getElementsByName('id_tipodoc')[0].value = data.id_tipodoc
+		document.getElementsByName('num_documento')[0].value = data.num_documento
+		document.getElementsByName('nombre')[0].value = data.nombre
+		document.getElementsByName('apellidos')[0].value = data.apellidos
+		document.getElementsByName('nacionalidad_id')[0].value = data.nacionalidad_id
+		document.getElementsByName('departamento_id')[0].value = data.departamento_id
+		document.getElementsByName('ciudad_id')[0].value = data.ciudad_id
+		document.getElementsByName('fecha_nacimiento')[0].value = data.fecha_nacimiento
+		document.getElementsByName('edad')[0].value = data.edad
+		document.getElementsByName('sexo_id')[0].value = data.sexo_id
+		document.getElementsByName('grupoSanguineo_id')[0].value = data.grupoSanguineo_id
+		document.getElementsByName('telefonos_user')[0].value = data.telefonos_user
+		document.getElementsByName('direccion_res')[0].value = data.direccion_res
+		document.getElementsByName('email_user')[0].value = data.email_user
+		document.getElementsByName('fecha_creacion')[0].value = data.fecha_creacion
+		document.getElementsByName('estado_user')[0].value = data.estado_user
+		document.getElementsByName('diagnostico')[0].value = data.diagnostico
+		document.getElementsByName('observacion')[0].value = data.observacion
+		document.getElementsByName('idCliente')[0].value = data.id
 
+		let idNacionalidad = data.nacionalidad_id
+		let dpto_id = data.departamento_id
+		departamentos(idNacionalidad, dpto_id)
+
+		let ciudad_seleEdit = data.ciudad_id
+		ciudadesEdit(idNacionalidad, dpto_id, ciudad_seleEdit)
 	}
 
 	ValueCampos() {
@@ -152,24 +166,20 @@ class DatosBasicosClientes {
 		if (valor == "Actualizar"){
 			aler('actualizar')
 		}else if (valor == "Guardar"){
-			alert('Guardar')
+			// alert('Guardar')
 		}
 
-	}
+	} 
 	
 	/*cuando s epresiona el botón ok de la tabla del modal, se le da valor "Actualizar" al attributo accion del id accionbotones */
 	accionUpdate(){
-		let updateAccion = "Actualizar"
 		let newNom80 = document.getElementById('accionBotones')
-		newNom80.setAttribute('accion', `${updateAccion}`);
-		// console.log(newNom80)		
+		newNom80.setAttribute('accion', "Actualizar");
 	}
 	/*cuando s epresiona el botón cancelar, se le da valor "Guardar" al attributo accion del id accionbotones */
 	accionSaveNew(){
-		let saveAccion = "Guardar"
 		let newNom100 = document.getElementById('accionBotones')
-		newNom100.setAttribute('accion', `${saveAccion}`);
-		console.log(newNom100)		
+		newNom100.setAttribute('accion', 'Guardar');
 	}
-}
+} 
 

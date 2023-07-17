@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 Auth::routes();
-
+ 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -23,6 +23,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::get('/all-user', [App\Http\Controllers\backend\UserController::class, 'AllUser'])->name('alluser');
 
 // Route::get('/add-user-index', [App\Http\Controllers\backend\UserController::class, 'AddUserIndex'])->name('AddUserIndex');
+
+/**********************************************************************
+ * RUTAS PARA LOS USUARIOS QUE ITERACTUAN CON LA APLICACION           *
+ **********************************************************************/
+
 Route::get('/', [App\Http\Controllers\backend\UserController::class, 'AddUserIndex'])->name('AddUserIndex');
 
 Route::post('/insert-user', [App\Http\Controllers\backend\UserController::class, 'InsertUser'])->name('InsertUser');
@@ -34,13 +39,14 @@ Route::post('/update-user/{id}', [App\Http\Controllers\backend\UserController::c
 Route::get('/delete-user/{id}', [App\Http\Controllers\backend\UserController::class, 'DeleteUser'])->name('DeleteUser');
 
 
+/**********************************************************************
+ * RUTAS PARA LOS SERVICIOS QUE PRESTA LA FUNDACION                   *
+ **********************************************************************/
+
 //Administrador de servicios (php artisan make:contoller TipoServicioContrller --model=Photo --resource])
 Route::get('/all-tipo-servicio', [App\Http\Controllers\backend\TipoServicioController::class, 'AllTipoServicio'])->name('AllTipoServicio');
 
 Route::get('/tipo-servicio', [App\Http\Controllers\backend\TipoServicioController::class, 'TipoServicio'])->name('TipoServicio');
-
-//Administrador de Clientes
-//Route::get('/all-cliente-admin', [App\Http\Controllers\backend\ClientesController::class, 'AllClienteAdmin'])->name('AllClienteAdmin');
 
 Route::get('/admin-clientes', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminClientes');
 
@@ -59,33 +65,48 @@ Route::get('/edit-cliente/{id}', [App\Http\Controllers\backend\ClientesControlle
 Route::post('/update-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'UpdateCliente'])->name('UpdateCliente');
 
 Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'DeleteCliente'])->name('DeleteCliente');
-
+Route::post('/traeClienteConServicio/{id}', [App\Http\Controllers\backend\ClientesController::class, 'traeClienteServicio'])->name('TraeClienteConServicio');
 
 //Administrador de Clientes DATOS BASICOSClientesDatosBasicosController
 
 Route::get('/add-cliente-datobasic', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'create'])->name('AddClienteDatoBasic');
 
 Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'store'])->name('InsertClienteBasico');
+
 Route::get('/buscar-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'busquedaClienteDtoBasico'])->name('BuscarClienteBasico');
 Route::post('/clienteCli', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'editarCliente'])->name('ClienteEditarCli');
 Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'update'])->name('ClienteUpdateCli');
+Route::post('/clienteBasicoEiminar/{idcliente}',[App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'destroy'])->name('ClienteDeleteCli');
 
-
+//*DATOS ADICIONALES
 Route::get('/browsPais', [App\Http\Controllers\PaisController::class, 'index'])->name('BrowsPais');
 Route::post('/browsDpto', [App\Http\Controllers\DepartamentosController::class, 'index'])->name('BrowsDpto');
 Route::post('/browsCiudad', [App\Http\Controllers\CiudadesController::class, 'index'])->name('BrowsCiudad');
-
+  
 
 //Administrador de RESERVAS
-  
+   
 Route::get('/admin-reservas', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminReservas');
 
-Route::get('/open-reservas-servicios', [App\Http\Controllers\backend\ClientesController::class, 'openReservasAddServicios'])->name('openReservasAddServicios');
 
-// Route::get('/imagen', function() {
-//   return view('backend.cliente.imagen');
-// })
+//******************************************************
+//* CLIENTES SERVICIOS
+Route::get('/asignar-servicio/{idCliente}', [App\Http\Controllers\backend\ClientesController::class, 'create'])->name('AsignarServicioCliente');
+Route::post('/insert-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertClienteServicio');
+Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
+
+
+//*********************************************************************
+//                                 CITAS MEDICAS                      *
+//*********************************************************************/
+
+Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminCitasMedicas');
+Route::get('/add-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
+
 
 Route::get('/imagen', function() {
     return view('backend.cliente.imagen');
+});
+Route::get('/datatable', function() {
+    return view('backend.cliente.datatable');
 });

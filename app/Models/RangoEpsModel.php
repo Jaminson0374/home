@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RangoEpsModel extends Model
 {
+    protected  $table = "rango_eps";
     use HasFactory;
 }

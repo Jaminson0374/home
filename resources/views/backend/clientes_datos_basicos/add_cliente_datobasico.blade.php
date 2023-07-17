@@ -4,6 +4,8 @@
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="{{ asset('../resources/js/back_off.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.css') }}">
     </head>
 
     <style>
@@ -12,6 +14,10 @@
             background-color: #eef3eb;
             border: 4em;
             border-color: #ee2015;
+        }
+
+        .my-class-drop {
+            height: 20px;
         }
 
         .c-body {
@@ -26,23 +32,22 @@
             border: inset;
         }
     </style>
-
+    {{-- onsubmit="this.submit(); this.reset(); return false;" --}}
     <div class="content-wrapper jaminson">
         <section class="content">
             <div class="card border-2">
                 <div class="card-body text-dark tarjeta_body">
-                    <form name="formularioDbasic" id="formularioDbasic" method="POST">
+                    <form name="formularioDbasic" id="formularioDbasic" method="get">
+                        {{-- @method('post') --}}
                         @csrf
-                        {{-- @method('put') --}}
 
                         <div class="row justify-content-between">
 
-                            <body onload="nobackbutton();">
+                            <body>
                                 <div class="col-sm-10">
                                     <div class="card card-primary">
-                                        <div class="card-header">|
-                                            <h3 class="card-title ">Ingreso de nuevo usuario o Reserva</h3>
-                                            <h3 class="card-title float-right">Datos Básicos Personales</h3>
+                                        <div class="card-header">
+                                            <h3>Ingreso de nuevo usuario o Reserva --------- Datos Básicos Personales</h3>
                                         </div>
 
                                         <div class="card-body c-body">
@@ -53,8 +58,9 @@
                                                 <div class="col-sm-3">
                                                     <label class="col-form-label ">*Tipo Documento</label>
                                                     <select class="select2 select2-danger focusNext text"
-                                                        data-dropdown-css-class="select2-danger" style="width: 100%;"
-                                                        tabindex="1" name="id_tipodoc" id="id_tipodoc">
+                                                        data-dropdown-css-class="select2-danger select-sm"
+                                                        class="my-class-drop" style="width: 100%" tabindex="1"
+                                                        name="id_tipodoc" id="id_tipodoc">
                                                         @foreach ($tipoDoc as $tipoDoc)
                                                             <option value={{ $tipoDoc->id }}>{{ $tipoDoc->descripcion }}
                                                             </option>
@@ -65,8 +71,9 @@
                                                 <div class="col-sm-3">
                                                     <label for="" class="col-form-label">*Doc Identidad</label>
                                                     <input type="text" class="form-control text focusNext" maxlength="25"
-                                                        tabindex="2" name="num_documento" id="num_documento" value
-                                                        placeholder="Digite No. del documento">                                                        >
+                                                        tabindex="2" name="num_documento" id="num_documento"
+                                                        pattern="[A-Za-z0-9]{1,25}" placeholder="Digite No. del documento"
+                                                        style="height:40px; font-size:11px">
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <label for="nombre" class="col-form-label">*Nombre:</label>
@@ -122,8 +129,8 @@
                                                     <label for="" class="col-form-label">*F. nacimiento:</label>
                                                     <input type="date"
                                                         class="form-control text focusNext fecha_nacimiento"
-                                                        id="fecha_nacimiento" name="fecha_nacimiento" onchange="tuEdadReal()"
-                                                        tabindex="8">
+                                                        id="fecha_nacimiento" name="fecha_nacimiento"
+                                                        onchange="tuEdadReal()" tabindex="8">
                                                 </div>
 
                                                 <div class="col-sm-2">
@@ -210,80 +217,95 @@
                                                 <div class="col-sm-12">
                                                     <label for="" class="col-form-label">Diagnóstico (DX) de la
                                                         solicitud la reserva:</label>
-                                                    <textarea type="text" class="form-control text diagnostico" id="diagnostico"
-                                                        name="diagnostico" placeholder="Digite el diagnóstico"></textarea>
+                                                    <textarea type="text" class="form-control text diagnostico" id="diagnostico" name="diagnostico"
+                                                        placeholder="Digite el diagnóstico"></textarea>
                                                 </div>
                                             </div>
                                             <!--cierra row-->
 
-                                            <input type="hidden" name="tiposervicio_id" value="1">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            <h3 class="card-title float-right ">Fotografía</h3>
-                                        </div>
-                                        <div class="card-body bg-info">
-                                            <div class="user-panel mt-1 pb-1 mb-1 d-flex">
-                                                <div class="image">
-                                                    <img id="imagenPrevisualizacion" class="img-responsive"
-                                                        style="width:150px;height:150px">
-                                                    {{-- <img src="{{ asset('backend/dist/img/foto.jpg') }}" --}}
-                                                    {{-- class="img-circle elevation-4" alt="User Image"> --}}
+                                            <input type="hidden" name="tiposervicio_id" value="15">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="" class="col-form-label">Observaciones:</label>
+                                                    <textarea type="text" class="form-control text observacion" id="observacion" name="observacion"
+                                                    placeholder="Digite observaciones pertinentes"></textarea>
                                                 </div>
-                                                {{-- <div class="info">
-                                                    <a href="#" class="d-block">{{ auth()->user()->name }} </a>
-                                                </div> --}}
+                                            </div> <!--cierra row-->  
+                                        </div> <!-- cierra card body-->   
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <div class="form-group pt-2">
+                                                    <button type="submit" class="btn btn-primary form-group btnUpdate btn-lg" tabindex="19"
+                                                        id="btnSave" accionBtn="Guardar" name="btnSave">
+                                                        <i class="fa fa-save" style="color:#f5dc02e0;"></i> Guardar
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancel"
+                                                        tabindex="20"> <i class="fa fa-ban"></i> Cancelar</button>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary form-group btnSearch btn-lg " id="btnSearch"
+                                                        name="btnSearch" tabindex="22"><i class="fa fa-search-location"></i>
+                                                        Buscar
+                                                    </button>
+                
+                                                    <button type="button" class="btn btn-primary form-group btn-lg" id="btnDelete"
+                                                        tabindex="23" disabled="true"><i class="fa fa-trash"
+                                                            style="color:#f30b0b;"></i> Eliminar</button>
+                                                    <a href="{{ URL::to('admin-clientes') }}" class="btn btn-primary btn-lg float-right "
+                                                        tabindex="24" id="btnExit"><i class="fa fa-arrow-right fa-lg"
+                                                            style="color:#f30b0b;"></i> Salir</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <input type="file" id="seleccionArchivos" class="btn btn-success"
-                                            accept="image/*">
-                                        {{-- <span class="btn btn-success col fileinput-button"> --}}
-                                        {{-- <i class="fas fa-plus"></i> --}}
-                                        {{-- <span>Subir foto</span> --}}
-                                        </span>
-                                    </div>
+                                        </div>  <!--cierra row-->                                                                           
+                                    </div> <!--cierra card card-primary-->
+                                </div> <!--cierra colum-10-->
+
+                                            <div class="col-sm-2">
+                                                <div class="card card-primary">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title float-right ">Fotografía</h3>
+                                                    </div>
+                                                    <div class="card-body bg-info">
+                                                        <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+                                                            <div class="image">
+                                                                <img id="imagenPrevisualizacion" class="img-responsive"
+                                                                    style="width:140px;height:130px">
+                                                                {{-- <img src="{{ asset('backend/dist/img/foto.jpg') }}" --}}
+                                                                {{-- class="img-circle elevation-4" alt="User Image"> --}}
+                                                            </div>
+                                                            {{-- <div class="info">
+                                                                <a href="#" class="d-block">{{ auth()->user()->name }} </a>
+                                                            </div> --}}
+                                                        </div>
+                                                    </div>
+                                                    <input type="file" id="seleccionArchivos" class="btn btn-success"
+                                                        accept="image/*">
+                                                    {{-- <span class="btn btn-success col fileinput-button"> --}}
+                                                    {{-- <i class="fas fa-plus"></i> --}}
+                                                    {{-- <span>Subir foto</span> --}}
+                                                    </span>
+
+                                                    
+                                                    <div class="card card-primary">
+                                                        <div class="card-header">
+                                                            <h3>Información</h3>
+                                                        </div>
+                                                        <div class="card-body bg-info">
+                                                            <div class="" style="width:150px;height:320px">
+                                                             <h5>En esta ventana debe digitar la información básica del usuario.
+                                                             Puede consultarlar, actualizar o eliminat utilizando el botón buscar.
+                                                             </h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                
+                                                </div>
                                 </div>
                                 <script src="{{ asset('../resources/js/save_dato_basico.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
                                 <script src="{{ asset('../resources/js/imagen.js') }}"></script>
+
                             </body>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <label for="" class="col-form-label">Observaciones:</label>
-                                <textarea type="text" class="form-control text observacion" id="observacion" name="observacion"
-                                    placeholder="Digite observaciones pertinentes"></textarea>
-                            </div>
-                        </div>
-                        <!--cierra row-->
-                        
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <div class="form-group pt-2">
-                                    <button type="submit" class="btn btn-primary form-group btnUpdate" tabindex="19"
-                                        id="btnSave" accionBtn="guardar"name="btnSave">
-                                        <i class="fa fa-save" style="color:#f30f0fe0;"></i> Guardar
-                                    </button>
-                                    <button type="button" class="btn btn-primary form-group" id="btnCancel"
-                                        tabindex="20">  <i class="fa fa-ban"></i> Cancelar</button>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary form-group btnSearch " id="btnSearch"
-                                        name="btnSearch" tabindex="22"><i class="fa fa-search-location"></i>
-                                         Buscar
-                                    </button>
-
-                                    <button type="button" class="btn btn-primary form-group" id="btnDelete"
-                                        tabindex="23" disabled="true"><i class="fa fa-trash" style="color:#f30b0b;"></i> Eliminar</button>
-                                    <a href="{{ URL::to('admin-prueba') }}" class="btn btn-primary float-right "
-                                        tabindex="24" id="btnExit"><i class="fa fa-arrow-right fa-lg" style="color:#f30b0b;"></i> Salir</a>
-                                </div>
-                            </div>
-                            {{-- </div>  <!--cierra row--> --}}
                     </form>
                 </div>
             </div>
@@ -311,160 +333,180 @@
                     </button>
                 </div>
                 {{-- tablaDtBasico --}}
+                <form action="" id="modalTable"></form>
 
                 <body>
                     <div class="modal-body">
-                        <div class="card-body p-3 mb-2 bg-primary text-white">
-                            <table id="example1" class="table table-bordered table-striped">
+                        <div class="card-body p-2 mb-0 bg-primary text-white">
+                            <table id="tablaClientes" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>DocIdent</th>
                                         <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
                                         <th class="text-center">Edad</th>
                                         <th>Telefonos</th>
                                         <th class="text-center">Tipo de servicio</th>
                                         <th class="text-center">Acción2</th>
                                     </tr>
                                 </thead>
-                                <tbody id="bodyTablaDtBasic">
-
-
+                                <tbody id="bodyTabla">
 
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>DocIdent</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Edad</th>
-                                        <th>Telefonos</th>
-                                        <th class="text-center">Tipo de servicio</th>
-                                        <th class="text-center">Acción</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                    </div>
                 </body>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<script></script>
-saltarEnterFormulario()
+<script src="{{ asset('../resources/js/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('../resources/js/datatable_externa_1_10_20/popper.min.js') }}"></script>
+<script src="{{ asset('../resources/js/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
+<script src="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.js') }}"></script>
+
+<script src="{{ asset('../resources/js/datatable.js') }}"></script>
 
 <script>
+     nobackbutton()
+    // saltarEnterFormulario()
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
     window.addEventListener('load', () => {
+        let formularioDbasic = document.getElementById('formularioDbasic')
         let bodyTablaClientes = document.getElementById("bodyTabla");
         let modalBuscar = document.getElementById('modalBuscar');
         let btnSearch = document.getElementById('btnSearch');
         btnSearch.addEventListener('click', () => {
-            $("#modalBuscar").modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: true
-            });
+            if ($.fn.DataTable.isDataTable(
+                '#tablaClientes')) { //Si la tabla se destruyó se vuelve a inicializar
+                // Además le paso el idioma antes de definir para que me devuelva un 
+                //error y no me vuelva acrear tabla nuevamante en este if. 
+                // alert('si está destruioda')
+                // $('#tablaClientes').DataTable().destroy();
+                let jaminson = $('#tablaClientes').DataTable();
+                // alert(jaminson)
+                const buscarClientes = function() {
+                    $("#modalBuscar").modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        show: true
+                    });
+                    $('#modalBuscar .modal-dialog').draggable({
+                        handle: ".modal-header"
+                    });
 
-            const busquedaClientes = async () => {
-                await axios.get("{{ URL::to('/buscar-cliente-basicos') }}").then((res) => {
-                    let data = res.data;
-                    bodyTablaDtBasic.innerHTML = "";
-                    for (let i = 0; i < data.length; i++) {
-                        bodyTablaDtBasic.innerHTML += `
-                        <tr>
-                            <td>${i+1}</td>
-                            <td>${data[i].num_documento}</td>
-                            <td>${data[i].nombre+" "+data[i].apellidos}</td>
-                            <td class="text-center">${data[i].edad}</td>                              
-                            <td>${data[i].telefonos_user}</td>
-                            <td class="text-center">${data[i].descripcion}</td>
-                            <td>
-                                <button type="button" onclick="obtenerRegistro(${data[i].id})" class="btn btn-secondary btnSelect" id="btnSelect" data-dismiss="modal" name="btnSelect">Ok</button>
-                            </td>
-                        </tr>`
-                    }
-                }).catch((error) => {
-                    //console.log(error);
-                })
+                    let table = $('#tablaClientes').DataTable({
+                        "columns": [],
+                        "language": espanol,
+                        "destroy": true
+                    })
+                }
+                buscarClientes()
             }
-            busquedaClientes()
+
+            let espanol = idioma()
+            const buscarClientes = function() {
+                $("#modalBuscar").modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+
+                $('#modalBuscar .modal-dialog').draggable({
+                    handle: ".modal-header"
+                });
+                let table = $('#tablaClientes').DataTable({
+                    responsive: true,
+                    scroll: true,
+                    scrollCollapse: true,
+                    scrollY: '400px',
+                    scrollx: true,
+                    "ajax": {
+                        "url": "{{ URL::to('/buscar-cliente-basicos') }}",
+                        "dataSrc": ""
+                    },
+                    "columns": [{
+                            "data": "id"
+                        },
+                        {
+                            "data": "num_documento"
+                        },
+                        {
+                            "data": "nombre"
+                        },
+                        {
+                            "data": "apellidos"
+                        },
+                        {
+                            "data": "telefonos_user"
+                        },
+                        {
+                            "data": "email_user"
+                        },
+                        {
+                            "data": "descripcion"
+                        },
+
+                    ],
+                    columnDefs: [{
+                            targets: 6,
+                            visible: true
+                        },
+                        {
+                            targets: 7,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                return botones;
+                            }
+                        }
+
+                    ],
+                    "language": espanol,
+                    "destroy": true
+
+                })
+                obtener_data_buscar("#tablaClientes tbody", table);
+            }
+            buscarClientes()
         })
 
-    })
+        let obtener_data_buscar = function(tbody, table) {
+            $(tbody).on("click", "button.btnCaptura", function() {
+                formularioDbasic.reset()
+                let data = table.row($(this).parents("tr")).data();
+                llenaCamposEdit = new DatosBasicosClientes()
+                llenaCamposEdit.asignaValorEdit(data)
 
-    /*********************************************************************************
-     * LLENA LOS CAMPOS DEL FORMULARIO QUE VIENEN DE LA TABLAS DE BUSQUEDA CLIENETS (boton ok)*
-     **********************************************************************************/
-    async function obtenerRegistro(idCliente) {
-        let newVar = idCliente
-        let data = new FormData();
-        data.append("id", idCliente);
-        await axios.post("{{ URL::to('/clienteCli') }}", data, {}).then((resp) => {
-            let data2 = resp.data;
-            //console.log(data2);
-            // llenaCamposEdit = new DatosBasicosClientes()
-            // llenaCamposEdit.asignaValorEdit(data2)
-            let i = 0;
-            document.getElementById('id_tipodoc').value = `${data2[i].id_tipodoc}`
-            document.getElementById('num_documento').value = `${data2[i].num_documento}`
-            document.getElementById('nombre').value = `${data2[i].nombre}`
-            document.getElementById('apellidos').value = `${data2[i].apellidos}`
-            document.getElementById('nacionalidad_id').value = `${data2[i].nacionalidad_id}`
-            document.getElementById('departamento_id').value = `${data2[i].departamento_id}`
-            document.getElementById('ciudad_id').value = `${data2[i].ciudad_id}`
-            document.getElementById('fecha_nacimiento').value = `${data2[i].fecha_nacimiento}`
-            document.getElementById('edad').value = `${data2[i].edad}`
-            document.getElementById('sexo_id').value = `${data2[i].sexo_id}`
-            document.getElementById('grupoSanguineo_id').value = `${data2[i].grupoSanguineo_id}`
-            document.getElementById('telefonos_user').value = `${data2[i].telefonos_user}`
-            document.getElementById('direccion_res').value = `${data2[i].direccion_res}`
-            document.getElementById('email_user').value = `${data2[i].email_user}`
-            document.getElementById('fecha_creacion').value = `${data2[i].fecha_creacion}`
-            document.getElementById('estado_user').value = `${data2[i].estado_user}`
-            document.getElementById('diagnostico').value = `${data2[i].diagnostico}`
-            document.getElementById('observacion').value = `${data2[i].observacion}`
-            document.getElementById('idCliente').value = `${data2[i].id}`
+                /*Cuando se busca un registro se cambial atributo del input hidden*/
+                let newNom80 = document.getElementById('accionBotones')
+                newNom80.setAttribute('accion', "Actualizar");
 
-            let idNacionalidad = `${data2[i].nacionalidad_id}`
-            let dpto_id = `${data2[i].departamento_id}`
-            departamentos(idNacionalidad, dpto_id)
+                var btnGuardar = document.getElementById('btnSave');
+                btnGuardar.innerHTML = 'Actualizar'
 
-            let ciudad_seleEdit = `${data2[i].ciudad_id}`
-            ciudadesEdit(idNacionalidad, dpto_id, ciudad_seleEdit)
+                let btnDeleteclick1 = document.getElementById('btnDelete')
+                btnDeleteclick1.disabled = false
 
-            changeAttribute = new DatosBasicosClientes()
-            changeAttribute.accionUpdate()
 
-            let accionesAll = "accion_editar"
-            document.getElementById("accionBotones").value = `${accionesAll}`
-            cambioTextBoton = new Funciones()
-            cambioTextBoton.cambioTextBotton('btnSave', 'Guardar', 'Actualizar')
-            var attrAccion = $("#accionBotones").attr("accion");
-
-            let btnDeleteclick1 = document.getElementById('btnDelete')
-            btnDeleteclick1.disabled = false
-        }).catch((error) => {
-            //console.log(error);
-        })
-    }
-
-    window.addEventListener('load', () => {
-        let btnDeleteclick = document.getElementById('btnDelete')
-        btnDeleteclick.addEventListener('click', () => {
-            let idCliente2 = document.getElementById('idCliente').value
-            alert(idCliente2)
-            btnDeleteclick.disabled = true
-        })
+            })
+        }
+        obtener_data_buscar()
+        // buscarClientes() 
+        return true                                    
     })
 
     window.addEventListener('load', () => {
@@ -473,9 +515,14 @@ saltarEnterFormulario()
         ********************************************************/
         let botonCancel = document.getElementById("btnCancel");
         botonCancel.addEventListener('click', () => {
-            formularioDbasic.reset()
-            cambioTextBoton = new Funciones()
-            cambioTextBoton.cambioTextBotton('btnSave', 'Actualizar', 'Guardar')
+            // formularioDbasic.reset()
+
+            let newNom80 = document.getElementById('accionBotones')
+            newNom80.setAttribute('accion', "Gaurdar");
+
+            var btnGuardar = document.getElementById('btnSave');
+            btnGuardar.innerHTML = 'Guardar'
+            // cambioTextBotton('btnSave', 'Actualizar', 'Guardar')
 
             eliminaSelectDpto = document.getElementById('departamento_id')
             eliminaSelectDpto.innerHTML = "";
@@ -483,249 +530,333 @@ saltarEnterFormulario()
             eliminaSelectCiudad = document.getElementById('ciudad_id')
             eliminaSelectCiudad.innerHTML = "";
 
-            changeAttribute = new DatosBasicosClientes()
-            changeAttribute.accionSaveNew()
+            // changeAttribute = new DatosBasicosClientes()
+            // changeAttribute.accionSaveNew()
 
             let btnDeleteclick2 = document.getElementById('btnDelete')
-            btnDeleteclick1.disabled = true
+            btnDeleteclick2.disabled = true
+            formularioDbasic.reset()
+            return true
         })
 
         /********************************************************************************************
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
-
         selectorGuardar = document.getElementById('btnSave')
-        selectorGuardar.addEventListener("click", () => {
+        formularioDbasic.addEventListener('submit', (e) => {
+            e.preventDefault();
+            var focoElement = "";
             let validarCampos = new DatosBasicosClientes()
             let validaOk = validarCampos.validarCampos()
-            let formularioDbasic = document.getElementById('formularioDbasic');
-            formularioDbasic.addEventListener('submit', (e) => {
-                e.preventDefault();
 
-                var attrAccion2 = $("#accionBotones").attr("accion");
+            var attrAccion2 = $("#accionBotones").attr("accion");
 
-                if (validaOk === "") { // si no hay campos vacíos
-                    let data = new FormData(formularioDbasic);
-                    if (attrAccion2 == 'Guardar') {
-                        /*verifica Si se va a Actualizar o a guardar*/
-                        //alert('registro nuevo')
-                        //console.log(data)
-                        const clienteNew = async () => {
-                            await axios.post(
-                                "{{ URL::to('/insert-cliente-basicos') }}",
-                                data, {}).then((resp) => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'PERFECTO',
-                                    text: 'El registro se GUARDÓ con exito',
-                                    footer: ''
-                                })
-                                formularioDbasic.reset()
-                            }).catch(function(error) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error interno',
-                                    text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
-                                        '  ' + error,
-                                    footer: ''
-                                })
-                                // console.log(error);
+            if (validaOk === "") { // si no hay campos vacíos
+                let data = new FormData(formularioDbasic);
+                console.log(data.entries())
+                if (attrAccion2 == 'Guardar') {
+                    /*verifica Si se va a Actualizar o a guardar*/
+                    const clienteNew = async () => {
+                        await axios.post(
+                            "{{ URL::to('/insert-cliente-basicos') }}",
+                            data, {}).then((resp) => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'PERFECTO',
+                                text: 'El registro se GUARDÓ con exito',
+                                footer: ''
                             })
-                        }
-                        clienteNew()
-                    } else if (attrAccion2 ==
-                        'Actualizar') { //Si se va a actualizar el registro
-                        let idCliente2 = document.getElementById('idCliente').value
-                        const clienteActualiza = async () => {
-                            await axios.post(
-                                "{{ URL::to('/clienteCliUpdate/{idcliente2}') }}",
-                                data, {
+                            formularioDbasic.reset()
+                            return false;
+                        }).catch(function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error interno',
+                                text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                                    '  ' + error,
+                                footer: ''
+                            })
+                            // console.log(error);
+                        })
+                    }
+                    clienteNew()
+                } else if (attrAccion2 ==
+                    'Actualizar') { //Si se va a actualizar el registro
+                    let idCliente2 = document.getElementById('idCliente').value
+                    const clienteActualiza = async () => {
+                        await axios.post(
+                            "{{ URL::to('/clienteCliUpdate/{idCliente2}') }}",
+                            data, {
 
+                            }).then((response) => {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'PERFECTO',
+                                text: 'El registro ha sido ACTUALIZADO con exito',
+                                footer: ''
+                            })
+                            formularioDbasic.reset()
+                            return true
+                        }).catch(function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error interno',
+                                text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                                    '  ' + error,
+                                footer: ''
+                            })
+                            // console.log(error);
+                        })
+                    }
+                    clienteActualiza()
+                    let newNom80 = document.getElementById('accionBotones')
+                    newNom80.setAttribute('accion', "Guardar");
+
+                    var btnGuardar = document.getElementById('btnSave');
+                    btnGuardar.innerHTML = 'Guardar'
+
+                    let btnDeleteclick1 = document.getElementById('btnDelete')
+                    btnDeleteclick1.disabled = true
+
+                    eliminaSelectDpto = document.getElementById('departamento_id')
+                    eliminaSelectDpto.innerHTML = "";
+
+                    eliminaSelectCiudad = document.getElementById('ciudad_id')
+                    eliminaSelectCiudad.innerHTML = "";                           
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error interno',
+                        text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                            ' ' + error,
+                        footer: ''
+                    })
+                } // FIN DEL IF attrAccion2 (Validación de registro Nuevo, Actualización o Eliminar)
+            } else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El Formulario Tiene Datos Incompletos *',
+                    text: validaOk,
+                    footer: ''
+                })
+            } //Fin de la validación de los datos vacios
+            return true
+        })
+
+        /***********************************************************************************
+         * ELIMINACION DEL REGISTRO QUE ESTA EN PANTALLA                                     
+         ************************************************************************************/
+        selectorEliminar = document.getElementById('btnDelete')
+        selectorEliminar.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    data = new FormData();
+                    let idCliente3 = document.getElementById('idCliente').value
+                if (idCliente3 !="") { //Si el input oculto no esta vacío
+                    data.append('id',idCliente3)
+                    Swal.fire({
+                            title: 'Se ELIMINARÁ el registro que está en la ventana, Está seguro de Eliminarlo?',
+                            text: "!No podrás revertir el proceso!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Eliminar',
+                            cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const clienteEliminar = async () => {
+                                await axios.post("{{ URL::to('/clienteBasicoEiminar/{idcliente3}') }}",data,{
                                 }).then((response) => {
-                                Swal.fire({
+                                    Swal.fire({
                                     icon: 'success',
                                     title: 'PERFECTO',
-                                    text: 'El registro se ACTUALIZÓ con exito',
+                                    text: 'El registro ha sido ELIMINADO con exito',
                                     footer: ''
-                                })
-                                formularioDbasic.reset()
-                            }).catch(function(error) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error interno',
-                                    text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                                    })
+                                    // console.log(response.data)
+                                    let newNom801 = document.getElementById('accionBotones')
+                                            newNom801.setAttribute('accion',"Guardar");
+                                            var btnGuardar = document.getElementById('btnSave');
+                                            btnGuardar.innerHTML = 'Guardar'
+                                            let btnDeleteclick1 = document.getElementById('btnDelete')
+                                            btnDeleteclick1.disabled = true
+                                            eliminaSelectDpto = document.getElementById('departamento_id')
+                                            eliminaSelectDpto.innerHTML = "";
+
+                                            eliminaSelectCiudad = document.getElementById('ciudad_id')
+                                            eliminaSelectCiudad.innerHTML = "";                                            
+                                            formularioDbasic.reset()
+                                            return true
+                                }).catch(function(error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error interno',
+                                        text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
                                         '  ' + error,
-                                    footer: ''
-                                })
-                                // console.log(error);
-                            })
+                                        footer: ''
+                                    })
+                                })        
+                            }       
+                            clienteEliminar()
                         }
-                        clienteActualiza()
-
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error interno',
-                            text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
-                                ' ' + error,
-                            footer: ''
-                        })
-                    }
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'El Formulario Tiene Datos Incompletos *',
-                        text: validaOk,
-                        footer: ''
-                    })
-                }
-            })
+                    })      
+                }   
+                return true
         })
-        // *********************************************************
-        // LLENAR SELECT DPTO AL PAIS SELECCIONADO                *
-        // *********************************************************
-        let selectorPais = document.getElementById("nacionalidad_id");
-        let selectorDpto = document.getElementById("departamento_id");
-        let result = document.getElementById("result");
+    /*******************************/
 
-        // Cuando se hace clic en el objeto
-        selectorPais.addEventListener("click", () => {
+    // })
+    // *********************************************************
+    // LLENAR SELECT DPTO AL PAIS SELECCIONADO                *
+    // *********************************************************
+    let selectorPais = document.getElementById("nacionalidad_id");
+    let selectorDpto = document.getElementById("departamento_id");
+    let result = document.getElementById("result");
 
-            // si el valor por defecto se cambia
-            selectorPais.addEventListener("change", () => {
+    // Cuando se hace clic en el objeto
+    selectorPais.addEventListener("click", () => {
 
-                //result.innerHTML = selectorPais.value
-                if (selectorPais.value != "") {
+        // si el valor por defecto se cambia
+        selectorPais.addEventListener("change", () => {
 
-                    let pais_id = selectorPais.value
-                    let data = new FormData();
-                    let dptoPais = async () => {
-                        await axios.post("{{ URL::to('/browsDpto') }}", {
-                            data: {
-                                paisId: pais_id
-                            }
-                        }).then((resp) => {
-                            let dataSelect = resp.data;
-                            // console.log(dataSelect);
-                            selectorDpto.innerHTML =
-                                '<option selected disable value="">Departamentos</option>';
+            //result.innerHTML = selectorPais.value
+            if (selectorPais.value != "") {
 
-                            dataSelect.forEach(miSeelct => {
-                                // console.log(miSeelct)
-                                selectorDpto.innerHTML += `
+                let pais_id = selectorPais.value
+                let data = new FormData();
+                let dptoPais = async () => {
+                    await axios.post("{{ URL::to('/browsDpto') }}", {
+                        data: {
+                            paisId: pais_id
+                        }
+                    }).then((resp) => {
+                        let dataSelect = resp.data;
+                        // console.log(dataSelect);
+                        selectorDpto.innerHTML =
+                            '<option selected disable value="">Departamentos</option>';
+
+                        dataSelect.forEach(miSeelct => {
+                            // console.log(miSeelct)
+                            selectorDpto.innerHTML += `
                                         <option value = ${miSeelct.id}>${miSeelct.descripcion}</option>`
-                            });
+                        });
 
-                            /*De igual forma tambien se puede hacer con el For, pero al parecer foreach tiene mejor rendimeinto*/
-                            // for (let datoJson3 of dataSelect){
-                            //        console.log(datoJson3)
-                            //         selectorDpto.innerHTML+=`
-                            //          <option value = ${datoJson3.id}>${datoJson3.descripcion}</option>` 
-                            //     }
+                        /*De igual forma tambien se puede hacer con el For, pero al parecer foreach tiene mejor rendimeinto*/
+                        // for (let datoJson3 of dataSelect){
+                        //        console.log(datoJson3)
+                        //         selectorDpto.innerHTML+=`
+                        //          <option value = ${datoJson3.id}>${datoJson3.descripcion}</option>` 
+                        //     }
 
-                        }).catch(function(error) {
-                            alert(
-                                'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
-                            )
-                            //console.log(error);
-                        })
-                    }
-                    dptoPais()
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: "No hay Departamentos del país seleccionado",
-                        footer: ''
+                    }).catch(function(error) {
+                        alert(
+                            'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
+                        )
+                        //console.log(error);
                     })
                 }
-            })
-        })
-
-        /*********************************************************
-         LLENAR SELECT CIUDAD DE ACUERDO AL DEPARTAMENTO         *
-         *********************************************************/
-        let selectorDpto2 = document.getElementById("departamento_id");
-
-        selectorDpto2.addEventListener("click", () => {
-            let selectorPais2 = document.getElementById("nacionalidad_id");
-            let selectorCiudad = document.getElementById("ciudad_id");
-            // si el valor por defecto se cambia
-            selectorDpto2.addEventListener("change", () => {
-
-                if (selectorDpto2.value != "") {
-                    let pais_id = selectorPais2.value
-                    let departamento_id = selectorDpto2.value
-                    let data = new FormData();
-
-                    let ciudadDpto = async () => {
-                        await axios.post("{{ URL::to('/browsCiudad') }}", {
-                            data: {
-                                paisId: pais_id,
-                                dptoId: departamento_id
-                            }
-                        }).then((respu) => {
-                            let dataSelect2 = respu.data;
-                            //console.log(dataSelect2);
-                            selectorCiudad.innerHTML =
-                                '<option selected disable value="">Ciudades</option>';
-
-                            dataSelect2.forEach(miSeelct2 => {
-                                // console.log(miSeelct)
-                                selectorCiudad.innerHTML += `
-                                                <option value = ${miSeelct2.id}>${miSeelct2.descripcion}</option>`
-                            });
-                        }).catch(function(error) {
-                            alert(
-                                'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas' +
-                                ' ' + error,
-                            )
-                            //console.log(error);
-                        })
-                    }
-                    ciudadDpto()
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: "No hay Departamentos del país seleccionado",
-                        footer: ''
-                    })
-                }
-            })
-        })
-
-        selectorPaises()
-        /*********************************************************
-             LLENAR SELECT PAIS 
-        *********************************************************/
-        function selectorPaises() {
-            let selectorPais = document.getElementById("nacionalidad_id");
-            let paisSelect = async () => {
-                await axios.get("{{ URL::to('/browsPais') }}", {
-
-                }).then((resp) => {
-                    let dataSelect3 = resp.data;
-                    // console.log(dataSelect3);
-                    selectorPais.innerHTML =
-                        '<option selected disable value="">Pais</option>';
-                    dataSelect3.forEach(miSeelct3 => {
-                        selectorPais.innerHTML += `
-                                <option value = ${miSeelct3.id}>${miSeelct3.descripcion}</option>`
-                    });
-                }).catch(function(error) {
-                    alert(
-                            'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas') +
-                        '  ' + error
-                    console.log(error)
+                dptoPais()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "No hay Departamentos del país seleccionado",
+                    footer: ''
                 })
             }
-            paisSelect()
+        })
+        return true
+    })
+
+    /*********************************************************
+     LLENAR SELECT CIUDAD DE ACUERDO AL DEPARTAMENTO         *
+     *********************************************************/
+    let selectorDpto2 = document.getElementById("departamento_id");
+
+    selectorDpto2.addEventListener("click", () => {
+        let selectorPais2 = document.getElementById("nacionalidad_id");
+        let selectorCiudad = document.getElementById("ciudad_id");
+        // si el valor por defecto se cambia
+        selectorDpto2.addEventListener("change", () => {
+
+            if (selectorDpto2.value != "") {
+                let pais_id = selectorPais2.value
+                let departamento_id = selectorDpto2.value
+                let data = new FormData();
+
+                let ciudadDpto = async () => {
+                    await axios.post("{{ URL::to('/browsCiudad') }}", {
+                        data: {
+                            paisId: pais_id,
+                            dptoId: departamento_id
+                        }
+                    }).then((respu) => {
+                        let dataSelect2 = respu.data;
+                        //console.log(dataSelect2);
+                        selectorCiudad.innerHTML =
+                            '<option selected disable value="">Ciudades</option>';
+
+                        dataSelect2.forEach(miSeelct2 => {
+                            // console.log(miSeelct)
+                            selectorCiudad.innerHTML += `
+                                                <option value = ${miSeelct2.id}>${miSeelct2.descripcion}</option>`
+                        });
+                    }).catch(function(error) {
+                        alert(
+                            'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas' +
+                            ' ' + error,
+                        )
+                        //console.log(error);
+                    })
+                }
+                ciudadDpto()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "No hay Departamentos del país seleccionado",
+                    footer: ''
+                })
+            }
+            return true
+        })
+        return true
+    })
+
+    selectorPaises()
+    /*********************************************************
+         LLENAR SELECT PAIS 
+    *********************************************************/
+    function selectorPaises() {
+        let selectorPais = document.getElementById("nacionalidad_id");
+        let paisSelect = async () => {
+            await axios.get("{{ URL::to('/browsPais') }}", {
+
+            }).then((resp) => {
+                let dataSelect3 = resp.data;
+                // console.log(dataSelect3);
+                selectorPais.innerHTML =
+                    '<option selected disable value="">Pais</option>';
+                dataSelect3.forEach(miSeelct3 => {
+                    selectorPais.innerHTML += `
+                                <option value = ${miSeelct3.id}>${miSeelct3.descripcion}</option>`
+                });
+            }).catch(function(error) {
+                alert(
+                        'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
+                        ) +
+                    '  ' + error
+                console.log(error)
+            })
         }
+        paisSelect()
+    }
 
-        saltarEnter()
+    saltarEnter()
 
-        // salirFormulario()
+    // salirFormulario()
     }) //windows load
 
 
@@ -817,75 +948,57 @@ saltarEnterFormulario()
     }
 
 
-    Dropzone.autoDiscover = false
-    var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-        url: "/target-url", // Set the url
-        thumbnailWidth: 80,
-        thumbnailHeight: 80,
-        parallelUploads: 20,
-        previewTemplate: previewTemplate,
-        autoQueue: false, // Make sure the files aren't queued until manually added
-        previewsContainer: "#previews", // Define the container to display the previews
-        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-    })
-    myDropzone.on("addedfile", function(file) {
-        // Hookup the start button
-        file.previewElement.querySelector(".start").onclick = function() {
-            myDropzone.enqueueFile(file)
-        }
-    })
-
-    // Update the total progress bar
-    myDropzone.on("totaluploadprogress", function(progress) {
-        document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-    })
-
-    function evitaCierreFormulario() {
-        window.addEventListener('load', () => {
-
-            window.addEventListener("beforeunload", (evento) => {
-                if (true) {
-                    evento.preventDefault();
-                    evento.returnValue = "";
-                    return "";
-                }
-            })
+    document.addEventListener("DOMContentLoaded", function() {
+        // access Dropzone here
+        Dropzone.autoDiscover = false
+        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+            url: "/target-url", // Set the url
+            thumbnailWidth: 80,
+            thumbnailHeight: 30,
+            parallelUploads: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
         })
-    }
- 
+        myDropzone.on("addedfile", function(file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function() {
+                myDropzone.enqueueFile(file)
+            }
+        })
 
-    function tuEdadReal(){
-           
-         const selectFecha = document.querySelector('#fecha_nacimiento');
-         const fecha = document.getElementById('fecha_nacimiento').value
-            selectFecha.addEventListener('change', updateEdad)
+        // Update the total progress bar
+        myDropzone.on("totaluploadprogress", function(progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+        })
 
-            function updateEdad(){
-                var hoy = new Date();
-                var cumpleanos = new Date(fecha);
-                var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-                var m = hoy.getMonth() - cumpleanos.getMonth();
+        function evitaCierreFormulario() {
+            window.addEventListener('load', () => {
 
-                if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-                    edad--;
-                }
-                if(edad>1){
-                    tipoFecha = "Año"
-                }else if(edad>1){
-                    tipoFecha = "Años"
-                }else{
-                    tipoFecha = "Meses"
-                }
-                document.getElementById('edad').value = edad +" "+ "Años"
-                foco = document.getElementById('sexo_id')
-                foco.focus()
-                return edad;
-        }     
-        updateEdad()          
-    }   
-        
+                window.addEventListener("beforeunload", (evento) => {
+                    if (true) {
+                        evento.preventDefault();
+                        evento.returnValue = "";
+                        return "";
+                    }
+                    return true
+                })
+                return true
+            })
+        }
+        return true
+    });
+
+    function tuEdadReal() {
+   /*NUMERO DE AÑOS ENTRE FECHAS*/
    
+        let fechaIni  = moment(document.getElementsByName('fecha_nacimiento')[0].value).format('MM/DD/YYYY');
+        let fechaFin = moment().format('MM/DD/YYYY');
 
-    
+        let numDias = moment(fechaFin).diff(moment(fechaIni), 'years');
+        document.getElementsByName("edad")[0].value = numDias;
+     }
+
     
 </script>

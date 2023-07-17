@@ -51,44 +51,56 @@
               <i class="fas fa-users"></i>
               {{-- <i class='fas fa-user-tie' style='font-size:24px;color:rgb(183, 228, 241)'></i> --}}
               <p>
-                Procesos Administrativos
+                NUESTROS USUARIOS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 {{-- <a href="{{URL::to('/admin-clientes')}}" class="nav-link"> --}}
-                <a href="{{URL::to('/admin-prueba')}}" class="nav-link">
+                <a href="{{URL::to('/admin-clientes')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin de Usuarios</p>
+                  <p>Admin Usuarios</p>
                 </a>
               </li> 
  
               <li class="nav-item">
-                <a href="{{URL::to('/admin-reservas')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admin de Reservas</p>
-                </a>
-              </li> 
-
-              <li class="nav-item">
                 <a href="{{URL::to('/add-cliente-servicio')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin - Asignar Servicio</p>
+                  <p>Asignar Servicio</p>
                 </a>
               </li>                        
               <li class="nav-item" tile ="menus">
                 <a href="{{URL::to('/all-cliente')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin de Acompañante</p>
+                  <p>Acompañantes</p>
                 </a>
               </li>          
-              <li class="nav-item" tile ="menus">
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                CONTROLES MÉDICOS
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{URL::to('/add-citas-medicas')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Control Citas Médicas</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{URL::to('/all-cliente')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin de Controles</p>
+                  <p>Glucometría</p>
                 </a>
-              </li>                                        
+              </li>
+                                      
             </ul>
           </li>
 
@@ -96,7 +108,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Datos Auxiliares
+               DATOS AUXILIARES
                 <i class="fas fa-angle-left right"></i>
                 <!-- <span class="badge badge-info right">6</span> -->
               </p>

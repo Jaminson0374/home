@@ -4,11 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Fundación Hogar la Roca | Dashboard</title>
-
+    
   <!-- Google Font: Source Sans Pro -->
      <!-- Google Font: Source Sans Pro -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
+  
+  
+
+     <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
@@ -19,22 +22,35 @@
     
   {{-- <link rel='stylesheet' href="{{asset('backend/dist/css/font-awesome.min.css')}}"> --}}
 
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
+  
   <!-- dropzonejs -->
  <link rel="stylesheet" href="{{asset('backend/plugins/dropzone/min/dropzone.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
 
   <!-- Jaminson - Tooltip Inf. -->
-  <link rel="stylesheet" href="{{asset('backend/plugins/css/estilos_personalizados.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('backend/plugins/css/estilos_personalizados.css')}}"> --}}
 
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}">
   <link rel="stylesheet" href="{{asset('sweetalert2/sweetalert2.min.css')}}">
+
+  <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.css') }}">
+
+
+   <!-- DataTables -->
+   {{-- <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"> --}}
+  
+    <!-- Plugin de DataTable Externa -->
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <!--    Datatables  -->
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>   --}}
+ 
 </head>
 <!-- dark-mode -->
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -70,14 +86,19 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
+
+
 <!-- jQuery -->
 <script src="{{asset('backend/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- Bootstrap -->
 <script src="{{asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- overlayScrollbars -->
-<script src="{{asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
+
+<script src="{{asset('backend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -89,16 +110,13 @@
 <script src="{{asset('backend/plugins/chart.js/Chart.min.js')}}"></script>
 
 <!-- AdminLTE for demo purposes -->
-<!-- <script src="{{asset('backend/dist/js/demo.js')}}"></script> -->
+//{{-- <!-- <script src="{{asset('backend/dist/js/demo.js')}}"></script> --> --}}
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+{{-- <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Select2 -->
-<script src="{{asset('backend/plugins/select2/js/select2.full.min.js')}}"></script>
-
-{{-- <script src="{{asset('../resources/js/bootstrap.js')}}"></script> --}}
 <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
@@ -108,7 +126,15 @@
 <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> --}}
+
+<script src="{{ asset('/backend/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/popper.min.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.js') }}"></script>
+
+<script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
+
 <!-- Bootstrap Switch -->
 <script src="{{asset('backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
 <!-- dropzonejs -->
@@ -116,63 +142,84 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {{-- <script src="{{ asset('../resources/js/save_dato_basico.js') }}"></script> --}}
 
+<!-- overlayScrollbars -->
+<script src="{{asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+
+
+<!-- Select2 -->
+<script src="{{asset('backend/plugins/select2/js/select2.full.min.js')}}"></script>
 
 <!-- toastr -->
 <script src="{{asset('toastr/toastr.min.js')}}"></script>
 <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
+
+<!-- ./Plugin DataTable Externa -->
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --}}
+
+<!--Moment  fechas -->
+<script src="{{asset('backend/plugins/moment/moment.min.js')}}"></script>
+
+<!--    Datatables-->
+
+{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>   --}}
+
 {{-- <script src="{{asset('../resources/js/funciones.js')}}"></script> --}}
+
 
 <script>
 
-    @if(Session::has('messege'))
+    // @if(Session::has('messege'))
 
-        var type="{{Session::get('alert-type','info')}}"
+    //     var type="{{Session::get('alert-type','info')}}"
 
-        switch(type){
-            case 'info':
-                toastr.info("{{Session::get('messege')}}");
-                break;
-                case 'success':
-                toastr.success("{{Session::get('messege')}}");
-                break;
-                case 'warning':
-                toastr.warning("{{Session::get('messege')}}");
-                break;
-                case 'error':
-                toastr.error("{{Session::get('messege')}}");
-                break;
-        }
-    @endif
+    //     switch(type){
+    //         case 'info':
+    //             toastr.info("{{Session::get('messege')}}");
+    //             break;
+    //             case 'success':
+    //             toastr.success("{{Session::get('messege')}}");
+    //             break;
+    //             case 'warning':
+    //             toastr.warning("{{Session::get('messege')}}");
+    //             break;
+    //             case 'error':
+    //             toastr.error("{{Session::get('messege')}}");
+    //             break;
+    //     }
+    // @endif
     </script>
 
 <script>
-$(document).on("click", "#delete", function(e){
-    e.preventDefault();
-    var link = $(this).attr("href");
-    Swal.fire({
-        title: "Está seguro de eliminar el registro?",
-        text: "Una vez eliminado, no podrá recuperarlo",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Eliminarlo!'
-    })
-    .then((result) =>{
-        if (result.isConfirmed){
+// $(document).on("click", "#delete", function(e){
+//     e.preventDefault();
+//     var link = $(this).attr("href");
+//     Swal.fire({
+//         title: "Está seguro de eliminar el registro?",
+//         text: "Una vez eliminado, no podrá recuperarlo",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Si, Eliminarlo!'
+//     })
+//     .then((result) =>{
+//         if (result.isConfirmed){
 
-            // Swal.fire('Eliminado!',
-            // 'El registro ha sido eliminado.',
-            // 'success');
-            window.location.href = link;
-        }else{
-            Swal.fire('Cancelado!',
-            'Se canceló la Eliminación.',
-            'warning');
-        }
+//             // Swal.fire('Eliminado!',
+//             // 'El registro ha sido eliminado.',
+//             // 'success');
+//             window.location.href = link;
+//         }else{
+//             Swal.fire('Cancelado!',
+//             'Se canceló la Eliminación.',
+//             'warning');
+//         }
 
-    });
-});
+//     });
+// });
 
 </script>
 <!-- fin de Toastr -->
@@ -180,12 +227,19 @@ $(document).on("click", "#delete", function(e){
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+    $("#adminClientes").DataTable({
+      "responsive": true,  "paging": true, "sPaginationType" : "full_numbers",
+      "iDisplayLength" : 25, "lengthChange": false, "autoWidth": false, "sScrollY" : "600",
+      "sScrollX" : "100%","pagine": true,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
     $('#example2').DataTable({
       "paging": true,
+      "sScrollY" : "400px",
+      "sScrollX" : "400px",
+      "bScrollCollapse" : true,
+      "bAutoWidth" : true,
       "lengthChange": false,
       "searching": false,
       "ordering": true,
@@ -196,17 +250,19 @@ $(document).on("click", "#delete", function(e){
   });
 
 
-  $(document).on("click", "#btnsalir_edit", function(e){
-    e.preventDefault();
-    var link2 = $(this).attr("href");
-    window.location.href = link2
-});
 
-$(document).on("click", "#btnsalir_new", function(e){
-    e.preventDefault();
-    var link2 = $(this).attr("href");
-    window.location.href = link2
-});
+
+//   $(document).on("click", "#btnsalir_edit", function(e){
+//     e.preventDefault();
+//     var link2 = $(this).attr("href");
+//     window.location.href = link2
+// });
+
+// $(document).on("click", "#btnsalir_new", function(e){
+//     e.preventDefault();
+//     var link2 = $(this).attr("href");
+//     window.location.href = link2
+// });
 
 $("input[data-bootstrap-switch]").each(function(){
     $(this).bootstrapSwitch('state', $(this).prop('checked'));
@@ -221,8 +277,6 @@ $("input[data-bootstrap-switch]").each(function(){
       theme: 'bootstrap4'
     })
   })
-
-
 </script>
 <!-- <script src="{{asset('toastr/toaster.js')}}"></script> -->
 

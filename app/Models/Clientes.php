@@ -18,9 +18,19 @@ class Clientes extends Model
     protected $table = 'clientes';
 
     protected $guarded = [ 
+        '_method',
+        '_token',
+        'accionBotones',
+        'btnSave',
         'id',
+        'idClienteServicio',
+        'tieneServicio',
+        'accionBotones',
         'softDeletes', 
-        'timestamps'       
+        'timestamps', 
+        // 'updated_at',
+        // 'created_at',
+        // 'deleted_at'     
     ];
  
     public function tipodoc(): BelongsTo

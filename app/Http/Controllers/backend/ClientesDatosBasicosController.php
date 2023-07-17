@@ -37,10 +37,11 @@ class ClientesDatosBasicosController extends Controller
         
         // $clientesBasic  = Clientes::where('estado','=','on')->get();
        
-        return $clientesDtoBasicAd;
+        // return $clientesDtoBasicAd;
 
         // $clienteReserva  = Cliente_datosbasico::where('reserva_si_no','=','SI')->get();
-       return view('backend.clientes.admin-clientes');        
+        return view('backend.cliente.admin-clientes',['listaCliAll' => $clientesDtoBasicAd]);
+    //    return view('backend.clientes.admin-clientes');        
     }
  
     public function busquedaClienteDtoBasico(){
@@ -133,9 +134,11 @@ class ClientesDatosBasicosController extends Controller
         
     }
 
-
-    public function destroy(Cliente_datosbasico $cliente_datosbasico)
+    public function destroy(Cliente_datosbasico $cliente_datosbasico, Request $request)
     {
-        //
+        // return $request;
+        $idCli2=$request['id'];
+        $clienteEliDatosbasico = Cliente_datosbasico::find($idCli2);
+        $clienteEliDatosbasico->delete();
     }
 }

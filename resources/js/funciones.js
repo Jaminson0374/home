@@ -109,12 +109,11 @@ saltarEnterForm()
     function cambioTextBotton(nomBotton, textIni, textCambio) {
       // window.addEventListener('load', () => {
         let textNom = document.getElementById(nomBotton);
-        if (textNom.innerHTML == textIni)
-          textNom.innerHTML = textCambio;
-        // else textNom.innerHTML = textIni;
-      // })
-      
-    }
+        let btnAtributo = textNom.getAttribute('accionBtn')
+        
+        if (btnAtributo === textIni)
+          textNom.setAttribute('btnAtributo') = textCambio;
+        }
 
 
      /*************************************************************
@@ -157,4 +156,58 @@ function tuEdadReal100(fecha) {
   }
 
   return edad;
+}
+
+/*Selecionar un option por defectoa*/
+function select(){
+			/*Seleccionar una opción en el Selec2*/
+			$('#tiposervicio_id').val(jamin).trigger('change.select2');
+
+			/*Seleccionar una opción en el Select normal*/
+			var status = $("#tiposervicio_id").val(jamin).val();
+			$("#tiposervicio_id option").filter("[value=" + status + "]").attr("selected", "selected");	
+
+}
+
+function crearJson(){  //Se genera un Json con varios datos para agregar en un solo campo
+
+ 	//Con este for recorremos el select o los input que tiene la clase .agregarProducto que se almacená en la var descripcion
+   for (var i = 0; i < descripcion.length; i++) {   
+  	
+    //con el push(), le agragamos elementos con sus respectivos indices al arra vacío listaProductos, en este caso se los agregaremos en 
+    //formato json.
+    //$(descripcion) lo tomamos del val que tenga la clas agregarProducto
+  listaProductosVta.push({"id" : $(descripcion[i]).attr("idProducto"), 
+             "cod_producto" : $(descripcion[i]).attr("codProducto"),
+              "descripcion" : $(descripcion[i]).val(),
+              "cantidad" : $(cantidad[i]).val(),
+              "stock" : $(cantidad[i]).attr("newStock"),
+              "pventa" : $(precio[i]).attr("precioReal"),
+              "vlr_final" :  $(precio[i]).val(),
+              "iva" :  $(vrIva[i]).val(),
+              "descuento" :  $(vrDesc[i]).val()
+
+            });
+       
+        //console.log("listaProductos",JSON.stringify(listaProductos));
+      }
+
+        //CON JSON.stringify se convierta la cadena JSON a una caena de String para poderla almacenar en DB
+        //Aqui le digo que listaProductos (es la cadena Json que está con el push) se le asigne a #listaPrductos
+        $("#listaProductosVta").val(JSON.stringify(listaProductosVta));
+
+          // console.log('$("#listaProductosVta")',$("#listaProductosVta"));
+
+}
+
+function fechas(fecha_ini, fecha_fin)
+  {
+    /*NUMERO DE DIAS ENTRE FECHAS*/
+    function cambioFecha(){
+      let fechaIni  = moment(document.getElementsByName('fecha_ingreso')[0].value).format('MM/DD/YYYY');
+      let fechaFin = moment(document.getElementsByName('fecha_retiro')[0].value).format('MM/DD/YYYY');
+
+      let numDias = moment(fechaFin).diff(moment(fechaIni), 'days');
+      document.getElementsByName("num_dias")[0].value = numDias;
+   }
 }

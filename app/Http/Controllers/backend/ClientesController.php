@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente_datosbasico;
 use App\Models\TipoServicio;
 use App\Http\Requests\InsertClientesServicios;
-
- 
-
+use App\Models\AcompanantesModel;
+use App\Models\CubiculosModel;
+use App\Models\EmpleadosModell;
+use App\Models\EmpresaRemitenteModell;
+use App\Models\MedicoExternoModel;
+use App\Models\RangoEpsModel;
+use App\Models\TipoAfiliacionModel;
 use Illuminate\Support\Facades\DB;
 
 class ClientesController extends Controller
@@ -37,7 +41,7 @@ class ClientesController extends Controller
         ->join('tiposervicios', 'clientes.tiposervicio_id','=','tiposervicios.id')
         ->select('clientes.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
                  'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion')
-        ->get();
+        ->get(); 
 
         // $clientesBasic = DB::table('clientes')
         // ->join('cliente_datosbasicos', 'clientes.datosbasicos_id','=','cliente_datosbasicos.id')
@@ -59,10 +63,20 @@ class ClientesController extends Controller
      //return view('backend.cliente.admin-clientes', ['listaCli' => $clientesBasic]);   
      }
 
-    public function AddClienteIndex() //(Create) Llama a la vista para asignar servicios que presta la entidad
-    {
-        $tipoServicio  = TipoServicio::where('id','<>','0')->get();
-        //return view('backend.cliente.add-cliente-servicio',['tipoServicio' => $tipoServicio]); 
+    public function AddClienteIndex() //(Create) Llama a la vista para asignar servicios desde el menú 
+    {   
+        $idTps ="6";
+        $tipoServicio  = TipoServicio::where('id','<>',$idTps)->get();
+        $empresaRemite = EmpresaRemitenteModell::all();
+        $empleados = EmpleadosModell::all();
+        $tipoAfiliacion = TipoAfiliacionModel::all();
+        $rangoEps = RangoEpsModel::all();
+        $cubiculos = CubiculosModel::all();
+        $acompanantes = AcompanantesModel::all();
+        $crea_servicio  = Cliente_datosbasico::where("tiposervicio_id","=",$idTps)->get();
+
+        return view('backend.cliente.add_cliente_servicio',['seleUsuario' => $crea_servicio, 'tipoServicio' => $tipoServicio, 'empresaRemite'=> $empresaRemite,
+        'tipoAfiliacion' =>$tipoAfiliacion, 'empleados' =>$empleados, 'rangoEps' =>$rangoEps, 'cubiculos'=>$cubiculos, 'acompanantes'=>$acompanantes]);
 
         $seleUser  = Cliente_datosbasico::where('id','<>','0')->get();
         //return $seleUser;
@@ -71,28 +85,69 @@ class ClientesController extends Controller
        return view('backend.cliente.add_cliente_servicio',['seleUsuario' => $seleUser, 'tipoServicio' => $tipoServicio ]);
     }
 
-
     public function openReservasAddServicios(Request $idcli) //(Create) Llama a la vista desde el admin de reservas para asignar servicios que presta la entidad
     {
-        $tipoServicio  = TipoServicio::where('id','<>','0')->get();
-
-        $crea_servicio  = Cliente_datosbasico::where("id","=",$idcli['idcli'])->get();
-       // return $crea_servicio; //$idcli['idcli'];
-
-        return view('backend.cliente.add_cliente_servicio_reserva',['seleUsuario' => $crea_servicio, 'tipoServicio' => $tipoServicio ]);
+        // Este controlador es el mismo que asignarServicioCliente, se deja para no creal conflicos en archivo de rutas
 
     }
+    public function traeClienteServicio(Clientes $cliente, Request $request){
+            // return $request->id; 
+            // return $request->data['cubiculos_id'];
+            $browsCliServicio = Clientes::where("id","=",$request->id)->get();
+            return $browsCliServicio;
+    }
+
+    public function create($idcli) //(Create) Llama a la vista desde el admin asignar servicios que presta la entidad
+    {
+        // return $idcli;
+        // $idcli = $request->data['id'];
+        // $clienId = $idcli['idCli1'];
+        // return 'JAMINSON HERRER FLOREZ'; // $idcli;
+        // ['idCli1'=>$row->id],['nDoc1'=>$row->num_documento],['nomb1'=>$row->nombre],['ape1'=>$row->apellidos];
 
 
-    public function store(InsertClientesServicios $request) //(store) proceso que hace la petición al modelo y regresa
+        $idTps="15";  // este es valor del id  del servicio que se asigna como pendiente al crear el usuario por primera vez
+        $empresaRemite = EmpresaRemitenteModell::all();
+        $empleados = EmpleadosModell::all();
+        $tipoAfiliacion = TipoAfiliacionModel::all();
+        $medicosExternos = MedicoExternoModel::all();
+        $rangoEps = RangoEpsModel::all();
+        $cubiculos = CubiculosModel::all();
+        $acompanantes = AcompanantesModel::all();
+        $tipoServicio  = TipoServicio::where('id','<>',$idTps)->get();
+        $crea_servicio  = Cliente_datosbasico::where('id','=',$idcli)->get();
+        $idCliServi = "";
+        $siServicio="NO";
+        $cliBuscar = Clientes::where('datosbasicos_id','=',$idcli)->get();
+        if ($cliBuscar =="[]"){
+            $siServicio="NO";
+        }else{
+            $siServicio="SI";
+            $idCliServi =$cliBuscar[0]->id;
+        }
+        // $SI_RES =$siServicio.' '.$cliBuscar[0]->id;
+        // return $SI_RES;
+            return view('backend.cliente.add_cliente_servicio',['seleUsuario' => $crea_servicio,'tipoServicio' => $tipoServicio, 'empresaRemite'=> $empresaRemite,
+            'tipoAfiliacion' =>$tipoAfiliacion, 'empleados' =>$empleados, 'rangoEps' =>$rangoEps, 'cubiculos'=>$cubiculos, 'acompanantes'=>$acompanantes, 'idCliente'=>$idcli,
+            'medicosExternos'=>$medicosExternos, 'siServicio'=>$siServicio, 'idCliServi'=>$idCliServi]);
+    }
+    
+    public function store(Request $request) //(store) Guadar datos clientes con servicios
     {       
-       //return $request->all(); // para mostrar lo que trae el request
+    // return $request;
+    // return $request->data['cubiculos_id'];
+    // $resultado = $request->data;
+        // $clienteServi = Clientes::create($resultado); //cuando se llena la data desde dentro de axios
+ 
 
-                    $cliente = Clientes::create($request->all());
+        // return $request->datosbasicos_id;
+        
+        $idServicio =  Cliente_datosbasico::find($request->datosbasicos_id);
+        $idServicio->tiposervicio_id = $request->tiposervicio_id;
+        $idServicio->save();
 
-                     // return redirect()->route('insert-cliente-basicos', $cliente);   
-                    $clientebsco  = Cliente_datosbasico::where('estado_user','=','on')->get();
-                    return view('backend.clientes_datos_basicos.all-cliente-basico', ['listaCli' => $clientebsco]);             
+        $clienteServi = Clientes::create($request->all()); 
+        return $clienteServi;           
     }
 
     public function TipoServicio(){
@@ -114,7 +169,14 @@ class ClientesController extends Controller
   
     public function update(Request $request, Clientes $clientes)
     {
-       $clientes->update($request->all());
+        // return $request['idClienteServicio'];
+        $idCli2=$request['idClienteServicio'];
+        $clienteServi2 = Clientes::findOrFail($idCli2);
+        $clienteServi2->fill($request->all());
+        $clienteServi2->save();  
+        return $clienteServi2;    
+
+        // $clientes->update($request->all());
        return redirect()->route('alluser');
     }
 
