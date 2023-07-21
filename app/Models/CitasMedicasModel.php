@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class CitasMedicasModel extends Model
 {
+    protected $table = "citas_medicas";
     use HasFactory;
+    protected $guarded = [
+        'accionBotones',
+        '_token',
+        '_method',
+        'softDeletes', 
+		'accionBotones', 
+		'presBtnNew',
+        'timestamps'
+    ];	
+
 }

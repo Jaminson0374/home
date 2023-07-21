@@ -226,14 +226,15 @@
 
 <!-- Page specific script -->
 <script>
-  $(function () {
+  // $(function () {
     $("#adminClientes").DataTable({
       "responsive": true,  "paging": true, "sPaginationType" : "full_numbers",
       "iDisplayLength" : 25, "lengthChange": false, "autoWidth": false, "sScrollY" : "600",
-      "sScrollX" : "100%","pagine": true,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
+      "sScrollX" : "100%","pagine": true
+     })
+    // );
+    // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    // .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)'
     $('#example2').DataTable({
       "paging": true,
       "sScrollY" : "400px",
@@ -246,7 +247,6 @@
       "info": true,
       "autoWidth": false,
       "responsive": true,
-    });
   });
 
 

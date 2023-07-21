@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('email_user', 50)->nullable();
             $table->date('fecha_creacion');
             $table->string('estado_user',4)->comment('OF: inactivo y ON:activo');
+            $table->integer('citas_pendte')->nullable();
             $table->foreignId('tiposervicio_id')->references('id')->on('tiposervicios')->onDelete('cascade')->onUpdate('cascade');
             $table->text('diagnostico');
             $table->string('observacion')->nullable();

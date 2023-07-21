@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CitasMedicasModel;
 use App\Models\ClinicasModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClinicasController extends Controller
 {
@@ -33,17 +35,13 @@ class ClinicasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //(store) Guadar datos citas clientes con servicios
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ClinicasModel  $clinicasModel
-     * @return \Illuminate\Http\Response
-     */
+    }    
+
+ 
+
     public function show(ClinicasModel $clinicasModel)
     {
         //

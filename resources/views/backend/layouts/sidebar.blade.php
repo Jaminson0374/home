@@ -87,6 +87,7 @@
                 <!-- <span class="badge badge-info right">6</span> -->
               </p>
             </a>
+            {{-- data-widget="pushmenu" --}}
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{URL::to('/add-citas-medicas')}}" class="nav-link"> 

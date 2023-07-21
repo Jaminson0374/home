@@ -4,8 +4,8 @@
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-        <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/bootstrap.min.css') }}"> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.css') }}"> --}}
     </head>
 
     <style>
@@ -367,15 +367,15 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('../resources/js/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
+{{-- <script src="{{ asset('../resources/js/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('../resources/js/datatable_externa_1_10_20/popper.min.js') }}"></script>
 <script src="{{ asset('../resources/js/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
-<script src="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.js') }}"></script>
+<script src="{{ asset('../resources/js/datatable_externa_1_10_20/datatables.min.js') }}"></script> --}}
 
 <script src="{{ asset('../resources/js/datatable.js') }}"></script>
 
 <script>
-     nobackbutton()
+    //  nobackbutton()
     // saltarEnterFormulario()
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
@@ -386,8 +386,7 @@
         let modalBuscar = document.getElementById('modalBuscar');
         let btnSearch = document.getElementById('btnSearch');
         btnSearch.addEventListener('click', () => {
-            if ($.fn.DataTable.isDataTable(
-                '#tablaClientes')) { //Si la tabla se destruyó se vuelve a inicializar
+            if ($.fn.DataTable.isDataTable('#tablaClientes')) { //Si la tabla se destruyó se vuelve a inicializar
                 // Además le paso el idioma antes de definir para que me devuelva un 
                 //error y no me vuelva acrear tabla nuevamante en este if. 
                 // alert('si está destruioda')
@@ -400,9 +399,9 @@
                         keyboard: false,
                         show: true
                     });
-                    $('#modalBuscar .modal-dialog').draggable({
-                        handle: ".modal-header"
-                    });
+                    // $('#modalBuscar .modal-dialog').draggable({
+                    //     handle: ".modal-header"
+                    // });
 
                     let table = $('#tablaClientes').DataTable({
                         "columns": [],
@@ -421,9 +420,9 @@
                     show: true
                 });
 
-                $('#modalBuscar .modal-dialog').draggable({
-                    handle: ".modal-header"
-                });
+                    // $('#modalBuscar .modal-dialog').draggable({
+                    //     handle: ".modal-header"
+                    // });
                 let table = $('#tablaClientes').DataTable({
                     responsive: true,
                     scroll: true,

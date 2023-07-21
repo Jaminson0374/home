@@ -1,6 +1,7 @@
 <?php
 use App\Http\controller\backend\ClientesController;
 use App\Http\Controllers\backend\TipoDocumentoController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,9 +45,9 @@ Route::get('/delete-user/{id}', [App\Http\Controllers\backend\UserController::cl
  **********************************************************************/
 
 //Administrador de servicios (php artisan make:contoller TipoServicioContrller --model=Photo --resource])
-Route::get('/all-tipo-servicio', [App\Http\Controllers\backend\TipoServicioController::class, 'AllTipoServicio'])->name('AllTipoServicio');
+Route::get('/all-tipo-servicio', [App\Http\Controllers\TipoServicioController::class, 'AllTipoServicio'])->name('AllTipoServicio');
 
-Route::get('/tipo-servicio', [App\Http\Controllers\backend\TipoServicioController::class, 'TipoServicio'])->name('TipoServicio');
+Route::get('/tipo-servicio', [App\Http\Controllers\TipoServicioController::class, 'TipoServicio'])->name('TipoServicio');
 
 Route::get('/admin-clientes', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminClientes');
 
@@ -102,7 +103,10 @@ Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\bac
 
 Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminCitasMedicas');
 Route::get('/add-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
-
+Route::post('/insert-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'store'])->name('InsertClienteCitas');
+Route::get('/buscar-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'busquedaClienteCita'])->name('BuscarClienteCitas');
+Route::post('/clienteCliUpdateCita/{idcliente}', [App\Http\Controllers\CitasMedicasController::class, 'update'])->name('ClienteUpdateCli');
+Route::get('/admin-clientes-Citas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminClientesCitas');
 
 Route::get('/imagen', function() {
     return view('backend.cliente.imagen');
@@ -110,3 +114,4 @@ Route::get('/imagen', function() {
 Route::get('/datatable', function() {
     return view('backend.cliente.datatable');
 });
+
