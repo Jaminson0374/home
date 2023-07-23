@@ -42,6 +42,7 @@ return new class extends Migration
             $table->text('observacion')->nullable();
             $table->softDeletes();
             $table->timestamps();
+            $table->integer('categoria_id')->nullable()->after('funciones');
         });
     }
 

@@ -9,7 +9,7 @@
         }
     </style>
     <head>
-           
+     
     </head>
     {{-- @if ($errors->any())
     <script>
@@ -43,7 +43,7 @@
                                     <div class="card card-primary">
                                         {{-- card-header --}}
                                         <div class="border border-dark border-4 pt-2 rounded bg-primary">
-                                            <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">CONTROL DE CITAS MÉDICAS
+                                            <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">CONTROL DE EVOLUCION DIARIA
                                             </h3>
                                             
                                             <h3 class="card-title float-right" style="font-weight: 900; font-size: 1em;">
@@ -58,167 +58,119 @@
                                         <div class="card-body" style="background-color: #08a2ef">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNew" id="presBtnNew" value="N">
-                                            <div class="row">
+                                            <div class="row border">
+                                                <div class="col-12 col-sm-2"><h3><b>Hora y fecha del proceso</b></h3></div>  
                                                 <div class="col-12 col-sm-3 col-md-2">
                                                         <label for="">Fecha:</label>
-                                                        <input type="date" class="form-control text" name="fecha_pedido_cita"
-                                                            id="fecha_pedido_cita" title="Digite la fecha de la solicitd de la cita">
+                                                        <input type="date" class="form-control text" name="fecha_proceso"
+                                                            id="fecha_proceso" title="Digite en que se realiza este proceso">
                                                 </div>
-                                                <div class="col-sm-3 col-md-3">
-                                                    <label>Tipo Cita</label>
-                                                    <select class="form-control" style="width: 100%; color:#1308ec;" 
-                                                        name="tiposcita_id" id="tiposcita_id">
-                                                        <option selected="selected" disable value=" ">Seleciona un
-                                                            tipo
-                                                        </option>
-                                                        @foreach ($tipoCita as $tipoCitaMed)
-                                                            <option value={{ $tipoCitaMed->id }}>{{ $tipoCitaMed->descripcion }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>               
-                                                <div class="col-12 col-sm-4 col-md-3 col-lg-4">
-                                                    <label>Especialidad</label>
-                                                    <select class="form-control" style="width: 100%; color:#1308ec;"
-                                                        name="especialidades_id" id="especialidades_id">
-                                                        <option selected="selected" disable value=" ">Seleciona una
-                                                            especialidad
-                                                        </option>
-                                                        @foreach ($especialidad as $especialMed)
-                                                            <option value={{ $especialMed->id }}>{{ $especialMed->descripcion }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>     
-                                                <div class="col-12 col-sm-4 col-md-3">
-                                                    <label>Atención</label>
-                                                    <select class="form-control" style="width: 100%; color:#1308ec;"
-                                                        name="tipoatencion_id" id="tipoatencion_id" title="Seleciones el modo atención">
-                                                        <option style="font-weight: 900;" selected="selected" disable value=" ">Selecione el modo atención
-                                                        </option>
-                                                        @foreach ($atencionMedica as $atencionMed)
-                                                            <option style="font-weight:bold;" value={{ $atencionMed->id }}>{{ $atencionMed->descripcion }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>     
-                                                
-                                            </div> <!--cierre de row -->
-                                            {{-- </br> --}}
-                                            <div class="row">
-                                                <div class="col-8 col-sm-4">
-                                                    <label>Clinica</label>
-                                                    <select class="select2 select2-danger"
-                                                    data-dropdown-css-class="select2-primary" style="width: 100%;"" id="clinica_id"
-                                                        name="clinica_id">
-                                                        <option selected disable value=" ">Selecciones la clinica</option>
-                                                        @foreach ($clinicAtencion as $clinicaAtn)
-                                                            <option value={{ $clinicaAtn->id }}>
-                                                                {{ $clinicaAtn->nombre }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>      
-                                                {{-- class="col-form-label" --}}
-                                                <div class="col-sm-3">
-                                                    <label for="" >Médico</label>
+
+                                                <div class="col-sm-5 col-md-4 col-lg-2">
+                                                    <label for="" class="">Hora</label>
+                                                    <input type="time" class="form-control text" name="hora_cita" max="24:00:00" min="01:00:00" step="1" id="hora_cita"
+                                                    style="height: 4    0px" title="Hora de la atención médica">
+                                                </div>                                                    
+                                                <div class="col-sm-4">
+                                                    <label for="">Profesional</label>
                                                         <select class="select2 select2-danger"
                                                         data-dropdown-css-class="select2-primary" style="width: 100%;"
                                                         name="medico_remite_id" id="medico_remite_id">
-                                                        <option selected="selected" disable value=" ">Seleciona medico</option>
-                                                        @foreach ($medicosExternos as $medicoExt)
+                                                        <option selected="selected" disable value=" ">Seleciona profesionalmedico</option>
+                                                        @foreach ($empleados as $medicoExt)
                                                             <option value={{$medicoExt->id}}>{{$medicoExt->nombre}}
                                                             </option>
                                                         @endforeach
                                                     </select>                                                        
-                                                </div> 
-                                                <div class="col-12 col-sm-3 col-md-2">
-                                                    <label for="">Fecha cita:</label>
-                                                    <input type="date" class="form-control text" name="fecha_cita"
-                                                        id="fecha_cita" placeholder="Fecha de atención" title="fecha de ejecución de la cita médica">
-                                                </div> 
-                                                <div class="col-sm-5 col-md-4 col-lg-3">
-                                                    <label for="" class="col-form-label">Hora</label>
-                                                    <input type="time" class="form-control text" name="hora_cita" max="24:00:00" min="01:00:00" step="1" id="hora_cita"
-                                                    style="height: 30px" title="Hora de la atención médica">
-                                                </div>     
-                                                                                                                                                                                                                          
+                                                </div>                          
                                             </div> <!--cierre de row -->
+                                            </br>
                                             <div class="row">
-                                                <div class="col-12 col-sm-8 col-md-2">
-                                                    <label for="" class="col-form-label">Riesgo</label>
-                                                    <select name="riesgo_cita" id="riesgo_cita" class="form-control" style="width: 100%; color:#1308ec;" title="Elija el Riesgo que representa la cita">
-                                                        <option style="font-weight: 900;" value="1">Bajo</option>
-                                                        <option style="font-weight: 900;" value="2">Mediano</option>
-                                                        <option style="font-weight: 900;" value="3">Alto</option>
-                                                    </select>
+                                            <div class="col-12 col-sm-2"><h3><b>Problema</b></h3></div>  
+                                                <div class="col-sm-12 col-md-10">
+                                                    <textarea type="text" class="form-control text " rows="1" id="diagnostico"" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" disabled="true"></textarea>
                                                 </div>   
-                                                <div class="col-sm-12 col-md-8">
-                                                    <label for="" class="col-form-label">Comentario:</label>
-                                                    <textarea type="text" class="form-control text " rows="1" id="comentario_cita"" name="comentario_cita" title="Describa un comentario relacionado con la solicitud de la cita" placeholder="Describa un comentario relacionado con la solicitud de la cita"></textarea>
-                                                </div>                                                                                                
-                                                <div class="col-12 col-sm-8 col-md-2">
-                                                    <label for="" class="col-form-label">Estado</label>
-                                                    <select name="estado_citas" id="estado_citas" class="form-control" style="width: 100%; color:#1308ec;" title="Elige el estado actual de la cita">
-                                                        <option style="font-weight: 900;" value="1">PENDIENTE</option>
-                                                        <option style="font-weight: 900" value="2">APLICADA</option>
-                                                        <option style="font-weight: 900" value="3">CANCELADA</option>
-                                                        <option style="font-weight: 900" value="3">REPROGRAMADA</option>
+                                            </div>
+                                            </br>        
+                                            <div class="row">
+                                                <div class="col-12 col-sm-2"><h3><b>Subjetivo</b></h3></div>  
+                                                    <div class="col-sm-12 col-md-10">
+                                                        <textarea type="text" class="form-control text " rows="1" id="subjetivo"" name="subjetivo" title="Se registra como se siente el paciente según de lo que explique o de lo que el profesional observe."
+                                                        placeholder="Describa sobre cómo se siente el paciente según de lo que explique o de lo que el profesional observe."></textarea>
+                                                    </div>   
+                                            </div>
+                                            <div class="row border bg-info text-dark pb-2 pt-2">
+                                                <div class="col-12 col-sm-2"><h3><b>Objetivo</b></h3></div>  
+                                                    <div class="col-sm-12 col-md-10">
+                                                        <textarea type="text" class="form-control text " rows="1" id="subjetivo"" name="subjetivo" title="Registra datos como los signos vitales (pulso, presión arterial y peso), los resultados de la exploración física."
+                                                        placeholder="Describa datos tales cómo los signos vitales (pulso, presión arterial y peso), los resultados de la exploración física."></textarea>
+                                                    </div>   
+                                                    <div class="col-12 col-sm-2"><h5><b>Signos vitales</b></h5></div>    
+
+                                                    <div class="col-12 col-sm-2">
+                                                        <label>FC (lpm)</label>
+                                                        <input type="text" class="form-control text" name="signosv_pc"
+                                                        id="signosv_pc" placeholder="Fc Cardiaca" title="Frecuenci cardiaca o pulso">
+                                                    </div>   
+                                                    <div class="col-12 col-sm-2">
+                                                        <label>FR (rpm)</label>
+                                                        <input type="text" class="form-control text" name="signosv_fr"
+                                                        id="signosv_fr " placeholder="Fr. respiratoria" title="Frecuania respiratoria">
+                                                    </div>   
+                                                    <div class="col-12 col-sm-2">
+                                                        <label>TA (MmHg)</label>
+                                                        <input type="text" class="form-control text" name="signosv_ta"
+                                                        id="signosv_ta" placeholder="Tensión arterial" title="Tensión arterial">
+                                                    </div>   
+
+                                                        <div class="col-12 col-sm-2">
+                                                            <label>TC (°C)</label>
+                                                            <input type="text" class="form-control text" name="signosv_t "
+                                                            id="signosv_t " placeholder="Temp°" title="Temperatura corporal">
+                                                        </div>  
+                                                        <div class="col-12 col-sm-2">
+                                                            <label>Peso (Kg)</label>
+                                                            <input type="text" class="form-control text" name="signosv_p "
+                                                            id="signosv_p " placeholder="Peso kg" title="Digite el peso en kg, del paciente">
+                                                        </div>   
+                                                        <div class="col-12 col-sm-4 col-md-2 pt-2">
+                                                            <label for="" class="col-form-label">Diag. signos vitales</label>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 col-md-2 pt-2">
+                                                            <select name="diagfinal_sv" id="diagfinal_sv" class="form-control" style="width: 100%; color:#1308ec;" title="De acuerdo a los datos de signos vitales, selecciones la opción adecuada">
+                                                                <option style="font-weight: 900;" value="1">Normales</option>
+                                                                <option style="font-weight: 900" value="2">Regulares</option>
+                                                                <option style="font-weight: 900" value="3">Preocupantes</option>
+                                                            </select>
+                                                        </div>                                                                                                                                                                   
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-2 pt-2"><h4><b>Apreciación</b></h4></div>  
+                                                    <div class="col-sm-12 col-md-10 pt-2">
+                                                        <textarea type="text" class="form-control text " rows="2" id="apreciacion" name="apreciacion" title="Se escriben los diagnósticos y luego, se debe escribir un comentario sobre la evolución del paciente, exámenes auxiliares nuevos, incidentes, diagnósticos nuevos."
+                                                        placeholder="Se escriben los diagnósticos y luego, se debe escribir un comentario sobre la evolución del paciente, exámenes auxiliares nuevos, incidentes, diagnósticos nuevos."></textarea>
+                                                    </div>   
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-2 pt-2"><h4><b>Plan</b></h4></div>  
+                                                    <div class="col-sm-12 col-md-10 pt-2">
+                                                        <textarea type="text" class="form-control text " rows="1" id="plan"" name="plan" title="En este apartado se coloca en plan diagnostico o terapeutico a seguir"
+                                                        placeholder="Describa el plan diagnostico o terapeutico a seguir"></textarea>
+                                                    </div>   
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-4 col-md-3">
+                                                    <label for="" class="col-form-label">Evolución final del estado en general del usuario</label>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 pt-2">
+                                                    <select name="estado_citas" id="estado_citas" class="form-control" style="width: 100%; color:#1308ec;" title="De acuerdo al analisi y diagnóstico realizado, elige la evolución actual del usuario">
+                                                        <option style="font-weight: 900;" value="1">Positiviva</option>
+                                                        <option style="font-weight: 900" value="2">Estacionaria</option>
+                                                        <option style="font-weight: 900" value="3">Negativa</option>
                                                     </select>
-                                                </div>                                                                                             
-                                            </div>
-                                            <div class="container border border-danger border-4 mt-1 pb-2 rounded bg-success text-dark" id="bloqueHidden" >
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-2 col-md-2">
-                                                        <label for="" class="col-form-label">Duración</label>
-                                                        <input type="number" class="form-control text" name="duracion_cita"
-                                                            id="duracion_cita" placeholder="Digite días" max="9999" title="Duraciónn de la cita en minutos">
-                                                    </div>                                                       
-                                                    <div class="col-sm-10">
-                                                        <label for="" class="col-form-label">Procedimiento realizado</label>
-                                                        <textarea type="text" class="form-control text " name="Procedimiento_realizado" id="Procedimiento_realizado" rows="1"
-                                                        placeholder="Describa el procedimienbto que se le realizó al usuario" title="Describa el procedimienbto que se le realizó al usuario"></textarea>
-                                                    </div>
-                                                                                                                             
-                                                </div>  <!--cierra row-->    
-                                                </br>
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                        <table border="1" class="table table-bordered table-striped tablaFormula" id="tablaFormula" style="width: 100%">
-                                                            <thead class="thead-dark">
-                                                            <tr>
-                                                                <th>MEDICAMENTO</th>
-                                                                <th>CANTIDAD</th>
-                                                                <th>POSOLOGÍA</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                        </div>
-                                                        <div class="col-sm-6 form-group">
-                                                            <button type="button" class="btn btn-primary mr-2" onclick="agregarFila()" id="btnAgreFila">Agregar Fila</button>
-                                                            <button type="button" class="btn btn-danger" onclick="eliminarFila()" id="btnEliFila">Eliminar Fila</button>
-                                                        </div>
-                                                        {{-- <div class="col-sm-"></div> --}}
-                                                        <div class="col-sm-6">
-                                                            {{-- <label for="num_dias" class="col-form-label">Subir documento</label> --}}
-                                                            <input type="file" class="form-control text btn btn-warning float-right" name="archivo_cita" archivossubidos[]
-                                                            id="archivo_cita" placeholder="" style="height: 45px" title="Seleccione archivos tipo pdf o imagenes" >
-                                                        </div>                                                           
-                                                    </div>
-                                                </div>
-                                              
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-12">
-                                                        <label for="" class="col-form-label">Observaciones y Recomendaciones:</label>
-                                                        <textarea type="text" class="form-control text " id="recomendaciones" name="recomendaciones"
-                                                            placeholder="Digite observaciones pertinentes" rows="1"></textarea>
-                                                    </div>                                                
-                                                </div>
-                                                <!--cierra row-->
-                                            </div>
+                                                </div>        
+                                            </div>                          
                                         </div>  <!-- Cierre carBody -->
-                                    </div>
                                 </div>
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
                                 <script src="{{ asset('../resources/js/add_citas_medicas.js') }}"></script>
@@ -279,7 +231,7 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Historial de Citas Médicas del Usuario Seleccionado</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Lista de usarios datos básicos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -511,41 +463,7 @@
             }
         /*Final***************************************************************/
 
-        // window.addEventListener('load', () => {
-           
-        //      let formularioCitas2 = document.getElementById('formClientCitas')
-		// 	/*****************************************************
-		// 		Limpia los campos al presionar el boton nuevo
-		// 	********************************************************/
-		// 	let botonNew3 = document.getElementById("btnNew");
-		// 	botonNew3.addEventListener('click', () => {
-        //         funcLib.activaInput();                
-        //             let bloqH = document.getElementById("bloqueHidden");
-        //                 bloqH.style.display = "none";
-				
-        //                  cambioTextBotton('btnSave', 'Actualizar', 'Guardar')
-             
-        //         funcLib.clearElements()	//Limpia los elementos
-		// 		funcLib.accionSaveNew() //Cambia el nombre a los bonotes
-
-        //         var texto = document.getElementById("textB")
-        //         texto.innerHTML = 'CREANDO UNA NUEVA CITA'
-        //         document.getElementsByName('presBtnNew')[0].value="S"                
-                
-		// 		document.getElementById('btnDelete').disabled = true;
-        //         document.getElementById('btnSearchCita').disabled = true;
-        //         botonNew3.disabled = true;
-        //         document.getElementById('btnCancel').disabled = false;
-        //         document.getElementById('btnSave').disabled = false;
-                
-        //         formularioCitas2.reset()
-        //         document.getElementById('fecha_pedido_cita').focus()
-                
-		// 		return true
-		// 	})
-		// 	return true
-        // })          
-        // let formularioCitas2 = document.getElementById('formClientCitas')
+    
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
 			********************************************************/
@@ -671,16 +589,6 @@
                                 document.getElementById('textB').innerHTML = 'CONTRON DE CITAS MEDICAS'                                
                                 funcLib.clearElements()	                                
                                 formServicio.reset()                                       
-
-
-
-
-
-
-
-
-
-
 
                                 Swal.fire({
                                     icon: 'success',

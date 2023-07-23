@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\TiposCitasModel;
 use App\Models\EspecialidadesModel;
 use App\Models\TipoAtencionModel;
-
-
+use Psy\Command\WhereamiCommand;
 
 class CitasMedicasController extends Controller
 {
@@ -24,33 +23,12 @@ class CitasMedicasController extends Controller
      */
     public function index()
     {
-       /* <td>{{$key+1}}</td>
-        <td>{{$row->num_documento}}</td>
-        <td>{{$row->nombre." ".$row->apellidos}}</td>
-        <td>{{$row->edad}}</td>
-        <td class="text-center">{{$row->nom_eps}}</td> 
-        <td>{{$row->cita_cercana}}</td>
-        <td>{{$row->citas_pendientes}}</td>*/
-
-        $clientesCitasMedicas = DB::table('citas_medicas')
-        ->join('clientes_datosbasicos', 'citas_medicas.datosbasicos_id','=','datosbasicos_id')
-        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
-                 'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion','cliente_datosbasicos.id_tipodoc', 'cliente_datosbasicos.nacionalidad_id',
-                 'cliente_datosbasicos.departamento_id', 'cliente_datosbasicos.ciudad_id', 'cliente_datosbasicos.fecha_nacimiento',
-                 'cliente_datosbasicos.sexo_id','cliente_datosbasicos.grupoSanguineo_id', 'cliente_datosbasicos.direccion_res',
-                 'cliente_datosbasicos.email_user', 'cliente_datosbasicos.fecha_creacion', 'cliente_datosbasicos.estado_user', 
-                 'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico')->get();
-         
-        // $clientesBasic  = Clientes::where('estado','=','on')->get();
-
-            
-        // $clientesBasic  = Clientes::where('estado','=','on')->get();
-       
-        // return $clientesDtoBasicAd;
-
-        // $clienteReserva  = Cliente_datosbasico::where('reserva_si_no','=','SI')->get();
+      
+        $clientesCitasMedicas = DB::table('cliente_datosbasicos')
+        ->select('id','num_documento','nombre','apellidos',
+        'edad','citas_pendte','estado_user')->where("estado_user", "=", "ON")->get(); 
+      
         return view('backend.citas_medicas.admin-citas_medicas',['listaCitas' => $clientesCitasMedicas]);
-    //    return view('backend.clientes.admin-clientes');        
     }
 
     /**
@@ -58,10 +36,26 @@ class CitasMedicasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idDtBasico)
     {
-        $idcli="1";
-        $seleUsuario =  Cliente_datosbasico::where('id','=',$idcli)->get();
+        // $evolucionDiariaModel = DB::table('evolucion_diaria')
+        
+        // $evolucionDiariaModel = DB::table('evolucion_diaria')
+        // ->join('cliente_datosbasicos', 'evolucion_diaria.datosbasicos_id','=','cliente_datosbasicos.id')
+        // ->join('cliente', 'evolucion_diaria.servicio_id','=','clientes.id')
+        // ->join('empleado', 'evolucion_diaria.empleado_id','=','clientes.id')
+        // ->join('evolucion', 'evolucion_diaria.servicio_id','=','evolucion.id')
+        // ->select('cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
+        // 'clientes.empresa_remite')
+        // ->get(); 
+
+
+        // ->where("estado_user", "=", "ON")
+
+
+
+        // $idcli="1";
+        $seleUsuario =  Cliente_datosbasico::where('id','=',$idDtBasico)->get();
         // return $seleUsuario;
 
         $tipoCitaMedica = TiposCitasModel::all();
@@ -73,7 +67,7 @@ class CitasMedicasController extends Controller
         // $crea_servicio  = Cliente_datosbasico::where('id','=',$idcli)->get();
 
             return view('backend.citas_medicas.add_citas_medicas',['tipoCita' => $tipoCitaMedica, 'especialidad' => $especialidad, 'atencionMedica' => $atencionMed, 
-            'clinicAtencion' =>$clinicAtencion, 'idCliente'=>$idcli,'medicosExternos'=>$medicosExternos, 'seleUsuario'=>$seleUsuario]);        
+            'clinicAtencion' =>$clinicAtencion, 'idCliente'=>$idDtBasico,'medicosExternos'=>$medicosExternos, 'seleUsuario'=>$seleUsuario]);        
         }
 
     public function store(Request $request)

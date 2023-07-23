@@ -100,13 +100,22 @@ Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\bac
 //*********************************************************************
 //                                 CITAS MEDICAS                      *
 //*********************************************************************/
-
 Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminCitasMedicas');
-Route::get('/add-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
+Route::get('/add-citas-medicas/{idDtoBasico}', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
 Route::post('/insert-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'store'])->name('InsertClienteCitas');
 Route::get('/buscar-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'busquedaClienteCita'])->name('BuscarClienteCitas');
 Route::post('/clienteCliUpdateCita/{idcliente}', [App\Http\Controllers\CitasMedicasController::class, 'update'])->name('ClienteUpdateCli');
 Route::get('/admin-clientes-Citas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminClientesCitas');
+
+//*********************************************************************
+//                                EVOLUCION DIARIA               *
+//*********************************************************************/
+Route::get('/admin-evolucion-diaria', [App\Http\Controllers\EvolucionDiariaController::class, 'index'])->name('AdminEvolucionDiaria');
+Route::get('/add-evolucion-diaria/{idEvDiaria}', [App\Http\Controllers\EvolucionDiariaController::class, 'create'])->name('AddCitasMedicas');
+// Route::post('/insert-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'store'])->name('InsertClienteCitas');
+// Route::get('/buscar-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'busquedaClienteCita'])->name('BuscarClienteCitas');
+// Route::post('/clienteCliUpdateCita/{idcliente}', [App\Http\Controllers\CitasMedicasController::class, 'update'])->name('ClienteUpdateCli');
+// Route::get('/admin-clientes-Citas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminClientesCitas');
 
 Route::get('/imagen', function() {
     return view('backend.cliente.imagen');

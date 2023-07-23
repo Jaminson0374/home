@@ -22,8 +22,6 @@
     
   {{-- <link rel='stylesheet' href="{{asset('backend/dist/css/font-awesome.min.css')}}"> --}}
 
-
-  
   <!-- dropzonejs -->
  <link rel="stylesheet" href="{{asset('backend/plugins/dropzone/min/dropzone.min.css')}}">
   <!-- Theme style -->
@@ -38,7 +36,6 @@
 
   <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.css') }}">
-
 
    <!-- DataTables -->
    {{-- <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -229,8 +226,8 @@
   // $(function () {
     $("#adminClientes").DataTable({
       "responsive": true,  "paging": true, "sPaginationType" : "full_numbers",
-      "iDisplayLength" : 25, "lengthChange": false, "autoWidth": false, "sScrollY" : "600",
-      "sScrollX" : "100%","pagine": true
+      "iDisplayLength" : 25, "lengthChange": false, "autoWidth": false, "sScrollY" : "400px",
+      "sScrollX" : "400px", "pagine": true, "info": true,"ordering": true,"bScrollCollapse" : true
      })
     // );
     // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

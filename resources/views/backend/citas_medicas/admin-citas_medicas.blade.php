@@ -51,32 +51,35 @@
                 <table id="adminClientes" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Id</th>  
-                      <th>DocIdent</th> 
+                      <th class="text-center">ID</th> 
+                      <th class="text-center">Documento</th>
                       <th class="text-center">Nombre</th>
                       <th class="text-center">Edad</th>
-                      <th class="text-center">EPS</th>   
-                      <th class="text-center">Cita más cercana</th>                                          
-                      <th class="text-center">Citas Pdte</th>                    
+                      <th class="text-center">Citas Pdtes</th>
                       <th class="text-center">Acción</th>
                     </tr>
                     </thead>
                     <tbody>
                     {{-- @foreach ($all as $key=>$row ) --}}
-                    @foreach ($listaCliAll as $key=>$row )
+                    @foreach ($listaCitas as $key=>$row )
                     <tr>
-                        <td>{{$key+1}}</td>
-                        <td>{{$row->num_documento}}</td>
+                        {{-- <td>{{$key+1}}</td> --}}
+                        <td class="text-center">{{$row->id}}</td>
+                        <td class="text-left">{{$row->num_documento}}</td>
                         <td>{{$row->nombre." ".$row->apellidos}}</td>
-                        <td>{{$row->edad}}</td>
-                        <td class="text-center">{{$row->nom_eps}}</td> 
-                        <td>{{$row->cita_cercana}}</td>
-                        <td>{{$row->citas_pendientes}}</td>
+                        <td class="text-center">{{$row->edad}}</td>
+                        @if ($row->citas_pendte >=1)
+                          <td class="bg bg-warning text-dark text-center">{{$row->citas_pendte}}</td>
+                          @else
+                            <td>{{$row->citas_pendte}}</td>
+                          
+                        @endif
                         <td>
+                          
                           {{-- href="{{route('/open-reservas-servicios',['id'=>$cliente->id])}}" --}}
                             {{-- <a href="{{URL::to('/edit-cliente/'.$row->id) }}" class="btn btn-primary btn-md" title="Editar o consultar este usuario"><i class="fa fa-pen-fancy"></i></a> --}}
                             {{-- <button type="submit" onclick="aplicarServicio(idCli1={{$row->id}})" id="btnServicio" class="btn btn-primary btn-md">Asignar Servicio</button> --}}
-                            <a href="{{URL::to('asignar-servicio/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Asignar Servicio, Consultar, Modificar y/o Eliminar Citas médicas"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Servicio</a>
+                            <a href="{{URL::to('add-citas-medicas/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Asignar, modificar y/o consultar citas médicas"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Ctrl citas</a>
                             {{-- <i class="fa fa-user-plus"></i><i class="fa fa-pen-fancy"><i><i class="fa fa-trash"></i>     --}}
                         </td>
                     </tr>

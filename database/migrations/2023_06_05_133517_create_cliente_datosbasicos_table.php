@@ -34,6 +34,9 @@ return new class extends Migration
             $table->integer('citas_pendte')->nullable();
             $table->foreignId('tiposervicio_id')->references('id')->on('tiposervicios')->onDelete('cascade')->onUpdate('cascade');
             $table->text('diagnostico');
+            $table->date('ult_fecha_evo')->nullable();
+            $table->time('ult_hora_evo')->nullable();
+            $table->string('ult_evolucion')->nullable();
             $table->string('observacion')->nullable();
             $table->softDeletes();
             $table->timestamps();

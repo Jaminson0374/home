@@ -90,11 +90,29 @@
             {{-- data-widget="pushmenu" --}}
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{URL::to('/add-citas-medicas')}}" class="nav-link"> 
+                <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
                   <p>Control Citas Médicas</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/admin-evolucion-diaria')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ctrl Evolución diaria</p>
+                </a>
+              </li>        
+              <li class="nav-item">
+                <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Notas de enfermería</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ctrl signos vitales</p>
+                </a>
+              </li>                                                 
               <li class="nav-item">
                 <a href="{{URL::to('/all-cliente')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
