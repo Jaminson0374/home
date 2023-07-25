@@ -39,7 +39,9 @@ return new class extends Migration
             $table->date('fecha_creacion');
             $table->string('estado',4)->comment('OF: inactivo y ON:activo');
             $table->text('funciones')->nullable();
+            $table->foreignId('categoria_id')->references('id')->on('categoria_empleado')->onDelete('cascade')->onUpdate('cascade');            
             $table->text('observacion')->nullable();
+            $table->string('anulado',1)->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->integer('categoria_id')->nullable()->after('funciones');

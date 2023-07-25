@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('cliente_datosbasicos', function (Blueprint $table) {
-         $table->text('problema_medico')->nullable()->after('diagnostico');
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->integer('categoria_id')->after('funciones');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('cliente_datosbasicos', function (Blueprint $table) {
+        Schema::table('empleados', function (Blueprint $table) {
             //
         });
     }

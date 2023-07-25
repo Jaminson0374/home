@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categoria_empleado', function (Blueprint $table) {
-            $table->id();
-            $table->string('descripcion');
-            $table->string('observacion')->nullable();
-            $table->timestamps();
+        Schema::table('cliente_datosbasicos', function (Blueprint $table) {
+            $table->string('anulado',1)->nullable()->after('observacion');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria_empleado');
+        Schema::table('cliente_datosbasicos', function (Blueprint $table) {
+            //
+        });
     }
 };

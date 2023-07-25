@@ -215,10 +215,9 @@
 
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="" class="col-form-label">Diagnóstico (DX) de la
-                                                        solicitud la reserva:</label>
+                                                    <label for="" class="col-form-label">Diagnóstico o problema medico:</label>
                                                     <textarea type="text" class="form-control text diagnostico" id="diagnostico" name="diagnostico"
-                                                        placeholder="Digite el diagnóstico"></textarea>
+                                                        placeholder="Describa el diagnóstico o problema con el el usuario ingresa a la fundación" title="Diagnóstico o problema con el el usuario ingresa a la fundación"></textarea>
                                                 </div>
                                             </div>
                                             <!--cierra row-->

@@ -38,6 +38,7 @@ return new class extends Migration
             $table->time('ult_hora_evo')->nullable();
             $table->string('ult_evolucion')->nullable();
             $table->string('observacion')->nullable();
+            $table->string('anulado',1)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

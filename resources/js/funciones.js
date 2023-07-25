@@ -213,21 +213,21 @@ function fechas(fecha_ini, fecha_fin)
 }
 //converti filas de tabla en json
 
-jQuery(document).ready(function() {
-  jQuery('#enviar').on('click', function() {
-      var filas = [];
-      $('#tablaFormula tbody tr').each(function() {
-      var medicamento = $(this).find('td').eq(0).text();
-      var cantidad = $(this).find('td').eq(1).text();
-      var posologia = $(this).find('td').eq(2).text();
+// jQuery(document).ready(function() {
+//   jQuery('#enviar').on('click', function() {
+//       var filas = [];
+//       $('#tablaFormula tbody tr').each(function() {
+//       var medicamento = $(this).find('td').eq(0).text();
+//       var cantidad = $(this).find('td').eq(1).text();
+//       var posologia = $(this).find('td').eq(2).text();
 
-      var fila = {
-          medicamento,
-          cantidad,
-          posologia
-      };
-      filas.push(fila);
-      });
-      console.log(filas);
-  });
-  });
+//       var fila = {
+//           medicamento,
+//           cantidad,
+//           posologia
+//       };
+//       filas.push(fila);
+//       });
+//       console.log(filas);
+//   });
+//   });

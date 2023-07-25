@@ -53,7 +53,6 @@
                         <td>{{$row->ult_hora_evo }}</td>
                         <td>{{$row->ult_evolucion }}</td>
                         <td>
-                          
                             <a href="{{URL::to('add-evolucion-diaria/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Ingresar, modificar y/o consultar Evolución médica"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Evol Med</a>
                         </td>
                     </tr>

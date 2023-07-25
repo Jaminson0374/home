@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('estado',4)->comment('OF: inactivo y ON:activo');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');  
             $table->text('observacion')->nullable();
+            $table->string('anulado',1)->nullable();
             $table->softDeletes();            
             $table->timestamps();
         });

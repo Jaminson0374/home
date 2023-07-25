@@ -1,37 +1,25 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class citasMedClientes {
+class EvolucionDiariaMed {
 
 	validarCampos2() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
  		let campoText = "";
 
-		//  document.getelementsByName('tieneServicio', 'SI']
-
-		//  document.getelementsByName('datosbasicos_id', '1']
-
-		//  document.getelementsByName('user_id', '1']
-
-		//  document.getelementsByName('idClienteServicio', '9']
-
-		//  document.getelementsByName('accionBotones', '']
-
-		//  document.getelementsByName('presBtnNew', 'S']
-		// let tiposervicio_id = document.getElementsByName("tiposervicio_id")[0].value;
-		let _fecha_pedido_cita = document.getElementsByName("fecha_pedido_cita")[0].value; 
-		let _tiposcita_id = document.getElementsByName("tiposcita_id")[0].value;
-		let _especialidades_id = document.getElementsByName("especialidades_id")[0].value;
-		let _tipoatencion_id  = document.getElementsByName("tipoatencion_id")[0].value;
-		let _clinica_id = document.getElementsByName("clinica_id")[0].value;
-		let _medico_remite_id = document.getElementsByName("medico_remite_id")[0].value;
-		let _fecha_cita = document.getElementsByName("fecha_cita")[0].value;
-		let _riesgo_cita = document.getElementsByName("riesgo_cita")[0].value;
-		let _hora_cita = document.getElementsByName("hora_cita")[0].value;
-		let _duracion_cita = document.getElementsByName("duracion_cita")[0].value;
-		let _Procedimiento_realizado = document.getElementsByName("Procedimiento_realizado")[0].value;
-		let _archivo_cita = document.getElementsByName("archivo_cita")[0].value;
-		let _recomendaciones = document.getElementsByName("recomendaciones")[0].value;
-		let _estado_citas = document.getElementsByName("estado_citas")[0].value;		
+		let _fecha = document.getElementsByName("fecha")[0].value; 
+		let _hora = document.getElementsByName("hora")[0].value;
+		let _empleado_id = document.getElementsByName("empleado_id")[0].value;
+		let _subjetivo  = document.getElementsByName("subjetivo")[0].value;
+		let _objetivo = document.getElementsByName("objetivo")[0].value;
+		let _signosv_pc = document.getElementsByName("signosv_pc")[0].value;
+		let _signosv_fr = document.getElementsByName("signosv_fr")[0].value;
+		let _signosv_ta = document.getElementsByName("signosv_ta")[0].value;
+		let _signosv_t = document.getElementsByName("signosv_t")[0].value;
+		let _signosv_p = document.getElementsByName("signosv_p")[0].value;
+		let _diag_signos_vit = document.getElementsByName("diag_signos_vit")[0].value;
+		let _apreciacion = document.getElementsByName("apreciacion")[0].value;	
+		let _plan = document.getElementsByName("plan")[0].value;	
+		let _recomendaciones = document.getElementsByName("recomendaciones")[0].value;	
 
 		 // let datosbasicos_id = document.getElementsByName('datosbasicos_id')[0].value;
 
@@ -39,42 +27,58 @@ class citasMedClientes {
 		let camposForm = "";
 
 		switch (camposForm) {
-			case _fecha_pedido_cita:
-				campoText = 'La FECHA de la solicitud d ela cita es requerida'
-				document.getElementById("fecha_pedido_cita").focus()
+			case _fecha:
+				campoText = 'La campos FECHA del control es requerida'
+				document.getElementById("fecha").focus()
 				break;
-			case _tiposcita_id:
-				campoText = 'El campo TIPO DE CITA es requerido'
-				document.getElementById("tiposcita_id").focus()
+			case _hora:
+				campoText = 'El campo HORA es requerido'
+				document.getElementById("hora").focus()
 				break;		
-			case _especialidades_id:
-				campoText = 'El campo ESPECIALIDAD de la cita es requerida'
-				document.getElementById("especialidades_id").focus()
+			case _empleado_id:
+				campoText = 'Debe seleccionar el profesional que realiza o inspecciona el control'
+				document.getElementById("empleado_id").focus()
 				break;				
-			case _tipoatencion_id:
-				campoText = 'El campo ATENCION es requerida'
-				document.getElementById("tipoatencion_id").focus()
+			case _subjetivo:
+				campoText = 'El campo SUBJETIVO es requerido'
+				document.getElementById("subjetivo").focus()
 				break;		
-			case _clinica_id:
-				campoText = 'el Campo CLINICA es requerida'
-				document.getElementById("clinica_id").focus()
+			case _objetivo:
+				campoText = 'El campo OBJETIVO es requerido'
+				document.getElementById("objetivo").focus()
 				break;													
-			case _medico_remite_id:
-				campoText = 'El campo MÉDICO QUE REMITE AL USUARIO es requerido'
-				document.getElementById("medico_remite_id").focus()
+			case _signosv_pc:
+				campoText = 'El campo PC (PRESIÓN CARDIACA) es requerido'
+				document.getElementById("signosv_pc").focus()
+				break;		
+			case  _signosv_fr:
+				campoText = 'El campo FRECUENCIA RESPITATORIA requerido'
+				document.getElementById("signosv_fr").focus()
 				break;				
-			case _fecha_cita:
-				campoText = 'El campo FECHA DE LA CITA es requerido'
-				document.getElementById("fecha_cita").focus()
+			case  _signosv_ta:
+				campoText = 'El campo TENSION ARTERIAL es requerido'
+				document.getElementById("signosv_ta").focus()
+				break;								
+			case  _signosv_t:
+				campoText = 'El campo TEMPERATURA CORPORAL es requerido'
+				document.getElementById("signosv_t").focus()
+				break;			
+			case  _signosv_p:
+				campoText = 'El campo PESO es requerido'
+				document.getElementById("signosv_p").focus()
 				break;
-			case _hora_cita:
-				campoText = 'El campo HORA DE LA CITA es requerido'
-				document.getElementById("hora_cita").focus()
+			case  _diag_signos_vit:
+				campoText = 'El campo Diag. Signos Vitales es requerido'
+				document.getElementById("diag_signos_vit").focus()
+				break;
+			case _apreciacion:
+				campoText = 'El campo APRECIACION es equerido'
+				document.getElementById("apreciacion").focus()
 				break;				
-			case _estado_citas:
-				campoText = 'El campo ESTADO es requerido'
-				document.getElementById("estado_citas").focus()
-				break;											
+			case _plan:
+				campoText = 'El campo PLAN es requerido'
+				document.getElementById("plan").focus()
+				break;															
 		}
 		return campoText;
 
@@ -82,28 +86,27 @@ class citasMedClientes {
 	/******************************************************************************************************
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
-	asignaValorEdit(dataCitas) {
+	asignaValorEdit(dataEvol) {
 		let i = 0;
-		document.getElementsByName("fecha_pedido_cita")[0].value = dataCitas.fecha_pedido_cita; 
-		document.getElementsByName("tiposcita_id")[0].value = dataCitas.tiposcita_id;
-		document.getElementsByName("especialidades_id")[0].value = dataCitas.especialidades_id;
-		document.getElementsByName("tipoatencion_id")[0].value = dataCitas.tipoatencion_id;
-		let cliniCita = document.getElementsByName("clinica_id")[0].value = dataCitas.clinica_id;
-		let medCita = document.getElementsByName("medico_remite_id")[0].value = dataCitas.medico_remite_id;
-		document.getElementsByName("fecha_cita")[0].value = dataCitas.fecha_cita;
-		document.getElementsByName("riesgo_cita")[0].value = dataCitas.riesgo_cita;
-		document.getElementsByName("hora_cita")[0].value = dataCitas.hora_cita;
-		document.getElementsByName("duracion_cita")[0].value = dataCitas.duracion_cita;
-		document.getElementsByName("Procedimiento_realizado")[0].value = dataCitas.Procedimiento_realizado;
-		document.getElementsByName("archivo_cita")[0].value = dataCitas.archivo_cita;
-		document.getElementsByName("recomendaciones")[0].value = dataCitas.recomendaciones;
-		document.getElementsByName("estado_citas")[0].value = dataCitas.estado_citas;
-		document.getElementsByName("comentario_cita")[0].value = dataCitas.comentario_cita;
-		document.getElementsByName("idCitaMedica")[0].value = dataCitas.id;
-		document.getElementsByName("citas_pendte")[0].value = dataCitas.citas_pendte;
-
-		$('#medico_remite_id').val(medCita).trigger('change.select2');
-		$('#clinica_id').val(cliniCita).trigger('change.select2');
+		document.getElementsByName("fecha")[0].value = dataEvol.fecha; 
+		document.getElementsByName("hora")[0].value = dataEvol.hora;
+		document.getElementsByName("diagnostico")[0].value = dataEvol.diagnostico;
+		let empleadoid = document.getElementsByName("empleado_id")[0].value = dataEvol.empleado_id;
+		document.getElementsByName("signosv_fr")[0].value = dataEvol.signosv_fr;
+		document.getElementsByName("signosv_ta")[0].value = dataEvol.signosv_ta;
+		document.getElementsByName("signosv_t")[0].value = dataEvol.signosv_t;
+		document.getElementsByName("signosv_pc")[0].value = dataEvol.signosv_pc;
+		document.getElementsByName("signosv_p")[0].value = dataEvol.signosv_p;
+		document.getElementsByName("subjetivo")[0].value = dataEvol.subjetivo;
+		document.getElementsByName("objetivo")[0].value = dataEvol.objetivo;		
+		document.getElementsByName("diag_signos_vit")[0].value;
+		document.getElementsByName("apreciacion")[0].value = dataEvol.apreciacion;
+		document.getElementsByName("plan")[0].value = dataEvol.plan;
+		document.getElementsByName("recomendaciones")[0].value =dataEvol.recomendaciones;
+		let evolucionid = document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
+		document.getElementsByName("idEvolMedica")[0].value = dataEvol.id;
+		
+		$('#empleado_id').val(empleadoid).trigger('change.select2');
 
 	}
 
@@ -168,58 +171,54 @@ class citasMedClientes {
 		let saveAccion = "Guardar"
 		let newNom100 = document.getElementById('accionBotones')
 		newNom100.setAttribute('accion', `${saveAccion}`);
-		// console.log(newNom100)		
 	}
 
 	accionConsulta(){
 		let saveAccion = "Actualizar"
 		let newNom100 = document.getElementById('accionBotones')
 		newNom100.setAttribute('accion', `${saveAccion}`);
-		// console.log(newNom100)		
 	}
 	
 	clearElements(){
-		document.getElementsByName("fecha_pedido_cita")[0].value = Date();
-		document.getElementsByName("fecha_cita")[0].value = Date();
-		document.getElementsByName("hora_cita")[0].value = '00:00:00';
-		document.getElementsByName("duracion_cita")[0].value = '0';
+		document.getElementsByName("fecha")[0].value = Date();
+		document.getElementsByName("hora")[0].value = '00:00:00';
 
-		$('#tiposcita_id').val(" ").trigger('change.select2');
-		$("#especialidades_id").val(" ").trigger('change.select2');
-		$("#medico_remite_id").val(" ").trigger('change.select2');
-		$("#clinica_id").val(" ").trigger('change.select2');
+		$("#empleado_id").val(" ").trigger('change.select2');
 	}
 	desactivaInput(){
-		document.getElementById("fecha_pedido_cita").disabled = true;
-		document.getElementById("tiposcita_id").disabled = true;
-		document.getElementById("especialidades_id").disabled = true;
-		document.getElementById("tipoatencion_id").disabled = true;
-		document.getElementById("clinica_id").disabled = true;
-		document.getElementById("medico_remite_id").disabled = true;
-		document.getElementById("fecha_cita").disabled = true;
-		document.getElementById("riesgo_cita").disabled = true;
-		document.getElementById("hora_cita").disabled = true;
-		document.getElementById("duracion_cita").disabled = true;
-		document.getElementById("Procedimiento_realizado").disabled = true;
-		document.getElementById("archivo_cita").disabled = true;
+		document.getElementById("fecha").disabled = true;
+		document.getElementById("hora").disabled = true;
+		document.getElementById("empleado_id").disabled = true;
+		document.getElementById("objetivo").disabled = true;
+		document.getElementById("subjetivo").disabled = true;
+		document.getElementById("signosv_pc").disabled = true;
+		document.getElementById("signosv_fr").disabled = true;
+		document.getElementById("signosv_ta").disabled = true;
+		document.getElementById("signosv_t").disabled = true;
+		document.getElementById("signosv_p").disabled = true;
+		document.getElementById("diag_signos_vit").disabled = true;
+		document.getElementById("apreciacion").disabled = true;
+		document.getElementById("evolucion_id").disabled = true;
+		document.getElementById("plan").disabled = true;
 		document.getElementById("recomendaciones").disabled = true;
-		document.getElementById("estado_citas").disabled = true;
+
 	}
 	activaInput(){
-		document.getElementById("fecha_pedido_cita").disabled = false;
-		document.getElementById("tiposcita_id").disabled = false;
-		document.getElementById("especialidades_id").disabled = false;
-		document.getElementById("tipoatencion_id").disabled = false;
-		document.getElementById("clinica_id").disabled = false;
-		document.getElementById("medico_remite_id").disabled = false;
-		document.getElementById("fecha_cita").disabled = false;
-		document.getElementById("riesgo_cita").disabled = false;
-		document.getElementById("hora_cita").disabled = false;
-		document.getElementById("duracion_cita").disabled = false;
-		document.getElementById("Procedimiento_realizado").disabled = false;
-		document.getElementById("archivo_cita").disabled = false;
+		document.getElementById("fecha").disabled = false;
+		document.getElementById("hora").disabled = false;
+		document.getElementById("empleado_id").disabled = false;
+		document.getElementById("objetivo").disabled = false;
+		document.getElementById("subjetivo").disabled = false;
+		document.getElementById("signosv_pc").disabled = false;
+		document.getElementById("signosv_fr").disabled = false;
+		document.getElementById("signosv_ta").disabled = false;
+		document.getElementById("signosv_t").disabled = false;
+		document.getElementById("signosv_p").disabled = false;
+		document.getElementById("evolucion_id").disabled = false;
+		document.getElementById("diag_signos_vit").disabled = false;
+		document.getElementById("apreciacion").disabled = false;
+		document.getElementById("plan").disabled = false;
 		document.getElementById("recomendaciones").disabled = false;
-		document.getElementById("estado_citas").disabled = false;
 	}
 
 }
