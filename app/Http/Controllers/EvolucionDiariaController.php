@@ -10,6 +10,7 @@ use App\Models\TiposCitasModel;
 use App\Models\EspecialidadesModel;
 use App\Models\TipoAtencionModel;
 use App\Models\EvolucionModel;
+use App\Models\EstadoSigvitalesModel;
 use Psy\Command\WhereamiCommand;
 use Illuminate\Support\Facades\DB;
 
@@ -41,6 +42,7 @@ class EvolucionDiariaController extends Controller
         $seleUsuario =  Cliente_datosbasico::where('id','=',$idDtBasico)->get();
         // return $seleUsuario;
 
+        $estadosigv = EstadoSigvitalesModel::all();
         $evolucion = EvolucionModel::all();
         $tipoCitaMedica = TiposCitasModel::all();
         $especialidad = EspecialidadesModel::all();
@@ -51,7 +53,7 @@ class EvolucionDiariaController extends Controller
         // $crea_servicio  = Cliente_datosbasico::where('id','=',$idcli)->get();
 
             return view('backend.evolucion_medica.add_evolucion_diaria',['tipoCita' => $tipoCitaMedica, 'especialidad' => $especialidad, 'atencionMedica' => $atencionMed, 
-            'clinicAtencion' =>$clinicAtencion, 'idCliente'=>$idDtBasico,'empleados'=>$empleMedicos, 'seleUsuario'=>$seleUsuario, 'evolucion'=>$evolucion]);                
+            'clinicAtencion' =>$clinicAtencion, 'idCliente'=>$idDtBasico,'empleados'=>$empleMedicos, 'seleUsuario'=>$seleUsuario, 'evolucion'=>$evolucion,'estadosigv'=>$estadosigv]);                
     }
 
     /**
@@ -96,15 +98,15 @@ class EvolucionDiariaController extends Controller
    
         $clientesEvolucion = DB::table('evolucion_diaria')
        ->join('cliente_datosbasicos', 'evolucion_diaria.datosbasicos_id','=','cliente_datosbasicos.id')
-       ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')
+       ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')->where('evolucion_diaria.anulado','<>','S')
        ->select('evolucion_diaria.id','evolucion_diaria.fecha', 'evolucion_diaria.hora','cliente_datosbasicos.nombre',
-            'cliente_datosbasicos.apellidos', 'evolucion.descripcion', 'evolucion_diaria.evolucion_id', 'evolucion_diaria.diag_signos_vit',
+            'cliente_datosbasicos.apellidos', 'evolucion.descripcion', 'evolucion_diaria.evolucion_id', 'evolucion_diaria.estado_sigvitales_id',
             'evolucion_diaria.empleado_id', 'cliente_datosbasicos.diagnostico',
             'evolucion_diaria.signosv_fr', 'evolucion_diaria.signosv_ta','evolucion_diaria.signosv_t',
             'evolucion_diaria.signosv_pc', 'evolucion_diaria.signosv_p', 'evolucion_diaria.subjetivo', 'evolucion_diaria.objetivo',
             'evolucion_diaria.apreciacion', 'evolucion_diaria.plan',
             'evolucion_diaria.recomendaciones')->get();
-  
+            
         return $clientesEvolucion;         
     }
    
@@ -128,33 +130,43 @@ class EvolucionDiariaController extends Controller
      */
     public function update(Request $request, EvolucionDiariaModel $evolucionDiariaModel)
     {
-            return $request['idEvolMedica'];
-            // try {
-            //     DB::beginTransaction();
-            //     $idCli3=$request['idEvolMedica'];
-            //     $clienteCita = EvolucionDiariaModel::findOrFail($idCli3);
-            //     $clienteCita->fill($request->all());
-            //     $clienteCita->save();  
+            // return $request['idEvolMedica'];
+            try {
+                DB::beginTransaction();
+                $idCli3=$request['idEvolMedica'];
+                $clienteCita = EvolucionDiariaModel::findOrFail($idCli3);
+                $clienteCita->fill($request->all());
+                $clienteCita->save();  
        
-            //     // $clientes->update($request->all());
-            // //    return redirect()->route('alluser');
-            //     DB::commit();
-            // } catch (\Exception $e) {
-            //     DB::rollBack();
-            //     return response()->json(['message' => 'Error']);
-            // }
+                // $clientes->update($request->all());
+            //    return redirect()->route('alluser');
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+            }
             // return $clienteServi2;  
-            // return response()->json(['message' => 'Success']);
+            return response()->json(['message' => 'Success']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\EvolucionDiariaModel  $evolucionDiariaModel
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(EvolucionDiariaModel $evolucionDiariaModel)
     {
-        //
+            //
+    }
+    public function anularRegistro(Request $request, EvolucionDiariaModel $evolucionDiariaModel)
+    {
+            // return $request['idEvolucion'];
+            try {
+                DB::beginTransaction();
+                $idCliAnula=$request['idEvolucion'];
+                $EvolAnula = EvolucionDiariaModel::findOrFail($idCliAnula);
+                $EvolAnula->anulado = "S";
+                $EvolAnula->save();  
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+            }
+            return response()->json(['message' => 'Success']);
     }
 }

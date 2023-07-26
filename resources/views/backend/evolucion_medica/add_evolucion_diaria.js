@@ -16,7 +16,7 @@ class EvolucionDiariaMed {
 		let _signosv_ta = document.getElementsByName("signosv_ta")[0].value;
 		let _signosv_t = document.getElementsByName("signosv_t")[0].value;
 		let _signosv_p = document.getElementsByName("signosv_p")[0].value;
-		let _diag_signos_vit = document.getElementsByName("diag_signos_vit")[0].value;
+		let _estado_sigvitales_id = document.getElementsByName("estado_sigvitales_id")[0].value;
 		let _apreciacion = document.getElementsByName("apreciacion")[0].value;	
 		let _plan = document.getElementsByName("plan")[0].value;	
 		let _recomendaciones = document.getElementsByName("recomendaciones")[0].value;	
@@ -67,9 +67,9 @@ class EvolucionDiariaMed {
 				campoText = 'El campo PESO es requerido'
 				document.getElementById("signosv_p").focus()
 				break;
-			case  _diag_signos_vit:
+			case  _estado_sigvitales_id:
 				campoText = 'El campo Diag. Signos Vitales es requerido'
-				document.getElementById("diag_signos_vit").focus()
+				document.getElementById("estado_sigvitales_id").focus()
 				break;
 			case _apreciacion:
 				campoText = 'El campo APRECIACION es equerido'
@@ -99,11 +99,11 @@ class EvolucionDiariaMed {
 		document.getElementsByName("signosv_p")[0].value = dataEvol.signosv_p;
 		document.getElementsByName("subjetivo")[0].value = dataEvol.subjetivo;
 		document.getElementsByName("objetivo")[0].value = dataEvol.objetivo;		
-		document.getElementsByName("diag_signos_vit")[0].value;
+		document.getElementsByName("estado_sigvitales_id")[0].value = dataEvol.estado_sigvitales_id;
 		document.getElementsByName("apreciacion")[0].value = dataEvol.apreciacion;
 		document.getElementsByName("plan")[0].value = dataEvol.plan;
 		document.getElementsByName("recomendaciones")[0].value =dataEvol.recomendaciones;
-		let evolucionid = document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
+		document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
 		document.getElementsByName("idEvolMedica")[0].value = dataEvol.id;
 		
 		$('#empleado_id').val(empleadoid).trigger('change.select2');
@@ -196,7 +196,7 @@ class EvolucionDiariaMed {
 		document.getElementById("signosv_ta").disabled = true;
 		document.getElementById("signosv_t").disabled = true;
 		document.getElementById("signosv_p").disabled = true;
-		document.getElementById("diag_signos_vit").disabled = true;
+		document.getElementById("estado_sigvitales_id").disabled = true;
 		document.getElementById("apreciacion").disabled = true;
 		document.getElementById("evolucion_id").disabled = true;
 		document.getElementById("plan").disabled = true;
@@ -215,10 +215,83 @@ class EvolucionDiariaMed {
 		document.getElementById("signosv_t").disabled = false;
 		document.getElementById("signosv_p").disabled = false;
 		document.getElementById("evolucion_id").disabled = false;
-		document.getElementById("diag_signos_vit").disabled = false;
+		document.getElementById("estado_sigvitales_id").disabled = false;
 		document.getElementById("apreciacion").disabled = false;
 		document.getElementById("plan").disabled = false;
 		document.getElementById("recomendaciones").disabled = false;
+	}
+	
+	eliminarReg(){
+			/******************************
+			 ELIMINAR REGISTRO 
+			 ******************************/
+		Swal.fire({
+			 title: 'Se ANULARÁ el registro que está en la ventana, Está seguro de Anularlo?',
+			 text: "!No podrás revertir el proceso!",
+			 icon: 'warning',
+			 showCancelButton: true,
+			 confirmButtonColor: '#3085d6',
+			 cancelButtonColor: '#d33',
+			 confirmButtonText: 'Anular',
+			 cancelButtonText: 'Cancelar'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const formEvolQE = document.querySelector('#formEvolDiaria');
+					let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
+					let data = new FormData()
+					data.append("idEvolucion",idEvolMed);
+					let valuesDatE = [...data.entries()];
+					console.log(valuesDatE);	
+					// "{{ URL::to('/anula-CtrlMed') }}",data, {	
+						// anulaControlMedico	
+						// URL::To('/anula-CtrlMed')
+					const anulaReg = async () => {  
+						// var laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+						await axios.post(
+							"{{ URL::To('/anula-CtrlMed') }}",data, {
+							}).then((response) => {
+					
+								// console.log(response.data['message'])
+								console.log(response.data)
+						
+								document.getElementById('btnDeleteEvol').disabled = true;
+								document.getElementById('btnNewEvol').disabled = false;
+								document.getElementById('btnCancelEvol').disabled = true;
+								document.getElementById('btnSearchEvol').disabled = false;
+								document.getElementById('btnSaveEvol').disabled = true;
+						
+								/*Cuando se busca un registro se cambial atributo del input hidden*/
+								let newNom88 = document.getElementById('accionBotones')
+								newNom88.setAttribute('accion', "Guardar");
+						
+								var btnGuardar2 = document.getElementById('btnSaveEvol');
+								btnGuardar2.innerHTML = 'Guardar'
+								funcLib.desactivaInput();
+						
+								document.getElementById('textB').innerHTML = 'ANULACION DE EVOLUCION MEDICA'                                
+								funcLib.clearElements()	                                
+								formEvolQ.reset()                                    
+								Swal.fire({
+									icon: 'success',
+									title: 'PERFECTO',
+									text: 'Se ANULO el registro con exito',
+									footer: ''
+								})
+					
+							}).catch(function(error) {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error interno',
+									text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+										'  ' + error,
+									footer: ''
+								})
+							// console.log(error);
+						})
+					}
+					anulaReg();
+				}
+			}) 										
 	}
 
 }

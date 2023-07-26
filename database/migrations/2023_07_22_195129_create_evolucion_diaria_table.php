@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('signosv_p',20);
             $table->foreignId('evolucion_id')->references('id')->on('evolucion')->onDelete('cascade')->onUpdate('cascade');              
             $table->text('recomendaciones')->nullable(); 
+            $table->foreignId('estado_sigvitales_id')->references('id')->on('estado_sigvitales')->onDelete('cascade')->onUpdate('cascade');
             $table->text('obs_general')->nullable();  
             $table->string('anulado',1)->nullable();         
             $table->timestamps();

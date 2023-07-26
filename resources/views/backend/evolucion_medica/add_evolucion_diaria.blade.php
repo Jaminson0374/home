@@ -9,7 +9,7 @@
         }
     </style>
     <head>
-     
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     {{-- @if ($errors->any())
     <script>
@@ -134,10 +134,10 @@
                                                             <label for="" class="col-form-label">Diag. signos vitales</label>
                                                         </div>
                                                         <div class="col-12 col-sm-4 col-md-2 pt-2">
-                                                            <select name="diag_signos_vit" id="diag_signos_vit" class="form-control" focusNext tabindex="12" style="width: 100%; color:#1308ec;" title="De acuerdo a los datos de signos vitales, selecciones la opción adecuada">
+                                                            <select name="estado_sigvitales_id" id="estado_sigvitales_id" class="form-control" focusNext tabindex="12" style="width: 100%; color:#1308ec;" title="De acuerdo a los datos de signos vitales, selecciones la opción adecuada">
                                                                 <option selected="selected" disable value=" ">Seleciona una opción</option>
-                                                                @foreach($evolucion as $evolMco){
-                                                                    <option style="font-weight: 900;" value={{$evolMco->id}}>{{$evolMco->descripcion}}</option>
+                                                                @foreach($estadosigv as $evolSt)
+                                                                    <option style="font-weight: 900;" value={{$evolSt->id}}>{{$evolSt->descripcion}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>                                                                                                                                                                   
@@ -155,17 +155,16 @@
                                                         <textarea type="text" class="form-control text " rows="1" id="plan" name="plan" title="En este apartado se coloca en plan diagnostico o terapeutico a seguir"
                                                         placeholder="Describa el plan diagnostico o terapeutico a seguir" focusNext tabindex="14"></textarea>
                                                     </div>   
-                                            </div>
-                                            <div class="row">
+                                            </div>                                            <div class="row">
                                                 <div class="col-12 col-sm-4 col-md-3">
-                                                    <label for="" class="col-form-label">Evolución final del estado en general del usuario</label>
+                                                    <label for="" class="col-form-label">Evolución  del estado en general del usuario</label>
                                                 </div>
                                                 <div class="col-sm-12 col-md-3 pt-2">
                                                     <select name="evolucion_id" id="evolucion_id" class="form-control" style="width: 100%; color:#1308ec;" title="De acuerdo al analisi y diagnóstico realizado, elige la evolución actual del usuario" focusNext tabindex="15">
                                                         <option selected="selected" disable value=" ">Seleciona una opción</option>
-                                                        <option style="font-weight: 900;" value="1">Positiviva</option>
-                                                        <option style="font-weight: 900" value="2">Estacionaria</option>
-                                                        <option style="font-weight: 900" value="3">Negativa</option>
+                                                        @foreach($evolucion as $evolMco)
+                                                            <option style="font-weight: 900;" value={{$evolMco->id}}>{{$evolMco->descripcion}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>        
                                             </div> 
@@ -324,7 +323,7 @@
         let bodyTablaClientesEvol = document.getElementById("bodyTabla");
         let modalBuscarEvol = document.getElementById('modalBuscarEvol');
         let btnSearchEvol = document.getElementById('btnSearchEvol');
-
+ 
         btnSearchEvol.addEventListener('click', () => {
             if ($.fn.DataTable.isDataTable('#tablaClientesEvol')) { 
                 let jaminson = $('#tablaClientesEvol').DataTable();
@@ -343,7 +342,7 @@
                         "columns": [],
                         "language": espanol,
                         "destroy": true
-                    })
+                    }) 
                 }
                 buscarClientes()
             }
@@ -410,14 +409,26 @@
                     "destroy": true
 
                 })
+                
+
+                        
+                //    $('#ModalUpdate').modal('hide');
+                //  alert("datos actualizados");
+                //  table.ajax.reload();//Podrias colocarlo dentro del success o done para recargar la tabla 
+                
                 obtener_data_buscar("#tablaClientesEvol tbody", table)
             }
             
             buscarClientes()
             return true;
         })
+            // actualizacion de contenido en tiempo real
 
         let obtener_data_buscar = function(tbody, table) {
+            // $("#idModal").on('hidden.bs.modal', function() {
+            //         DataTableCargaDatos();
+            //     });
+ 
             $(tbody).on("click", "button.btnCaptura", function() {
                 let data = table.row($(this).parents("tr")).data();
                 // console.log(data.fecha_pedido_cita)
@@ -433,18 +444,23 @@
                 var btnGuardar = document.getElementById('btnSaveEvol');
                 btnGuardar.innerHTML = 'Actualizar'
                 
+                document.getElementById('btnSaveEvol').disabled = true;
                 document.getElementById('btnEditEvol').disabled = false;
                 document.getElementById('btnCancelEvol').disabled = false;
                 document.getElementById('btnNewEvol').disabled = true;
                 document.getElementById('btnSearchEvol').disabled = true;
                 let btnDeleteEvolclick1 = document.getElementById('btnDeleteEvol')
                 btnDeleteEvolclick1.disabled = false
+                
             })
         }
+ 
+
         obtener_data_buscar()
         // buscarClientes() 
         return true                                    
      }) // window load el primero
+
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
 			********************************************************/
@@ -542,8 +558,8 @@
                                 // console.log(response.data['message'])
                                 document.getElementById('btnDeleteEvol').disabled = true;
                                 document.getElementById('btnNewEvol').disabled = false;
-                                 document.getElementById('btnCancelEvol').disabled = true;
-                                 document.getElementById('btnEditEvol').disabled = true;                                 
+                                document.getElementById('btnCancelEvol').disabled = true;
+                                document.getElementById('btnEditEvol').disabled = true;                                 
                                 document.getElementById('btnSearchEvol').disabled = false;
                                 document.getElementById('btnSaveEvol').disabled = true;
 
@@ -587,14 +603,16 @@
                         let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
-                                "{{ URL::to('/clienteCliUpdateCita/{idEvolMed}') }}",
+                                "{{ URL::to('/clienteUpdateEvol') }}",
                                 data, {
 
                                 }).then((response) => {
+
                                 console.log(response.data['message'])
+
                                 document.getElementById('btnDeleteEvol').disabled = true;
                                 document.getElementById('btnNewEvol').disabled = false;
-                                 document.getElementById('btnCancelEvol').disabled = true;
+                                document.getElementById('btnCancelEvol').disabled = true;
                                 document.getElementById('btnSearchEvol').disabled = false;
                                 document.getElementById('btnSaveEvol').disabled = true;
 
@@ -639,14 +657,149 @@
                 }
                 return true
         })
-        return true
-    })
+
+        setInterval(function() { 
+            let espanol = idioma()
+            let table4 = $('#tablaClientesEvol').DataTable({
+                    responsive: true,
+                    scroll: true,
+                    scrollCollapse: true,
+                    scrollY: '400px',
+                    scrollx: true,
+                    "ajax": {
+                        "url": "{{ URL::to('/buscar-CtrlMed') }}",
+                        "dataSrc": ""
+                    },
+                    "columns": [{
+                            "data": "id"
+                        },
+                        {
+                            "data": "fecha"
+                        },
+                        {
+                            "data": "hora"
+                        },
+                        {
+                            "data": "nombre"
+                        },
+                        {
+                            "data": "apellidos"
+                        },
+                        {
+                            "data": "descripcion"
+                        },
+                    ],
+                    columnDefs: [{
+                            targets: 5,
+                            visible: true
+                        },
+                        {
+                            targets: 6,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                return botones;
+                            }
+                        }
+
+                    ],
+                    "language": espanol,
+                    "destroy": true
+
+                })
+                
+        table4.ajax.reload(function(){
+        $(".paginate_button > a").on("focus",function(){
+        $(this).blur();
+        });
+        }, false);
+        }, 10000);    
     
+    /*****************************************************
+	                Anular Registro
+	********************************************************/
+    let botonAnula = document.getElementById("btnDeleteEvol");
+    botonAnula.addEventListener('click', () => {
+			/******************************
+			 ELIMINAR REGISTRO 
+			 ******************************/
+             Swal.fire({
+			 title: 'Se ANULARÁ el registro que está en la ventana, Está seguro de Anularlo?',
+			 text: "!No podrás revertir el proceso!",
+			 icon: 'warning',
+			 showCancelButton: true,
+			 confirmButtonColor: '#3085d6',
+			 cancelButtonColor: '#d33',
+			 confirmButtonText: 'Anular',
+			 cancelButtonText: 'Cancelar'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const formEvolQE = document.querySelector('#formEvolDiaria');
+					let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
+					let data = new FormData()
+					data.append("idEvolucion",idEvolMed);
+					let valuesDatE = [...data.entries()];
+					console.log(valuesDatE);	
+
+					const anulaReg = async () => {  
+
+						await axios.post(
+							"{{ URL::To('/anula-CtrlMed') }}",data, {
+							}).then((response) => {
+					
+                                if(response.data['message'] == "Success"){  
+                                    document.getElementById('btnDeleteEvol').disabled = true;
+                                    document.getElementById('btnNewEvol').disabled = false;
+                                    document.getElementById('btnCancelEvol').disabled = true;
+                                    document.getElementById('btnSearchEvol').disabled = false;
+                                    document.getElementById('btnSaveEvol').disabled = true;
+                                    document.getElementById('btnEditEvol').disabled = true;  
+                            
+                                    let newNom88 = document.getElementById('accionBotones')
+                                    newNom88.setAttribute('accion', "Guardar");
+                            
+                                    var btnGuardar2 = document.getElementById('btnSaveEvol');
+                                    btnGuardar2.innerHTML = 'Guardar'
+                                    funcLib.desactivaInput();
+                            
+                                    document.getElementById('textB').innerHTML = 'ANULACION DE EVOLUCION MEDICA'                                
+                                    funcLib.clearElements()	                                
+                                    formEvolQ.reset()                                    
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'PERFECTO',
+                                        text: 'Se ANULO el registro con exito',
+                                        footer: ''
+                                    })
+                                }    
+							}).catch(function(error) {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error interno',
+									text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+										'  ' + error,
+									footer: ''
+								})
+							// console.log(error);
+						})
+					}
+					anulaReg();
+				}
+			}) 									
+
+                formEvolQ.reset()            
+            })  
+    return true
+    })
     /*****************************************************
 	Limpia los campos al presionar el boton cancelar
 	********************************************************/
     window.addEventListener('load', () => {
-
+            let formAnula = document.getElementById('formEvolDiaria')
 			let botonCancel = document.getElementById("btnCancelEvol");
 			botonCancel.addEventListener('click', () => {
                 
@@ -664,7 +817,7 @@
                 texto4.innerHTML = 'CONTROL DE CITAS MEDICAS'                
 
 				funcLib.accionSaveNew()
-				formEvolB.reset()
+				formAnula.reset()
 				return true
 			})
     
