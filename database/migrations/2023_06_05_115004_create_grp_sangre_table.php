@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('grp_sangre', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion',20)->nuallable();
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

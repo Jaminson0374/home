@@ -23,7 +23,8 @@ return new class extends Migration
             $table->foreignId('sexo_id')->references('id')->on('sexo')->onDelete('cascade')->onUpdate('cascade');
             $table->string('telefono',60)->nullable();
             $table->string('especialidad',150)->nullable(); 
-            $table->string('tprofesional',80)->nullable();            
+            $table->string('tprofesional',80)->nullable();   
+            $table->string('anulado',1)->nullable();         
             $table->timestamps();
         });
     }

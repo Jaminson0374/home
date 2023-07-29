@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion',80);
             $table->string('observacion',150)->nullable();
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

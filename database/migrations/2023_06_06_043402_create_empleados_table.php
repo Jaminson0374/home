@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('anulado',1)->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->integer('categoria_id')->nullable()->after('funciones');
+            $table->string('anulado',1)->nullable();
         });
     }
 

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estado_sigvitales', function (Blueprint $table) {
+        Schema::create('consecutivos', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion',30);
-            $table->string('anulado',1)->nullable();
+            $table->string('codigo',4);
+            $table->string('descripcion',80);
+            $table->integer('consecutivo')->nullable();
+            $table->string('anulado',1)->nullable();            
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estado_sigvitales');
+        Schema::dropIfExists('consecutivos');
     }
 };

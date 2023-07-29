@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('telefono',80)->nullable();
             $table->string('representante',150)->nullable();
             $table->string('especialidad',150)->nullable();
-            $table->string('observación',150)->nullable();            
+            $table->string('observación',150)->nullable();    
+            $table->string('anulado',1)->nullable();        
             $table->timestamps();
         });
     }

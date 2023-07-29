@@ -408,7 +408,11 @@
                     "language": espanol,
                     "destroy": true
 
-                })
+                });
+                 $('#tablaClientesEvol tbody').on('click', 'tr', function () {
+                      var data = table.row( this ).data();
+                      alert( 'Hiciste click sobre '+data["nombre"]);
+                });
                 
 
                         
@@ -482,14 +486,14 @@
                 document.getElementById('btnNewEvol').disabled = true;                
 				document.getElementById('btnDeleteEvol').disabled = true;
                 document.getElementById('btnSearchEvol').disabled = true;
-                botonNew.disabled = true;
+                botonEdit.disabled = true;
                 document.getElementById('btnCancelEvol').disabled = false;
                 document.getElementById('btnSaveEvol').disabled = false;
                
                 document.getElementById('fecha').focus()
                 var attrAccion4 = $("#accionBotones").attr("accion");
                 document.getElementById('fecha').focus()
-                alert(attrAccion4)    
+                // alert(attrAccion4)    
 				return true
 			})
 
@@ -599,7 +603,6 @@
                         }
                         clienteEvolMedica()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-
                         let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
@@ -658,66 +661,66 @@
                 return true
         })
 
-        setInterval(function() { 
-            let espanol = idioma()
-            let table4 = $('#tablaClientesEvol').DataTable({
-                    responsive: true,
-                    scroll: true,
-                    scrollCollapse: true,
-                    scrollY: '400px',
-                    scrollx: true,
-                    "ajax": {
-                        "url": "{{ URL::to('/buscar-CtrlMed') }}",
-                        "dataSrc": ""
-                    },
-                    "columns": [{
-                            "data": "id"
-                        },
-                        {
-                            "data": "fecha"
-                        },
-                        {
-                            "data": "hora"
-                        },
-                        {
-                            "data": "nombre"
-                        },
-                        {
-                            "data": "apellidos"
-                        },
-                        {
-                            "data": "descripcion"
-                        },
-                    ],
-                    columnDefs: [{
-                            targets: 5,
-                            visible: true
-                        },
-                        {
-                            targets: 6,
-                            orderable: false,
-                            data: null,
-                            render: function(data, type, row, meta) {
-                                let fila = meta.row;
-                                let botones =
-                                    `
-                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
-                                return botones;
-                            }
-                        }
+        // setInterval(function() { 
+        //     let espanol = idioma()
+        //     let table4 = $('#tablaClientesEvol').DataTable({
+        //             responsive: true,
+        //             scroll: true,
+        //             scrollCollapse: true,
+        //             scrollY: '400px',
+        //             scrollx: true,
+        //             "ajax": {
+        //                 "url": "{{ URL::to('/buscar-CtrlMed') }}",
+        //                 "dataSrc": ""
+        //             },
+        //             "columns": [{
+        //                     "data": "id"
+        //                 },
+        //                 {
+        //                     "data": "fecha"
+        //                 },
+        //                 {
+        //                     "data": "hora"
+        //                 },
+        //                 {
+        //                     "data": "nombre"
+        //                 },
+        //                 {
+        //                     "data": "apellidos"
+        //                 },
+        //                 {
+        //                     "data": "descripcion"
+        //                 },
+        //             ],
+        //             columnDefs: [{
+        //                     targets: 5,
+        //                     visible: true
+        //                 },
+        //                 {
+        //                     targets: 6,
+        //                     orderable: false,
+        //                     data: null,
+        //                     render: function(data, type, row, meta) {
+        //                         let fila = meta.row;
+        //                         let botones =
+        //                             `
+        //                         <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+        //                         return botones;
+        //                     }
+        //                 }
 
-                    ],
-                    "language": espanol,
-                    "destroy": true
+        //             ],
+        //             "language": espanol,
+        //             "destroy": true
 
-                })
+        //         })
                 
-        table4.ajax.reload(function(){
-        $(".paginate_button > a").on("focus",function(){
-        $(this).blur();
-        });
-        }, false);
-        }, 10000);    
+        // table4.ajax.reload(function(){
+        // $(".paginate_button > a").on("focus",function(){
+        // $(this).blur();
+        // });
+        // }, false);
+        // }, 10000);    
     
     /*****************************************************
 	                Anular Registro

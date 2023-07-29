@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('pasillo',50);
             $table->string('seccion',50);
             $table->string('observacion',50);
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

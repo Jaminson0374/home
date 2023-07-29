@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tipos_cita', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion',120);
-            $table->string('observación',150)->nullable();            
+            $table->string('observación',150)->nullable();  
+            $table->string('anulado',1)->nullable();          
             $table->timestamps();
         });
     }

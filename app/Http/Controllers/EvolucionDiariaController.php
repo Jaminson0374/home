@@ -95,10 +95,10 @@ class EvolucionDiariaController extends Controller
     }
 
     public function busquedaCtrlMed(){
-   
+        // ->where('evolucion_diaria.anulado','=','')
         $clientesEvolucion = DB::table('evolucion_diaria')
        ->join('cliente_datosbasicos', 'evolucion_diaria.datosbasicos_id','=','cliente_datosbasicos.id')
-       ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')->where('evolucion_diaria.anulado','<>','S')
+       ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')
        ->select('evolucion_diaria.id','evolucion_diaria.fecha', 'evolucion_diaria.hora','cliente_datosbasicos.nombre',
             'cliente_datosbasicos.apellidos', 'evolucion.descripcion', 'evolucion_diaria.evolucion_id', 'evolucion_diaria.estado_sigvitales_id',
             'evolucion_diaria.empleado_id', 'cliente_datosbasicos.diagnostico',

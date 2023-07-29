@@ -41,6 +41,7 @@ return new class extends Migration
             $table->integer('cita_cercana')->nullable();
             $table->integer('estado_citas');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');  
+            $table->string('anulado',1)->nullable();
             $table->softDeletes();            
             $table->timestamps();
         });

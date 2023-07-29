@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('forma_pago', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion',20);
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

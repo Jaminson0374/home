@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tipo_empresa_remite', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion',100)->nullable();
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('direccion',200)->nullable()->after('descripcion');  
             $table->foreignId('tipo_empresa_id')->references('id')->on('tipo_empresa_remite')->onDelete('cascade')->onUpdate('cascade'); 
             $table->string('observacion',150)->nullable();
-            $table->string('anulado',1)->nullable();            
+            $table->string('anulado',1)->nullable(); 
             $table->timestamps();
         });
     }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion',50)->nuallable();
             $table->timestamps();
-
             $table->foreignId('pais_id')->references('id')->on('pais')->onDelete('cascade')->onUpdate('cascade');            
             $table->foreignId('departamento_id')->references('id')->on('departamentos')->onDelete('cascade')->onUpdate('cascade');            
+            $table->string('anulado',1)->nullable();
         });
     }
 

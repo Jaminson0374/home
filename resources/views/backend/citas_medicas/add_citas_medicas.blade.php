@@ -568,6 +568,8 @@
                 document.getElementById('btnNew').disabled = true;                
 				document.getElementById('btnDelete').disabled = true;
                 document.getElementById('btnSearchCita').disabled = true;
+                document.getElementById('btnAgreFila').disabled = false;
+                document.getElementById('btnEliFila').disabled = false;                
                 botonNew.disabled = true;
                 document.getElementById('btnCancel').disabled = false;
                 document.getElementById('btnSave').disabled = false;
@@ -575,7 +577,7 @@
                 document.getElementById('fecha_pedido_cita').focus()
                 var attrAccion4 = $("#accionBotones").attr("accion");
                 document.getElementById('fecha_pedido_cita').focus()
-                alert(attrAccion4)    
+                // alert(attrAccion4)    
 				return true
 			})
 
@@ -671,16 +673,6 @@
                                 document.getElementById('textB').innerHTML = 'CONTRON DE CITAS MEDICAS'                                
                                 funcLib.clearElements()	                                
                                 formServicio.reset()                                       
-
-
-
-
-
-
-
-
-
-
 
                                 Swal.fire({
                                     icon: 'success',

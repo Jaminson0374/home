@@ -37,6 +37,9 @@ return new class extends Migration
             $table->date('ult_fecha_evo')->nullable();
             $table->time('ult_hora_evo')->nullable();
             $table->string('ult_evolucion')->nullable();
+            $table->date('ult_fecha_admin_med')->nullable();
+            $table->time('ult_hora_admin_med')->nullable(); 
+            $table->time('ult_fecha_requisicion')->nullable(); 
             $table->string('observacion')->nullable();
             $table->string('anulado',1)->nullable();
             $table->softDeletes();

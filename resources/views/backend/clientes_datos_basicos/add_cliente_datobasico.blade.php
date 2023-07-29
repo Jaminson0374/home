@@ -215,7 +215,7 @@
 
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="" class="col-form-label">Diagnóstico o problema medico:</label>
+                                                    <label for="" class="col-form-label"><b>Diagnóstico o problema medico:</b></label>
                                                     <textarea type="text" class="form-control text diagnostico" id="diagnostico" name="diagnostico"
                                                         placeholder="Describa el diagnóstico o problema con el el usuario ingresa a la fundación" title="Diagnóstico o problema con el el usuario ingresa a la fundación"></textarea>
                                                 </div>
@@ -223,6 +223,27 @@
                                             <!--cierra row-->
 
                                             <input type="hidden" name="tiposervicio_id" value="15">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="" class="col-form-label"><b>Recomendaciones médicas:</b></label>
+                                                    <textarea type="text" class="form-control text observacion" id="recomenda_medica" name="recomenda_medica"
+                                                    placeholder="Digite las recomendaciones medicas"></textarea>
+                                                </div>
+                                            </div> <!--cierra row--> 
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="" class="col-form-label"><b>Dieta nutricional:</b></label>
+                                                    <textarea type="text" class="form-control text observacion" id="dieta_nutric" name="dieta_nutric"
+                                                    placeholder="Digite el tipo de dieta o recomendación nutricional"></textarea>
+                                                </div>
+                                            </div> <!--cierra row-->     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="" class="col-form-label"><b>Medicamentos que se le suministra:</b></label>
+                                                    <textarea type="text" class="form-control text observacion" id="medica_suministro" name="medica_suministro"
+                                                    placeholder="Digite los medicamentos que se está suministrándo       "></textarea>
+                                                </div>
+                                            </div> <!--cierra row-->                                                                                                                                     
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <label for="" class="col-form-label">Observaciones:</label>
@@ -248,7 +269,7 @@
                 
                                                     <button type="button" class="btn btn-primary form-group btn-lg" id="btnDelete"
                                                         tabindex="23" disabled="true"><i class="fa fa-trash"
-                                                            style="color:#f30b0b;"></i> Eliminar</button>
+                                                            style="color:#f30b0b;"></i> Anular</button>
                                                     <a href="{{ URL::to('admin-clientes') }}" class="btn btn-primary btn-lg float-right "
                                                         tabindex="24" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                             style="color:#f30b0b;"></i> Salir</a>
@@ -260,10 +281,10 @@
 
                                             <div class="col-sm-2">
                                                 <div class="card card-primary">
-                                                    <div class="card-header">
+                                                    {{-- <div class="card-header">
                                                         <h3 class="card-title float-right ">Fotografía</h3>
-                                                    </div>
-                                                    <div class="card-body bg-info">
+                                                    </div> --}}
+                                                    {{-- <div class="card-body bg-info"> --}}
                                                         <div class="user-panel mt-1 pb-1 mb-1 d-flex">
                                                             <div class="image">
                                                                 <img id="imagenPrevisualizacion" class="img-responsive"
@@ -274,14 +295,14 @@
                                                             {{-- <div class="info">
                                                                 <a href="#" class="d-block">{{ auth()->user()->name }} </a>
                                                             </div> --}}
-                                                        </div>
+                                                        {{-- </div> --}}
                                                     </div>
                                                     <input type="file" id="seleccionArchivos" class="btn btn-success"
                                                         accept="image/*">
                                                     {{-- <span class="btn btn-success col fileinput-button"> --}}
                                                     {{-- <i class="fas fa-plus"></i> --}}
                                                     {{-- <span>Subir foto</span> --}}
-                                                    </span>
+                                                    {{-- </span> --}}
 
                                                     
                                                     <div class="card card-primary">

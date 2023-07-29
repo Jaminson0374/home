@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('num_cama');
             $table->string('descripcion');
             $table->string('observacion',200)->nullable();
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }

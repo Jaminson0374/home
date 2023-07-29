@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('parentezco', 30);
             $table->date('fecha_creacion');
             $table->text('observacion')->nullable();
+            $table->string('anulado',1)->nullable();
             $table->softDeletes();            
             $table->timestamps();
         });

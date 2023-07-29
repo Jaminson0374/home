@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion',50)->nuallable();
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
 
             $table->foreignId('pais_id')->references('id')->on('pais')->onDelete('cascade')->onUpdate('cascade');            

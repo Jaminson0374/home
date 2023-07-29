@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('evolucion_diaria', function (Blueprint $table) {
-            $table->foreignId('estado_sigvitales_id')->references('id')->on('estado_sigvitales')->onDelete('cascade')->onUpdate('cascade')->after('recomendaciones');              
+        Schema::create('reaccion_medicamento', function (Blueprint $table) {
+            $table->id();
+            $table->string('descripcion',50);
+            $table->string('anulado',1)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('evolucion_diaria', function (Blueprint $table) {
-            
-        });
+        Schema::dropIfExists('reaccion_medicamento');
     }
 };

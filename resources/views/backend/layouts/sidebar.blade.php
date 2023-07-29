@@ -100,7 +100,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ctrl Evolución diaria</p>
                 </a>
-              </li>        
+              </li>      
+              <li class="nav-item">
+                <a href="{{URL::to('/admin_medicamento_user')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Administración de medicamentos</p>
+                </a>
+              </li> 
               <li class="nav-item">
                 <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
@@ -187,7 +193,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>
               <p>
-                Mis colaboradores
+                MIS COLABORADORES
                 <i class="fas fa-angle-left right"></i>
                 <!-- <span class="badge badge-info right">6</span> -->
               </p>
@@ -209,6 +215,92 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                MIS INVENTARIOS
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{URL::to('/inv_articulos')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Articulos</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ingreso de Mcia</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Salida Mcia</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Movimientos de E/S</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Proveedores</p>
+                </a>
+              </li>   
+              <li class="nav-item">
+                <a href="{{URL::to('/admin_RequiMedicamento_user')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Requisición Medmentos</p>
+                </a>
+              </li>                                          
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                    Complementos
+                    <i class="fas fa-angle-left right"></i>
+                    <!-- <span class="badge badge-info right">6</span> -->
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Categorias</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lineas</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Und. Medida</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>C. de Costo</p>
+                    </a>
+                  </li>                                                      
+                </ul>              
+              </li>
+            </ul>
+          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">

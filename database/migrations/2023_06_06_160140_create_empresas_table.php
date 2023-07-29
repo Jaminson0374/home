@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('consecutivo_inicio');
             $table->integer('consecutivo_final');
             $table->date('fecha_creacion');
+            $table->string('anulado',1)->nullable();
             $table->timestamps();
         });
     }
