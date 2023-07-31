@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('empleados_id')->references('id')->on('empleados')->onDelete('cascade');
             $table->string('lote',30)->nullable();
             $table->string('remision',30)->nullable();
+            $table->foreignId('ccosto_id')->references('id')->on('inv_ccosto')->onDelete('cascade');
             $table->foreignId('consecutivo_id')->references('id')->on('consecutivos')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('anulado',1)->nullable();              

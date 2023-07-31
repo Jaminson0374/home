@@ -1,84 +1,59 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class EvolucionDiariaMed {
+class invArticulos {
 
 	validarCampos2() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
  		let campoText = "";
 
-		let _fecha = document.getElementsByName("fecha")[0].value; 
-		let _hora = document.getElementsByName("hora")[0].value;
-		let _empleado_id = document.getElementsByName("empleado_id")[0].value;
-		let _subjetivo  = document.getElementsByName("subjetivo")[0].value;
-		let _objetivo = document.getElementsByName("objetivo")[0].value;
-		let _signosv_pc = document.getElementsByName("signosv_pc")[0].value;
-		let _signosv_fr = document.getElementsByName("signosv_fr")[0].value;
-		let _signosv_ta = document.getElementsByName("signosv_ta")[0].value;
-		let _signosv_t = document.getElementsByName("signosv_t")[0].value;
-		let _signosv_p = document.getElementsByName("signosv_p")[0].value;
-		let _estado_sigvitales_id = document.getElementsByName("estado_sigvitales_id")[0].value;
-		let _apreciacion = document.getElementsByName("apreciacion")[0].value;	
-		let _plan = document.getElementsByName("plan")[0].value;	
-		let _recomendaciones = document.getElementsByName("recomendaciones")[0].value;	
+		let _referencia = document.getElementsByName('referencia')[0].value
+		let _descripcion = document.getElementsByName('descripcion')[0].value
+		let abreviatura = document.getElementsByName('abreviatura')[0].value 
+		let _categoria_id = document.getElementsByName('categoria_id')[0].value
+		let _linea_id = document.getElementsByName('linea_id')[0].value
+		let _unimedidas_id = document.getElementsByName('unimedidas_id')[0].value
+		let _proveedor_id = document.getElementsByName('proveedor_id')[0].value
+		let _stock_min = document.getElementsByName('stock_min')[0].value
+		let _stock_max = document.getElementsByName('stock_max')[0].value
+		let _inv_inicial = document.getElementsByName('inv_inicial')[0].value
+		// let cant_entrada = document.getElementsByName('cant_entrada')[0].value
+		// let _cant_salidas = document.getElementsByName('cant_salidas')[0].value
+		let _cant_ajustes = document.getElementsByName('cant_ajustes')[0].value
+		let _existencia = document.getElementsByName('existencia')[0].value
+		let _pcosto = document.getElementsByName('pcosto')[0].value
+		let _iva = document.getElementsByName('iva')[0].value
+		let _pventa = document.getElementsByName('pventa')[0].value
+		let _ult_fecha_compra = document.getElementsByName('ult_fecha_compra')[0].value
+		// let _anulado = document.getElementsByName('anulado')[0]
+		 
+
 
 		 // let datosbasicos_id = document.getElementsByName('datosbasicos_id')[0].value;
 
 		// var campoText="";
 		let camposForm = "";
-
 		switch (camposForm) {
-			case _fecha:
-				campoText = 'La campos FECHA del control es requerida'
-				document.getElementById("fecha").focus()
+			case _referencia:
+				campoText = 'La REFERENCIA del Articulo está vacía'
+				document.getElementById("referencia").focus()
 				break;
-			case _hora:
-				campoText = 'El campo HORA es requerido'
-				document.getElementById("hora").focus()
+			case _descripcion:
+				campoText = 'La DESCRIPCIÓN esta vacía'
+				document.getElementById("descripcion").focus()
 				break;		
-			case _empleado_id:
-				campoText = 'Debe seleccionar el profesional que realiza o inspecciona el control'
-				document.getElementById("empleado_id").focus()
+			case _linea_id:
+				campoText = 'La LINEA del articulo está vacía'
+				document.getElementById("linea_id").focus()
 				break;				
-			case _subjetivo:
-				campoText = 'El campo SUBJETIVO es requerido'
-				document.getElementById("subjetivo").focus()
+			case _categoria_id:
+				campoText = 'La CATEGORÍA esta vacía'
+				document.getElementById("categoria_id").focus()
 				break;		
-			case _objetivo:
-				campoText = 'El campo OBJETIVO es requerido'
-				document.getElementById("objetivo").focus()
+			case _proveedor_id:
+				campoText = 'El campo  PROVEEDOR es requerido'
+				document.getElementById("proveedor_id").focus()
 				break;													
-			case _signosv_pc:
-				campoText = 'El campo PC (PRESIÓN CARDIACA) es requerido'
-				document.getElementById("signosv_pc").focus()
-				break;		
-			case  _signosv_fr:
-				campoText = 'El campo FRECUENCIA RESPITATORIA requerido'
-				document.getElementById("signosv_fr").focus()
-				break;				
-			case  _signosv_ta:
-				campoText = 'El campo TENSION ARTERIAL es requerido'
-				document.getElementById("signosv_ta").focus()
-				break;								
-			case  _signosv_t:
-				campoText = 'El campo TEMPERATURA CORPORAL es requerido'
-				document.getElementById("signosv_t").focus()
-				break;			
-			case  _signosv_p:
-				campoText = 'El campo PESO es requerido'
-				document.getElementById("signosv_p").focus()
-				break;
-			case  _estado_sigvitales_id:
-				campoText = 'El campo Diag. Signos Vitales es requerido'
-				document.getElementById("estado_sigvitales_id").focus()
-				break;
-			case _apreciacion:
-				campoText = 'El campo APRECIACION es equerido'
-				document.getElementById("apreciacion").focus()
-				break;				
-			case _plan:
-				campoText = 'El campo PLAN es requerido'
-				document.getElementById("plan").focus()
-				break;															
+
 		}
 		return campoText;
 
@@ -86,27 +61,30 @@ class EvolucionDiariaMed {
 	/******************************************************************************************************
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
-	asignaValorEdit(dataEvol) {
+	asignaValorEdit(dataArti) {
 		let i = 0;
-		document.getElementsByName("fecha")[0].value = dataEvol.fecha; 
-		document.getElementsByName("hora")[0].value = dataEvol.hora;
-		document.getElementsByName("diagnostico")[0].value = dataEvol.diagnostico;
-		let empleadoid = document.getElementsByName("empleado_id")[0].value = dataEvol.empleado_id;
-		document.getElementsByName("signosv_fr")[0].value = dataEvol.signosv_fr;
-		document.getElementsByName("signosv_ta")[0].value = dataEvol.signosv_ta;
-		document.getElementsByName("signosv_t")[0].value = dataEvol.signosv_t;
-		document.getElementsByName("signosv_pc")[0].value = dataEvol.signosv_pc;
-		document.getElementsByName("signosv_p")[0].value = dataEvol.signosv_p;
-		document.getElementsByName("subjetivo")[0].value = dataEvol.subjetivo;
-		document.getElementsByName("objetivo")[0].value = dataEvol.objetivo;		
-		document.getElementsByName("estado_sigvitales_id")[0].value = dataEvol.estado_sigvitales_id;
-		document.getElementsByName("apreciacion")[0].value = dataEvol.apreciacion;
-		document.getElementsByName("plan")[0].value = dataEvol.plan;
-		document.getElementsByName("recomendaciones")[0].value =dataEvol.recomendaciones;
-		document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
-		document.getElementsByName("idEvolMedica")[0].value = dataEvol.id;
+		document.getElementsByName('referencia')[0].value  = dataArti.referencia
+		document.getElementsByName('descripcion')[0].value  = dataArti.articulo
+		document.getElementsByName('abreviatura')[0].value  = dataArti.abreviatura
+		let _categoria_id = document.getElementsByName('categoria_id')[0].value  = dataArti.categoria_id
+		let _linea_id = document.getElementsByName('linea_id')[0].value  = dataArti.linea_id
+		let _unimedidas_id = document.getElementsByName('unimedidas_id')[0].value  = dataArti.unimedidas_id
+		let _proveedor_id = document.getElementsByName('proveedor_id')[0].value  = dataArti.proveedor_id
+		document.getElementsByName('stock_min')[0].value  = dataArti.stock_min
+		document.getElementsByName('stock_max')[0].value  = dataArti.stock_max
+		document.getElementsByName('inv_inicial')[0].value  = dataArti.inv_inicial
+		document.getElementsByName('cant_ajustes')[0].value  = dataArti.cant_ajustes
+		document.getElementsByName('existencia')[0].value  = dataArti.existencia
+		document.getElementsByName('pcosto')[0].value  = dataArti.pcosto
+		document.getElementsByName('iva')[0].value  = dataArti.iva
+		document.getElementsByName('pventa')[0].value  = dataArti.pventa
+		document.getElementsByName('ult_fecha_compra')[0].value  = dataArti.ult_fecha_compra
+		document.getElementsByName('idArtiAnular')[0].value  = dataArti.id
 		
-		$('#empleado_id').val(empleadoid).trigger('change.select2');
+		$("#linea_id").val(_linea_id).trigger('change.select2');
+		$("#categoria_id").val(_categoria_id).trigger('change.select2');
+		$("#unimedidas_id").val(_unimedidas_id).trigger('change.select2');
+		$("#proveedor_id").val(_proveedor_id).trigger('change.select2');
 
 	}
 
@@ -180,45 +158,50 @@ class EvolucionDiariaMed {
 	}
 	
 	clearElements(){
-		document.getElementsByName("fecha")[0].value = Date();
-		document.getElementsByName("hora")[0].value = '00:00:00';
+		// document.getElementsByName("fecha")[0].value = Date();
+		// document.getElementsByName("hora")[0].value = '00:00:00';
 
-		$("#empleado_id").val(" ").trigger('change.select2');
+		$("#linea_id").val(" ").trigger('change.select2');
+		$("#categoria_id").val(" ").trigger('change.select2');
+		$("#unimedidas_id").val(" ").trigger('change.select2');
+		$("#proveedor_id").val(" ").trigger('change.select2');
 	}
 	desactivaInput(){
-		// document.getElementById("fecha").disabled = true;
-		// document.getElementById("hora").disabled = true;
-		// document.getElementById("empleado_id").disabled = true;
-		// document.getElementById("objetivo").disabled = true;
-		// document.getElementById("subjetivo").disabled = true;
-		// document.getElementById("signosv_pc").disabled = true;
-		// document.getElementById("signosv_fr").disabled = true;
-		// document.getElementById("signosv_ta").disabled = true;
-		// document.getElementById("signosv_t").disabled = true;
-		// document.getElementById("signosv_p").disabled = true;
-		// document.getElementById("estado_sigvitales_id").disabled = true;
-		// document.getElementById("apreciacion").disabled = true;
-		// document.getElementById("evolucion_id").disabled = true;
-		// document.getElementById("plan").disabled = true;
-		// document.getElementById("recomendaciones").disabled = true;
+		document.getElementById('referencia').disabled = true
+		document.getElementById('descripcion').disabled = true
+		document.getElementById('abreviatura').disabled = true 
+		document.getElementById('categoria_id').disabled = true
+		document.getElementById('linea_id').disabled = true
+		document.getElementById('unimedidas_id').disabled = true
+		document.getElementById('proveedor_id').disabled = true
+		document.getElementById('stock_min').disabled = true
+		document.getElementById('stock_max').disabled = true 
+		document.getElementById('inv_inicial').disabled = true
+		document.getElementById('cant_ajustes').disabled = true
+		document.getElementById('existencia').disabled = true
+		document.getElementById('pcosto').disabled = true
+		document.getElementById('iva').disabled = true
+		document.getElementById('pventa').disabled = true
+		document.getElementById('ult_fecha_compra').disabled = true
 
 	}
 	activaInput(){
-		document.getElementById("fecha").disabled = false;
-		document.getElementById("hora").disabled = false;
-		document.getElementById("empleado_id").disabled = false;
-		document.getElementById("objetivo").disabled = false;
-		document.getElementById("subjetivo").disabled = false;
-		document.getElementById("signosv_pc").disabled = false;
-		document.getElementById("signosv_fr").disabled = false;
-		document.getElementById("signosv_ta").disabled = false;
-		document.getElementById("signosv_t").disabled = false;
-		document.getElementById("signosv_p").disabled = false;
-		document.getElementById("evolucion_id").disabled = false;
-		document.getElementById("estado_sigvitales_id").disabled = false;
-		document.getElementById("apreciacion").disabled = false;
-		document.getElementById("plan").disabled = false;
-		document.getElementById("recomendaciones").disabled = false;
+		document.getElementById('referencia').disabled = false
+		document.getElementById('descripcion').disabled = false
+		document.getElementById('abreviatura').disabled = false 
+		document.getElementById('categoria_id').disabled = false
+		document.getElementById('linea_id').disabled = false
+		document.getElementById('unimedidas_id').disabled = false
+		document.getElementById('proveedor_id').disabled = false
+		document.getElementById('stock_min').disabled = false
+		document.getElementById('stock_max').disabled = false
+		// document.getElementById('inv_inicial').disabled = false
+		// document.getElementById('cant_ajustes').disabled = false
+		// document.getElementById('existencia').disabled = false
+		document.getElementById('pcosto').disabled = false
+		document.getElementById('iva').disabled = false
+		document.getElementById('pventa').disabled = false
+		// document.getElementById('ult_fecha_compra').disabled = false
 	}
 	
 	eliminarReg(){

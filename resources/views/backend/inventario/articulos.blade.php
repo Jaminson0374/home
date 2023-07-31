@@ -16,7 +16,7 @@
         <section class="content">
             <div class="card border-2">
                 <div class="card-body text-dark tarjeta_body">
-                    <form role="form" name="formEvolDiaria" id="formEvolDiaria" action="">
+                    <form role="form" name="formArticulos" id="formArticulos" action="">
                         @csrf
                         <div class="row justify-content-between">
 
@@ -34,12 +34,13 @@
                                                 {{-- USUARIO/CLIENTE --- {{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos}} --}}
                                             </h3>
                                             {{-- <input type="hidden" id="datosbasicos_id" name="datosbasicos_id" value={{$datosRow->id}}> --}}
-                                            <input type="hidden" id="idEvolMedica" name="idEvolMedica">
+                                            <input type="hidden" id="idArtiAnular" name="idArtiAnular">
+                                            //idArtiAnular
                                             {{-- <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}> --}}
                                         </div>
                                         <div class="card-body" style="background-color: #08a2ef">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
-                                            <input type="hidden" name="presBtnNewEvol" id="presBtnNewEvol" value="N">
+                                            <input type="hidden" name="presBtnNewArti" id="presBtnNewArti" value="N">
                                             <div class="row border pb-2">
                                                 <div class="col-12 col-lg-3 col-md-4 col-sm-3">
                                                     <label>Referencia</label>
@@ -113,26 +114,14 @@
                                             </div> <!--cierre row-->                                                                                                
                                             
                                         <div class="row border pb-2">   
-                                            <div class="col-12 col-lg-2 col-md-6 col-sm-2">
-                                                <label for="">C.Costo</label>
-                                                    <select class="select2 select2-danger"
-                                                    data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                    name="ccostosd_id" id="ccostosd_id" focusNext tabindex="8">
-                                                    <option selected="selected" disable value=" ">Seleciona C.costo</option>
-                                                    @foreach ($_ccostoId as $ccostoId)
-                                                        <option value={{$ccostoId->id}}>{{$ccostoId->descripcion}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>                                                        
-                                            </div>                                                                
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>Stock Min</label>
-                                                    <input type="text" class="form-control text" name="stock_min"
+                                                    <input type="number" class="form-control text" name="stock_min"
                                                     id="stock_min" placeholder="" title="Digite la cantidad mínima de que debe haber en inventario" focusNext tabindex="9">
                                                 </div> 
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>Stock Max</label>
-                                                    <input type="text" class="form-control text" name="stock_max"
+                                                    <input type="number" class="form-control text" name="stock_max"
                                                     id="stock_max" placeholder="" title="Digite la cantidad máxima de que debe haber en inventario" focusNext tabindex="10">
                                                 </div> 
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
@@ -150,14 +139,14 @@
                                                     <input type="text" class="form-control text" name="cant_salidas"
                                                     id="cant_salidas" placeholder="" title="" focusNext tabindex="13" disabled = "true">
                                                 </div> 
-                                        </div> <!--cierre row--> 
-                                            
-                                        <div class="row border pb-2">  
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>Ajsutes</label>
                                                     <input type="text" class="form-control text" name="cant_ajustes" disabled = "true"
                                                     id="cant_ajustes" placeholder="" title="Cantidad de unidades ajustadas por perdida, descontinuación o averiación" focusNext tabindex="14" disabled="true">
-                                                </div>                                                        
+                                                </div>                                                   
+                                        </div> <!--cierre row--> 
+                                            
+                                        <div class="row border pb-2">  
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>Existencia</label>
                                                     <input type="text" class="form-control text" name="existencia"
@@ -165,24 +154,21 @@
                                                 </div>    
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>%IVA</label>
-                                                    <input type="text" class="form-control text" name="iva"
-                                                    id="iva" placeholder="" title="" focusNext tabindex="16">
+                                                    <input type="text" class="form-control text" name="iva" id="iva" title="" focusNext tabindex="16">
                                                 </div>         
 
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>P.Costo</label>
-                                                    <input type="text" class="form-control text" name="pcosto"
-                                                    id="pcosto" placeholder="" title="" focusNext tabindex="17">
+                                                    <input type="text" class="form-control text" name="pcosto" id="pcosto" title="" focusNext tabindex="17">
                                                 </div>          
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>P.Venta</label>
-                                                    <input type="text" class="form-control text" name="pventa"
-                                                    id="pventa" placeholder="" title="" focusNext tabindex="18">
+                                                    <input type="text" class="form-control text" name="pventa" id="pventa" title="" focusNext tabindex="18">
                                                 </div>                                                          
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2">
                                                     <label>U.F. Compra</label> 
                                                     <input type="text" class="form-control text" name="ult_fecha_compra" disabled = "true"
-                                                    id="ult_fecha_compra" placeholder="" title="Ultima fecha en la que se compró este articulo" focusNext tabindex="19">
+                                                    id="ult_fecha_compra" title="Ultima fecha en la que se compró este articulo" focusNext tabindex="19">
                                                 </div>   
                                         </div>  <!--cierre row-->   
                                         <div class="row border pt-3">                                                       
@@ -205,7 +191,7 @@
                                                 </div>
                                                 <div class="col-12 col-lg-10 col-md-4 col-sm-6">
                                                     <label for="">Observación</label>
-                                                    <textarea type="text" class="form-control text " rows="3" id="descripcion" name="descripcion" title=""
+                                                    <textarea type="text" class="form-control text " rows="3" id="observacion" name="observacion" title=""
                                                     placeholder="Escria la descripción del artículo" focusNext tabindex="2"></textarea>
                                                 </div>                                                   
                                             </div> <!--cierre row--> 
@@ -223,32 +209,32 @@
                             <div class="row"> 
                                 <div class="col-sm-12">
                                     <div class="form-group pt-2">
-                                        <button  type="button" class="btn btn-primary btn-lg form-group btnNewEvol" title="Limpia todos las cledas para iniciar la creación de una nueva cita"
-                                            focusNext tabindex="17" id="btnNewEvol" accionBtn="Nuevo" name="btnNewEvol">
+                                        <button  type="button" class="btn btn-primary btn-lg form-group btnNewArti" title="Limpia todos las cledas para iniciar la creación de una nueva cita"
+                                            focusNext tabindex="17" id="btnNewArti" accionBtn="Nuevo" name="btnNewArti">
                                             <i class="fa fa-file-archive fa-lg" style="color:#fffefed8;"></i> Nuevo Ctrl
                                         </button>
                                         <button  type="button" class="btn btn-primary btn-lg form-group" title="Permite realizar modificaciones al registro que se encuentra actualmente en la venetana"
-                                            focusNext tabindex="18" id="btnEditEvol" accionBtn="Modificar" name="btnEditEvol">
+                                            focusNext tabindex="18" id="btnEditArti" accionBtn="Modificar" name="btnEditArti">
                                             <i class="fa fa-edit fa-lg" style="color:#fffefed8;"></i> Modificar
                                         </button>                                        
                                         <button  type="submit" class="btn btn-primary btn-lg form-group" title="Guarda en la base de datos el nuevo registr o lactualización"
-                                            focusNext tabindex="19" id="btnSaveEvol" accionBtn="Guardar"name="btnSaveEvol">
+                                            focusNext tabindex="19" id="btnSaveArti" accionBtn="Guardar"name="btnSaveArti">
                                             <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Guardar
                                         </button>
-                                        <button type="button" class="btn btn-primary form-group btnSearchEvol btn-lg" title="Bucar un cita del usuario actual"
-                                            id="btnSearchEvol" name="btnSearchEvol" focusNext tabindex="20"><i
+                                        <button type="button" class="btn btn-primary form-group btnSearchArti btn-lg" title="Bucar un cita del usuario actual"
+                                            id="btnSearchArti" name="btnSearchArti" focusNext tabindex="20"><i
                                                 class="fa fa-search-location fa-lg"></i>
                                            Consultar
                                         </button>
 
-                                        <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancelEvol" title="Cancela el proceso actual y limpia cada una de las celdas"
+                                        <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancelArti" title="Cancela el proceso actual y limpia cada una de las celdas"
                                             focusNext tabindex="21"> <i class="fa fa-ban fa-lg"></i> Cancelar</button>
 
-                                        <button type="button" class="btn btn-primary form-group btn-lg" id="btnDeleteEvol" title="Anula el registro que esta en la ventana"
+                                        <button type="button" class="btn btn-primary form-group btn-lg" id="btnDeleteArti" title="Anula el registro que esta en la ventana"
                                             focusNext tabindex="22" disabled="true"><i class="fa fa-trash fa-lg"
                                                 style="color:#f30b0b;"></i> Anular </button>
 
-                                                <a href="{{ URL::to('/admin-evolucion-diaria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                <a href="{{ URL::to('/admin-Artiucion-diaria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>
@@ -268,7 +254,7 @@
 
       <!-- Modal -->
 <div class="container-lg">
-    <div class="modal fade" id="modalBuscarEvol" class="modalBuscarEvol" data-backdrop="static" focusNext tabindex="-1"
+    <div class="modal fade" id="modalBuscarArti" class="modalBuscarArti" data-backdrop="static" focusNext tabindex="-1"
         role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -284,15 +270,14 @@
                 <body>
                     <div class="modal-body">
                         <div class="card-body p-2 mb-0 bg-primary text-white">
-                            <table id="tablaClientesEvol" class="table table-bordered table-striped">
+                            <table id="tablaClientesArti" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Estado</th>
+                                        <th>REF</th>
+                                        <th>DESCRIPCION</th>
+                                        <th>EXISTENCIA</th>
+                                        <th>P.COSTO</th>
+                                        <th>P.VENTA</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -319,11 +304,12 @@
 <script>
 
 // window.addEventListener('load', () => {
-// let btnSearchEvol = document.getElementById('btnSearchEvol');
-// btnSearchEvol.addEventListener('click', () => {  
+// let btnSearchArti = document.getElementById('btnSearchArti');
+// btnSearchArti.addEventListener('click', () => {  
+//     alert('dsfmas,fmasl')
 // //   let data = new FormData();
 //    let prueba = async () => {
-//        await axios.get("{{ URL::to('/buscar-CtrlMed') }}", {
+//        await axios.get("{{ URL::to('/buscarArticulos_show') }}", {
  
 //        }).then((resp) => {
 //            let dataSelect = resp.data;
@@ -340,34 +326,32 @@
 //     prueba() 
 //     })
 // })  
-  
     //  nobackbutton()
     // saltarEnterFormulario()
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
     window.addEventListener('load', () => {
-        let formEvolB = document.getElementById('formEvolDiaria')
+        let formArtiB = document.getElementById('formArticulos')
 
-        document.getElementById('btnCancelEvol').disabled = true;
-        document.getElementById('btnCancelEvol').disabled = true;
-        // document.getElementById('btnSaveEvol').disabled = true;
-        funcLib = new EvolucionDiariaMed(); // 
-
+        document.getElementById('btnCancelArti').disabled = true;
+        document.getElementById('btnCancelArti').disabled = true;
+        // document.getElementById('btnSaveArti').disabled = true;
+        funcLib = new invArticulos(); // 
 
         funcLib.desactivaInput();  
-        document.getElementById('btnEditEvol').disabled = true;      
+        document.getElementById('btnEditArti').disabled = true;      
 
-        let bodyTablaClientesEvol = document.getElementById("bodyTabla");
-        let modalBuscarEvol = document.getElementById('modalBuscarEvol');
-        let btnSearchEvol = document.getElementById('btnSearchEvol');
+        let bodyTablaClientesArti = document.getElementById("bodyTabla");
+        let modalBuscarArti = document.getElementById('modalBuscarArti');
+        let btnSearchArti = document.getElementById('btnSearchArti');
  
-        btnSearchEvol.addEventListener('click', () => {
-            if ($.fn.DataTable.isDataTable('#tablaClientesEvol')) { 
-                let jaminson = $('#tablaClientesEvol').DataTable();
+        btnSearchArti.addEventListener('click', () => {
+            if ($.fn.DataTable.isDataTable('#tablaClientesArti')) { 
+                let jaminson = $('#tablaClientesArti').DataTable();
                 // alert(jaminson)
                 const buscarClientes = function() {
-                    $("#modalBuscarEvol").modal({
+                    $("#modalBuscarArti").modal({
                         backdrop: 'static',
                         keyboard: false,
                         show: true
@@ -376,7 +360,7 @@
                     //     handle: ".modal-header"
                     // });
 
-                    let table = $('#tablaClientesEvol').DataTable({
+                    let table = $('#tablaClientesArti').DataTable({
                         "columns": [],
                         "language": espanol,
                         "destroy": true
@@ -387,7 +371,7 @@
 
             let espanol = idioma()
             const buscarClientes = function() {
-                $("#modalBuscarEvol").modal({
+                $("#modalBuscarArti").modal({
                     backdrop: 'static',
                     keyboard: false,
                     show: true
@@ -396,41 +380,38 @@
                     // $('#modalBuscarCita .modal-dialog').draggable({
                     //     handle: ".modal-header"
                     // });
-                let table = $('#tablaClientesEvol').DataTable({
+                let table = $('#tablaClientesArti').DataTable({
                     responsive: true,
                     scroll: true,
                     scrollCollapse: true,
                     scrollY: '400px',
                     scrollx: true,
                     "ajax": {
-                        "url": "{{ URL::to('/buscar-CtrlMed') }}",
+                        "url": "{{ URL::to('/buscarArticulos_show') }}",
                         "dataSrc": ""
                     },
                     "columns": [{
-                            "data": "id"
+                            "data": "referencia"
                         },
                         {
-                            "data": "fecha"
+                            "data": "articulo"
+                        }, 
+                        {
+                            "data": "existencia"
+                        },                        
+                        {
+                            "data": "pcosto"
                         },
                         {
-                            "data": "hora"
+                            "data": "pventa"
                         },
-                        {
-                            "data": "nombre"
-                        },
-                        {
-                            "data": "apellidos"
-                        },
-                        {
-                            "data": "descripcion"
-                        },
-                    ],
+                     ],
                     columnDefs: [{
-                            targets: 5,
+                            targets: 4,
                             visible: true
                         },
                         {
-                            targets: 6,
+                            targets: 5,
                             orderable: false,
                             data: null,
                             render: function(data, type, row, meta) {
@@ -448,13 +429,12 @@
 
                 })
                 
-
                         
                 //    $('#ModalUpdate').modal('hide');
                 //  alert("datos actualizados");
                 //  table.ajax.reload();//Podrias colocarlo dentro del success o done para recargar la tabla 
                 
-                obtener_data_buscar("#tablaClientesEvol tbody", table)
+                obtener_data_buscar("#tablaClientesArti tbody", table)
             }
             
             buscarClientes()
@@ -470,25 +450,25 @@
             $(tbody).on("click", "button.btnCaptura", function() {
                 let data = table.row($(this).parents("tr")).data();
                 // console.log(data.fecha_pedido_cita)
-                // formEvolB.reset()
-                let dataEvol = data;
-                console.log(dataEvol)
-                funcLib.asignaValorEdit(dataEvol)
+                // formArtiB.reset()
+                let dataArti = data;
+                console.log(dataArti)
+                funcLib.asignaValorEdit(dataArti)
 
                 /*Cuando se busca un registro se cambial atributo del input hidden*/
                 // let newNom80 = document.getElementById('accionBotones')
                 // newNom80.setAttribute('accion', "Actualizar");
 
-                var btnGuardar = document.getElementById('btnSaveEvol');
+                var btnGuardar = document.getElementById('btnSaveArti');
                 btnGuardar.innerHTML = 'Actualizar'
                 
-                document.getElementById('btnSaveEvol').disabled = true;
-                document.getElementById('btnEditEvol').disabled = false;
-                document.getElementById('btnCancelEvol').disabled = false;
-                document.getElementById('btnNewEvol').disabled = true;
-                document.getElementById('btnSearchEvol').disabled = true;
-                let btnDeleteEvolclick1 = document.getElementById('btnDeleteEvol')
-                btnDeleteEvolclick1.disabled = false
+                document.getElementById('btnSaveArti').disabled = true;
+                document.getElementById('btnEditArti').disabled = false;
+                document.getElementById('btnCancelArti').disabled = false;
+                document.getElementById('btnNewArti').disabled = true;
+                document.getElementById('btnSearchArti').disabled = true;
+                let btnDeleteArticlick1 = document.getElementById('btnDeleteArti')
+                btnDeleteArticlick1.disabled = false
                 
             })
         }
@@ -503,30 +483,29 @@
 				AL PRESIONAR EL BOTON MODIFICAR
 			********************************************************/
         window.addEventListener('load', () => {
-            let formEvolB2 = document.getElementById('formEvolDiaria')
-            let botonEdit = document.getElementById("btnEditEvol");
+            let formArtiB2 = document.getElementById('formArticulos')
+            let botonEdit = document.getElementById("btnEditArti");
 			botonEdit.addEventListener('click', () => {
                 funcLib.activaInput();                
-                   // cambioTextBotton('btnSaveEvol', 'Guardar', 'Actualizar'); //si es igual aguardar coloquele actualizar
+                   // cambioTextBotton('btnSaveArti', 'Guardar', 'Actualizar'); //si es igual aguardar coloquele actualizar
 
-                var btnGuardar = document.getElementById('btnSaveEvol');
+                var btnGuardar = document.getElementById('btnSaveArti');
                 btnGuardar.innerHTML = 'Actualizar'    
                 funcLib.accionUpdate()  //coloca en accion botones 'Actualizar'
 
                 var texto = document.getElementById("textB")
                 texto.innerHTML = 'EDITANDO REGISTRO DE CONTROL MEDICO'
-                document.getElementsByName('presBtnNewEvol')[0].value="N"                
-                document.getElementById('btnEditEvol').disabled = true;
-                document.getElementById('btnNewEvol').disabled = true;                
-				document.getElementById('btnDeleteEvol').disabled = true;
-                document.getElementById('btnSearchEvol').disabled = true;
+                document.getElementsByName('presBtnNewArti')[0].value="N"                
+                document.getElementById('btnEditArti').disabled = true;
+                document.getElementById('btnNewArti').disabled = true;                
+				document.getElementById('btnDeleteArti').disabled = true;
+                document.getElementById('btnSearchArti').disabled = true;
                 botonNew.disabled = true;
-                document.getElementById('btnCancelEvol').disabled = false;
-                document.getElementById('btnSaveEvol').disabled = false;
+                document.getElementById('btnCancelArti').disabled = false;
+                document.getElementById('btnSaveArti').disabled = false;
                
-                document.getElementById('fecha').focus()
                 var attrAccion4 = $("#accionBotones").attr("accion");
-                document.getElementById('fecha').focus()
+                document.getElementById('referencia').focus()
                 // alert(attrAccion4)    
 				return true
 			})
@@ -534,34 +513,34 @@
 			/*****************************************************
 				Limpia los campos al presionar el boton nuevo
 			********************************************************/
-			let botonNew = document.getElementById("btnNewEvol");
+			let botonNew = document.getElementById("btnNewArti");
 			botonNew.addEventListener('click', () => {
                 var attrAccion3 = $("#accionBotones").attr("accion");
                 // alert(attrAccion3)
                 funcLib.activaInput();                
 				
-                        //  cambioTextBotton('btnSaveEvol', 'Actualizar', 'Guardar')
-                var btnGuardar = document.getElementById('btnSaveEvol');
+                        //  cambioTextBotton('btnSaveArti', 'Actualizar', 'Guardar')
+                var btnGuardar = document.getElementById('btnSaveArti');
                 btnGuardar.innerHTML = 'Guardar'                           
              
                 funcLib.clearElements()	//Limpia los elementos
 				funcLib.accionSaveNew() //Cambia el nombre a los bonotes
                 
                 let texto2 = document.getElementById('textB')
-                texto2.innerHTML = 'NUEVO CONTROL DIARIO DE EVOLUCION MEDICA'
+                texto2.innerHTML = 'NUEVO CONTROL DIARIO DE ArtiUCION MEDICA'
 
-                document.getElementsByName('presBtnNewEvol')[0].value="S"                
+                document.getElementsByName('presBtnNewArti')[0].value="S"                
                 
-				document.getElementById('btnDeleteEvol').disabled = true;
-                document.getElementById('btnEditEvol').disabled = true;
-                document.getElementById('btnNewEvol').disabled = true;
-                document.getElementById('btnSearchEvol').disabled = true;
+				document.getElementById('btnDeleteArti').disabled = true;
+                document.getElementById('btnEditArti').disabled = true;
+                document.getElementById('btnNewArti').disabled = true;
+                document.getElementById('btnSearchArti').disabled = true;
                 botonNew.disabled = true;
-                document.getElementById('btnCancelEvol').disabled = false;
-                document.getElementById('btnSaveEvol').disabled = false;
+                document.getElementById('btnCancelArti').disabled = false;
+                document.getElementById('btnSaveArti').disabled = false;
                 
-                formEvolB2.reset()
-                document.getElementById('fecha').focus()
+                formArtiB2.reset()
+                document.getElementById('referencia').focus()
                 
 				return true
 			})
@@ -571,47 +550,49 @@
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
     window.addEventListener('load', () => {
-                    
-        selectorGuardar = document.querySelector('#btnSaveEvol')
-        const formEvolQ = document.querySelector('#formEvolDiaria');
-        formEvolQ.addEventListener("submit", (e) => {
+         
+        selectorGuardar = document.querySelector('#btnSaveArti')
+        const formArtiQ = document.querySelector('#formArticulos');
+
+        formArtiQ.addEventListener("submit", (e) => {
             e.preventDefault();
+
                     let validaOk ="Ok";
 
                     validaOk = funcLib.validarCampos2()
                     var attrAccion2 = $("#accionBotones").attr("accion");
-                    let data = new FormData(formEvolQ)
+                    let data = new FormData(formArtiQ)
                     let valuesDat = [...data.entries()];
-                    console.log(valuesDat);
-                    // return false;
+                    // console.log(valuesDat);
+                    // return false
                 if (validaOk === '') {
                     // console.log(values)                   
                     if (attrAccion2 === 'Guardar') {
-                        const clienteEvolMedica = async () => {
-                            await axios.post("{{URL::to('/insert-cliente-Evol')}}",data,{
+                        const clienteArtiMedica = async () => {
+                            await axios.post("{{URL::to('/invArticulosStore')}}",data,{
 
                             }).then((resp) => {
                                     console.log(resp.data)
 
                                 // console.log(response.data['message'])
-                                document.getElementById('btnDeleteEvol').disabled = true;
-                                document.getElementById('btnNewEvol').disabled = false;
-                                document.getElementById('btnCancelEvol').disabled = true;
-                                document.getElementById('btnEditEvol').disabled = true;                                 
-                                document.getElementById('btnSearchEvol').disabled = false;
-                                document.getElementById('btnSaveEvol').disabled = true;
+                                document.getElementById('btnDeleteArti').disabled = true;
+                                document.getElementById('btnNewArti').disabled = false;
+                                document.getElementById('btnCancelArti').disabled = true;
+                                document.getElementById('btnEditArti').disabled = true;                                 
+                                document.getElementById('btnSearchArti').disabled = false;
+                                document.getElementById('btnSaveArti').disabled = true;
 
                                 /*Cuando se busca un registro se cambial atributo del input hidden*/
                                 let newNom88 = document.getElementById('accionBotones')
                                 newNom88.setAttribute('accion', "Guardar");
 
-                                var btnGuardar10 = document.getElementById('btnSaveEvol');
+                                var btnGuardar10 = document.getElementById('btnSaveArti');
                                 btnGuardar10.innerHTML = 'Guardar'
                                 funcLib.desactivaInput();
 
-                                document.getElementById('textB').innerHTML = 'CONTROL DIARIO DE EVOLUCIÓN MÉDICA'                                
+                                document.getElementById('textB').innerHTML = 'CONTROL DIARIO DE ArtiUCIÓN MÉDICA'                                
                                 funcLib.clearElements()	                                
-                                formEvolQ.reset()                                       
+                                formArtiQ.reset()                                       
 
                                 Swal.fire({
                                     icon: 'success',
@@ -622,7 +603,7 @@
                                 // console.log(resp.data)
 
                                 funcLib.clearElements()	                                
-                                formEvolQ.reset()
+                                formArtiQ.reset()
                                 funcLib.desactivaInput();                                
                             }).catch(function(error) {
                                 Swal.fire({
@@ -635,35 +616,34 @@
                                 console.log(error);
                             })
                         }
-                        clienteEvolMedica()
+                        clienteArtiMedica()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-                        let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
+                        let idArtiMed = document.getElementsByName('idArtiAnular')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
-                                "{{ URL::to('/clienteUpdateEvol') }}",
+                                "{{ URL::to('/clienteUpdateArti') }}",
                                 data, {
 
                                 }).then((response) => {
 
                                 console.log(response.data['message'])
-
-                                document.getElementById('btnDeleteEvol').disabled = true;
-                                document.getElementById('btnNewEvol').disabled = false;
-                                document.getElementById('btnCancelEvol').disabled = true;
-                                document.getElementById('btnSearchEvol').disabled = false;
-                                document.getElementById('btnSaveEvol').disabled = true;
+                                document.getElementById('btnDeleteArti').disabled = true;
+                                document.getElementById('btnNewArti').disabled = false;
+                                document.getElementById('btnCancelArti').disabled = true;
+                                document.getElementById('btnSearchArti').disabled = false;
+                                document.getElementById('btnSaveArti').disabled = true;
 
                                 /*Cuando se busca un registro se cambial atributo del input hidden*/
                                 let newNom88 = document.getElementById('accionBotones')
                                 newNom88.setAttribute('accion', "Guardar");
 
-                                var btnGuardar2 = document.getElementById('btnSaveEvol');
+                                var btnGuardar2 = document.getElementById('btnSaveArti');
                                 btnGuardar2.innerHTML = 'Guardar'
                                 funcLib.desactivaInput();
 
-                                document.getElementById('textB').innerHTML = 'CONTROL DIARIO DE EVOLUCION MEDICA'                                
+                                document.getElementById('textB').innerHTML = 'CONTROL DIARIO DE ArtiUCION MEDICA'                                
                                 funcLib.clearElements()	                                
-                                formEvolQ.reset()                                    
+                                formArtiQ.reset()                                    
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'PERFECTO',
@@ -697,7 +677,7 @@
 
         // setInterval(function() { 
         //     let espanol = idioma()
-        //     let table4 = $('#tablaClientesEvol').DataTable({
+        //     let table4 = $('#tablaClientesArti').DataTable({
         //             responsive: true,
         //             scroll: true,
         //             scrollCollapse: true,
@@ -759,7 +739,7 @@
     /*****************************************************
 	                Anular Registro
 	********************************************************/
-    let botonAnula = document.getElementById("btnDeleteEvol");
+    let botonAnula = document.getElementById("btnDeleteArti");
     botonAnula.addEventListener('click', () => {
 			/******************************
 			 ELIMINAR REGISTRO 
@@ -775,37 +755,37 @@
 			 cancelButtonText: 'Cancelar'
 			}).then((result) => {
 				if (result.isConfirmed) {
-					const formEvolQE = document.querySelector('#formEvolDiaria');
-					let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
+					const formArtiQE = document.querySelector('#formArticulos');
+					let idArtiAnu = document.getElementsByName('idArtiAnular')[0].value
 					let data = new FormData()
-					data.append("idEvolucion",idEvolMed);
+					data.append("idArtiAnular",idArtiAnu);
 					let valuesDatE = [...data.entries()];
 					console.log(valuesDatE);	
 
 					const anulaReg = async () => {  
 
 						await axios.post(
-							"{{ URL::To('/anula-CtrlMed') }}",data, {
+							"{{ URL::To('/anulaArticulo') }}",data, {
 							}).then((response) => {
 					
                                 if(response.data['message'] == "Success"){  
-                                    document.getElementById('btnDeleteEvol').disabled = true;
-                                    document.getElementById('btnNewEvol').disabled = false;
-                                    document.getElementById('btnCancelEvol').disabled = true;
-                                    document.getElementById('btnSearchEvol').disabled = false;
-                                    document.getElementById('btnSaveEvol').disabled = true;
-                                    document.getElementById('btnEditEvol').disabled = true;  
+                                    document.getElementById('btnDeleteArti').disabled = true;
+                                    document.getElementById('btnNewArti').disabled = false;
+                                    document.getElementById('btnCancelArti').disabled = true;
+                                    document.getElementById('btnSearchArti').disabled = false;
+                                    document.getElementById('btnSaveArti').disabled = true;
+                                    document.getElementById('btnEditArti').disabled = true;  
                             
                                     let newNom88 = document.getElementById('accionBotones')
                                     newNom88.setAttribute('accion', "Guardar");
                             
-                                    var btnGuardar2 = document.getElementById('btnSaveEvol');
+                                    var btnGuardar2 = document.getElementById('btnSaveArti');
                                     btnGuardar2.innerHTML = 'Guardar'
                                     funcLib.desactivaInput();
                             
-                                    document.getElementById('textB').innerHTML = 'ANULACION DE EVOLUCION MEDICA'                                
+                                    document.getElementById('textB').innerHTML = 'ANULACION DE ArtiUCION MEDICA'                                
                                     funcLib.clearElements()	                                
-                                    formEvolQ.reset()                                    
+                                    formArtiQ.reset()                                    
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'PERFECTO',
@@ -828,7 +808,7 @@
 				}
 			}) 									
 
-                formEvolQ.reset()            
+                formArtiQ.reset()            
             })  
     return true
     })
@@ -836,20 +816,20 @@
 	Limpia los campos al presionar el boton cancelar
 	********************************************************/
     window.addEventListener('load', () => {
-            let formAnula = document.getElementById('formEvolDiaria')
-			let botonCancel = document.getElementById("btnCancelEvol");
+            let formAnula = document.getElementById('formArticulos')
+			let botonCancel = document.getElementById("btnCancelArti");
 			botonCancel.addEventListener('click', () => {
                 
-                cambioTextBotton('btnSaveEvol', 'Actualizar', 'Guardar')
+                cambioTextBotton('btnSaveArti', 'Actualizar', 'Guardar')
                 funcLib.clearElements()	
                 funcLib.desactivaInput();
 
-				document.getElementById('btnDeleteEvol').disabled = true;
-                document.getElementById('btnEditEvol').disabled = true;
-                document.getElementById('btnSearchEvol').disabled = false;
+				document.getElementById('btnDeleteArti').disabled = true;
+                document.getElementById('btnEditArti').disabled = true;
+                document.getElementById('btnSearchArti').disabled = false;
                 botonCancel.disabled = true;
-                document.getElementById('btnNewEvol').disabled = false;
-                document.getElementById('btnSaveEvol').disabled = true; 
+                document.getElementById('btnNewArti').disabled = false;
+                document.getElementById('btnSaveArti').disabled = true; 
                 let texto4 = document.getElementById('textB')
                 texto4.innerHTML = 'CONTROL DE CITAS MEDICAS'                
 
@@ -864,7 +844,7 @@
     function nobackbutton()
     {
             window.addEventListener('load', ()=>{
-                let vlrNewButton2 = document.getElementsByName('presBtnNewEvol')[0].value
+                let vlrNewButton2 = document.getElementsByName('presBtnNewArti')[0].value
                 // alert(vlrNewButton2)
                 if(vlrNewButton2 == 'N'){
                     window.location.hash="no-back-button";
@@ -877,7 +857,7 @@
      }    
     function evitaCierreFormulario() {
         window.addEventListener('load', () => {
-            let vlrNewButton = document.getElementsByName('presBtnNewEvol')[0].value;
+            let vlrNewButton = document.getElementsByName('presBtnNewArti')[0].value;
             // alert(vlrNewButton)
             if(vlrNewButton == 'N'){
                 window.addEventListener("beforeunload", (evento) => {

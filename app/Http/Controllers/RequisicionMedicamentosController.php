@@ -22,14 +22,6 @@ class RequisicionMedicamentosController extends Controller
      */
     public function index()
     {
-        // $requisicionesMedic = DB::table('requisicion_medicamento')
-        // ->join('cliente_datosbasicos', 'requisicion_medicamento.datosbasicos_id','=','cliente_datosbasicos.id')
-        // ->join('inv_articulos', 'requisicion_medicamento.articulos_id ','=','inv_articulos.id')
-        // ->join('empleados', 'requisicion_medicamento.empleado_id','=','empleados.id')
-        // ->join('inv_unimedidas', 'requisicion_medicamento.unimedidas_id','=','inv_unimedidas.id')
-        // ->select('cliente_datosbasicos.id','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos',
-        // 'inv_articulo.id','inv_articulo.descripcion', 'empleados.id','empleados.nombre','empleados.apellidos',
-        // 'inv_unimedidas.id', 'inv_unimedidas.descripcion')->get(); 
 
         $requi_datosbasicos = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos','edad', 'ult_fecha_requisicion')
@@ -55,9 +47,23 @@ class RequisicionMedicamentosController extends Controller
         $requi_consecutivos = ConsecutivosModel::where('codigo','=','0001')->get(); //Este es el codigo para el consecutivo de las requisiciones 
         // return $requi_consecutivos;
 
-       return view('backend.inventario.requisicion_create', compact('requi_articulos','requi_unimedida','requi_empleados','requi_dtobasico','rqui_ccosto','requi_consecutivos'));
-        
+        $requisicionesMedic = DB::table('requisicion_medicamento')->where('requisicion_medicamento.datosbasicos_id','=', $idUserBasico)
+        ->join('cliente_datosbasicos', 'requisicion_medicamento.datosbasicos_id','=','cliente_datosbasicos.id')
+        ->join('inv_articulos', 'requisicion_medicamento.articulos_id','=','inv_articulos.id')
+        ->join('empleados', 'requisicion_medicamento.empleados_id','=','empleados.id')
+        ->join('inv_unimedidas', 'requisicion_medicamento.unimedidas_id','=','inv_unimedidas.id')
+        ->select('requisicion_medicamento.fecha_requisicion', 'requisicion_medicamento.consecutivo',
+        'requisicion_medicamento.articulos_id', 'inv_articulos.descripcion AS medicamento',
+        'requisicion_medicamento.cantidad', 'requisicion_medicamento.unimedidas_id',
+        'inv_unimedidas.descripcion as descrip_medidas',
+        'requisicion_medicamento.empleados_id', DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as entregador'),
+        'requisicion_medicamento.datosbasicos_id', DB::raw('CONCAT(cliente_datosbasicos.nombre," ",cliente_datosbasicos.apellidos) as usuario'),
+        'inv_unimedidas.descripcion AS unimedidas', 'cliente_datosbasicos.apellidos')->get(); 
 
+        // return $requisicionesMedic;
+        return view('backend.inventario.requisicion_create', compact('requi_articulos','requi_unimedida','requi_empleados','requi_dtobasico','rqui_ccosto','requi_consecutivos','requisicionesMedic'));
+        
+       
     }
 
     /**
@@ -69,27 +75,40 @@ class RequisicionMedicamentosController extends Controller
     public function store(Request $request)
     {
         try {
-            DB::beginTransaction();        
+            DB::beginTransaction(); 
+              
                 $idDtBasicoRq =  Cliente_datosbasico::find($request->datosbasicos_id);
                 $idDtBasicoRq->ult_fecha_requisicion = $request->fecha_requisicion;
                 $idDtBasicoRq->save();
 
-                $newConse = $request->consecutivo+1;
                 $idDtBasicoConse =  ConsecutivosModel::find($request->codigo_conse);
-                $idDtBasicoConse->consecutivo = $newConse;
+                $idDtBasicoConse->consecutivo = $request->consecutivo;
                 $idDtBasicoConse->save();                
                 
-                // $clienteEvolMedic = EvolucionDiariaModel::create($request->all()); 
+                $requi_storeReg = RequisicionMedicamentodsModel::create($request->all()); 
                 
             DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json(['message' => 'Error']);
             }
-            return $clienteEvolMedic;  
-            // return $clienteServi2;  
-            return response()->json(['message' => 'Success']);
-    
+            // return response()->json(['message' => 'Success']);
+            // return $requi_storeReg->id;
+            $requisicionesBrows = DB::table('requisicion_medicamento')->where('requisicion_medicamento.id','=', $requi_storeReg->id)
+            ->join('cliente_datosbasicos', 'requisicion_medicamento.datosbasicos_id','=','cliente_datosbasicos.id')
+            ->join('inv_articulos', 'requisicion_medicamento.articulos_id','=','inv_articulos.id')
+            ->join('empleados', 'requisicion_medicamento.empleados_id','=','empleados.id')
+            ->join('inv_unimedidas', 'requisicion_medicamento.unimedidas_id','=','inv_unimedidas.id')
+            ->select('requisicion_medicamento.fecha_requisicion', 'requisicion_medicamento.consecutivo',
+            'requisicion_medicamento.articulos_id', 'inv_articulos.descripcion AS medicamento',
+            'requisicion_medicamento.cantidad', 'requisicion_medicamento.unimedidas_id',
+            'inv_unimedidas.descripcion as descrip_medidas',
+            'requisicion_medicamento.empleados_id', DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as entregador'),
+            'requisicion_medicamento.datosbasicos_id', DB::raw('CONCAT(cliente_datosbasicos.nombre," ",cliente_datosbasicos.apellidos) as usuario'),
+            'inv_unimedidas.descripcion AS unimedidas', 'cliente_datosbasicos.apellidos','requisicion_medicamento.id',
+            'requisicion_medicamento.ccosto_id', 'requisicion_medicamento.fecha_vencimiento',
+            'requisicion_medicamento.existencia_hasta', 'requisicion_medicamento.lote')->get(); 
+            return $requisicionesBrows;  
     }
 
     /**

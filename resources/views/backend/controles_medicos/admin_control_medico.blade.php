@@ -29,7 +29,7 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="adminClientes" class="table table-bordered table-striped bg-success" style="width: 100%">
+                <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
                     <thead>
                     <tr>
                       <th class="text-center">#</th> 

@@ -79,6 +79,11 @@ Route::post('/clienteCli', [App\Http\Controllers\backend\ClientesDatosBasicosCon
 Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'update'])->name('ClienteUpdateCli');
 Route::post('/clienteBasicoEiminar/{idcliente}',[App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'destroy'])->name('ClienteDeleteCli');
 
+//*********************************************************************
+//      EMPLEADOS                                                *
+//*********************************************************************/
+Route::get('/empledadosIndex', [App\Http\Controllers\EmpleadosController::class, 'index'])->name('EmpleadosIndex');
+
 //*DATOS ADICIONALES
 Route::get('/browsPais', [App\Http\Controllers\PaisController::class, 'index'])->name('BrowsPais');
 Route::post('/browsDpto', [App\Http\Controllers\DepartamentosController::class, 'index'])->name('BrowsDpto');
@@ -124,10 +129,19 @@ Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::c
 //          ARTICULOS
 // Route::get('/admin-evolucion-diaria', [App\Http\Controllers\EvolucionDiariaController::class, 'index'])->name('AdminEvolucionDiaria');
 Route::get('/inv_articulos', [App\Http\Controllers\InvArticulosController::class, 'create'])->name('InvArticuloCreate');
-// Route::post('/insert-cliente-Evol', [App\Http\Controllers\EvolucionDiariaController::class, 'store'])->name('InsertClienteEvol');
-// Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
+Route::post('/invArticulosStore', [App\Http\Controllers\InvArticulosController::class, 'store'])->name('invArticulosStore');
+Route::get('/buscarArticulos_show', [App\Http\Controllers\InvArticulosController::class, 'show'])->name('BuscarArticulosShow');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
-// Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
+Route::post('/anulaArticulo', [App\Http\Controllers\InvArticulosController::class, 'destroy'])->name('anulaControlMedico');
+
+//  REQUISICIONES DE MEDICAMENTOS (CONTROLES MEDICOS)        *
+//************************************************************/
+Route::get('/admin_RequiMedicamento_user', [App\Http\Controllers\RequisicionMedicamentosController::class, 'index'])->name('RequisicionIndex|');
+Route::get('/requisicion_create/{idUserRequi}', [App\Http\Controllers\RequisicionMedicamentosController::class, 'create'])->name('RequisicionCreate');
+Route::post('/requisicion_store', [App\Http\Controllers\RequisicionMedicamentosController::class, 'store'])->name('RequisicionStore');
+Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
+
+
 
 //*********************************************************************
 //                               CONTROLES MEDICOS              *
@@ -135,20 +149,24 @@ Route::get('/inv_articulos', [App\Http\Controllers\InvArticulosController::class
 //          ADMINISTRACION DE MEDICAMENTOS
 Route::get('/admin_medicamento_user', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoUser');
 Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
- Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
+Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
 // Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
 // Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
 
-//  REQUISICIONES DE MEDICAMENTOS (CONTROLES MEDICOS)        *
-//************************************************************/
-Route::get('/admin_RequiMedicamento_user', [App\Http\Controllers\RequisicionMedicamentosController::class, 'index'])->name('RequisicionIndex|');
-Route::get('/requisicion_create/{idUserRequi}', [App\Http\Controllers\RequisicionMedicamentosController::class, 'create'])->name('RequisicionCreate');
-Route::post('/requisicion_store', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('RequisicionStore');
-// Route::post('/requisicion_store', [App\Http\Controllers\RequisicionMedicamentosControllerr::class, 'store'])->name('RequisicionStore');
+//*********************************************************************
+//                               CONTABILIDAD                         *
+//*********************************************************************/
+//          CONSECUTIVO de documentos
+Route::post('/busca_consecutivo', [App\Http\Controllers\ConsecutivosController::class, 'buscaConsecutivo'])->name('BuscaConsecutivo');
+// Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
+// Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
 // Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
 // Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
+
+
+
 
 
 // Route::get('/inv_articulos_create', function() {

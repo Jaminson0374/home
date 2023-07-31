@@ -22,8 +22,6 @@
     
   {{-- <link rel='stylesheet' href="{{asset('backend/dist/css/font-awesome.min.css')}}"> --}}
 
-
-  
   <!-- dropzonejs -->
  <link rel="stylesheet" href="{{asset('backend/plugins/dropzone/min/dropzone.min.css')}}">
   <!-- Theme style -->
@@ -36,16 +34,19 @@
   <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}">
   <link rel="stylesheet" href="{{asset('sweetalert2/sweetalert2.min.css')}}">
 
+  <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.css') }}">
+
    <!-- DataTables -->
-   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+   {{-- <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"> --}}
   
     <!-- Plugin de DataTable Externa -->
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
    <!--    Datatables  -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>  
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>   --}}
  
 </head>
 <!-- dark-mode -->
@@ -111,7 +112,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+{{-- <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
@@ -122,8 +123,12 @@
 <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> --}}
 
+<script src="{{ asset('/backend/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/popper.min.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.js') }}"></script>
 
 <script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
 
@@ -150,97 +155,119 @@
 {{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --}}
+
+<!--Moment  fechas -->
+<script src="{{asset('backend/plugins/moment/moment.min.js')}}"></script>
+
 <!--    Datatables-->
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+
+{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>   --}}
 
 {{-- <script src="{{asset('../resources/js/funciones.js')}}"></script> --}}
 
 
 <script>
 
-    @if(Session::has('messege'))
+    // @if(Session::has('messege'))
 
-        var type="{{Session::get('alert-type','info')}}"
+    //     var type="{{Session::get('alert-type','info')}}"
 
-        switch(type){
-            case 'info':
-                toastr.info("{{Session::get('messege')}}");
-                break;
-                case 'success':
-                toastr.success("{{Session::get('messege')}}");
-                break;
-                case 'warning':
-                toastr.warning("{{Session::get('messege')}}");
-                break;
-                case 'error':
-                toastr.error("{{Session::get('messege')}}");
-                break;
-        }
-    @endif
+    //     switch(type){
+    //         case 'info':
+    //             toastr.info("{{Session::get('messege')}}");
+    //             break;
+    //             case 'success':
+    //             toastr.success("{{Session::get('messege')}}");
+    //             break;
+    //             case 'warning':
+    //             toastr.warning("{{Session::get('messege')}}");
+    //             break;
+    //             case 'error':
+    //             toastr.error("{{Session::get('messege')}}");
+    //             break;
+    //     }
+    // @endif
     </script>
 
 <script>
-$(document).on("click", "#delete", function(e){
-    e.preventDefault();
-    var link = $(this).attr("href");
-    Swal.fire({
-        title: "Está seguro de eliminar el registro?",
-        text: "Una vez eliminado, no podrá recuperarlo",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Eliminarlo!'
-    })
-    .then((result) =>{
-        if (result.isConfirmed){
+// $(document).on("click", "#delete", function(e){
+//     e.preventDefault();
+//     var link = $(this).attr("href");
+//     Swal.fire({
+//         title: "Está seguro de eliminar el registro?",
+//         text: "Una vez eliminado, no podrá recuperarlo",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Si, Eliminarlo!'
+//     })
+//     .then((result) =>{
+//         if (result.isConfirmed){
 
-            // Swal.fire('Eliminado!',
-            // 'El registro ha sido eliminado.',
-            // 'success');
-            window.location.href = link;
-        }else{
-            Swal.fire('Cancelado!',
-            'Se canceló la Eliminación.',
-            'warning');
-        }
+//             // Swal.fire('Eliminado!',
+//             // 'El registro ha sido eliminado.',
+//             // 'success');
+//             window.location.href = link;
+//         }else{
+//             Swal.fire('Cancelado!',
+//             'Se canceló la Eliminación.',
+//             'warning');
+//         }
 
-    });
-});
+//     });
+// });
 
 </script>
 <!-- fin de Toastr -->
 
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+  // $(function () {
+    $("#adminClientes").DataTable({
+      "responsive": true,  "paging": true, "sPaginationType" : "full_numbers",
+      "iDisplayLength" : 25, "lengthChange": false, "autoWidth": false, "sScrollY" : "400px",
+      "sScrollX" : "400px", "pagine": true, "info": true,"ordering": true,"bScrollCollapse" : true
+     })
+
+     $("#example1").DataTable({
+      "responsive": true, "paging": true, "lengthChange": false, "autoWidth": false,
+      "sScrollY" : "400px","sScrollX" : "400px","bScrollCollapse" : true,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#example1.col-md-6:eq(0)');
+
+      
+    // );
+    // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    // .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)'
     $('#example2').DataTable({
       "paging": true,
+      "sScrollY" : "400px",
+      "sScrollX" : "400px",
+      "bScrollCollapse" : true,
+      "bAutoWidth" : true,
       "lengthChange": false,
       "searching": false,
       "ordering": true,
       "info": true,
       "autoWidth": false,
       "responsive": true,
-    });
   });
 
 
-  $(document).on("click", "#btnsalir_edit", function(e){
-    e.preventDefault();
-    var link2 = $(this).attr("href");
-    window.location.href = link2
-});
 
-$(document).on("click", "#btnsalir_new", function(e){
-    e.preventDefault();
-    var link2 = $(this).attr("href");
-    window.location.href = link2
-});
+
+//   $(document).on("click", "#btnsalir_edit", function(e){
+//     e.preventDefault();
+//     var link2 = $(this).attr("href");
+//     window.location.href = link2
+// });
+
+// $(document).on("click", "#btnsalir_new", function(e){
+//     e.preventDefault();
+//     var link2 = $(this).attr("href");
+//     window.location.href = link2
+// });
 
 $("input[data-bootstrap-switch]").each(function(){
     $(this).bootstrapSwitch('state', $(this).prop('checked'));
@@ -255,8 +282,6 @@ $("input[data-bootstrap-switch]").each(function(){
       theme: 'bootstrap4'
     })
   })
-
-
 </script>
 <!-- <script src="{{asset('toastr/toaster.js')}}"></script> -->
 

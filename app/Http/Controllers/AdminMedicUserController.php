@@ -52,12 +52,11 @@ class AdminMedicUserController extends Controller
         try {
             DB::beginTransaction();        
             $idDtBasico =  Cliente_datosbasico::find($request->datosbasicos_id);
-            $idDtBasico->ult_fecha_evo = $request->fecha;
-            $idDtBasico->ult_hora_evo = $request->hora;
-            $idDtBasico->ult_evolucion = $request->diagfinal_sv;
+            $idDtBasico->ult_fecha_admin_med = $request->fecha;
+            $idDtBasico->ult_hora_admin_med  = $request->hora;
             $idDtBasico->save();
             
-            $requi_save = RequisicionMedicamentodsModel::create($request->all()); 
+            $AdminMedicamentos = AdminMedicUserModel::create($request->all()); 
 
             DB::commit();
             } catch (\Exception $e) {

@@ -9,13 +9,14 @@ class AdminRequisicion {
 		 let _fecha_requisicion = document.getElementsByName('fecha_requisicion')[0].value
 		 let _empleados_id = document.getElementsByName('empleados_id')[0].value
 		 let _articulos_id = document.getElementsByName('articulos_id')[0].value
-		 let _remision = document.getElementsByName('remsion')[0].value
+		 let _remision = document.getElementsByName('remision')[0].value
 		 let _cantidad = document.getElementsByName('cantidad')[0].value
 		 let _unimedidas_id = document.getElementsByName('unimedidas_id')[0].value
 		 let _existencia_hasta = document.getElementsByName('existencia_hasta')[0].value
 		 let _fecha_vencimiento = document.getElementsByName('fecha_vencimiento')[0].value
-		 let _lote = document.getElementsByName('lote')[0].value		 
-		 let _consecutivo = document.getElementsByName('consecutivo')[0].value
+		 let _ccosto_id = document.getElementsByName('ccosto_id')[0].value	
+		 let _lote = document.getElementsByName('lote')[0].value	 
+		//  let _consecutivo_r = document.getElementsByName('consecutivo_r')[0].value
 
 
 		 // let datosbasicos_id = document.getElementsByName('datosbasicos_id')[0].value;
@@ -60,6 +61,10 @@ class AdminRequisicion {
 				campoText ="Digite el número del LOTE"
 				 document.getElementById('lote').focus()
 				 break;
+			case  _ccosto_id:
+				campoText ="Seleccione el C.COSTO de donde proviene la mercancia"
+				document.getElementById('ccosto_id').focus()
+				break;				 
 		}
 		return campoText;
 
@@ -162,9 +167,9 @@ class AdminRequisicion {
 	}
 	
 	clearElements(){
-		document.getElementsByName("fecha_inicio")[0].value = Date();
-		document.getElementsByName("hora_administracion")[0].value = '00:00:00';
-
+		document.getElementsByName("fecha_requisicion")[0].value = Date();
+		document.getElementsByName("fecha_vencimiento")[0].value = Date();
+		
 		$("#empleados_id").val(" ").trigger('change.select2');
 		$("#articulos_id").val(" ").trigger('change.select2');
 		$("#unimedidas_id").val(" ").trigger('change.select2');
@@ -176,10 +181,11 @@ class AdminRequisicion {
 		document.getElementById('fecha_requisicion').disabled = true;
 		document.getElementById('empleados_id').disabled = true;
 		document.getElementById('articulos_id').disabled = true;
-		document.getElementById('remsion').disabled = true;
+		document.getElementById('remision').disabled = true;
 		document.getElementById('cantidad').disabled = true;
 		document.getElementById('unimedidas_id').disabled = true;
 		document.getElementById('existencia_hasta').disabled = true;
+		document.getElementById('ccosto_id').disabled = true;
 		document.getElementById('fecha_vencimiento').disabled = true;
 		document.getElementById('lote').disabled = true;		 
 
@@ -189,12 +195,13 @@ class AdminRequisicion {
 		document.getElementById('fecha_requisicion').disabled = false;
 		document.getElementById('empleados_id').disabled = false;
 		document.getElementById('articulos_id').disabled = false;
-		document.getElementById('remsion').disabled = false;
+		document.getElementById('remision').disabled = false;
 		document.getElementById('cantidad').disabled = false;
 		document.getElementById('unimedidas_id').disabled = false;
 		document.getElementById('existencia_hasta').disabled = false;
+		document.getElementById('ccosto_id').disabled = false;
 		document.getElementById('fecha_vencimiento').disabled = false;
-		document.getElementById('lote').disabled = false;		 
+		document.getElementById('lote').disabled = false;		 		 
 	}
 
 	tablaRequisicion(){

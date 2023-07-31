@@ -31,21 +31,23 @@
                                     <div class="card card-primary">
                                         {{-- card-header --}}
                                         <div class="border border-dark border-4 pt-2 rounded bg-primary">
-                                            <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">REQUISICIÓN DE MEDICAMENTOS</h3>
-                                            
-                                            <h3 class="card-title float-right" style="font-weight: 900; font-size: 1em;">
-                                                USUARIO/CLIENTE --- {{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos}}
+                                            <h3 id="textB" style="font-weight: 900; font-size: 1.3em;" class="card-title">REQUISICIÓN DE MEDICAMENTOS</h3>
+                                            {{-- $string[0]; --}}
+                                            <h3 class="card-title float-right font-weight-bold" style="font-size: 1.3em;">
+                                                 {{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos[0].'.'.' ->Consecutivo #:'}}
+                                                <input class="float-right font-weight-bold col-lg-2 col-sm-2 col-md-2" type="text" id="consecutivo" size="4" maxlength="4" name="consecutivo" readonly>
                                             </h3>
                                             <input type="hidden" id="datosbasicos_id" name="datosbasicos_id" value={{$datosRow->id}}>
-                                            <input type="hidden" id="idAdminMedica" name="idAdminMedica">
-                                            <input type="hidden" id="consecutiv_r" name="consecutiv_r">
-                                            <input type="hidden" id="codigo_conse" name="codigo_conse" value={{$consecu->id}}>
+                                            <input type="hidden" id="idRequiMedica" name="idRequiMedica">
+                                            <input type="hidden" id="consecutivo_id" name="consecutivo_id">
+                                            <input type="hidden" id="codigo_conse" name="codigo_conse">
 
                                             <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
                                         </div>
                                         <div class="card-body" style="background-color: hsla(176, 46%, 85%, 0.987)">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNewReq" id="presBtnNewReq" value="N">
+                                           
                                             <div class="row border border-primary">
                                                 
                                                 <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary pb-2">
@@ -125,7 +127,7 @@
                                                 <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary">
                                                         <label for="">C.Costo</label>
                                                         <select class="form-control" style="width: 100%;"
-                                                            name="ccostosd_id" id="ccostosd_id" focusNext tabindex="9" title="Selecciona el centro de costo de donde sale la mercancía">
+                                                            name="ccosto_id" id="ccosto_id" focusNext tabindex="9" title="Selecciona el centro de costo de donde sale la mercancía">
                                                             <option selected="selected" disable value=" ">Seleciona C.costo</option>
                                                             @foreach ($rqui_ccosto as $ccostoId)
                                                                 <option value={{$ccostoId->id}}>{{$ccostoId->descripcion}}
@@ -133,32 +135,46 @@
                                                             @endforeach
                                                         </select>                                                        
                                                 </div>                 
-                                            </div>  <!--cierre de row -->                                                                    
+                                            </div>  <!--cierre de row -->  
                                             <div class="row ">
                                                 <div class="col-lg-12 col-md-12 col-sm-2 borde bg-primary">
-                                                    <table id="adminClientes" class="table table-bordered table-striped bg-success" style="width: 100%">
+                                                    <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%; background-color: hsla(223, 94%, 55%, 0.987)" >
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
+                                                                {{-- <th>#</th> --}}
+                                                                <th>Fecha entrega</th>
                                                                 <th>Consecutivo</th>
-                                                                <th>Remisión</th>
-                                                                <th>Fecha</th>
                                                                 <th>Medicamento</th>
                                                                 <th>Cantidad</th>
+                                                                <th>Entregador</th>
+                                                                <th>Acciones</th>
+
                                                             </tr>
                                                         </thead>
-                                                            <tbody>
-
+                                                            <tbody tTablita>
+                                                                @foreach ($requisicionesMedic as $key=>$requiJoin )
+                                                                <tr>
+                                                                    {{-- <td>{{$key+1}}</td> --}}
+                                                                    <td>{{$requiJoin->fecha_requisicion}}</td>
+                                                                    <td>{{$requiJoin->consecutivo}}</td>
+                                                                    <td>{{$requiJoin->medicamento}}</td>
+                                                                    <td>{{$requiJoin->cantidad.' '.$requiJoin->descrip_medidas}}</td>
+                                                                    <td>{{$requiJoin->entregador}}</td>
+                                                                    <td>
+                                                                        <a href="{{URL::to('add-evolucion-diaria/'.$requiJoin->datosbasicos_id)}}" class ="btn btn-primary btn-xs" id="" title="Ingresar, modificar y/o consultar Evolución médica"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Evol Med</a>
+                                                                    </td>                                                                
+                                                                </tr>
+                                                                @endforeach
                                                             </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div>                                                                                                              
                                         </div>  <!-- Cierre carBody -->    
                                     </div> <!-- Cierre Card Car Primary --> 
                                 </div> <!-- cierre col 12--> 
 
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-                                <script src="{{ asset('../resources/views/backend/controles_medicos/controles_medic.js') }}"></script>
+                                <script src="{{ asset('../resources/views/backend/inventario/requisiciones_medicamento.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>   
  
                             </body>
@@ -192,7 +208,7 @@
                                             focusNext tabindex="22" disabled="true"><i class="fa fa-trash fa-lg"
                                                 style="color:#f30b0b;"></i> Anular </button>
 
-                                                <a href="{{ URL::to('/admin-evolucion-diaria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                <a href="{{ URL::to('/admin_RequiMedicamento_user') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>
@@ -227,15 +243,16 @@
                 <body>
                     <div class="modal-body">
                         <div class="card-body p-2 mb-0 bg-primary text-white">
-                            <table id="tablaClientesEvol" class="table table-bordered table-striped">
+                            <table id="kktablaRequisiciones" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Estado</th>
+                                        <th>#</th>
+                                        <th>Consecutivo</th>
+                                        <th>Fecha entrega</th>
+                                        <th>Medicamento</th>
+                                        <th>Cantidad</th>
+                                        <th>Entregador</th>
+                                        <th>CCosto</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -363,7 +380,8 @@ window.addEventListener('load', () => {
 //     prueba() 
 //     })
 // })  
-  
+
+
     //  nobackbutton()
     // saltarEnterFormulario()
     /*******************************************************
@@ -380,13 +398,13 @@ window.addEventListener('load', () => {
         funcLib.desactivaInput();  
         document.getElementById('btnEditReq').disabled = true;      
 
-        let bodyTablaClientesEvol = document.getElementById("bodyTabla");
+        let bodyTablaRequisiciones = document.getElementById("bodyTabla");
         let modalBuscarEvol = document.getElementById('modalBuscarEvol');
         let btnSearchReq = document.getElementById('btnSearchReq');
  
         btnSearchReq.addEventListener('click', () => {
-            if ($.fn.DataTable.isDataTable('#tablaClientesEvol')) { 
-                let jaminson = $('#tablaClientesEvol').DataTable();
+            if ($.fn.DataTable.isDataTable('#tablaRequisiciones')) { 
+                let jaminson = $('#tablaRequisiciones').DataTable();
                 // alert(jaminson)
                 const buscarClientes = function() {
                     $("#modalBuscarEvol").modal({
@@ -398,7 +416,7 @@ window.addEventListener('load', () => {
                     //     handle: ".modal-header"
                     // });
 
-                    let table = $('#tablaClientesEvol').DataTable({
+                    let table = $('#tablaRequisiciones').DataTable({
                         "columns": [],
                         "language": espanol,
                         "destroy": true
@@ -418,7 +436,7 @@ window.addEventListener('load', () => {
                     // $('#modalBuscarCita .modal-dialog').draggable({
                     //     handle: ".modal-header"
                     // });
-                let table = $('#tablaClientesEvol').DataTable({
+                let table = $('#tablaRequisiciones').DataTable({
                     responsive: true,
                     scroll: true,
                     scrollCollapse: true,
@@ -429,24 +447,25 @@ window.addEventListener('load', () => {
                         "dataSrc": ""
                     },
                     "columns": [{
-                            "data": "id"
+                            "data": "Fecha_requisicion"
                         },
                         {
-                            "data": "fecha"
+                            "data": "consecutivo"
                         },
                         {
-                            "data": "hora"
+                            "data": "medicamento"
                         },
                         {
-                            "data": "nombre"
+                            "data": "Cantidad"
                         },
                         {
-                            "data": "apellidos"
+                            "data": "descrip_medidas"
                         },
                         {
-                            "data": "descripcion"
+                            "data": "entregador"
                         },
                     ],
+             
                     columnDefs: [{
                             targets: 5,
                             visible: true
@@ -474,7 +493,7 @@ window.addEventListener('load', () => {
                 //  alert("datos actualizados");
                 //  table.ajax.reload();//Podrias colocarlo dentro del success o done para recargar la tabla 
                 
-                obtener_data_buscar("#tablaClientesEvol tbody", table)
+                obtener_data_buscar("#tablaRequisiciones tbody", table)
             }
             
             buscarClientes()
@@ -582,7 +601,27 @@ window.addEventListener('load', () => {
  
                 formEvolB2.reset()
                 document.getElementById('fecha_requisicion').focus()
-                
+                        
+                        let data = new FormData();
+                        data.append('codigo','0001')
+                        let pruebaConse = async () => {
+                            await axios.post("{{ URL::to('/busca_consecutivo') }}", data,{
+                                
+                            }).then((resp) => {
+                                let dataSelect = resp.data[0];
+                                document.getElementsByName('consecutivo')[0].value = dataSelect.consecutivo+1
+                                document.getElementsByName('codigo_conse')[0].value = dataSelect.codigo
+                                document.getElementsByName('consecutivo_id')[0].value = dataSelect.id
+                                console.log(dataSelect);
+                               
+                            }).catch(function(error) {
+                                alert(
+                                    'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
+                                )
+                                //console.log(error);
+                            })
+                        } 
+                            pruebaConse() 
 				return true
 			})
 			return true
@@ -591,7 +630,7 @@ window.addEventListener('load', () => {
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
     window.addEventListener('load', () => {
-                    
+        let bodyTabla = document.getElementById("tTabla");            
         selectorGuardar = document.querySelector('#btnSaveReq')
         const formRequi = document.querySelector('#formAdminRequisicion');
         formRequi.addEventListener("submit", (e) => {
@@ -608,12 +647,29 @@ window.addEventListener('load', () => {
                     // console.log(values)                   
                     if (attrAccion2 === 'Guardar') {
                         const AdminMedicaUser = async () => {
-                            await axios.post("{{URL::to('/requisicion_store')}}",data,{
-
+                          await axios.post("{{URL::to('/requisicion_store')}}",data,{
+        
                             }).then((resp) => {
-                                // console.log(resp.data)
-                                console.log(resp.data['message'])
-                                if(resp.data['message']=="Success"){
+                                //  console.log(resp.data)
+                                let dataSelect = resp.data;  
+                                console.log(dataSelect)                              
+                                    let tblDatos = document.getElementById("example1").insertRow(0);
+                                    let col0 = tblDatos.insertCell(0)
+                                    let col1 = tblDatos.insertCell(1)
+                                    let col2 = tblDatos.insertCell(2)
+                                    let col3 = tblDatos.insertCell(3)
+                                    let col4 = tblDatos.insertCell(4)
+                                    let col5 = tblDatos.insertCell(5)
+
+                                    col0.innerHTML=dataSelect[0].fecha_requisicion 
+                                    col1.innerHTML=dataSelect[0].consecutivo
+                                    col2.innerHTML=dataSelect[0].medicamento
+                                    col3.innerHTML=dataSelect[0].cantidad
+                                    col4.innerHTML=dataSelect[0].entregador
+                                    col5.innerHTML=`<a href="{{URL::to('/admin_RequiMedicamento_user')}}" class ="btn btn-primary btn-xs" id="" title="Ingresar, modificar y/o consultar Evolución médica"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Evol Med</a>`
+                                    
+                               // console.log(resp.data['message'])
+                                // if(resp.data['message']=="Success"){
                                     document.getElementById('btnDeleteReq').disabled = true;
                                     document.getElementById('btnNewReq').disabled = false;
                                     document.getElementById('btnCancelReq').disabled = true;
@@ -638,7 +694,7 @@ window.addEventListener('load', () => {
                                         text: 'El registro se GUARDÓ con exito',
                                         footer: ''
                                     })
-                                }else{
+                                }).catch(function(error) {   
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Error interno',
@@ -646,12 +702,11 @@ window.addEventListener('load', () => {
                                             '  ',
                                         footer: ''
                                     })                                    
-                                }
-                            })
+                                })
                         }
                         AdminMedicaUser()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-                        let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+                        let idEvolMed = document.getElementsByName('idRequiMedica')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
                                 "{{ URL::to('/clienteUpdateEvol') }}",
@@ -711,7 +766,7 @@ window.addEventListener('load', () => {
 
         // setInterval(function() { 
         //     let espanol = idioma()
-        //     let table4 = $('#tablaClientesEvol').DataTable({
+        //     let table4 = $('#tablaRequisiciones').DataTable({
         //             responsive: true,
         //             scroll: true,
         //             scrollCollapse: true,
@@ -790,7 +845,7 @@ window.addEventListener('load', () => {
 			}).then((result) => {
 				if (result.isConfirmed) {
 					const formRequiE = document.querySelector('#formAdminRequisicion');
-					let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+					let idEvolMed = document.getElementsByName('idRequiMedica')[0].value
 					let data = new FormData()
 					data.append("idEvolucion",idEvolMed);
 					let valuesDatE = [...data.entries()];

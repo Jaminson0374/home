@@ -65,7 +65,7 @@
               </li> 
  
               <li class="nav-item">
-                <a href="{{URL::to('/add-cliente-servicio')}}" class="nav-link">
+                <a href="{{URL::to('/admin-clientes')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Asignar Servicio</p>
                 </a>
@@ -200,9 +200,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{URL::to('/all-user')}}" class="nav-link">
+                <a href="{{URL::to('/empledadosIndex')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Administrar</p>
+                  <p>Empleados</p>
                 </a>
               </li>
 
