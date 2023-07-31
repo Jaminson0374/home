@@ -8,5 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class EmpleadosModell extends Model
 {
     protected $table = "empleados";
+    protected $guarded = [
+        'accionBotones',
+        '_token',
+        '_method',
+        'softDeletes', 
+		'accionBotones', 
+		'presBtnNewEmp',
+        'empleado_id',
+        'timestamps'
+    ];	    
     use HasFactory;
 }

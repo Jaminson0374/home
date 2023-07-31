@@ -13,6 +13,12 @@
         <div class="col-5">
           <b><h4 class="text-white bg-success">Administración General de Usuarios</h2></b>
         </div> 
+        @if ($sinRegistro)
+        <div class="col-2"></div>
+        <div class="col-2">   
+              <a class="btn btn-primary btn-md" href="{{URL::To('/empleadosCreate')}}" title="Crear usuario nuevo Empleado"><i class="fa fa-user-plus"></i>Nuevo Empleado</a>
+        </div>                                                 
+        @endif        
        </div>      
     <!-- Main content -->
     <section class="content">
@@ -45,7 +51,7 @@
                         <td>{{$row->cargo}}</td> 
                         <td>{{$row->sexo}}</td> 
                         <td>
-                            <a href="{{URL::to('/empleado_create/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Consultar, Agregar, o desactivar empleados"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Empleado</a>
+                            <a href="{{URL::to('/empleadosCreate')}}" class ="btn btn-primary btn-xs" id="" title="Consultar, Agregar, o desactivar empleados"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Empleado</a>
                         </td>
                     </tr>
                     @endforeach

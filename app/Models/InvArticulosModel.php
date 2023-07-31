@@ -22,7 +22,7 @@ class InvArticulosModel extends Model
         'softDeletes', 
         'timestamps',
         'presBtnNewArti',
-        'idArtiMedica'      
+        'idArtiAnular'      
     ];
     //Relacion de uno a muchos
     public Function Requi_medicamentos () {

@@ -83,6 +83,10 @@ Route::post('/clienteBasicoEiminar/{idcliente}',[App\Http\Controllers\backend\Cl
 //      EMPLEADOS                                                *
 //*********************************************************************/
 Route::get('/empledadosIndex', [App\Http\Controllers\EmpleadosController::class, 'index'])->name('EmpleadosIndex');
+Route::get('/empleadosCreate', [App\Http\Controllers\EmpleadosController::class, 'create'])->name('EmpleadosCreate');
+Route::post('/empleadoStore', [App\Http\Controllers\EmpleadosController::class, 'store'])->name('EmpleadoStore');
+Route::post('/empleadosUpdate', [App\Http\Controllers\EmpleadosController::class, 'update'])->name('EmpleadosUpdate');
+Route::get('/empleadosListaShow', [App\Http\Controllers\EmpleadosController::class, 'show'])->name('EmpleadosListaShow');
 
 //*DATOS ADICIONALES
 Route::get('/browsPais', [App\Http\Controllers\PaisController::class, 'index'])->name('BrowsPais');

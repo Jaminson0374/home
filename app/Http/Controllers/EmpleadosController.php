@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\backend\TipoDocumentoModell;
 use App\Models\EmpleadosModell;
+use App\Models\ProfesionesModell;
+use App\Models\Tipo_contratoModell;
 use App\Models\CiudadesModell;
 use App\Models\DepartamentosModell;
 use App\Models\GrpSangreModell;
 use App\Models\PaisModell;
 use App\Models\SexoModell;
 use App\Models\CargosModell;
+use App\Models\TipoDocumentoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EmpleadosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $empleadoIndex = DB::table('empleados')
@@ -28,79 +28,99 @@ class EmpleadosController extends Controller
         ->select('empleados.id',DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
         'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento', 'cargos.descripcion as cargo',
         'empleados.edad','empleados.telefonos','sexo.descripcion as sexo')->get();
+
+        $sinRegistro=true;
+        if($empleadoIndex){
+            $sinRegistro=true;
+        }else{
+            $sinRegistro=false;
+        }
+
         // return $empleadoIndex;
-        return view('backend.empleados.empleados_index',compact(['empleadoIndex']));
+        return view('backend.empleados.empleados_index',compact(['empleadoIndex','sinRegistro']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
             //lo traigo de datos basicos como apoyo
-           $tipoDocBasic = TipoDocumentoModell::all();     // se guarda la consulta en la bariable $tipodocBasic
-           $pais1 = PaisModell::all();
-           $departamento1 = DepartamentosModell::all();
-           $ciudad1 = CiudadesModell::all();
-           $genero1 = SexoModell::all();
-           $grupo_rh1 = GrpSangreModell::all();
-           return view('backend.clientes_datos_basicos.add_cliente_datobasico',['tipoDoc' => $tipoDocBasic, 'pais' => $pais1,
-           'departamento' => $departamento1,'ciudad' => $ciudad1, 'genero'=>$genero1, 'grupo_rh' => $grupo_rh1]);
+           $tipoDocu = TipoDocumentoModell::all();    
+           $pais = PaisModell::all();
+           $departamento = DepartamentosModell::all();
+           $ciudad = CiudadesModell::all();
+           $genero = SexoModell::all();
+           $grupo_rh= GrpSangreModell::all();
+           $cargos = CargosModell::all();
+           $profesionEmp = ProfesionesModell::all();
+           $tipoCargoEmp = Tipo_contratoModell::all();
+
+           return view('backend.empleados.empleados_create',Compact(['tipoDocu', 'pais', 
+           'departamento','ciudad','genero', 'grupo_rh','cargos','profesionEmp','tipoCargoEmp']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        // try {
+        //         DB::beginTransaction(); 
+                 
+                $empleadoSave = EmpleadosModell::create($request->all());
+                return $empleadoSave; 
+                
+                // DB::commit();
+                // } catch (\Exception $e) {
+                // DB::rollBack();
+                // return response()->json(['message' => 'Error']);
+                // }
+                // return response()->json(['message' => 'Success']);            
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\EmpleadosModell  $empleadosModell
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function show(EmpleadosModell $empleadosModell)
     {
-        //
+        $empleadoIndex = DB::table('empleados')
+        ->join('sexo', 'empleados.sexo_id','=','sexo.id')
+        ->join('tipo_documentos', 'empleados.tipodocumento_id','=','tipo_documentos.id')
+        ->join('cargos', 'empleados.cargo_id', '=','cargos.id')
+        ->join('grp_sangre', 'empleados.gruposanguineo_id', '=','grp_sangre.id')
+        ->join('profesiones', 'empleados.profesion_id', '=','profesiones.id')
+        ->join('tipo_contrato', 'empleados.tipocontrato_id', '=','tipo_contrato.id')
+        ->select('empleados.id',DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
+        'empleados.tipodocumento_id', 'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento','cargos.id',
+        'cargos.descripcion as cargo', 'empleados.sexo_id', 'sexo.descripcion as sexo', 'empleados.edad','empleados.telefonos',
+         'empleados.gruposanguineo_id', 'empleados.direccion_res', 'empleados.email', 'empleados.fecha_nacimiento',
+         'empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id',
+         'empleados.nombre_familiar','empleados.telefono_familiar', 'empleados.email_famliar','empleados.parentezco_familiar')->get();
+         return $empleadoIndex;
+
+ 
+
+        // $tipoDocu = TipoDocumentoModell::all();    
+        // $pais = PaisModell::all();
+        // $departamento = DepartamentosModell::all();
+        // $ciudad = CiudadesModell::all();
+        // $genero = SexoModell::all();
+        // $grupo_rh= GrpSangreModell::all();
+        // $cargos = CargosModell::all();
+        // // $listaEmpleados = EmpleadosModell::where('id','=',$idEmpleado)->get();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EmpleadosModell  $empleadosModell
-     * @return \Illuminate\Http\Response
-     */
     public function edit(EmpleadosModell $empleadosModell)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EmpleadosModell  $empleadosModell
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(Request $request, EmpleadosModell $empleadosModell)
     {
-        //
+        $idCli=$request['empleado_id'];
+        $cliente_datosbasico = EmpleadosModell::findOrFail($idCli);
+        $cliente_datosbasico->fill($request->all());
+        $cliente_datosbasico->save();  
+        return $cliente_datosbasico;           
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\EmpleadosModell  $empleadosModell
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(EmpleadosModell $empleadosModell)
     {
         //
