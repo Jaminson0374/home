@@ -20,7 +20,8 @@ class Cliente_datosbasico extends Model
         '_token',
         '_method',
         'softDeletes', 
-        'timestamps'       
+        'timestamps', 
+        'presBtnNew'      
     ];
   
     public function tipodoc(): BelongsTo

@@ -186,7 +186,7 @@
                             <div class="row"> 
                                 <div class="col-sm-12">
                                     <div class="form-group pt-2">
-                                        <button  type="button" class="btn btn-primary btn-lg form-group btnNewEvol" title="Limpia todos las cledas para iniciar la creación de una nueva cita"
+                                        <button  type="button" class="btn btn-primary btn-lg form-group btnNewEvol" title="Limpia todos las cledas para iniciar la creación de un nuevo registro"
                                             focusNext tabindex="17" id="btnNewEvol" accionBtn="Nuevo" name="btnNewEvol">
                                             <i class="fa fa-file-archive fa-lg" style="color:#fffefed8;"></i> Nuevo Ctrl
                                         </button>
@@ -198,7 +198,7 @@
                                             focusNext tabindex="19" id="btnSaveEvol" accionBtn="Guardar"name="btnSaveEvol">
                                             <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Guardar
                                         </button>
-                                        <button type="button" class="btn btn-primary form-group btnSearchEvol btn-lg" title="Bucar un cita del usuario actual"
+                                        <button type="button" class="btn btn-primary form-group btnSearchEvol btn-lg" title="Bucar un registro de Evolución médica del usuario actual"
                                             id="btnSearchEvol" name="btnSearchEvol" focusNext tabindex="20"><i
                                                 class="fa fa-search-location fa-lg"></i>
                                            Consultar
@@ -604,7 +604,7 @@
                         clienteEvolMedica()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
                         let idEvolMed = document.getElementsByName('idEvolMedica')[0].value
-                        const clienteCitaActualiza = async () => {  
+                        const clienteEvolActualiza = async () => {  
                             await axios.post(
                                 "{{ URL::to('/clienteUpdateEvol') }}",
                                 data, {
@@ -648,7 +648,7 @@
                                 // console.log(error);
                             })
                         }
-                        clienteCitaActualiza()
+                        clienteEvolActualiza()
                     }
                 }else {
                     Swal.fire({
@@ -817,7 +817,7 @@
                 document.getElementById('btnNewEvol').disabled = false;
                 document.getElementById('btnSaveEvol').disabled = true; 
                 let texto4 = document.getElementById('textB')
-                texto4.innerHTML = 'CONTROL DE CITAS MEDICAS'                
+                texto4.innerHTML = 'CONTROL DIARIO DE EVOLUCION MEDICA'                
 
 				funcLib.accionSaveNew()
 				formAnula.reset()

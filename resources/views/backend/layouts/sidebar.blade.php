@@ -131,66 +131,6 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-               DATOS AUXILIARES
-                <i class="fas fa-angle-left right"></i>
-                <!-- <span class="badge badge-info right">6</span> -->
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eps/Entidades/Indep</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tipos de documentos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::to('/add-cliente-index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tipo de afiliación</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Servicios</p>
-                </a>
-              </li> 
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tipos de generos</p>
-                </a>
-              </li>  
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Roles</p>
-                </a>
-              </li>   
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cubiculos</p>
-                </a>
-              </li> 
-              <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Grupo sanguineo</p>
-                </a>
-              </li>                                                               
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>
               <p>
                 MIS COLABORADORES
@@ -306,7 +246,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Mi contabilidad
+                MI CONTABILIDAD
                 <i class="fas fa-angle-left right"></i>
                 <!-- <span class="badge badge-info right">6</span> -->
               </p>
@@ -341,7 +281,7 @@
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Informes
+                MIS INFORMES
                 <i class="fas fa-angle-left right"></i>
                 {{-- <span class="right badge badge-danger"></span> --}}
               </p>
@@ -374,7 +314,26 @@
               </li>              
             </ul>            
           </li>
-          
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               DATOS AUXILIARES
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{URL::to('/datosAuxiliarIndex')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Administrador</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>

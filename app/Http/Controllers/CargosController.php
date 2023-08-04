@@ -3,82 +3,96 @@
 namespace App\Http\Controllers;
 
 use App\Models\CargosModell;
+use App\Models\CategoriaEmpleadosModell;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CargosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create() 
     {
-        //
+        $categoriaCargo = CategoriaEmpleadosModell::all();
+
+        return view('backend.tablas_auxiliares.cargos', compact(['categoriaCargo']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+        try {
+            DB::beginTransaction(); 
+            // SELECT * FROM cargos WHERE anulado IS NULL OR anulado = ''; 
+                $carSve = CargosModell::create($request->all());
+                // return $carSve;
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error']);
+        }
+            return response()->json(['message' => 'Success']);         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CargosModell  $cargosModell
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function show(CargosModell $cargosModell)
     {
-        //
-    }
+        $anula="S";
+        $carShow = DB::table('cargos')->where('anulado','=',NULL)
+        ->join('categoria_empleado', 'cargos.categoria_id','=','categoria_empleado.id')
+         ->select('cargos.id','cargos.descripcion as cargo','cargos.categoria_id','cargos.funciones',
+         'categoria_empleado.descripcion as categoria', 'cargos.anulado')->get();
+         return $carShow;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CargosModell  $cargosModell
-     * @return \Illuminate\Http\Response
-     */
+    }
+    public function anularRegistroCar(Request $request, CargosModell $cargosModell)
+    {
+            // return $request->all();
+            // return $request['eps_id'];
+            try {
+                DB::beginTransaction();
+                    $idCliAnula=$request['car_id'];
+                    $EvolAnula = CargosModell::findOrFail($idCliAnula);
+                    $EvolAnula->anulado = "S";
+                    $EvolAnula->save();  
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+            }
+            return response()->json(['message' => 'Success']);
+            // return $EvolAnula;
+    }
+ 
     public function edit(CargosModell $cargosModell)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CargosModell  $cargosModell
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, CargosModell $cargosModell)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
+                $idCli=$request['car_id'];
+                $epsUpdate = CargosModell::findOrFail($idCli);
+                $epsUpdate->fill($request->all());
+                $epsUpdate->save();  
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error']);
+        }
+        return response()->json(['message' => 'Success']);        
+            // return $epsUpdate;           
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CargosModell  $cargosModell
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CargosModell $cargosModell)
+     public function destroy(CargosModell $cargosModell)
     {
         //
     }

@@ -2,6 +2,7 @@
 use App\Http\controller\backend\ClientesController;
 use App\Http\Controllers\backend\TipoDocumentoController;
 
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,7 +78,8 @@ Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDat
 Route::get('/buscar-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'busquedaClienteDtoBasico'])->name('BuscarClienteBasico');
 Route::post('/clienteCli', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'editarCliente'])->name('ClienteEditarCli');
 Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'update'])->name('ClienteUpdateCli');
-Route::post('/clienteBasicoEiminar/{idcliente}',[App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'destroy'])->name('ClienteDeleteCli');
+Route::post('anulaRegistroBsc', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'anularRegistroBsc'])->name('AnulaRegistroBsc');
+Route::post('validaDocumentoBsco', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'validaDocumento'])->name('ValidaDocumento');
 
 //*********************************************************************
 //      EMPLEADOS                                                *
@@ -87,15 +89,31 @@ Route::get('/empleadosCreate', [App\Http\Controllers\EmpleadosController::class,
 Route::post('/empleadoStore', [App\Http\Controllers\EmpleadosController::class, 'store'])->name('EmpleadoStore');
 Route::post('/empleadosUpdate', [App\Http\Controllers\EmpleadosController::class, 'update'])->name('EmpleadosUpdate');
 Route::get('/empleadosListaShow', [App\Http\Controllers\EmpleadosController::class, 'show'])->name('EmpleadosListaShow');
+Route::get('/buscarEmple', [App\Http\Controllers\EmpleadosController::class, 'busquedaEmpleado'])->name('BuscarEmplea');
+
 
 //*DATOS ADICIONALES
 Route::get('/browsPais', [App\Http\Controllers\PaisController::class, 'index'])->name('BrowsPais');
 Route::post('/browsDpto', [App\Http\Controllers\DepartamentosController::class, 'index'])->name('BrowsDpto');
 Route::post('/browsCiudad', [App\Http\Controllers\CiudadesController::class, 'index'])->name('BrowsCiudad');
-  
+Route::get('/datosAuxiliarIndex', [App\Http\Controllers\DatosAuxiliaresCobtroller::class, 'index'])->name('DatosAuxiliarIndex');
 
-//Administrador de RESERVAS
-   
+/*EPS*/
+Route::get('/epsCreate', [App\Http\Controllers\EmpresaRemitenteController::class, 'create'])->name('EpsCreate');
+Route::post('/epsRemiteStore', [App\Http\Controllers\EmpresaRemitenteController::class, 'store'])->name('EpsRemiteStore');
+Route::get('/epsListaShow',[App\Http\Controllers\EmpresaRemitenteController::class, 'show'])->name('EpsListaShow');
+Route::post('/epsRemiteUpdate',[App\Http\Controllers\EmpresaRemitenteController::class, 'update'])->name('EpsRemiteUpdate');
+Route::post('anulaRegistroEps', [App\Http\Controllers\EmpresaRemitenteController::class, 'anularRegistroEps'])->name('AnulaRegistroEps');
+
+/*CARGOS*/
+Route::get('/cargosCreate', [App\Http\Controllers\CargosController::class, 'create'])->name('CarCreate');
+Route::post('/cargosStore', [App\Http\Controllers\CargosController::class, 'store'])->name('CarRemiteStore');
+Route::get('/carListaShow',[App\Http\Controllers\CargosController::class, 'show'])->name('CarListaShow');
+Route::post('/cargosUpdate',[App\Http\Controllers\CargosController::class, 'update'])->name('CarRemiteUpdate');
+Route::post('anulaRegistroCar', [App\Http\Controllers\CargosController::class, 'anularRegistroCar'])->name('AnulaRegistroCar');
+
+
+//Administrador de RESERVAS  
 Route::get('/admin-reservas', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminReservas');
 
 
@@ -113,14 +131,13 @@ Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController:
 Route::get('/add-citas-medicas/{idDtoBasico}', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
 Route::post('/insert-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'store'])->name('InsertClienteCitas');
 Route::get('/buscar-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'busquedaClienteCita'])->name('BuscarClienteCitas');
-Route::post('/clienteCliUpdateCita/{idcliente}', [App\Http\Controllers\CitasMedicasController::class, 'update'])->name('ClienteUpdateCli');
+Route::post('/clienteCliUpdateCita/{idcliente}', [App\Http\Controllers\CitasMedicasController::class, 'update'])->name('ClienteUpdateCliCita');
 Route::get('/admin-clientes-Citas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminClientesCitas');
-
 //*********************************************************************
 //                                EVOLUCION DIARIA               *
 //*********************************************************************/
 Route::get('/admin-evolucion-diaria', [App\Http\Controllers\EvolucionDiariaController::class, 'index'])->name('AdminEvolucionDiaria');
-Route::get('/add-evolucion-diaria/{idEvDiaria}', [App\Http\Controllers\EvolucionDiariaController::class, 'create'])->name('AddCitasMedicas');
+Route::get('/add-evolucion-diaria/{idEvDiaria}', [App\Http\Controllers\EvolucionDiariaController::class, 'create'])->name('AddCitasMedicasEvol');
 Route::post('/insert-cliente-Evol', [App\Http\Controllers\EvolucionDiariaController::class, 'store'])->name('InsertClienteEvol');
 Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
 Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
@@ -136,7 +153,23 @@ Route::get('/inv_articulos', [App\Http\Controllers\InvArticulosController::class
 Route::post('/invArticulosStore', [App\Http\Controllers\InvArticulosController::class, 'store'])->name('invArticulosStore');
 Route::get('/buscarArticulos_show', [App\Http\Controllers\InvArticulosController::class, 'show'])->name('BuscarArticulosShow');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
-Route::post('/anulaArticulo', [App\Http\Controllers\InvArticulosController::class, 'destroy'])->name('anulaControlMedico');
+Route::post('/anulaArticulo', [App\Http\Controllers\InvArticulosController::class, 'destroy'])->name('AnulaArticuloInv');
+
+// LINEAS
+Route::get('/invLineasCreate', [App\Http\Controllers\InvLineasController::class, 'create'])->name('InvLineasCreate');
+Route::post('/invLineasStore', [App\Http\Controllers\InvLineasController::class, 'store'])->name('InvLineasStore');
+Route::post('/invLineasUpdate', [App\Http\Controllers\InvLineasController::class, 'update'])->name('InvLineasUpdate');
+Route::get('/invlinListaShow', [App\Http\Controllers\InvLineasController::class, 'show'])->name('InvlinListaShow');
+Route::post('/anulaRegistroLin', [App\Http\Controllers\InvLineasController::class, 'anularRegistroLin'])->name('AnulaRegistroLin');
+
+// 
+
+// CATEGORIAS
+Route::get('/invCategoriasCreate', [App\Http\Controllers\InvCategoriasController::class, 'create'])->name('InvCategoriasCreate');
+Route::post('/invCategoriaStore', [App\Http\Controllers\InvCategoriasController::class, 'store'])->name('InvCategoriaStore');
+Route::post('/invCategoriaUpdate', [App\Http\Controllers\InvCategoriasController::class, 'update'])->name('InvCategoriaUpdate');
+Route::get('/invCatListaShow', [App\Http\Controllers\InvCategoriasController::class, 'show'])->name('InvCategoriaShow');
+Route::post('/anulaRegistroCate', [App\Http\Controllers\InvCategoriasController::class, 'anularRegistroCat'])->name('AnulaRegistroCate');
 
 //  REQUISICIONES DE MEDICAMENTOS (CONTROLES MEDICOS)        *
 //************************************************************/

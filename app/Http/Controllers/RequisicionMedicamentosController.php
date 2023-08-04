@@ -62,8 +62,6 @@ class RequisicionMedicamentosController extends Controller
 
         // return $requisicionesMedic;
         return view('backend.inventario.requisicion_create', compact('requi_articulos','requi_unimedida','requi_empleados','requi_dtobasico','rqui_ccosto','requi_consecutivos','requisicionesMedic'));
-        
-       
     }
 
     /**

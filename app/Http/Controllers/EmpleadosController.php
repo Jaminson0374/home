@@ -21,7 +21,7 @@ class EmpleadosController extends Controller
 
     public function index()
     {
-        $empleadoIndex = DB::table('empleados')
+        $empleadoIndex = DB::table('empleados')->where('empleados.anulado','=',NULL)
         ->join('sexo', 'empleados.sexo_id','=','sexo.id')
         ->join('tipo_documentos', 'empleados.tipodocumento_id','=','tipo_documentos.id')
         ->join('cargos', 'empleados.cargo_id', '=','cargos.id')
@@ -53,32 +53,33 @@ class EmpleadosController extends Controller
            $cargos = CargosModell::all();
            $profesionEmp = ProfesionesModell::all();
            $tipoCargoEmp = Tipo_contratoModell::all();
+           $tablaAuxiliar ='/buscarEmple';
 
            return view('backend.empleados.empleados_create',Compact(['tipoDocu', 'pais', 
-           'departamento','ciudad','genero', 'grupo_rh','cargos','profesionEmp','tipoCargoEmp']));
+           'departamento','ciudad','genero', 'grupo_rh','cargos','profesionEmp','tipoCargoEmp', 'tablaAuxiliar']));
     }
 
 
     public function store(Request $request)
     {
-        // try {
-        //         DB::beginTransaction(); 
+        try {
+                DB::beginTransaction(); 
                  
                 $empleadoSave = EmpleadosModell::create($request->all());
-                return $empleadoSave; 
+                // return $empleadoSave; 
                 
-                // DB::commit();
-                // } catch (\Exception $e) {
-                // DB::rollBack();
-                // return response()->json(['message' => 'Error']);
-                // }
-                // return response()->json(['message' => 'Success']);            
+                DB::commit();
+                } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+                }
+                return response()->json(['message' => 'Success']);            
     }
 
  
     public function show(EmpleadosModell $empleadosModell)
     {
-        $empleadoIndex = DB::table('empleados')
+        $empleadoIndex = DB::table('empleados')->where('empleados.anulado','=',NULL)
         ->join('sexo', 'empleados.sexo_id','=','sexo.id')
         ->join('tipo_documentos', 'empleados.tipodocumento_id','=','tipo_documentos.id')
         ->join('cargos', 'empleados.cargo_id', '=','cargos.id')
@@ -125,4 +126,10 @@ class EmpleadosController extends Controller
     {
         //
     }
+    public function busquedaEmpleado(){
+        // ->where('evolucion_diaria.anulado','=','')
+        $browsEmp = DB::table('empleados')->select('nombre','apellidos')->get();
+            
+        return $browsEmp;         
+    }    
 }

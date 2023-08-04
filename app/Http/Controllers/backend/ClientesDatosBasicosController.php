@@ -46,16 +46,18 @@ class ClientesDatosBasicosController extends Controller
  
     public function busquedaClienteDtoBasico(){
 
-    $clientesDtoBasic = DB::table('cliente_datosbasicos')
+    $clientesDtoBasic = DB::table('cliente_datosbasicos')->where('anulado','=',NULL)
         ->join('tiposervicios', 'cliente_datosbasicos.tiposervicio_id','=','tiposervicios.id')
         ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
                  'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion','cliente_datosbasicos.id_tipodoc', 'cliente_datosbasicos.nacionalidad_id',
                  'cliente_datosbasicos.departamento_id', 'cliente_datosbasicos.ciudad_id', 'cliente_datosbasicos.fecha_nacimiento',
                  'cliente_datosbasicos.sexo_id','cliente_datosbasicos.grupoSanguineo_id', 'cliente_datosbasicos.direccion_res',
                  'cliente_datosbasicos.email_user', 'cliente_datosbasicos.fecha_creacion', 'cliente_datosbasicos.estado_user', 
-                 'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico')
-        ->get();
+                 'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico','cliente_datosbasicos.recomendacion_med',
+                 'cliente_datosbasicos.dieta_nutricio','cliente_datosbasicos.suministro_medic')->get();
         
+		
+		
         // $clientesBasic  = Clientes::where('estado','=','on')->get();
        
         return $clientesDtoBasic;
@@ -95,6 +97,7 @@ class ClientesDatosBasicosController extends Controller
     */
     
     /*Finalmente esta es la forma que usaré*/
+    
     $Cliente_datosbasico = Cliente_datosbasico::create($request->all());
     return $request->all();
     
@@ -131,14 +134,44 @@ class ClientesDatosBasicosController extends Controller
         $cliente_datosbasico->fill($request->all());
         $cliente_datosbasico->save();  
         return $cliente_datosbasico;      
-        
     }
 
     public function destroy(Cliente_datosbasico $cliente_datosbasico, Request $request)
     {
-        // return $request;
-        $idCli2=$request['id'];
-        $clienteEliDatosbasico = Cliente_datosbasico::find($idCli2);
-        $clienteEliDatosbasico->delete();
+           // // return $request;
+        // $idCli2=$request['id'];
+        // $clienteEliDatosbasico = Cliente_datosbasico::find($idCli2);
+        // $clienteEliDatosbasico->delete();
     }
+    public function anularRegistroBsc(Request $request, Cliente_datosbasico $cliente_datosbasico)
+    {
+            // return $request->all();
+            // return $request['eps_id'];
+            try {
+                DB::beginTransaction();
+                $idCliAnula=$request['id'];
+                $EvolAnula = Cliente_datosbasico::findOrFail($idCliAnula);
+                $EvolAnula->anulado = "S";
+                $EvolAnula->save();  
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+            }
+            return response()->json(['message' => 'Success']);
+            // return $EvolAnula;
+    }
+    public function validaDocumento(Request $request,  Cliente_datosbasico $cliente_datosbasico)
+    {   
+
+       $selectCliBco  = Cliente_datosbasico::where('num_documento','=',$request['num_documento'])->get();
+       $size = count($selectCliBco);
+       if($size >= 1){     
+       return response()->json(['message' => 'Success']);
+       }else{
+        return response()->json(['message' => 'Error']);
+    }
+
+    }   
+
 }

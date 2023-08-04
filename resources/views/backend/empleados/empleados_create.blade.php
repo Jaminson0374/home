@@ -17,6 +17,7 @@
                 <div class="card-body text-dark tarjeta_body">
                     <form role="form" name="formEmpleados" id="formEmpleados" action="">
                         @csrf
+                        @method('post')
                         {{-- formEmpleados --}}
                         <div class="row justify-content-between">
 
@@ -40,6 +41,8 @@
                                             <input type="hidden" id="ciudad_id" name="ciudad_id" value=1>
                                             <input type="hidden" id="departamento_id" name="departamento_id" value=1>
                                             <input type="hidden" id="nacionalidad_id" name="nacionalidad_id" value=1>
+                                            <input type="hidden" id="categoria_id" name="categoria_id" value=2>
+                                            <input type="hidden" id="rutaTable" name="rutaTable" value={{'$tablaAuxiliar'}}>
                                         </div>
                                         <div class="card-body" style="background-color: hsl(195, 25%, 94%)">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
@@ -51,6 +54,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="1"
                                                         name="tipodocumento_id" id="tipodocumento_id">
+                                                        <option selected disable value="">Tipo de Doc</option>
                                                         @foreach ($tipoDocu as $tipoDoc)
                                                             <option value={{ $tipoDoc->id }}>{{ $tipoDoc->descripcion }}
                                                             </option>
@@ -99,6 +103,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="8"
                                                         name="sexo_id" id="sexo_id">
+                                                        <option selected disable value="">Sele genero</option>
                                                         @foreach ($genero as $sexTipo)
                                                             <option value={{ $sexTipo->id }}>{{ $sexTipo->descripcion }}
                                                             </option>
@@ -111,6 +116,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="9"
                                                         name="gruposanguineo_id" id="gruposanguineo_id">
+                                                        <option selected disable value="">Sele RH</option>
                                                         @foreach ($grupo_rh as $grpS)
                                                             <option value={{ $grpS->id }}>{{ $grpS->descripcion }}
                                                             </option>
@@ -146,6 +152,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="13"
                                                         name="profesion_id" id="profesion_id">
+                                                        <option selected disable value="">Seleccione profesion</option>
                                                         @foreach ($profesionEmp as $pEmp)
                                                             <option value={{$pEmp->id}}>{{$pEmp->descripcion}}</option>
                                                         @endforeach
@@ -157,6 +164,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="14"
                                                         name="cargo_id" id="cargo_id">
+                                                        <option selected disable value="">Seleccione cargo</option>
                                                         @foreach ($cargos as $grpS)
                                                             <option value={{ $grpS->id }}>{{ $grpS->descripcion }}
                                                             </option>
@@ -170,6 +178,7 @@
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="51"
                                                         name="tipocontrato_id" id="tipocontrato_id">
+                                                        <option selected disable value="">Seleccione C.Trabajo</option>
                                                         @foreach ($tipoCargoEmp as $tipoC)
                                                         <option value={{$tipoC->id}}>{{$tipoC->descripcion}}</option>
                                                         @endforeach
@@ -292,7 +301,7 @@
                                         </button>
                                         <button type="button" class="btn btn-primary form-group btnSearchEmp btn-lg" title="Permite localizar un el refistro de un empleado"
                                             id="btnSearchEmp" name="btnSearchEmp" focusNext tabindex="20"><i
-                                                class="fa fa-search-location fa-lg"></i>
+                                                class="fa fa-search-location fa-lg"></i>Buscar
                                         </button>
 
                                         <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancelEmp" title="Cancela el proceso actual y limpia cada una de las celdas"
@@ -302,7 +311,7 @@
                                             focusNext tabindex="22" disabled="true"><i class="fa fa-trash fa-lg"
                                                 style="color:#f30b0b;"></i> Anular </button>
 
-                                                <a href="{{ URL::to('/admin_medicamento_user') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                <a href="{{ URL::to('/empledadosIndex') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>
@@ -375,10 +384,16 @@
 
 // window.addEventListener('load', () => {
 // let btnSearchEmp = document.getElementById('btnSearchEmp');
+// // var rutaTablas = document.getElementsByName('rutaTable')[0].value; 
+
 // btnSearchEmp.addEventListener('click', () => {  
-// //   let data = new FormData();
+//     alert('jaminson')
+//   let data = new FormData();
+//   data.append('codigo','100')
 //    let prueba = async () => {
-//        await axios.get("{{ URL::to('/buscar-CtrlMed') }}", {
+// //   var rutaTablas = document.getElementsByName('rutaTable')[0].value;
+//     var rutaTablas ="ttsdta"
+//        await axios.get("{{ URL::to($tablaAuxiliar) }}", data, {
  
 //        }).then((resp) => {
 //            let dataSelect = resp.data;
@@ -386,7 +401,7 @@
  
 //        }).catch(function(error) {
 //            alert(
-//                'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
+//                'Error, de jaminson intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
 //            )
 //            //console.log(error);
 //        })
@@ -394,14 +409,16 @@
 //     } 
 //     prueba() 
 //     })
+//     return false;
 // })  
+
   
     //  nobackbutton()
     // saltarEnterFormulario()
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
-    window.addEventListener('load', () => {
+     window.addEventListener('load', () => {
         let formEvolB = document.getElementById('formEmpleados')
 
         document.getElementById('btnCancelEmp').disabled = true;
@@ -644,8 +661,8 @@
                             }).then((resp) => {
                                 console.log(resp.data)
                                 // console.log(resp.data['message'])
-                                // if(resp.data['message']=="Success"){
-                                    if(resp.data){
+                                if(resp.data['message']=="Success"){
+                                    // if(resp.data){
                                     document.getElementById('btnDeleteEmp').disabled = true;
                                     document.getElementById('btnNewEmp').disabled = false;
                                     document.getElementById('btnCancelEmp').disabled = true;
@@ -940,6 +957,7 @@
 
     evitaCierreFormulario()
     nobackbutton()
+
 
 
 

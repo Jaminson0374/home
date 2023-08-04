@@ -23,65 +23,64 @@ class DatosBasicosClientes {
 		let fecha_creacion = document.getElementsByName("fecha_creacion")[0].value;
 		let estado_user = document.getElementsByName("estado_user")[0].value;
 		let diagnostico = document.getElementsByName("diagnostico")[0].value;
+		let recomendacion_med = document.getElementsByName("recomendacion_med")[0].value;
+		let dieta_nutricio = document.getElementsByName("dieta_nutricio")[0].value;
+		let suministro_medic = document.getElementsByName("suministro_medic")[0].value;		
+		let observacion = document.getElementsByName("observacion")[0].value;		
 
 		// var campoText="";
 		let camposForm = "";
-
 		switch (camposForm) {
 			case id_tipodoc:
-				focusHtml = "id_tipodoc"
+				document.getElementById('id_tipodoc').focus();
 				campoText = 'El TIPO DOCUMENTO es requerido'
 				break;
 			case num_documento:
-				focusHtml = "num_documento"
+				document.getElementById('num_documento').focus();
 				campoText = 'El DOC IDENTIDAD es requerido'
 				break;
 			case nombre:
 				campoText = 'El NOMBRE es requerido'
-				focusHtml = "nombre"
+				document.getElementById('nombre').focus();
 				break;
 			case apellidos:
-				focusHtml = "apellidos"
+				document.getElementById('apellidos').focus();
 				campoText = 'El APELLIDO es requerido'
 				break;
 			case nacionalidad_id:
-				focusHtml = "nacionalidad_id"
+				document.getElementById('nacionalidad_id').focus();
 				campoText = 'La NACIONALIDAD es requerida'
 				break;
 			case departamento_id:
-				focusHtml = "departamento_id"
+				document.getElementById('departamento_id').focus();
 				campoText = 'El DPTO NACIMIENTO es requerido'
 				break;
 			case ciudad_id:
-				focusHtml = "ciudad_id" 
+				document.getElementById('ciudad_id').focus();
 				campoText = 'La CIUDAD NACIMIENTO es requerida'
 				break;
 			case fecha_nacimiento:
-				focusHtml = "fecha_nacimiento"
+				document.getElementById('fecha_nacimiento').focus();
 				campoText = 'La F. NACIMIENTO es requerida'
 				break;
 			case sexo_id:
-				focusHtml = "sexo_id"
+				document.getElementById('edad').focus();
 				campoText = 'El GENERO es requerido'
 				break;
 			case grupoSanguineo_id:
-				focusHtml = "grupoSanguineo_id"
+				document.getElementById('grupoSanguineo_id').focus();
 				campoText = 'El GRUPO RH es requerido'
 				break;
 			case telefonos_user:
-				focusHtml =  "telefonos_user"
+				document.getElementById('telefonos_user').focus()
 				campoText = 'El TELEFONO es requerido'
 				break;
 			case direccion_res:
-				focusHtml = "direccion_res"
+				document.getElementById('direccion_res').focus();
 				campoText = 'La DIRECCION RESIDENCIAL es requerida'
 				break;
-			case email_user:
-				focusHtml = "email_user"
-				campoText = 'El EMAIL USUARIO es requerido'
-				break;
 			case fecha_creacion:
-				focusHtml = "fecha_creacion"
+				document.getElementById('fecha_creacion').focus();
 				campoText = 'La FECHA CREACIÓN/RESERVA es requerida'
 				break;
 		}
@@ -92,7 +91,6 @@ class DatosBasicosClientes {
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
 	asignaValorEdit(data) {
-		console.log(data)
 		document.getElementsByName('id_tipodoc')[0].value = data.id_tipodoc
 		document.getElementsByName('num_documento')[0].value = data.num_documento
 		document.getElementsByName('nombre')[0].value = data.nombre
@@ -112,6 +110,11 @@ class DatosBasicosClientes {
 		document.getElementsByName('diagnostico')[0].value = data.diagnostico
 		document.getElementsByName('observacion')[0].value = data.observacion
 		document.getElementsByName('idCliente')[0].value = data.id
+		document.getElementsByName("recomendacion_med")[0].value = data.recomendacion_med;
+		document.getElementsByName("dieta_nutricio")[0].value = data.dieta_nutricio;
+		document.getElementsByName("suministro_medic")[0].value = data.suministro_medic;		
+
+		// $("#id_tipodoc").val("_id_tipodoc").trigger('change.select2');
 
 		let idNacionalidad = data.nacionalidad_id
 		let dpto_id = data.departamento_id
@@ -180,6 +183,56 @@ class DatosBasicosClientes {
 	accionSaveNew(){
 		let newNom100 = document.getElementById('accionBotones')
 		newNom100.setAttribute('accion', 'Guardar');
+	}
+
+	desactivaElements(){
+		document.getElementById('id_tipodoc').disabled = true;
+		document.getElementById('num_documento').disabled = true;
+		document.getElementById('nombre').disabled = true;
+		document.getElementById('apellidos').disabled = true;
+		document.getElementById('nacionalidad_id').disabled = true;
+		document.getElementById('departamento_id').disabled = true;
+		document.getElementById('ciudad_id').disabled = true;
+		document.getElementById('fecha_nacimiento').disabled = true;
+		document.getElementById('edad').disabled = true;
+		document.getElementById('sexo_id').disabled = true;
+		document.getElementById('grupoSanguineo_id').disabled = true;
+		document.getElementById('telefonos_user').disabled = true;
+		document.getElementById('direccion_res').disabled = true;
+		document.getElementById('email_user').disabled = true;
+		document.getElementById('fecha_creacion').disabled = true;
+		document.getElementById('estado_user').disabled = true;
+		document.getElementById('diagnostico').disabled = true;
+		document.getElementById("recomendacion_med").disabled = true;
+		document.getElementById("dieta_nutricio").disabled = true;
+		document.getElementById("suministro_medic").disabled = true;
+		document.getElementById("observacion").disabled = true;				
+	}
+	activaElements(){
+		document.getElementById('id_tipodoc').disabled = false;
+		document.getElementById('num_documento').disabled = false;
+		document.getElementById('nombre').disabled = false;
+		document.getElementById('apellidos').disabled = false;
+		document.getElementById('nacionalidad_id').disabled = false;
+		document.getElementById('departamento_id').disabled = false;
+		document.getElementById('ciudad_id').disabled = false;
+		document.getElementById('fecha_nacimiento').disabled = false;
+		document.getElementById('edad').disabled = false;
+		document.getElementById('sexo_id').disabled = false;
+		document.getElementById('grupoSanguineo_id').disabled = false;
+		document.getElementById('telefonos_user').disabled = false;
+		document.getElementById('direccion_res').disabled = false;
+		document.getElementById('email_user').disabled = false;
+		document.getElementById('fecha_creacion').disabled = false;
+		document.getElementById('estado_user').disabled = false;
+		document.getElementById('diagnostico').disabled = false;
+		document.getElementById('observacion').disabled = false;
+		document.getElementById("recomendacion_med").disabled = false;
+		document.getElementById("dieta_nutricio").disabled = false;
+		document.getElementById("suministro_medic").disabled = false;
+	}	
+	clearElements(){
+		
 	}
 } 
 
