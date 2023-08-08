@@ -101,43 +101,49 @@ class EmpleadoVista {
 	/******************************************************************************************************
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
-	asignaValorEdit(dataEmpleado) {
+	asignaValorEdit(dataEvol) {
 		let i = 0;
-		let _tipodocumento_id = document.getElementsByName('tipodocumento_id')[0].value = dataEmpleado.tipodocumento_id; 
-		let _num_documento = document.getElementsByName('num_documento')[0].value = dataEmpleado.num_documento; 
-		let _nombre = document.getElementsByName('nombre')[0].value = dataEmpleado.nombre; 
-		let _apellidos = document.getElementsByName('apellidos')[0].value = dataEmpleado.apellidos; 
-		let _sexo_id = document.getElementsByName('sexo_id')[0].value = dataEmpleado.sexo_id; 
-		let _gruposanguineo_id = document.getElementsByName('gruposanguineo_id')[0].value = dataEmpleado.gruposanguineo_id;
-		// _nacionalidad_id = document.getElementsByName('nacionalidad_id')[0].value = dataEmpleado.nacionalidad_id; 
-		// _departamento_id = document.getElementsByName('departamento_id')[0].value = dataEmpleado.departamento_id; 
-		// _ciudad_id = document.getElementsByName('ciudad_id')[0].value = dataEmpleado.ciudad_id; 
-		let _fecha_nacimiento = document.getElementsByName('fecha_nacimiento')[0].value = dataEmpleado._fecha_nacimiento; 
-		let _lugar_ncmto = document.getElementsByName('lugar_ncmto')[0].value = dataEmpleado.lugar_ncmto; 
-		let _edad = document.getElementsByName('edad')[0].value = dataEmpleado.edad; 
-		let _direccion_res= document.getElementsByName('direccion_res')[0].value = dataEmpleado.direccion_re; 
-		let _telefonos = document.getElementsByName('telefonos')[0].value = dataEmpleado._telefonos; 
-		let _email = document.getElementsByName('email')[0].value = dataEmpleado.email; 
-		let _cargo_id = document.getElementsByName('cargo_id')[0].value = dataEmpleado.cargo_id; 
-		let _nombre_familiar = document.getElementsByName('nombre_familiar')[0].value = dataEmpleado.nombre_familiar;
-		let _parentezco_familiar = document.getElementsByName('parentezco_familiar')[0].value = dataEmpleado.telefono_familiar;
-		let _telefono_familiar = document.getElementsByName('telefono_familiar')[0].value = dataEmpleado.telefonos;
-		let _email_famliar = document.getElementsByName('email_famliar')[0].value = dataEmpleado.email_famliar; 
-		let _salario = document.getElementsByName('salario')[0].value = dataEmpleado.salario; 
-		let _tipocontrato_id  = document.getElementsByName('tipocontrato_id')[0].value = dataEmpleado.tipocontrato_id ; 
-		let _profesion_id = document.getElementsByName('profesion_id')[0].value = dataEmpleado.profesion_id; 
-		let _hoja_vida = document.getElementsByName('hoja_vida')[0].value = dataEmpleado.hoja_vida; 
-		let _estado = document.getElementsByName('estado')[0].value = dataEmpleado.estado;
-		let _funciones = document.getElementsByName('funciones')[0].value = dataEmpleado.funciones;
-		let _observacion = document.getElementsByName('observacion')[0].value = dataEmpleado.observacion; 
+		let _tipodocumento_id = document.getElementsByName('tipodocumento_id')[0].value = dataEvol.tipodocumento_id; 
+		let _num_documento = document.getElementsByName('num_documento')[0].value = dataEvol.num_documento; 
+		let _nombre = document.getElementsByName('nombre')[0].value = dataEvol.nombre; 
+		let _apellidos = document.getElementsByName('apellidos')[0].value = dataEvol.apellidos; 
+		let _sexo_id = document.getElementsByName('sexo_id')[0].value = dataEvol.sexo_id; 
+		let _gruposanguineo_id = document.getElementsByName('gruposanguineo_id')[0].value = dataEvol.gruposanguineo_id;
+		// _nacionalidad_id = document.getElementsByName('nacionalidad_id')[0].value = dataEvol.nacionalidad_id; 
+		// _departamento_id = document.getElementsByName('departamento_id')[0].value = dataEvol.departamento_id; 
+		// _ciudad_id = document.getElementsByName('ciudad_id')[0].value = dataEvol.ciudad_id; 
+		let _fecha_nacimiento = document.getElementsByName('fecha_nacimiento')[0].value = dataEvol._fecha_nacimiento; 
+		let _lugar_ncmto = document.getElementsByName('lugar_ncmto')[0].value = dataEvol.lugar_ncmto; 
+		let _edad = document.getElementsByName('edad')[0].value = dataEvol.edad; 
+		let _direccion_res= document.getElementsByName('direccion_res')[0].value = dataEvol.direccion_res; 
+		let _telefonos = document.getElementsByName('telefonos')[0].value = dataEvol.telefonos; 
+		let _email = document.getElementsByName('email')[0].value = dataEvol.email; 
+		let _cargo_id = document.getElementsByName('cargo_id')[0].value = dataEvol.cargo_id; 
+		let _nombre_familiar = document.getElementsByName('nombre_familiar')[0].value = dataEvol.nombre_familiar;
+		let _parentezco_familiar = document.getElementsByName('parentezco_familiar')[0].value = dataEvol.parentezco_familiar;
+		let _telefono_familiar = document.getElementsByName('telefono_familiar')[0].value = dataEvol.telefono_familiar;
+		let _email_famliar = document.getElementsByName('email_famliar')[0].value = dataEvol.email_famliar; 
+		let _salario = document.getElementsByName('salario')[0].value = dataEvol.salario; 
+		let _tipocontrato_id  = document.getElementsByName('tipocontrato_id')[0].value = dataEvol.tipocontrato_id ; 
+		let _profesion_id = document.getElementsByName('profesion_id')[0].value = dataEvol.profesion_id; 
+		// let _hoja_vida = document.getElementsByName('hoja_vida')[0].value = dataEvol.hoja_vida;	 
+		let _estado = document.getElementsByName('estado')[0].value = dataEvol.estado;
+		let _funciones = document.getElementsByName('funciones')[0].value = dataEvol.funciones;
+		let _observacion = document.getElementsByName('observacion')[0].value = dataEvol.observacion; 
 		
-		$("#empleados_id").val("_empleados_id").trigger('change.select2');
-		$("#tipodocumento_id").val("_tipodocumento_id").trigger('change.select2');
-		$("#gruposanguineo_id").val("_gruposanguineo_id").trigger('change.select2');
-		$("#cargo_id").val("_cargo_id").trigger('change.select2');
-		$("#tipocontrato_id").val("_tipocontrato_id").trigger('change.select2');
-		$("#profesion_id").val("_profesion_id").trigger('change.select2');	
-		$("#sexo_id").val("_sexo_id").trigger('change.select2');	
+		$("#tipodocumento_id").trigger('change.select2');
+		$("#gruposanguineo_id").trigger('change.select2');
+		$("#cargo_id").trigger('change.select2');
+		$("#tipocontrato_id").trigger('change.select2');
+		$("#profesion_id").trigger('change.select2');	
+		$("#sexo_id").trigger('change.select2');			
+		
+		// alert(_tipodocumento_id)
+		// $("#gruposanguineo_id").val("_gruposanguineo_id").trigger('change.select2');
+		// $("#cargo_id").val("_cargo_id").trigger('change.select2');
+		// $("#tipocontrato_id").val("_tipocontrato_id").trigger('change.select2');
+		// $("#profesion_id").val("_profesion_id").trigger('change.select2');	
+		// $("#sexo_id").val("_sexo_id").trigger('change.select2');	
 	}
 
 	ValueCampos() {
@@ -260,6 +266,14 @@ class EmpleadoVista {
 		document.getElementById('salario').disabled = false;
 		document.getElementById('observacion').disabled = false; 
 	}
+  // /*NUMERO DE AÑOS ENTRE FECHAS*/
+	tuEdadReal(_fechai) {
+    let fechaIni  = moment(document.getElementsByName(_fechai)[0].value).format('MM/DD/YYYY');
+    let fechaFin = moment().format('MM/DD/YYYY');
+    let numDias = moment(fechaFin).diff(moment(fechaIni), 'years');
+    let resul = document.getElementsByName("edad")[0].value = numDias;
+	return resul
+    }
 }
 
 

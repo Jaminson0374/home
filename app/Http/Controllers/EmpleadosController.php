@@ -60,13 +60,13 @@ class EmpleadosController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, EmpleadosModell $empleadosModell)
     {
         try {
                 DB::beginTransaction(); 
                  
                 $empleadoSave = EmpleadosModell::create($request->all());
-                // return $empleadoSave; 
+                return $empleadoSave; 
                 
                 DB::commit();
                 } catch (\Exception $e) {
@@ -86,17 +86,17 @@ class EmpleadosController extends Controller
         ->join('grp_sangre', 'empleados.gruposanguineo_id', '=','grp_sangre.id')
         ->join('profesiones', 'empleados.profesion_id', '=','profesiones.id')
         ->join('tipo_contrato', 'empleados.tipocontrato_id', '=','tipo_contrato.id')
-        ->select('empleados.id',DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
-        'empleados.tipodocumento_id', 'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento','cargos.id',
+        ->select('empleados.id','empleados.nombre','empleados.apellidos',
+        'empleados.tipodocumento_id', 'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento','empleados.cargo_id',
         'cargos.descripcion as cargo', 'empleados.sexo_id', 'sexo.descripcion as sexo', 'empleados.edad','empleados.telefonos',
-         'empleados.gruposanguineo_id', 'empleados.direccion_res', 'empleados.email', 'empleados.fecha_nacimiento',
-         'empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id',
-         'empleados.nombre_familiar','empleados.telefono_familiar', 'empleados.email_famliar','empleados.parentezco_familiar')->get();
+         'empleados.gruposanguineo_id', 'empleados.direccion_res', 'empleados.email', 'empleados.fecha_nacimiento', 
+         'empleados.lugar_ncmto','empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id',
+         'empleados.nombre_familiar','empleados.telefono_familiar', 'empleados.email_famliar','empleados.parentezco_familiar',
+         'empleados.observacion')->get();
          return $empleadoIndex;
 
- 
-
-        // $tipoDocu = TipoDocumentoModell::all();    
+        //  DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
+         // $tipoDocu = TipoDocumentoModell::all();    
         // $pais = PaisModell::all();
         // $departamento = DepartamentosModell::all();
         // $ciudad = CiudadesModell::all();

@@ -108,9 +108,12 @@
 <!-- AdminLTE for demo purposes -->
 //{{-- <!-- <script src="{{asset('backend/dist/js/demo.js')}}"></script> --> --}}
 
+<!-- MOMEENT FECHAS-->
+<script src="{{asset('backend/dist/js/moment.js')}}"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
-<!-- DataTables  & Plugins -->
+<!-- DataTables  & Plugins --> 
 <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>

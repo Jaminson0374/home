@@ -6,7 +6,10 @@
             background-color: #eef3eb;
             border: 4em;
             border-color: #ee2015;
-        }
+        };
+        table.dataTable.dataTable_width_auto {
+            width: auto;
+        }        
     </style>
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -83,13 +86,13 @@
                                                     <label for="">F. Nacmto:</label>
                                                     <input type="date" class="form-control text" name="fecha_nacimiento"
                                                         id="fecha_nacimiento"  focusNext tabindex="5" 
-                                                        title="">
+                                                        title="" onchange="calculaEdad()">
                                                 </div> 
                                                 <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary">
                                                     <label for="">Edad:</label>
                                                     <input type="number" class="form-control text" name="edad"
                                                         id="edad"  focusNext tabindex="6" 
-                                                        title="" disabled>
+                                                        title="" disabled readonly style="background-color: #eef3eb;">
                                                 </div> 
                                                 <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
                                                     <label for="">Lugar ncmto:</label>
@@ -300,7 +303,7 @@
                                             <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Guardar
                                         </button>
                                         <button type="button" class="btn btn-primary form-group btnSearchEmp btn-lg" title="Permite localizar un el refistro de un empleado"
-                                            id="btnSearchEmp" name="btnSearchEmp" focusNext tabindex="20"><i
+                                            id="btnSearchEmp" focusNext tabindex="20"><i
                                                 class="fa fa-search-location fa-lg"></i>Buscar
                                         </button>
 
@@ -315,6 +318,10 @@
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>
+                                    <button type="button" class="btn btn-primary form-group btnSearchEmp btn-lg" title="Permite localizar un el refistro de un empleado"
+                                    id="prueba" name="" focusNext tabindex="20"><i
+                                        class="fa fa-search-location fa-lg"></i>Prueba
+                                </button>                                    
                                 </div>
                             </div>  <!--cierra row-->
                         </footer>
@@ -330,7 +337,7 @@
 
       <!-- Modal -->
 <div class="container-lg">
-    <div class="modal fade" id="modalBuscarEvol" class="modalBuscarEvol" data-backdrop="static" focusNext tabindex="-1"
+    <div class="modal fade" id="modalBuscarEvol2" class="modalBuscarEvol" data-backdrop="static" focusNext tabindex="-1"
         role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -345,16 +352,17 @@
 
                 <body>
                     <div class="modal-body">
-                        <div class="card-body p-2 mb-0 bg-primary text-white">
-                            <table id="tablaClientesEvol" class="table table-bordered table-striped">
+                        <div class="card-body p-2 mb-0 bg-success text-white">
+                            <table id="tablaClientesEvol2" class=" table table-bordered table-striped table-condensed table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
                                         <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Estado</th>
+                                        <th>Apellidos</th>
+                                        <th>Email</th>
+                                        <th>F. ncmto</th>
+                                        <th>Telefono</th>
+                                        <th>Sexo</th>
+                                        <th>Cargo</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -379,8 +387,219 @@
 
 
 <script>
+window.addEventListener('load', () => {
+    let espanol = idioma()
+    let btnPrueba = document.getElementById('prueba') 
 
+    let formEvolB = document.getElementById('formEmpleados')
 
+    document.getElementById('btnCancelEmp').disabled = true;
+    // document.getElementById('btnSaveEmp').disabled = true;
+    funcLib = new EmpleadoVista(); // 
+
+    funcLib.desactivaInput();  
+    document.getElementById('btnEditEmp').disabled = true;      
+
+    let bodyTablaClientesEvol = document.getElementById("bodyTabla");
+    let modalBuscarEvol = document.getElementById('modalBuscarEvol');
+    let btnSearchEmp = document.getElementById('btnSearchEmp');    
+    
+    btnSearchEmp.addEventListener('click', () => {
+        if ($.fn.DataTable.isDataTable('#tablaClientesEvol2')) { 
+            $("#modalBuscarEvol2").modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        show: true
+                    });
+
+                let jaminson = $('#tablaClientesEvol2').DataTable({
+                    responsive: true,
+                    destroy: true,
+                    scroll: true,
+                    scrollCollapse: true,
+                    scrollY: '400px',
+                    scrollx: true,
+                    deferRender: true,
+                    paging: true,
+                    select: true,
+                    bAutoWidth: false,
+                    scrollCollapse: false,                    
+                    "ajax": {
+                        "url": "{{ URL::to('/empleadosListaShow') }}",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "nombre"
+                        },
+                        {
+                            "data": "apellidos"
+                        },                        
+                        {
+                            "data": "email"
+                        },
+                        {
+                            "data": "fecha_nacimiento"
+                        },     
+                        {
+                            "data": "telefonos"
+                        },
+                        {
+                            "data": "sexo"
+                        },
+                        {
+                            "data": "cargo"
+                        },                                           
+                    ],
+                     columnDefs: [{
+                            targets: 6,
+                            visible: true
+                        },
+                            {
+                            targets: 7,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                return botones;
+                            }
+                        }
+
+                    ],
+                    "destroy": true,
+                    "language":{"url": "../resources/js/espanol.json"}
+      
+                })
+                obtener_data_buscar("#tablaClientesEvol2 tbody", table)   
+                // alert(jaminson)
+                
+                // $('#tablaClientesEvol2').DataTable().fnDestroy();;
+                // const buscarLineas = function() {
+
+ 
+                    // alert('SIIII ESTA DEFINADA LA DATATABLE')
+
+                    // $('#tablaLin .modal-dialog').draggable({
+                    //     handle: ".modal-header"
+                    // });               
+        }else{
+            // .columns.adjust();
+            $("#modalBuscarEvol2").modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        show: true
+                    });
+                let table = $('#tablaClientesEvol2').DataTable({
+                responsive: true,
+                destroy: true,
+                scroll: true,
+                scrollCollapse: true,
+                scrollY: '400px',
+                scrollx: true,
+                deferRender: true,
+                paging: true,
+                select: true,
+                bAutoWidth: false,
+                scrollCollapse: false,
+                "ajax": {
+                        "url": "{{ URL::to('/empleadosListaShow') }}",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                      
+                        {
+                            "data": "nombre"
+                        },
+                        {
+                            "data": "apellidos"
+                        },
+                        {
+                            "data": "email"
+                        },
+                        {
+                            "data": "fecha_nacimiento"
+                        },     
+                        {
+                            "data": "telefonos"
+                        },
+                        {
+                            "data": "sexo"
+                        },
+                        {
+                            "data": "cargo"
+                        },                                           
+                    ],
+                     columnDefs: [{
+                            targets: 6,
+                            visible: true
+                        },
+                        {
+                            targets: 7,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                return botones;
+                            }
+                        }
+
+                    ],
+                    "destroy": true,
+                    "language":{"url": "../resources/js/espanol.json"
+                    }
+
+                })
+
+                obtener_data_buscar("#tablaClientesEvol2 tbody", table)            
+            // buscarLineas()
+            // alert('NO ESTA DEFINADA LA DATATABLE')
+            
+            // return true
+        }
+        
+    })
+    let obtener_data_buscar = function(tbody, table) {
+            // $("#idModal").on('hidden.bs.modal', function() {
+            //         DataTableCargaDatos();
+            //     });
+ 
+            $(tbody).on("click", "button.btnCaptura", function() {
+                let data = table.row($(this).parents("tr")).data();
+                // console.log(data.fecha_pedido_cita)
+                // formEvolB.reset()
+                let dataEvol = data;
+                console.log(dataEvol)
+                funcLib.asignaValorEdit(dataEvol)
+
+                /*Cuando se busca un registro se cambial atributo del input hidden*/
+                // let newNom80 = document.getElementById('accionBotones')
+                // newNom80.setAttribute('accion', "Actualizar");
+
+                var btnGuardar = document.getElementById('btnSaveEmp');
+                btnGuardar.innerHTML = 'Actualizar'
+                
+                document.getElementById('btnSaveEmp').disabled = true;
+                document.getElementById('btnEditEmp').disabled = false;
+                document.getElementById('btnCancelEmp').disabled = false;
+                document.getElementById('btnNewEmp').disabled = true;
+                document.getElementById('btnSearchEmp').disabled = true;
+                let btnDeleteEmpclick1 = document.getElementById('btnDeleteEmp')
+                btnDeleteEmpclick1.disabled = false
+                
+            })
+        }
+
+        // obtener_data_buscar()
+        // buscarClientes() 
+        // obtener_data_buscar("#tablaClientesEvol2 tbody", table)            
+        return true                            
+})
 
 // window.addEventListener('load', () => {
 // let btnSearchEmp = document.getElementById('btnSearchEmp');
@@ -418,155 +637,7 @@
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
-     window.addEventListener('load', () => {
-        let formEvolB = document.getElementById('formEmpleados')
 
-        document.getElementById('btnCancelEmp').disabled = true;
-        // document.getElementById('btnSaveEmp').disabled = true;
-        funcLib = new EmpleadoVista(); // 
-
-
-        funcLib.desactivaInput();  
-        document.getElementById('btnEditEmp').disabled = true;      
-
-        let bodyTablaClientesEvol = document.getElementById("bodyTabla");
-        let modalBuscarEvol = document.getElementById('modalBuscarEvol');
-        let btnSearchEmp = document.getElementById('btnSearchEmp');
- 
-        btnSearchEmp.addEventListener('click', () => {
-            if ($.fn.DataTable.isDataTable('#tablaClientesEvol')) { 
-                let jaminson = $('#tablaClientesEvol').DataTable();
-                // alert(jaminson)
-                const buscarClientes = function() {
-                    $("#modalBuscarEvol").modal({
-                        backdrop: 'static',
-                        keyboard: false,
-                        show: true
-                    });
-                    // $('#modalBuscarCita .modal-dialog').draggable({
-                    //     handle: ".modal-header"
-                    // });
-
-                    let table = $('#tablaClientesEvol').DataTable({
-                        "columns": [],
-                        "language": espanol,
-                        "destroy": true
-                    }) 
-                }
-                buscarClientes()
-            }
-
-            let espanol = idioma()
-            const buscarClientes = function() {
-                $("#modalBuscarEvol").modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                });
-
-                    // $('#modalBuscarCita .modal-dialog').draggable({
-                    //     handle: ".modal-header"
-                    // });
-                let table = $('#tablaClientesEvol').DataTable({
-                    responsive: true,
-                    scroll: true,
-                    scrollCollapse: true,
-                    scrollY: '400px',
-                    scrollx: true,
-                    "ajax": {
-                        "url": "{{ URL::to('/empleadosListaShow') }}",
-                        "dataSrc": ""
-                    },
-                    "columns": [{
-                            "data": "num_documento"
-                        },
-                        {
-                            "data": "empleado"
-                        },
-                        {
-                            "data": "telefonos"
-                        },
-                        {
-                            "data": "sexo"
-                        },
-                        {
-                            "data": "sexo"
-                        },
-                        {
-                            "data": "cargo"
-                        },
-                    ],
-                     columnDefs: [{
-                            targets: 5,
-                            visible: true
-                        },
-                        {
-                            targets: 6,
-                            orderable: false,
-                            data: null,
-                            render: function(data, type, row, meta) {
-                                let fila = meta.row;
-                                let botones =
-                                    `
-                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
-                                return botones;
-                            }
-                        }
-
-                    ],
-                    "language": espanol,
-                    "destroy": true
-
-                })
-        
-                //    $('#ModalUpdate').modal('hide');
-                //  alert("datos actualizados");
-                //  table.ajax.reload();//Podrias colocarlo dentro del success o done para recargar la tabla 
-                
-                obtener_data_buscar("#tablaClientesEvol tbody", table)
-            }
-            
-            buscarClientes()
-            return true;
-        })
-            // actualizacion de contenido en tiempo real
-
-        let obtener_data_buscar = function(tbody, table) {
-            // $("#idModal").on('hidden.bs.modal', function() {
-            //         DataTableCargaDatos();
-            //     });
- 
-            $(tbody).on("click", "button.btnCaptura", function() {
-                let data = table.row($(this).parents("tr")).data();
-                // console.log(data.fecha_pedido_cita)
-                // formEvolB.reset()
-                let dataEvol = data;
-                console.log(dataEvol)
-                funcLib.asignaValorEdit(dataEvol)
-
-                /*Cuando se busca un registro se cambial atributo del input hidden*/
-                // let newNom80 = document.getElementById('accionBotones')
-                // newNom80.setAttribute('accion', "Actualizar");
-
-                var btnGuardar = document.getElementById('btnSaveEmp');
-                btnGuardar.innerHTML = 'Actualizar'
-                
-                document.getElementById('btnSaveEmp').disabled = true;
-                document.getElementById('btnEditEmp').disabled = false;
-                document.getElementById('btnCancelEmp').disabled = false;
-                document.getElementById('btnNewEmp').disabled = true;
-                document.getElementById('btnSearchEmp').disabled = true;
-                let btnDeleteEmpclick1 = document.getElementById('btnDeleteEmp')
-                btnDeleteEmpclick1.disabled = false
-                
-            })
-        }
- 
-
-        obtener_data_buscar()
-        // buscarClientes() 
-        return true                                    
-     }) // window load el primero
 
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
@@ -661,8 +732,8 @@
                             }).then((resp) => {
                                 console.log(resp.data)
                                 // console.log(resp.data['message'])
-                                if(resp.data['message']=="Success"){
-                                    // if(resp.data){
+                                // if(resp.data['message']=="Success"){
+                                    if(resp.data){
                                     document.getElementById('btnDeleteEmp').disabled = true;
                                     document.getElementById('btnNewEmp').disabled = false;
                                     document.getElementById('btnCancelEmp').disabled = true;
@@ -957,7 +1028,11 @@
 
     evitaCierreFormulario()
     nobackbutton()
-
+    
+    function calculaEdad(){
+        let resul = funcLib.tuEdadReal('fecha_nacimiento')
+        document.getElementsByName("edad")[0].value = resul;
+    }
 
 
 
