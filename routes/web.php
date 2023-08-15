@@ -1,7 +1,8 @@
 <?php
 use App\Http\controller\backend\ClientesController;
 use App\Http\Controllers\backend\TipoDocumentoController;
-
+use App\Http\Controllers\backend\EmpleadosController;
+use App\Http\Controllers\backend\ClientesDatosBasicosControlle;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -57,24 +58,17 @@ Route::get('/admin-prueba', function() {
 });
 
 Route::get('/add-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'AddClienteIndex'])->name('AddClienteIndex');
-
 Route::get('/tipo-servicio', [App\Http\Controllers\backend\ClientesController::class, 'TipoServicio'])->name('TipoServicio');
-
 Route::post('/insert-cliente', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertCliente');
-
 Route::get('/edit-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'EditCliente'])->name('EditCliente');
-
 Route::post('/update-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'UpdateCliente'])->name('UpdateCliente');
-
 Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'DeleteCliente'])->name('DeleteCliente');
 Route::post('/traeClienteConServicio/{id}', [App\Http\Controllers\backend\ClientesController::class, 'traeClienteServicio'])->name('TraeClienteConServicio');
 
 //Administrador de Clientes DATOS BASICOSClientesDatosBasicosController
 
 Route::get('/add-cliente-datobasic', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'create'])->name('AddClienteDatoBasic');
-
-Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'store'])->name('InsertClienteBasico');
-
+Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'store'])->name('Insert-cliente-basicos');
 Route::get('/buscar-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'busquedaClienteDtoBasico'])->name('BuscarClienteBasico');
 Route::post('/clienteCli', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'editarCliente'])->name('ClienteEditarCli');
 Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'update'])->name('ClienteUpdateCli');

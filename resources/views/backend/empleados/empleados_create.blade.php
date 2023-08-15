@@ -284,6 +284,10 @@
                                 <script src="{{ asset('../resources/views/backend/empleados/empleados.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>   
                                 <script src="{{ asset('../resources/js/imagen.js') }}"></script>
+                                {{-- <script type="module" src="{{asset('../resources/views/backend/empleados/routes.js')}}"></script> --}}
+                                {{-- <script src="{{asset('../public/assets/js/buscar_empleado.js')}}"></script> --}}
+                                {{-- <script src="{{ asset('../public/assets/js/buscar_empleado.js') }}"></script> --}}
+                                
                              </body>
                         </div>  
                         <footer>
@@ -388,113 +392,39 @@
 
 <script>
 window.addEventListener('load', () => {
-    let espanol = idioma()
-    let btnPrueba = document.getElementById('prueba') 
+    // const parse = require('node-html-parser');
+    // import routes from '../public/assets/routes.js'
+        // let espanol = idioma()
+        // emplea = new  empleadoBuscar()
+        
+        let btnPrueba = document.getElementById('prueba') 
 
-    let formEvolB = document.getElementById('formEmpleados')
+        let formEvolB = document.getElementById('formEmpleados')
 
-    document.getElementById('btnCancelEmp').disabled = true;
-    // document.getElementById('btnSaveEmp').disabled = true;
-    funcLib = new EmpleadoVista(); // 
+        document.getElementById('btnCancelEmp').disabled = true;
+        // document.getElementById('btnSaveEmp').disabled = true;
+        funcLib = new EmpleadoVista(); 
+       
 
-    funcLib.desactivaInput();  
-    document.getElementById('btnEditEmp').disabled = true;      
+        funcLib.desactivaInput();  
+        document.getElementById('btnEditEmp').disabled = true;      
 
-    let bodyTablaClientesEvol = document.getElementById("bodyTabla");
-    let modalBuscarEvol = document.getElementById('modalBuscarEvol');
-    let btnSearchEmp = document.getElementById('btnSearchEmp');    
+        let bodyTablaClientesEvol = document.getElementById("bodyTabla");
+        let modalBuscarEvol = document.getElementById('modalBuscarEvol');
+        let btnSearchEmp = document.getElementById('btnSearchEmp');    
     
-    btnSearchEmp.addEventListener('click', () => {
-        if ($.fn.DataTable.isDataTable('#tablaClientesEvol2')) { 
-            $("#modalBuscarEvol2").modal({
+        btnSearchEmp.addEventListener('click', () => {
+            // funcLib.tableSearch()
+            // funcLib.buscaAxios();
+                    $("#modalBuscarEvol2").modal({
                         backdrop: 'static',
                         keyboard: false,
                         show: true
                     });
-
-                let jaminson = $('#tablaClientesEvol2').DataTable({
-                    responsive: true,
-                    destroy: true,
-                    scroll: true,
-                    scrollCollapse: true,
-                    scrollY: '400px',
-                    scrollx: true,
-                    deferRender: true,
-                    paging: true,
-                    select: true,
-                    bAutoWidth: false,
-                    scrollCollapse: false,                    
-                    "ajax": {
-                        "url": "{{ URL::to('/empleadosListaShow') }}",
-                        "dataSrc": ""
-                    },
-                    "columns": [
-                        {
-                            "data": "nombre"
-                        },
-                        {
-                            "data": "apellidos"
-                        },                        
-                        {
-                            "data": "email"
-                        },
-                        {
-                            "data": "fecha_nacimiento"
-                        },     
-                        {
-                            "data": "telefonos"
-                        },
-                        {
-                            "data": "sexo"
-                        },
-                        {
-                            "data": "cargo"
-                        },                                           
-                    ],
-                     columnDefs: [{
-                            targets: 6,
-                            visible: true
-                        },
-                            {
-                            targets: 7,
-                            orderable: false,
-                            data: null,
-                            render: function(data, type, row, meta) {
-                                let fila = meta.row;
-                                let botones =
-                                    `
-                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
-                                return botones;
-                            }
-                        }
-
-                    ],
-                    "destroy": true,
-                    "language":{"url": "../resources/js/espanol.json"}
-      
-                })
-                obtener_data_buscar("#tablaClientesEvol2 tbody", table)   
-                // alert(jaminson)
-                
-                // $('#tablaClientesEvol2').DataTable().fnDestroy();;
-                // const buscarLineas = function() {
-
- 
-                    // alert('SIIII ESTA DEFINADA LA DATATABLE')
-
-                    // $('#tablaLin .modal-dialog').draggable({
-                    //     handle: ".modal-header"
-                    // });               
-        }else{
-            // .columns.adjust();
-            $("#modalBuscarEvol2").modal({
-                        backdrop: 'static',
-                        keyboard: false,
-                        show: true
-                    });
-                let table = $('#tablaClientesEvol2').DataTable({
+                table = $('#tablaClientesEvol2').DataTable({
                 responsive: true,
-                destroy: true,
+                serverSide: true,
+                destroy: false,
                 scroll: true,
                 scrollCollapse: true,
                 scrollY: '400px',
@@ -505,32 +435,18 @@ window.addEventListener('load', () => {
                 bAutoWidth: false,
                 scrollCollapse: false,
                 "ajax": {
+                        "type": "GET",
                         "url": "{{ URL::to('/empleadosListaShow') }}",
                         "dataSrc": ""
                     },
                     "columns": [
-                      
-                        {
-                            "data": "nombre"
-                        },
-                        {
-                            "data": "apellidos"
-                        },
-                        {
-                            "data": "email"
-                        },
-                        {
-                            "data": "fecha_nacimiento"
-                        },     
-                        {
-                            "data": "telefonos"
-                        },
-                        {
-                            "data": "sexo"
-                        },
-                        {
-                            "data": "cargo"
-                        },                                           
+                        {"data": "nombre"},
+                        {"data": "apellidos"},
+                        {"data": "email"},
+                        {"data": "fecha_nacimiento"},     
+                        {"data": "telefonos"},
+                        {"data": "sexo"},
+                        {"data": "cargo"},                                           
                     ],
                      columnDefs: [{
                             targets: 6,
@@ -548,38 +464,19 @@ window.addEventListener('load', () => {
                                 return botones;
                             }
                         }
-
                     ],
                     "destroy": true,
                     "language":{"url": "../resources/js/espanol.json"
                     }
+                }).draw()
+              return true
+        })
 
-                })
-
-                obtener_data_buscar("#tablaClientesEvol2 tbody", table)            
-            // buscarLineas()
-            // alert('NO ESTA DEFINADA LA DATATABLE')
-            
-            // return true
-        }
-        
-    })
-    let obtener_data_buscar = function(tbody, table) {
-            // $("#idModal").on('hidden.bs.modal', function() {
-            //         DataTableCargaDatos();
-            //     });
- 
-            $(tbody).on("click", "button.btnCaptura", function() {
-                let data = table.row($(this).parents("tr")).data();
-                // console.log(data.fecha_pedido_cita)
-                // formEvolB.reset()
-                let dataEvol = data;
+          $('#tablaClientesEvol2').on("click", "button.btnCaptura", function () {
+                var datos = table.row($(this).parents("tr")).data();
+                let dataEvol = datos;
                 console.log(dataEvol)
                 funcLib.asignaValorEdit(dataEvol)
-
-                /*Cuando se busca un registro se cambial atributo del input hidden*/
-                // let newNom80 = document.getElementById('accionBotones')
-                // newNom80.setAttribute('accion', "Actualizar");
 
                 var btnGuardar = document.getElementById('btnSaveEmp');
                 btnGuardar.innerHTML = 'Actualizar'
@@ -591,15 +488,10 @@ window.addEventListener('load', () => {
                 document.getElementById('btnSearchEmp').disabled = true;
                 let btnDeleteEmpclick1 = document.getElementById('btnDeleteEmp')
                 btnDeleteEmpclick1.disabled = false
-                
             })
-        }
+    })
+ 
 
-        // obtener_data_buscar()
-        // buscarClientes() 
-        // obtener_data_buscar("#tablaClientesEvol2 tbody", table)            
-        return true                            
-})
 
 // window.addEventListener('load', () => {
 // let btnSearchEmp = document.getElementById('btnSearchEmp');

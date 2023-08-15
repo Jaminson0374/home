@@ -25,7 +25,7 @@ class EvolucionDiariaController extends Controller
     {
         $clientesEvolucionDiaria = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos',
-        'edad','ult_fecha_evo','ult_hora_evo','ult_evolucion','estado_user')->where("estado_user", "=", "ON")->get(); 
+        'edad','ult_fecha_evo','ult_hora_evo','ult_evolucion','estado_user')->where("estado_user", "=", "on")->get(); 
 
          return view('backend.evolucion_medica.admin_evolucion_diaria',['listaEvolucion' => $clientesEvolucionDiaria]);
       

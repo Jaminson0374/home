@@ -12,43 +12,28 @@
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
                     @csrf
                     {{-- @method('post') --}}
-    <section class="content">
-      <div class="row pb-2 pt-1">
-        <div class="col-5">
-          <b><h4 class="text-white bg-success">Administración General de Usuarios</h2></b>
-        </div> 
-        <div class="col-2"></div>
-        <div class="col-2">   
-              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario-Reserva</a>
-        </div> 
-      
-        <div class="col-2">   
-          {{-- <span class="btn btn-success col fileinput-button">
-            <a href="{{URL::to('/add-cliente-datobasic')}}"></a>
-            <i class="fas fa-plus"></i>
-            <span>Nuevo Usuario</span>
-          </span>           --}}
-          
-          {{-- <a class="btn btn-warning" href="{{URL::to('/add-cliente-servicio')}}">Asignar Servicio</a> --}}
-        </div> 
-
-        
-      </div>      
+    {{-- <section class="content"> --}}
+      <div class="row p-1 m-1">
+          <div class="col-5">
+            <b><h4 class="text-white bg-success p-2">Administración General de Usuarios</h2></b>
+          </div> 
+          <div class="col-2"></div>
+          <div class="col-2">   
+                <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario</a>
+          </div> 
+       </div>      
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
-              {{-- <div class="card-header">
-                <h3 class="card-title">DataTable with minimal features & hover style</h3>
-              </div> --}}
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="adminClientes" class="table table-bordered table-striped">
+
+              <div class="card-body bg bg-primary" >
+                <table id="example2" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Id</th>  
+                      <th>Id</th>   
                       <th>DocIdent</th> 
                       <th class="text-center">Nombre</th>
                       <th class="text-center">Edad</th>

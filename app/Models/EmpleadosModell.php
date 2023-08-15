@@ -18,5 +18,6 @@ class EmpleadosModell extends Model
         'empleado_id',
         'timestamps'
     ];	    
+
     use HasFactory;
 }

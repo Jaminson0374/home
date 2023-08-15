@@ -4,7 +4,6 @@ AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 class DatosBasicosClientes {
 
 	validarCampos() {
-		let focusHtml = "";
 		let campoText = "";
 		let id_tipodoc = document.getElementsByName("id_tipodoc")[0].value;
 		let num_documento = document.getElementsByName("num_documento")[0].value;
@@ -14,21 +13,13 @@ class DatosBasicosClientes {
 		let departamento_id = document.getElementsByName("departamento_id")[0].value;
 		let ciudad_id = document.getElementsByName("ciudad_id")[0].value;
 		let fecha_nacimiento = document.getElementsByName("fecha_nacimiento")[0].value;
-		let edad = document.getElementsByName("edad")[0].value;
 		let sexo_id = document.getElementsByName("sexo_id")[0].value;
 		let grupoSanguineo_id = document.getElementsByName("grupoSanguineo_id")[0].value;
 		let telefonos_user = document.getElementsByName("telefonos_user")[0].value;
 		let direccion_res = document.getElementsByName("direccion_res")[0].value;
-		let email_user = document.getElementsByName("email_user")[0].value;
-		let fecha_creacion = document.getElementsByName("fecha_creacion")[0].value;
-		let estado_user = document.getElementsByName("estado_user")[0].value;
-		let diagnostico = document.getElementsByName("diagnostico")[0].value;
-		let recomendacion_med = document.getElementsByName("recomendacion_med")[0].value;
-		let dieta_nutricio = document.getElementsByName("dieta_nutricio")[0].value;
-		let suministro_medic = document.getElementsByName("suministro_medic")[0].value;		
-		let observacion = document.getElementsByName("observacion")[0].value;		
+		let _tiposervicio_id = document.getElementsByName("tiposervicio_id")[0].value;
+		// let fecha_creacion = document.getElementsByName("fecha_creacion")[0].value;
 
-		// var campoText="";
 		let camposForm = "";
 		switch (camposForm) {
 			case id_tipodoc:
@@ -60,7 +51,7 @@ class DatosBasicosClientes {
 				campoText = 'La CIUDAD NACIMIENTO es requerida'
 				break;
 			case fecha_nacimiento:
-				document.getElementById('fecha_nacimiento').focus();
+				document.getElementById('fecha_nacimiento').focus(); 
 				campoText = 'La F. NACIMIENTO es requerida'
 				break;
 			case sexo_id:
@@ -79,11 +70,12 @@ class DatosBasicosClientes {
 				document.getElementById('direccion_res').focus();
 				campoText = 'La DIRECCION RESIDENCIAL es requerida'
 				break;
-			case fecha_creacion:
-				document.getElementById('fecha_creacion').focus();
-				campoText = 'La FECHA CREACIÓN/RESERVA es requerida'
-				break;
+				case _tiposervicio_id:
+					document.getElementById('tiposervicio_id').focus();
+					campoText = 'SELECCIONE EL TIOPO DE SERVICIO'
+					break;				
 		}
+		
 		return campoText;
 
 	}
@@ -100,12 +92,15 @@ class DatosBasicosClientes {
 		document.getElementsByName('ciudad_id')[0].value = data.ciudad_id
 		document.getElementsByName('fecha_nacimiento')[0].value = data.fecha_nacimiento
 		document.getElementsByName('edad')[0].value = data.edad
-		document.getElementsByName('sexo_id')[0].value = data.sexo_id
+		document.getElementsByName('peso')[0].value = data.peso
+
 		document.getElementsByName('grupoSanguineo_id')[0].value = data.grupoSanguineo_id
+		document.getElementsByName('sexo_id')[0].value = data.sexo_id
 		document.getElementsByName('telefonos_user')[0].value = data.telefonos_user
 		document.getElementsByName('direccion_res')[0].value = data.direccion_res
 		document.getElementsByName('email_user')[0].value = data.email_user
 		document.getElementsByName('fecha_creacion')[0].value = data.fecha_creacion
+		document.getElementsByName('fecha_retiro')[0].value = data.fecha_retiro
 		document.getElementsByName('estado_user')[0].value = data.estado_user
 		document.getElementsByName('diagnostico')[0].value = data.diagnostico
 		document.getElementsByName('observacion')[0].value = data.observacion
@@ -113,6 +108,16 @@ class DatosBasicosClientes {
 		document.getElementsByName("recomendacion_med")[0].value = data.recomendacion_med;
 		document.getElementsByName("dieta_nutricio")[0].value = data.dieta_nutricio;
 		document.getElementsByName("suministro_medic")[0].value = data.suministro_medic;		
+		document.getElementsByName("barrio_res")[0].value = data.barrio_res;		
+		document.getElementsByName("tiposervicio_id")[0].value = data.tiposervicio_id;	
+
+		
+		$("#stado_user").val(data.estado_user).trigger('change.estado_user');
+		$("#tiposervicio_id").val(data.tiposervicio_id).trigger('change.tiposervicio_id');
+		$("#acompanantes_id2").val(data.acompanantes_id2).trigger('change.select2');
+		$("#acompanantes_id3").val(data.acompanantes_id3).trigger('change.select2');
+		$("#acompanantes_id").val(data.acompanantes_id).trigger('change.select2');
+
 
 		// $("#id_tipodoc").val("_id_tipodoc").trigger('change.select2');
 
@@ -120,7 +125,7 @@ class DatosBasicosClientes {
 		let dpto_id = data.departamento_id
 		departamentos(idNacionalidad, dpto_id)
 
-		let ciudad_seleEdit = data.ciudad_id
+		let ciudad_seleEdit = data.ciudad_id 
 		ciudadesEdit(idNacionalidad, dpto_id, ciudad_seleEdit)
 	}
 
@@ -201,12 +206,21 @@ class DatosBasicosClientes {
 		document.getElementById('direccion_res').disabled = true;
 		document.getElementById('email_user').disabled = true;
 		document.getElementById('fecha_creacion').disabled = true;
-		document.getElementById('estado_user').disabled = true;
+		document.getElementById('fecha_retiro').disabled = true;
 		document.getElementById('diagnostico').disabled = true;
 		document.getElementById("recomendacion_med").disabled = true;
 		document.getElementById("dieta_nutricio").disabled = true;
 		document.getElementById("suministro_medic").disabled = true;
-		document.getElementById("observacion").disabled = true;				
+		document.getElementById("observacion").disabled = true;		
+		document.getElementById("peso").disabled = true;
+		document.getElementById("barrio_res").disabled = true;	
+		document.getElementById("acompanantes_id").disabled = true;	
+		document.getElementById("acompanantes_id2").disabled = true;	
+		document.getElementById("acompanantes_id3").disabled = true;	
+		document.getElementById('estado_user').disabled = true;
+		document.getElementById('tiposervicio_id').disabled = true;
+
+				
 	}
 	activaElements(){
 		document.getElementById('id_tipodoc').disabled = false;
@@ -223,13 +237,21 @@ class DatosBasicosClientes {
 		document.getElementById('telefonos_user').disabled = false;
 		document.getElementById('direccion_res').disabled = false;
 		document.getElementById('email_user').disabled = false;
-		document.getElementById('fecha_creacion').disabled = false;
 		document.getElementById('estado_user').disabled = false;
+		document.getElementById('fecha_creacion').disabled = false;
+		document.getElementById('fecha_retiro').disabled = false;
+
 		document.getElementById('diagnostico').disabled = false;
 		document.getElementById('observacion').disabled = false;
 		document.getElementById("recomendacion_med").disabled = false;
 		document.getElementById("dieta_nutricio").disabled = false;
 		document.getElementById("suministro_medic").disabled = false;
+		document.getElementById("peso").disabled = false;
+		document.getElementById("barrio_res").disabled = false;
+		document.getElementById("acompanantes_id").disabled = false;	
+		document.getElementById("acompanantes_id2").disabled = false;	
+		document.getElementById("acompanantes_id3").disabled = false;
+		document.getElementById('tiposervicio_id').disabled = false;			
 	}	
 	clearElements(){
 		

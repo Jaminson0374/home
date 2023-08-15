@@ -1,13 +1,36 @@
 @extends('backend.layouts.app')
 @section('content')
-    <style>
-        .tarjeta_body {
-            margin: 2px;
-            background-color: #eef3eb;
-            border: 4em;
-            border-color: #ee2015;
-        }
-    </style>
+<style>
+    .tarjeta_body {
+        margin: 1px;
+        background-color: #f1f2f8;
+        border: 4em;
+        border-color: #ee2015;
+    }
+
+    .card {
+        background-color: #a1e4fa;
+    }
+
+    .my-class-drop {
+        height: 20px;
+    }
+
+    .c-body {
+        background-color: #07c5f98a;
+    }
+
+    input.text,
+    select.text,
+    textarea.text {
+        /*border:inset;*/
+        border-style: inset;
+        border: inset;
+        background-color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1em
+    }
+</style>
 
     {{-- @if ($errors->any())
     <script>
@@ -34,11 +57,10 @@
                                 <input type="hidden" name="tieneServicio" id="tieneServicio" value={{$siServicio}}>
                                 @foreach($seleUsuario as $datosRow)
                                 @endforeach
-                                <div class="col-sm-12">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 border border-primary pb-2">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">Ingreso Institucional - ASIGNACIÓN DEL SERVICIO
-                                                SOLICITADO
+                                            <h3 class="card-title">Servicio activo: {{$nomService}} 
                                             </h3>
                                             <h3 class="card-title float-right">
                                                 USUARIO/CLIENTE:------>{{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos}}
@@ -47,23 +69,11 @@
                                             <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
                                             <input type="hidden" id="idClienteServicio" name="idClienteServicio" value ={{"$idCliServi"}}>
                                         </div>
-                                        <div class="card-body bg-info">
+                                        <div class="card-body " style="background-color: rgb(160, 244, 241)">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <label>Tipo Servicio</label>
-                                                    <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;"
-                                                        name="tiposervicio_id" id="tiposervicio_id">
-                                                        <option selected="selected" disable value=" ">Seleciona un
-                                                            servicio
-                                                        </option>
-                                                        @foreach ($tipoServicio as $tipoServi)
-                                                            <option value={{ $tipoServi->id }}>{{ $tipoServi->descripcion }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-8 col-sm-4">
+                                            <div class="row border mt-2 mb-3 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">                                                
+                                                {{-- <div class="col-8 col-sm-4"> --}}
                                                     <label>Institución Remitente</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger"
@@ -76,7 +86,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-12 col-sm-3">
+                                                <div class="col-12 col-lg-2 col-md-4 col-sm-10 border border-primary pb-2">                                                
                                                     <label>Grupo o Rango EPS?</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -88,7 +98,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-6 col-sm-2">
+                                                <div class="col-12 col-lg-2 col-md-4 col-sm-10 border border-primary pb-2">
                                                     <label for="tipo_afiliacion">Tipo de afiliación:</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger"
@@ -102,31 +112,39 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                <div class="col-12 col-lg-4 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label for="" class="col-form-label">Médico de EPS
+                                                    Remitente</label>
+                                                    <select class="select2 select2-danger"
+                                                    data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                    name="medico_remite_id" id="medico_remite_id">
+                                                    <option selected="selected" disable value=" ">Seleciona medico</option>
+                                                    @foreach ($medicosExternos as $medicoExt)
+                                                        <option value={{$medicoExt->id}}>{{$medicoExt->nombre}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>             
+                                                </div>
                                             </div>
                                             <!--cierra row-->
-                                            {{-- </div> --}}
-                                            <div class="row">
-                                                <div class="mt-1 col-sm-12  border border-primary"></div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <label for="" class="col-form-label">Médico de EPS
-                                                        Remitente</label>
-                                                        <select class="select2 select2-danger"
-                                                        data-dropdown-css-class="select2-danger" style="width: 100%;"
-                                                        name="medico_remite_id" id="medico_remite_id">
-                                                        <option selected="selected" disable value=" ">Seleciona medico</option>
-                                                        @foreach ($medicosExternos as $medicoExt)
-                                                            <option value={{$medicoExt->id}}>{{$medicoExt->nombre}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>                                                        
-                                                </div>
-                                                <div class="col-12 col-sm-3">
-                                                    <label class="col-form-label">Cubiculo</label>
+                                            <div class="row border mt-2 mb-3 border border-primary ">
+                                                <div class="col-12 col-lg-4 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Urgencia</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                        id="cubiculos_id" name="cubiculos_id" title ="Clínica donde le atienden por urgencia">
+                                                        <option selected disable value=" ">Seleciona una opción
+                                                        </option>
+                                                        @foreach ($cubiculos as $cubi)
+                                                            <option value={{ $cubi->id }}>{{ $cubi->descripcion }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Cubiculo</label>
+                                                    <select class="form-control" style="width: 100%;"
                                                         id="cubiculos_id" name="cubiculos_id">
                                                         <option selected disable value=" ">Seleciona una opción
                                                         </option>
@@ -136,38 +154,29 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-
-                                                <span class="col-sm-6 border border-warning">Tiempo de Contratación del
-                                                    Sevicio
-                                                    para el Usuario actual
-                                                    <div class="col-sm-4 float-left">
-                                                        <label for="" class="col-form-label">Fecha que
-                                                            Ingreso:</label>
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
+                                                        <label for="" class="col-form-label">Fecha de de ingreso:</label>
                                                         <input type="date" class="form-control text" name="fecha_ingreso"
                                                             id="fecha_ingreso" placeholder="Digite fecha de ingreso" onchange="cambioFecha()">
-                                                    </div>
-
-                                                    <div class="col-sm-4 float-left">
-                                                        <label for="fecha_retiro" class="col-form-label">Fecha a
-                                                            retirarse:</label>
+                                                </div>
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
+                                                        <label for="fecha_retiro" class="col-form-label">Fecha de retiro</label>
                                                         <input type="date" class="form-control text" name="fecha_retiro"
                                                             id="fecha_retiro" placeholder="Digite fecha de retiro" onchange="cambioFecha()">
-                                                    </div>
-
-                                                    <div class="col-sm-4 float-right ">
+                                                </div>
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
                                                         <label for="num_dias" class="col-form-label">Duración
-                                                            servicio</label>
-                                                        <input type="text" class="form-control text" name="num_dias"
-                                                            id="num_dias" placeholder="Digite días">
-                                                    </div>
-                                                </span>
+                                                            </label>
+                                                        <input type="text" class="form-control text" name="num_dias" readonly
+                                                            id="num_dias" title=" duración en días">
+                                                </div>    
 
                                             </div>
                                             <!--cierra row-->
 
-                                            <div class="row">
-                                                <div class="col-12 col-sm-5">
-                                                    <label class="col-form-label">Profesional que recibe Usuario?</label>
+                                            <div class="row border mt-2 mb-3 border border-primary">
+                                                <div class="col-12 col-lg-5 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Quien recibió al Usuario?</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger" style="width: 100%;"
                                                         name="empleado_id" id="empleado_id">
@@ -178,7 +187,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-5">
+                                                <div class="col-12 col-lg-5 col-md-6 col-sm-10 border border-primary pb-2">
                                                     <label for="" class="col-form-label">Representante</label>
                                                     <select class="form-control select2 select2-danger"
                                                         data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -190,7 +199,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-2">
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
                                                     <label for="" class="col-form-label">Estado del
                                                         Servicio:</label>
                                                     <input class="form-control text" type="checkbox" name="estado" id="estado"
@@ -200,14 +209,48 @@
                                             </div>
                                             <!--cierra row-->
 
-                                            <div class="row">
+                                            <div class="row border mt-2 mb-3 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Cuidador 1</label>
+                                                    <select class="form-control select2 select2-danger"
+                                                        data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                        name="empleado_id" id="empleado_id">
+                                                        <option selected disable value=" ">Seleciona persona</option>
+                                                        @foreach ($empleados as $trabajador)
+                                                            <option value={{ $trabajador->id }}>{{ $trabajador->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
 
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Turno</label>
+                                                    <input type="text" class="form-control text" name="turno1" 
+                                                    id="turno1" title="">
+                                                </div>
 
+                                                <div class="col-12 col-lg-4 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Cuidador 2</label>
+                                                    <select class="form-control select2 select2-danger text"
+                                                        data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                        name="empleado_id2" id="empleado_id2">
+                                                        <option selected disable value=" ">Seleciona persona</option>
+                                                        @foreach ($empleados as $trabajador2)
+                                                            <option value={{ $trabajador2->id }}>{{ $trabajador2->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-lg-2 col-md-6 col-sm-10 border border-primary pb-2">
+                                                    <label class="col-form-label">Turno</label>
+                                                    <input type="text" class="form-control text" name="turno2" 
+                                                    id="turno2" title="">
+                                                </div>
                                             </div>
                                             <!--cierra row-->
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="" class="col-form-label">Observaciones:</label>
+                                                    <label for="" class="col-form-label">Diagnóstico/Observaciones:</label>
                                                     <textarea type="text" class="form-control text " name="observacion"
                                                         placeholder="Digite observaciones pertinentes"></textarea>
                                                 </div>
@@ -238,6 +281,7 @@
                                                     // console.log(dataServicio[0].tiposervicio_id)
                                                     datosServic = new serviciosNewClientes2()
                                                     datosServic.asignaValorEdit(dataServicio)
+
                                                  }).catch(function(error) {
                                                     Swal.fire({
                                                         icon: 'error',

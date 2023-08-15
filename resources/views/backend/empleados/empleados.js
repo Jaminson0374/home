@@ -1,10 +1,13 @@
-
+// import {routes} from '../resources/views/backend/empleados/routes.js'
+// const myMod = requires("../resources/views/backend/empleados/routes.js")
+// myMod.routes()
 // const { formToJSON } = require("axios")
 
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
 class EmpleadoVista {
+	
 
 	validarCampos2() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
  		let campoText = "";
@@ -112,7 +115,7 @@ class EmpleadoVista {
 		// _nacionalidad_id = document.getElementsByName('nacionalidad_id')[0].value = dataEvol.nacionalidad_id; 
 		// _departamento_id = document.getElementsByName('departamento_id')[0].value = dataEvol.departamento_id; 
 		// _ciudad_id = document.getElementsByName('ciudad_id')[0].value = dataEvol.ciudad_id; 
-		let _fecha_nacimiento = document.getElementsByName('fecha_nacimiento')[0].value = dataEvol._fecha_nacimiento; 
+		let _fecha_nacimiento = document.getElementsByName('fecha_nacimiento')[0].value = dataEvol.fecha_nacimiento; 
 		let _lugar_ncmto = document.getElementsByName('lugar_ncmto')[0].value = dataEvol.lugar_ncmto; 
 		let _edad = document.getElementsByName('edad')[0].value = dataEvol.edad; 
 		let _direccion_res= document.getElementsByName('direccion_res')[0].value = dataEvol.direccion_res; 
@@ -130,6 +133,7 @@ class EmpleadoVista {
 		let _estado = document.getElementsByName('estado')[0].value = dataEvol.estado;
 		let _funciones = document.getElementsByName('funciones')[0].value = dataEvol.funciones;
 		let _observacion = document.getElementsByName('observacion')[0].value = dataEvol.observacion; 
+		let _fecha_inicio = document.getElementsByName('fecha_inicio')[0].value = dataEvol.fecha_inicio;
 		
 		$("#tipodocumento_id").trigger('change.select2');
 		$("#gruposanguineo_id").trigger('change.select2');
@@ -181,7 +185,8 @@ class EmpleadoVista {
 	}
 	
 	clearElements(){
-		document.getElementsByName("fecha_nacimiento")[0].value = Date();
+		document.getElementsByName("fecha_nacimiento")[0].value = new Date().toISOString().slice(0, 10)
+		document.getElementsByName("fecha_inicio")[0].value = new Date().toISOString().slice(0, 10)
 		
 		$("#empleados_id").val(" ").trigger('change.select2');
 		$("#tipodocumento_id").val(" ").trigger('change.select2');
@@ -274,7 +279,107 @@ class EmpleadoVista {
     let resul = document.getElementsByName("edad")[0].value = numDias;
 	return resul
     }
+
+tableSearchsss(){
+
+	// function getLatestPosts(callbacksArr) {	
+			$("#modalBuscarEvol2").modal({
+					backdrop: 'static',
+					keyboard: false,
+					show: true
+				});
+			var table = $('#tablaClientesEvol2').DataTable({
+			responsive: true,
+			serverSide: true,
+			destroy: false,
+			scroll: true,
+			scrollCollapse: true,
+			scrollY: '400px',
+			scrollx: true,
+			deferRender: true,
+			paging: true,
+			select: true,
+			bAutoWidth: false,
+			scrollCollapse: false,
+			"ajax": {
+				headers: {
+					'X-CSRF-Token': $('[name="_token"]').val()
+				},
+				dataType: 'JSON', 				
+					"url": "{{ URL::to('/empleadosListaShow') }}",
+					},
+				"columns": [
+					{"data": "nombre"},
+					{"data": "apellidos"},
+					{"data": "email"},
+					{"data": "fecha_nacimiento"},     
+					{"data": "telefonos"},
+					{"data": "sexo"},
+					{"data": "cargo"},                                           
+				],
+				 columnDefs: [{
+						targets: 6,
+						visible: true
+					},
+					{
+						targets: 7,
+						orderable: false,
+						data: null,
+						render: function(data, type, row, meta) {
+							let fila = meta.row;
+							let botones =
+								`
+							<button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+							return botones;
+						}
+					}
+				],
+				"destroy": true,
+				"language":{"url": "../resources/js/espanol.json"
+				}
+			}).draw()
+		//   return true
+
+	  $('#tablaClientesEvol2').on("click", "button.btnCaptura", function () {
+			var datos = table.row($(this).parents("tr")).data();
+			let dataEvol = datos;
+			console.log(dataEvol)
+			funcLib.asignaValorEdit(dataEvol)
+
+			var btnGuardar = document.getElementById('btnSaveEmp');
+			btnGuardar.innerHTML = 'Actualizar'
+			
+			document.getElementById('btnSaveEmp').disabled = true;
+			document.getElementById('btnEditEmp').disabled = false;
+			document.getElementById('btnCancelEmp').disabled = false;
+			document.getElementById('btnNewEmp').disabled = true;
+			document.getElementById('btnSearchEmp').disabled = true;
+			let btnDeleteEmpclick1 = document.getElementById('btnDeleteEmp')
+			btnDeleteEmpclick1.disabled = false
+		})
+
+	}
+	buscaAxios(){
+		const clienteNew = async () => {
+			await axios.get(
+				"{{ URL::to('/empleadosListaShow') }}", {
+
+				}).then((resp) => {
+					datos= resp.data
+					console.log(datos)
+
+			}).catch(function(error) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error interno',
+					text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+						'  ' + error,
+					footer: ''
+				})
+				// console.log(error);
+			})
+		}
+		clienteNew();
+	}
+	// "{{ URL::to('/empleadosListaShow') }}"
 }
-
-
-

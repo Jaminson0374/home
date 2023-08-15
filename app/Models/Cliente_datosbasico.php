@@ -14,6 +14,7 @@ class Cliente_datosbasico extends Model
     protected $table="cliente_datosbasicos";
 
     protected $guarded = [
+        'reserva_si_no', 'SI',
         'accionBotones',
         'idCliente',
         'id',
@@ -21,7 +22,9 @@ class Cliente_datosbasico extends Model
         '_method',
         'softDeletes', 
         'timestamps', 
-        'presBtnNew'      
+        'presBtnNew',
+        '_method',  
+        'nDdocumento',    
     ];
   
     public function tipodoc(): BelongsTo

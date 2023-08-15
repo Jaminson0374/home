@@ -63,7 +63,7 @@ class ClientesController extends Controller
      //return view('backend.cliente.admin-clientes', ['listaCli' => $clientesBasic]);   
      }
 
-    public function AddClienteIndex() //(Create) Llama a la vista para asignar servicios desde el menú 
+    public function AddClienteIndex($idcli3) //(Create) Llama a la vista para asignar servicios desde el menú 
     {   
         $idTps ="6";
         $tipoServicio  = TipoServicio::where('id','<>',$idTps)->get();
@@ -73,7 +73,7 @@ class ClientesController extends Controller
         $rangoEps = RangoEpsModel::all();
         $cubiculos = CubiculosModel::all();
         $acompanantes = AcompanantesModel::all();
-        $crea_servicio  = Cliente_datosbasico::where("tiposervicio_id","=",$idTps)->get();
+        $crea_servicio  = Cliente_datosbasico::where("id","=",$idcli3)->get();
 
         return view('backend.cliente.add_cliente_servicio',['seleUsuario' => $crea_servicio, 'tipoServicio' => $tipoServicio, 'empresaRemite'=> $empresaRemite,
         'tipoAfiliacion' =>$tipoAfiliacion, 'empleados' =>$empleados, 'rangoEps' =>$rangoEps, 'cubiculos'=>$cubiculos, 'acompanantes'=>$acompanantes]);
@@ -114,7 +114,6 @@ class ClientesController extends Controller
         $rangoEps = RangoEpsModel::all();
         $cubiculos = CubiculosModel::all();
         $acompanantes = AcompanantesModel::all();
-        $tipoServicio  = TipoServicio::where('id','<>',$idTps)->get();
         $crea_servicio  = Cliente_datosbasico::where('id','=',$idcli)->get();
         $idCliServi = "";
         $siServicio="NO";
@@ -123,13 +122,16 @@ class ClientesController extends Controller
             $siServicio="NO";
         }else{
             $siServicio="SI";
-            $idCliServi =$cliBuscar[0]->id;
+            $idCliServi =$cliBuscar[0]->id; 
         }
-        // $SI_RES =$siServicio.' '.$cliBuscar[0]->id;
-        // return $SI_RES;
-            return view('backend.cliente.add_cliente_servicio',['seleUsuario' => $crea_servicio,'tipoServicio' => $tipoServicio, 'empresaRemite'=> $empresaRemite,
+        $tipoServicio  = TipoServicio::where('id','=',$crea_servicio[0]->tiposervicio_id)->get();;
+        $fservi = $tipoServicio[0]->formulario;
+        $formularioServi ='backend.cliente.'.$fservi;
+        $nomService = $tipoServicio[0]->descripcion;
+
+            return view($formularioServi,['seleUsuario' => $crea_servicio,'tipoServicio' => $tipoServicio, 'empresaRemite'=> $empresaRemite,
             'tipoAfiliacion' =>$tipoAfiliacion, 'empleados' =>$empleados, 'rangoEps' =>$rangoEps, 'cubiculos'=>$cubiculos, 'acompanantes'=>$acompanantes, 'idCliente'=>$idcli,
-            'medicosExternos'=>$medicosExternos, 'siServicio'=>$siServicio, 'idCliServi'=>$idCliServi]);
+            'medicosExternos'=>$medicosExternos, 'siServicio'=>$siServicio, 'idCliServi'=>$idCliServi, 'nomService' =>$nomService]);
     }
     
     public function store(Request $request) //(store) Guadar datos clientes con servicios
@@ -138,12 +140,12 @@ class ClientesController extends Controller
     // return $request->data['cubiculos_id'];
     // $resultado = $request->data;
         // $clienteServi = Clientes::create($resultado); //cuando se llena la data desde dentro de axios
- 
 
-        // return $request->datosbasicos_id;
-        
         $idServicio =  Cliente_datosbasico::find($request->datosbasicos_id);
-        $idServicio->tiposervicio_id = $request->tiposervicio_id;
+        // $idServicio->tiposervicio_id = $request->tiposervicio_id;
+        $idServicio->fecha_creacion= $request->fecha_ingreso;
+        $idServicio->fecha_retiro = $request->fecha_retiro;
+
         $idServicio->save();
 
         $clienteServi = Clientes::create($request->all()); 

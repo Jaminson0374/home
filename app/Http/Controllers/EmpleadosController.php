@@ -90,9 +90,9 @@ class EmpleadosController extends Controller
         'empleados.tipodocumento_id', 'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento','empleados.cargo_id',
         'cargos.descripcion as cargo', 'empleados.sexo_id', 'sexo.descripcion as sexo', 'empleados.edad','empleados.telefonos',
          'empleados.gruposanguineo_id', 'empleados.direccion_res', 'empleados.email', 'empleados.fecha_nacimiento', 
-         'empleados.lugar_ncmto','empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id',
+         'empleados.lugar_ncmto','empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id','empleados.salario',
          'empleados.nombre_familiar','empleados.telefono_familiar', 'empleados.email_famliar','empleados.parentezco_familiar',
-         'empleados.observacion')->get();
+         'empleados.observacion','empleados.fecha_inicio',)->get();
          return $empleadoIndex;
 
         //  DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
