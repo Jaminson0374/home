@@ -66,7 +66,7 @@ class EmpleadosController extends Controller
                 DB::beginTransaction(); 
                  
                 $empleadoSave = EmpleadosModell::create($request->all());
-                return $empleadoSave; 
+                // return $empleadoSave; 
                 
                 DB::commit();
                 } catch (\Exception $e) {

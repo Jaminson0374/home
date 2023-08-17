@@ -17,8 +17,11 @@ class DatosBasicosClientes {
 		let grupoSanguineo_id = document.getElementsByName("grupoSanguineo_id")[0].value;
 		let telefonos_user = document.getElementsByName("telefonos_user")[0].value;
 		let direccion_res = document.getElementsByName("direccion_res")[0].value;
-		let _tiposervicio_id = document.getElementsByName("tiposervicio_id")[0].value;
-		// let fecha_creacion = document.getElementsByName("fecha_creacion")[0].value;
+		let _tiposervicio_id = document.getElementsByName("servicio_id")[0].value;
+		let _servicio_id = document.getElementsByName("fecha_creacion")[0].value;
+		let _empresa_remite_id = document.getElementsByName("empresa_remite_id")[0].value;
+
+		
 
 		let camposForm = "";
 		switch (camposForm) {
@@ -70,10 +73,14 @@ class DatosBasicosClientes {
 				document.getElementById('direccion_res').focus();
 				campoText = 'La DIRECCION RESIDENCIAL es requerida'
 				break;
-				case _tiposervicio_id:
-					document.getElementById('tiposervicio_id').focus();
-					campoText = 'SELECCIONE EL TIOPO DE SERVICIO'
-					break;				
+			case _tiposervicio_id:
+				document.getElementById('tiposervicio_id').focus();
+				campoText = 'SELECCIONE EL TIOPO DE SERVICIO'
+				break;		
+			case _empresa_remite_id:
+				document.getElementById('empresa_remite_id').focus();
+				campoText = 'La EPS que Remite es requerida'
+				break;
 		}
 		
 		return campoText;
@@ -83,7 +90,7 @@ class DatosBasicosClientes {
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
 	asignaValorEdit(data) {
-		document.getElementsByName('id_tipodoc')[0].value = data.id_tipodoc
+		
 		document.getElementsByName('num_documento')[0].value = data.num_documento
 		document.getElementsByName('nombre')[0].value = data.nombre
 		document.getElementsByName('apellidos')[0].value = data.apellidos
@@ -109,9 +116,15 @@ class DatosBasicosClientes {
 		document.getElementsByName("dieta_nutricio")[0].value = data.dieta_nutricio;
 		document.getElementsByName("suministro_medic")[0].value = data.suministro_medic;		
 		document.getElementsByName("barrio_res")[0].value = data.barrio_res;		
-		document.getElementsByName("tiposervicio_id")[0].value = data.tiposervicio_id;	
+		document.getElementsByName("tiposervicio_id")[0].value = data.tiposervicio_id;
+		document.getElementsByName("empresa_remite_id")[0].value = data.empresa_remite_id;
 
 		
+		// document.getElementsByName("servicio_id")[0].value = data.servicio_id;		
+
+		$("#empresa_remite_id").val(data.empresa_remite_id).trigger('change.servicio_id')
+		$("#servicio_id").val(data.servicio_id).trigger('change.servicio_id');
+		$("#id_tipodoc").val(data.id_tipodoc).trigger('change.select2');
 		$("#stado_user").val(data.estado_user).trigger('change.estado_user');
 		$("#tiposervicio_id").val(data.tiposervicio_id).trigger('change.tiposervicio_id');
 		$("#acompanantes_id2").val(data.acompanantes_id2).trigger('change.select2');
@@ -151,23 +164,6 @@ class DatosBasicosClientes {
 		// var campoText="";
 		let camposForm = "";
 		return campoText;
-	}
-
-	botontable() {
-		botinclic = document.getElementById("btnSelectCliDb")
-		alert(jotak)
-		console.log(botinclic)
-	}
-
-	elementosControl() {
-		let accionBotones = document.getElementById('accionBotones')
-		let botonNew = document.getElementById("btnNew");
-		// let botonEdit = document.getElementById("btnEdit");
-		let botonDelete = document.getElementById("btnDelete");
-		let botonSave = document.getElementById("btnSave");
-		let botonCancel = document.getElementById("btnCancel");
-		// let botonBuscar = document.getElementById("btnSearch");
-		let botonSalir = document.getElementById("btnExit");
 	}
 
 	guardarFuncion(valor){
@@ -219,8 +215,8 @@ class DatosBasicosClientes {
 		document.getElementById("acompanantes_id3").disabled = true;	
 		document.getElementById('estado_user').disabled = true;
 		document.getElementById('tiposervicio_id').disabled = true;
+		document.getElementById('empresa_remite_id').disabled = true;
 
-				
 	}
 	activaElements(){
 		document.getElementById('id_tipodoc').disabled = false;
@@ -251,7 +247,8 @@ class DatosBasicosClientes {
 		document.getElementById("acompanantes_id").disabled = false;	
 		document.getElementById("acompanantes_id2").disabled = false;	
 		document.getElementById("acompanantes_id3").disabled = false;
-		document.getElementById('tiposervicio_id').disabled = false;			
+		document.getElementById('tiposervicio_id').disabled = false;
+		document.getElementById('empresa_remite_id').disabled = false;			
 	}	
 	clearElements(){
 		

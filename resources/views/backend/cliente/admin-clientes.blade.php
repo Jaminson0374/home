@@ -3,8 +3,6 @@
 <head>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-  {{-- <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.css') }}"> --}}
 </head>
 
 <!-- Content Wrapper. Contains page content -->
@@ -18,8 +16,8 @@
             <b><h4 class="text-white bg-success p-2">Administración General de Usuarios</h2></b>
           </div> 
           <div class="col-2"></div>
-          <div class="col-2">   
-                <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario</a>
+          <div class="col-4">   
+                <a class="btn btn-primary btn-lg" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i><b>Nuevo Usuario</b></a>
           </div> 
        </div>      
     <!-- Main content -->
@@ -30,7 +28,7 @@
             <div class="card">
 
               <div class="card-body bg bg-primary" >
-                <table id="example2" class="table table-bordered table-striped">
+                <table id="example2" class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
                       <th>Id</th>   
@@ -53,13 +51,8 @@
                         <td>{{$row->telefonos_user}}</td>
                         <td class="text-center">{{$row->descripcion}}</td> 
                         <td>
-                          
-                          {{-- href="{{route('/open-reservas-servicios',['id'=>$cliente->id])}}" --}}
-                            {{-- <a href="{{URL::to('/edit-cliente/'.$row->id) }}" class="btn btn-primary btn-md" title="Editar o consultar este usuario"><i class="fa fa-pen-fancy"></i></a> --}}
-                            {{-- <button type="submit" onclick="aplicarServicio(idCli1={{$row->id}})" id="btnServicio" class="btn btn-primary btn-md">Asignar Servicio</button> --}}
-                            <a href="{{URL::to('asignar-servicio/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Asignar Servicio, Consultar, Modificar y/o Eliminar el servicio de este usuario"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Servicio</a>
-                            {{-- <i class="fa fa-user-plus"></i><i class="fa fa-pen-fancy"><i><i class="fa fa-trash"></i>     --}}
-                        </td>
+                          <a href="{{URL::to('asignar-servicio/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Asignar Servicio, Consultar, Modificar y/o Eliminar el servicio de este usuario"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Servicio</a>
+                         </td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -83,73 +76,6 @@
   
   </form>
 </div>
-{{-- <script src="{{ asset('/backend/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/popper.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.js') }}"></script> --}}
-<script>
-    /*******************************************************
-     * Llena la tabla del modal para la busqueda de clientes
-     * *****************************************************/
-    //  let btnServicio = document.getElementById('btnServicio');
 
-// window.addEventListener('load', () => {
-    async function aplicarServicio(idCliente) {
-      // window.location.assign("{{URL::to('/asignar-servicio')}}")
-  alert('jdkhaskdhaskhd')
-        let data = new FormData();
-        // data.append("id", idCliente);
-
-             await axios.get("{{ URL::to('/asignar-servicio1')}}",data,{}).then((resp) => {
-                alert('entra')
-                    let dataRepuesta = resp.data;
-
-                    console.log(dataRepuesta)
-                    alert(dataRepuesta)
-                }).catch((error) => {
-                  alert(error)  
-                  console.log(error);
-                })
-                // aplicarServicio()
-           }
-          // })
- 
-</script>
-      // {{-- <script type="text/javascript"> 
-      //   window.onload =() => {
-      //     let bodyTablaClientes = document.getElementById("bodyTabla");
-      //     axios.get("{{URL::to('/admin-clientes')}}").then((res)=>{
-      //       //let response =JSON.parse(res.data.costo_servicio);
-      //       let data = res.data;
-      //      console.log(data);
-
-           
-      //       bodyTablaClientes.innerHTML="";
-          
-      //      for (let datoJson of data){
-      //      bodyTablaClientes.innerHTML+=`
-      //                 <tr>
-      //                   <td>${datoJson.num_documento}</td>
-      //                   <td>${datoJson.nombre+" "+datoJson.apellidos}</td>
-      //                   <td>${datoJson.edad}</td>                              
-      //                   <td>${datoJson.telefonos_user}</td>
-      //                   <td">${datoJson.descripcion}</td>
-                 
-      //                   <td>
-      //                       <a href="{{URL::to('/edit-cliente/.${datoJson.id}') }}" class="btn btn-info btn-md">Editar</a>
-      //                       <a href="{{URL::to('/delete-cliente/.${datoJson.id}') }}" class ="btn btn-danger btn-md" id="delete_cli">Eliminar</a>
-      //                   </td>
-      //               </tr>` 
-
-      //      }
-      //     }).catch((error)=>{
-      //          console.log(error);
-      //     })
-      //   } 
-      //   </script> --}}
-       
-       {{-- class="text-center" --}}
-
-
-  @endsection 
+@endsection 
  

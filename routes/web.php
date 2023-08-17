@@ -57,16 +57,20 @@ Route::get('/admin-prueba', function() {
     return view('backend.cliente.admin-clientes');
 });
 
-Route::get('/add-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'AddClienteIndex'])->name('AddClienteIndex');
-Route::get('/tipo-servicio', [App\Http\Controllers\backend\ClientesController::class, 'TipoServicio'])->name('TipoServicio');
-Route::post('/insert-cliente', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertCliente');
-Route::get('/edit-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'EditCliente'])->name('EditCliente');
-Route::post('/update-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'UpdateCliente'])->name('UpdateCliente');
+//******************************************************
+//* CLIENTES SERVICIOS
+Route::get('/asignar-servicio/{idCliente}', [App\Http\Controllers\backend\ClientesController::class, 'create'])->name('AsignarServicioCliente');
+Route::post('/insert-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertClienteServicio');
+Route::post('/clienteCliUpdateServicios', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
 Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'DeleteCliente'])->name('DeleteCliente');
-Route::post('/traeClienteConServicio/{id}', [App\Http\Controllers\backend\ClientesController::class, 'traeClienteServicio'])->name('TraeClienteConServicio');
+Route::post('/traeClienteConServicio', [App\Http\Controllers\backend\ClientesController::class, 'traeClienteServicio'])->name('TraeClienteConServicio');
+Route::get('/buscarClienteUser', [App\Http\Controllers\backend\ClientesController::class, 'buscarCliUser'])->name('BuscarClienteUser');
 
-//Administrador de Clientes DATOS BASICOSClientesDatosBasicosController
+// Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
 
+/**************************************************************************
+Administrador de Clientes DATOS BASICOSClientesDatosBasicosController
+//************************************************************************* */
 Route::get('/add-cliente-datobasic', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'create'])->name('AddClienteDatoBasic');
 Route::post('/insert-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'store'])->name('Insert-cliente-basicos');
 Route::get('/buscar-cliente-basicos', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'busquedaClienteDtoBasico'])->name('BuscarClienteBasico');
@@ -104,19 +108,7 @@ Route::get('/cargosCreate', [App\Http\Controllers\CargosController::class, 'crea
 Route::post('/cargosStore', [App\Http\Controllers\CargosController::class, 'store'])->name('CarRemiteStore');
 Route::get('/carListaShow',[App\Http\Controllers\CargosController::class, 'show'])->name('CarListaShow');
 Route::post('/cargosUpdate',[App\Http\Controllers\CargosController::class, 'update'])->name('CarRemiteUpdate');
-Route::post('anulaRegistroCar', [App\Http\Controllers\CargosController::class, 'anularRegistroCar'])->name('AnulaRegistroCar');
-
-
-//Administrador de RESERVAS  
-Route::get('/admin-reservas', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'index'])->name('AdminReservas');
-
-
-//******************************************************
-//* CLIENTES SERVICIOS
-Route::get('/asignar-servicio/{idCliente}', [App\Http\Controllers\backend\ClientesController::class, 'create'])->name('AsignarServicioCliente');
-Route::post('/insert-cliente-servicio', [App\Http\Controllers\backend\ClientesController::class, 'store'])->name('InsertClienteServicio');
-Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
-
+Route::post('/anulaRegistroCar', [App\Http\Controllers\CargosController::class, 'anularRegistroCar'])->name('AnulaRegistroCar');
 
 //*********************************************************************
 //                                 CITAS MEDICAS                      *
@@ -138,6 +130,15 @@ Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaControlle
 Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
 // Route::get('/admin-clientes-Citas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminClientesCitas');
 
+//*********************************************************************
+//                               SIGNOS VITALES              *
+//*********************************************************************/
+Route::get('/admin-signos-vitales', [App\Http\Controllers\SignosVitalesController::class, 'index'])->name('AdminSignosVitale');
+Route::get('/add-signos-vitales/{idEvDiaria}', [App\Http\Controllers\SignosVitalesController::class, 'create'])->name('AddSignosVitales');
+Route::post('/insert-cliente-sv', [App\Http\Controllers\SignosVitalesController::class, 'store'])->name('InsertClienteSv');
+Route::get('/helpSignosVitales', [App\Http\Controllers\SignosVitalesController::class, 'show'])->name('helpSignosVitales');
+
+// /{idSingosV}
 //*********************************************************************
 //                                INVENTARIO              *
 //*********************************************************************/

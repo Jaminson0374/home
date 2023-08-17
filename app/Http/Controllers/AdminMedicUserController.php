@@ -20,7 +20,7 @@ class AdminMedicUserController extends Controller
     {
         $clientesAdminMed = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos','edad','ult_fecha_admin_med','ult_hora_admin_med','estado_user')
-        ->where("estado_user", "=", "ON")->get(); 
+        ->where("estado_servicio", "=", "ON")->get(); 
 
          return view('backend.controles_medicos.admin_control_medico',compact('clientesAdminMed'));        
     }

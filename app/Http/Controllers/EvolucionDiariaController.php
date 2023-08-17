@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\DB;
 
 class EvolucionDiariaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index()
     {
         $clientesEvolucionDiaria = DB::table('cliente_datosbasicos')
-        ->select('id','num_documento','nombre','apellidos',
-        'edad','ult_fecha_evo','ult_hora_evo','ult_evolucion','estado_user')->where("estado_user", "=", "on")->get(); 
+        ->join('evolucion_diaria', 'cliente_datosbasicos.id','=','evolucion_diaria.datosbasicos_id')
+        ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')
+        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre',
+        'cliente_datosbasicos.apellidos','evolucion.descripcion','evolucion_diaria.evolucion_id',
+        'cliente_datosbasicos.edad','cliente_datosbasicos.ult_fecha_evo','cliente_datosbasicos.ult_hora_evo',
+        'cliente_datosbasicos.ult_evolucion','cliente_datosbasicos.estado_user')->where("cliente_datosbasicos.estado_servicio", "=", "on")->get(); 
 
          return view('backend.evolucion_medica.admin_evolucion_diaria',['listaEvolucion' => $clientesEvolucionDiaria]);
       
@@ -85,7 +85,7 @@ class EvolucionDiariaController extends Controller
                 DB::rollBack();
                 return response()->json(['message' => 'Error']);
             }
-            return $clienteEvolMedic;  
+            // return $clienteEvolMedic;  
             // return $clienteServi2;  
             return response()->json(['message' => 'Success']);
     
@@ -105,8 +105,7 @@ class EvolucionDiariaController extends Controller
             'evolucion_diaria.signosv_fr', 'evolucion_diaria.signosv_ta','evolucion_diaria.signosv_t',
             'evolucion_diaria.signosv_pc', 'evolucion_diaria.signosv_p', 'evolucion_diaria.subjetivo', 'evolucion_diaria.objetivo',
             'evolucion_diaria.apreciacion', 'evolucion_diaria.plan',
-            'evolucion_diaria.recomendaciones')->get();
-            
+            'evolucion_diaria.recomendaciones')->where('evolucion_diaria.anulado','=',NULL)->get();;
         return $clientesEvolucion;         
     }
    

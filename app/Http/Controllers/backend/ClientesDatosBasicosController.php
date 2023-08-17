@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\EmpresaRemitenteModell;
 use App\Models\Cliente_datosbasico;
 use App\Models\backend\TipoDocumentoModell;
 use App\Http\Requests\InsertClientes;
@@ -14,6 +15,7 @@ use App\Models\AcompanantesModel;
 use App\Models\GrpSangreModell;
 use App\Models\PaisModell;
 use App\Models\SexoModell;
+use App\Models\ServiciosModell;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -55,11 +57,10 @@ class ClientesDatosBasicosController extends Controller
                  'cliente_datosbasicos.sexo_id','cliente_datosbasicos.grupoSanguineo_id', 'cliente_datosbasicos.direccion_res',
                  'cliente_datosbasicos.email_user', 'cliente_datosbasicos.fecha_creacion', 'cliente_datosbasicos.fecha_retiro','cliente_datosbasicos.estado_user', 
                  'cliente_datosbasicos.observacion', 'cliente_datosbasicos.diagnostico','cliente_datosbasicos.recomendacion_med',
-                 'cliente_datosbasicos.dieta_nutricio','cliente_datosbasicos.suministro_medic','cliente_datosbasicos.peso',
+                 'cliente_datosbasicos.dieta_nutricio','cliente_datosbasicos.suministro_medic','cliente_datosbasicos.peso','cliente_datosbasicos.empresa_remite_id',
                  'cliente_datosbasicos.barrio_res','cliente_datosbasicos.acompanantes_id','cliente_datosbasicos.tiposervicio_id',
-                 'cliente_datosbasicos..acompanantes_id2','cliente_datosbasicos..acompanantes_id3')->get();
-                //  ->join('tiposervicios', 'cliente_datosbasicos.tiposervicio_id','=','tiposervicios.id')
-		
+                 'cliente_datosbasicos.acompanantes_id2','cliente_datosbasicos.acompanantes_id3','cliente_datosbasicos.servicio_id')->get();
+	
         // $clientesBasic  = Clientes::where('estado','=','on')->get();
        
         return $clientesDtoBasic;
@@ -67,6 +68,8 @@ class ClientesDatosBasicosController extends Controller
     }
     public function create(Request $request, Cliente_datosbasico $cliente_datosbasico) //Llama a la vista para crear clientes para datos basicos del cliente
         {
+           $empresaRemite = EmpresaRemitenteModell::all();
+           $serviciosUser = ServiciosModell::all();
            $acompanantes = AcompanantesModel::all();
            $tipoServicio  = TipoServicio::all();
            $tipoDocBasic = TipoDocumentoModell::all(); // se guarda la consulta en la bariable $tipodocBasic
@@ -75,10 +78,10 @@ class ClientesDatosBasicosController extends Controller
            $ciudad1 = CiudadesModell::all();
            $genero1 = SexoModell::all();
            $grupo_rh1 = GrpSangreModell::all();
-        //    add_cliente_datobasico
+        //    add_cliente_datobasico 
            return view('backend.clientes_datos_basicos.dbasicos',['tipoDoc' => $tipoDocBasic, 'pais' => $pais1,
            'departamento' => $departamento1,'ciudad' => $ciudad1, 'genero'=>$genero1, 'grupo_rh' => $grupo_rh1,
-           'tipoServicio'=>$tipoServicio, 'acompanantes'=>$acompanantes]);
+           'tipoServicio'=>$tipoServicio, 'acompanantes'=>$acompanantes, 'serviciosUser' =>$serviciosUser,'empresaRemite'=>$empresaRemite ]);
         }        
    
 

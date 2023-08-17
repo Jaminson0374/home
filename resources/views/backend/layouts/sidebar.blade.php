@@ -100,7 +100,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ctrl Evolución diaria</p>
                 </a>
-              </li>      
+              </li>   
+              <li class="nav-item">
+                <a href="{{URL::to('/admin-signos-vitales')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Signos vitales</p>
+                </a>
+              </li>                  
               <li class="nav-item">
                 <a href="{{URL::to('/admin_medicamento_user')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>

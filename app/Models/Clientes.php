@@ -28,6 +28,8 @@ class Clientes extends Model
         'accionBotones',
         'softDeletes', 
         'timestamps', 
+        'tiposervicio_id',
+        'idClientId',
         // 'updated_at', 
         // 'created_at',
         // 'deleted_at'     

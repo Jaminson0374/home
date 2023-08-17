@@ -6,6 +6,11 @@
         <script src="{{ asset('../resources/js/back_off.js') }}"></script>
     </head>
     <style>
+
+            input:disabled {
+            background: #2015f3;
+            }
+  
         .tarjeta_body {
             margin: 1px;
             background-color: #f1f2f8;
@@ -35,6 +40,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1em
         }
+
     </style>
     <div class="content-wrapper jaminson">
         <section class="content">
@@ -54,7 +60,7 @@
                                 </h3>
                             </div>
                         </div>
-                         <body>
+                        <body>
                             <div class="card card-primary card-outline">
                                 <div class="card-body">
                                     <!-- <div id="interactive" style="height: 300px;"></div> -->
@@ -134,12 +140,12 @@
                                     </div> <!--cierra row-->
 
                                     <div class="row border mt-2 mb-3 border border-primary">
-                                        <div class="col-12 col-lg-1 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
                                             <label for="edad" class="">Edad:</label>
                                             <input type="text" class="form-control text focusNext" name="edad"
                                                 tabindex="9" id="edad" placeholder="Edad">
                                         </div>
-                                        <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
                                             <label for="SelectSexo" class="">*Genero</label>
                                             <select class="form-control focusNext text" id="sexo_id" tabindex="10"
                                                 name="sexo_id">
@@ -164,25 +170,13 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-5 col-md-4 col-sm-2 border border-primary pb-2">
                                             <label for="" class="">*Teléfonos :</label>
                                             <input type="text" class="form-control text focusNext" maxlength="60"
                                                 tabindex="12" id="telefonos_user" name="telefonos_user"
                                                 placeholder="Digite Telefonos del usuario">
                                         </div>
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
-                                            <label>Tipo Servicio</label>
-                                            <select class="form-control focusNext text tiposervicio_id" style="width: 100%;"
-                                                name="tiposervicio_id" id="tiposervicio_id" tabindex="13">
-                                                <option selected="selected" disable value=" ">Seleciona un 
-                                                    servicio
-                                                </option>
-                                                @foreach ($tipoServicio as $tipoServi)
-                                                    <option value={{ $tipoServi->id }}>{{ $tipoServi->descripcion }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+
                                     </div> <!--cierra row-->
 
                                     <div class="row border mt-2 border border-primary ">
@@ -206,6 +200,49 @@
                                                 placeholder="Digite Email existente">
                                         </div>
                                     </div> <!-- row-->
+                                    <div class="row border mt-2 border border-primary ">
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">                                                
+                                            {{-- <div class="col-8 col-sm-4"> --}}
+                                                <label>Institución Remitente</label>
+                                                <select class="form-control select2 select2-danger"
+                                                    data-dropdown-css-class="select2-danger"
+                                                    style="width: 100%;" id="empresa_remite_id"
+                                                    name="empresa_remite_id">
+                                                    <option selected disable value=" ">Empresa remitente</option>
+                                                    @foreach ($empresaRemite as $remiteEmpresa)
+                                                        <option value={{ $remiteEmpresa->id }}>
+                                                            {{ $remiteEmpresa->nombre_eps }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
+                                            <label>Tipo Servicio</label>
+                                            <select class="form-control focusNext text tiposervicio_id" style="width: 100%;"
+                                                name="tiposervicio_id" id="tiposervicio_id" tabindex="13">
+                                                <option selected="selected" disable value=" ">Tipo de 
+                                                    servicio
+                                                </option>
+                                                @foreach ($tipoServicio as $tipoServi)
+                                                    <option value={{ $tipoServi->id }}>{{ $tipoServi->descripcion }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> 
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
+                                            <label>Servicio</label>
+                                            <select class="form-control focusNext text servicio_id" style="width: 100%;"
+                                                name="servicio_id" id="servicio_id" tabindex="13">
+                                                <option selected="selected" disable value=" ">Seleciona un 
+                                                    servicio
+                                                </option>
+                                                @foreach ($serviciosUser as $servicioA)
+                                                    <option value={{ $servicioA->id }}>{{ $servicioA->descripcion }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>                                         
+                                    </div> <!--row-->                                       
                                 </div> <!--card-body-->
                             </div> <!--card card-primary-->
 
@@ -339,10 +376,9 @@
                             <div class="col-lg-12">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <div class="row border mt-2">
+                                        <div class="row border  mt-2">
                                             <div class="col-12 col-lg-6 col-md-4 col-sm-2 pb-2">
-                                                <label for="" class=""><b>Diagnóstico o problema
-                                                        medico:</b></label>
+                                                <label for="" class=""><b>Patología:</b></label>
                                                 <textarea type="text" class="form-control text diagnostico" id="diagnostico" name="diagnostico" tabindex="21"
                                                     placeholder="Describa el diagnóstico o problema con el el usuario ingresa a la fundación"
                                                     title="Diagnóstico o problema con el el usuario ingresa a la fundación" rows="1"></textarea>
@@ -389,7 +425,7 @@
                             <script src="{{ asset('../resources/js/imagen.js') }}"></script>
                             <script src="{{ asset('../resources/js/enter_form.js') }}"></script>
                             <footer>
-
+                        </body>
                             <footer>
                                 <div class="row border">
                                     <div class="col-lg-12">
@@ -449,8 +485,6 @@
                                 </div> <!--cierra row-->
                             </footer>
 
-
-                        </body>
                     </div> <!--col-lg-12-->
 
                     {{-- </div> <!--row justify-content-between--> --}}
@@ -650,8 +684,8 @@
             })
  
             $('#tablaUserClientes').on("click", "button.btnCaptura", function () {
-                var datos = table_user.row($(this).parents("tr")).data();
                 formularioDbasic.reset()
+                // var datos = table_user.row($(this).parents("tr")).data();
                 let data = table_user.row($(this).parents("tr")).data();
                 console.log(data)
                 funcBasic.asignaValorEdit(data)
@@ -891,17 +925,13 @@
                     let newNom80 = document.getElementById('accionBotones')
                     newNom80.setAttribute('accion', "Guardar");
 
-                    var btnGuardar = document.getElementById('btnSave');
-                    btnGuardar.innerHTML = 'Guardar'
+                    document.getElementById('btnSave').innerHTML = 'Guardar';
 
-                    let btnDeleteclick1 = document.getElementById('btnDelete')
-                    btnDeleteclick1.disabled = true
+                    document.getElementById('btnDelete').disabled = true
 
-                    eliminaSelectDpto = document.getElementById('departamento_id')
-                    eliminaSelectDpto.innerHTML = "";
-
-                    eliminaSelectCiudad = document.getElementById('ciudad_id')
-                    eliminaSelectCiudad.innerHTML = "";                           
+                    document.getElementById('departamento_id').innerHTML = "";
+                    document.getElementById('ciudad_id').innerHTML = ""; 
+                        
                 } else {
                     Swal.fire({
                         icon: 'error',

@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tiposervicio;
+use App\Models\ServiciosModell;
 use Illuminate\Http\Request;
 
-class TipoServicioController extends Controller
+class ServiciosConstroller extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        //        
+        //
     }
-
-    public function TipoServicio(){
-        $tipoServicio  = TipoServicio::ALL();
-        return view('backend.cliente.servicio_cliente',['tipoServicio' => $tipoServicio]); 
-
-    }    
 
     /**
      * Show the form for creating a new resource.
@@ -26,8 +24,7 @@ class TipoServicioController extends Controller
      */
     public function create()
     {
-        
-       //
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class TipoServicioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tiposervicio  $tiposervicio
+     * @param  \App\Models\ServiciosModell  $serviciosModell
      * @return \Illuminate\Http\Response
      */
-    public function show(Tiposervicio $tiposervicio)
+    public function show(ServiciosModell $serviciosModell)
     {
         //
     }
@@ -55,10 +52,10 @@ class TipoServicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tiposervicio  $tiposervicio
+     * @param  \App\Models\ServiciosModell  $serviciosModell
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tiposervicio $tiposervicio)
+    public function edit(ServiciosModell $serviciosModell)
     {
         //
     }
@@ -67,10 +64,10 @@ class TipoServicioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tiposervicio  $tiposervicio
+     * @param  \App\Models\ServiciosModell  $serviciosModell
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tiposervicio $tiposervicio)
+    public function update(Request $request, ServiciosModell $serviciosModell)
     {
         //
     }
@@ -78,10 +75,10 @@ class TipoServicioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tiposervicio  $tiposervicio
+     * @param  \App\Models\ServiciosModell  $serviciosModell
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tiposervicio $tiposervicio)
+    public function destroy(ServiciosModell $serviciosModell)
     {
         //
     }

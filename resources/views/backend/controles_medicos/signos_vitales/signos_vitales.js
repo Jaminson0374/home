@@ -1,4 +1,7 @@
-class EvolucionDiariaMed {
+/*******************************************************************************************
+AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
+*********************************************************************************************/
+class SvFucionDiariaMed {
 
 	validarCampos2() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
  		let campoText = "";
@@ -6,13 +9,13 @@ class EvolucionDiariaMed {
 		let _fecha = document.getElementsByName("fecha")[0].value; 
 		let _hora = document.getElementsByName("hora")[0].value;
 		let _empleado_id = document.getElementsByName("empleado_id")[0].value;
-		let _subjetivo  = document.getElementsByName("subjetivo")[0].value;
-		let _apreciacion = document.getElementsByName("apreciacion")[0].value;	
-		let _plan = document.getElementsByName("plan")[0].value;	
+		let _signosv_pc = document.getElementsByName("signosv_pc")[0].value;
+		let _signosv_fr = document.getElementsByName("signosv_fr")[0].value;
+		let _signosv_ta = document.getElementsByName("signosv_ta")[0].value;
+		let _signosv_t = document.getElementsByName("signosv_t")[0].value;
+		let _sv_saturacion = document.getElementsByName("sv_saturacion")[0].value;	
 		let _recomendaciones = document.getElementsByName("recomendaciones")[0].value;	
-		let _evolucion_id = document.getElementsByName("evolucion_id")[0].value;
 
-		 // let datosbasicos_id = document.getElementsByName('datosbasicos_id')[0].value;
 
 		// var campoText="";
 		let camposForm = "";
@@ -30,15 +33,28 @@ class EvolucionDiariaMed {
 				campoText = 'Debe seleccionar el enfermero(a) que realiza o inspecciona el control'
 				document.getElementById("empleado_id").focus()
 				break;				
-			case _apreciacion:
-				campoText = 'El campo APRECIACION es equerido'
-				document.getElementById("apreciacion").focus()
+			case _signosv_pc:
+				campoText = 'El campo PC (PRESIÓN CARDIACA) es requerido'
+				document.getElementById("signosv_pc").focus()
+				break;		
+			case  _signosv_fr:
+				campoText = 'El campo FRECUENCIA RESPITATORIA requerido'
+				document.getElementById("signosv_fr").focus()
 				break;				
-			case _evolucion_id:
-				campoText = 'Seleccione un tipo de Evolución'
-				document.getElementById("evolucion_id").focus()
-				break;				
-	}
+			case  _signosv_ta:
+				campoText = 'El campo PRESIÓN ARTERIAL es requerido'
+				document.getElementById("signosv_ta").focus()
+				break;								
+			case  _signosv_t:
+				campoText = 'El campo TEMPERATURA CORPORAL es requerido'
+				document.getElementById("signosv_t").focus()
+				break;			
+			case  _sv_saturacion:
+				campoText = 'El campo SATURACION es requerido'
+				document.getElementById("sv_saturacion").focus()
+				break;
+											
+		}
 		return campoText;
 
 	} 
@@ -49,16 +65,17 @@ class EvolucionDiariaMed {
 		let i = 0;
 		document.getElementsByName("fecha")[0].value = dataEvol.fecha; 
 		document.getElementsByName("hora")[0].value = dataEvol.hora;
-		document.getElementsByName("diagnostico")[0].value = dataEvol.diagnostico;
-		// let empleadoid = document.getElementsByName("empleado_id")[0].value = dataEvol.empleado_id;
-		document.getElementsByName("subjetivo")[0].value = dataEvol.subjetivo;
-		document.getElementsByName("apreciacion")[0].value = dataEvol.apreciacion;
-		document.getElementsByName("plan")[0].value = dataEvol.plan;
+		let empleadoid = document.getElementsByName("empleado_id")[0].value = dataEvol.empleado_id;
+		document.getElementsByName("signosv_fr")[0].value = dataEvol.signosv_fr;
+		document.getElementsByName("signosv_ta")[0].value = dataEvol.signosv_ta;
+		document.getElementsByName("signosv_t")[0].value = dataEvol.signosv_t;
+		document.getElementsByName("signosv_pc")[0].value = dataEvol.signosv_pc;
+		document.getElementsByName("sv_saturacion")[0].value = dataEvol.sv_saturacion;
 		document.getElementsByName("recomendaciones")[0].value =dataEvol.recomendaciones;
 		document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
 		document.getElementsByName("idEvolMedica")[0].value = dataEvol.id;
 		
-		$('#empleado_id').val(dataEvol.empleado_id).trigger('change.select2');
+		$('#empleado_id').val(empleadoid).trigger('change.select2');
 
 	}
 
@@ -95,21 +112,28 @@ class EvolucionDiariaMed {
 		document.getElementById("fecha").disabled = true;
 		document.getElementById("hora").disabled = true;
 		document.getElementById("empleado_id").disabled = true;
-		document.getElementById("subjetivo").disabled = true;
-		document.getElementById("apreciacion").disabled = true;
-		document.getElementById("evolucion_id").disabled = true;
-		document.getElementById("plan").disabled = true;
+		document.getElementById("signosv_pc").disabled = true;
+		document.getElementById("signosv_fr").disabled = true;
+		document.getElementById("signosv_ta").disabled = true;
+		document.getElementById("signosv_t").disabled = true;
+		document.getElementById("sv_saturacion").disabled = true;
 		document.getElementById("recomendaciones").disabled = true;
+
 	}
 	activaInput(){
 		document.getElementById("fecha").disabled = false;
 		document.getElementById("hora").disabled = false;
 		document.getElementById("empleado_id").disabled = false;
-		document.getElementById("subjetivo").disabled = false;
-		document.getElementById("evolucion_id").disabled = false;
-		document.getElementById("apreciacion").disabled = false;
-		document.getElementById("plan").disabled = false;
+		document.getElementById("signosv_pc").disabled = false;
+		document.getElementById("signosv_fr").disabled = false;
+		document.getElementById("signosv_ta").disabled = false;
+		document.getElementById("signosv_t").disabled = false;
+		document.getElementById("sv_saturacion").disabled = false;
 		document.getElementById("recomendaciones").disabled = false;
 	}
+	bucarUsuariosSv(){
+		
+	}
+	
 }
 
