@@ -134,6 +134,10 @@ class EmpleadoVista {
 		let _funciones = document.getElementsByName('funciones')[0].value = dataEvol.funciones;
 		let _observacion = document.getElementsByName('observacion')[0].value = dataEvol.observacion; 
 		let _fecha_inicio = document.getElementsByName('fecha_inicio')[0].value = dataEvol.fecha_inicio;
+		document.getElementsByName('nDdocumento')[0].value = dataEvol.num_documento
+		document.getElementsByName('idAdminMedica')[0].value = dataEvol.id
+		document.getElementsByName('empleado_id')[0].value = dataEvol.id
+
 		
 		$("#tipodocumento_id").trigger('change.select2');
 		$("#gruposanguineo_id").trigger('change.select2');

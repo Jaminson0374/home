@@ -88,6 +88,8 @@ Route::post('/empleadoStore', [App\Http\Controllers\EmpleadosController::class, 
 Route::post('/empleadosUpdate', [App\Http\Controllers\EmpleadosController::class, 'update'])->name('EmpleadosUpdate');
 Route::get('/empleadosListaShow', [App\Http\Controllers\EmpleadosController::class, 'show'])->name('EmpleadosListaShow');
 Route::get('/buscarEmple', [App\Http\Controllers\EmpleadosController::class, 'busquedaEmpleado'])->name('BuscarEmplea');
+Route::post('validaDocEmple', [App\Http\Controllers\EmpleadosController::class, 'validaDocEmpleado'])->name('ValidaDocEmpleado');
+Route::post('anulaRegempleado', [App\Http\Controllers\EmpleadosController::class, 'destroy'])->name('AnulaRegempleado');
 
 
 //*DATOS ADICIONALES
@@ -185,6 +187,14 @@ Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserCont
 // Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
 // Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
+
+//*********************************************************************
+//CONTROLES MEDICOS - Asginación de los medicamentos permanentes      *
+//*********************************************************************/
+Route::get('/asignar-medicamentos/{idUserMed}', [App\Http\Controllers\AsignaMedicamentosController::class, 'create'])->name('AsignarMedicamentos');
+Route::post('/store-asigna-medicamento', [App\Http\Controllers\AsignaMedicamentosController::class, 'store'])->name('StoreAsignaMedicamento');
+// asignar_medicamentos.blade
+
 
 //*********************************************************************
 //                               CONTABILIDAD                         *

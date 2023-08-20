@@ -1,16 +1,28 @@
 @extends('backend.layouts.app')
 @section('content')
-    <style>
-        .tarjeta_body {
-            margin: 2px;
-            background-color: #eef3eb;
-            border: 4em;
-            border-color: #ee2015;
-        };
-        table.dataTable.dataTable_width_auto {
-            width: auto;
-        }        
-    </style>
+<style>
+    .tarjeta_body {
+        margin: 2px;
+        background-color: #60c4f6;
+        border: 4em;
+        border-color: #ee2015;
+    }
+
+    input:disabled {
+        background: #2015f3;
+    }
+
+    input.text,
+    select.text,
+    textarea.text {
+        /*border:inset;*/
+        border-style: inset;
+        border: inset;
+        background-color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1em
+    }
+</style>
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
@@ -21,13 +33,8 @@
                     <form role="form" name="formEmpleados" id="formEmpleados" action="">
                         @csrf
                         @method('post')
-                        {{-- formEmpleados --}}
-                        <div class="row justify-content-between">
-
+                         <div class="row justify-content-between">
                             <body>
-                                {{-- @foreach($listaEmpleados as $datosRow)
-
-                                @endforeach --}}
                                 <div class="col-sm-12">
                                     <div class="card card-primary">
                                         {{-- card-header --}}
@@ -39,15 +46,16 @@
                                                 USUARIO/CLIENTE --- {{$listaEmpleados->num_documento.' '.$listaEmpleados->empleado}}
                                             </h3> --}}
                                             <input type="hidden" id="empleado_id" name="empleado_id">
-                                            {{-- <input type="hidden" id="idAdminMedica" name="idAdminMedica"> --}}
+                                            <input type="hidden" id="idAdminMedica" name="idAdminMedica">
                                             <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
                                             <input type="hidden" id="ciudad_id" name="ciudad_id" value=1>
                                             <input type="hidden" id="departamento_id" name="departamento_id" value=1>
                                             <input type="hidden" id="nacionalidad_id" name="nacionalidad_id" value=1>
                                             <input type="hidden" id="categoria_id" name="categoria_id" value=2>
                                             <input type="hidden" id="rutaTable" name="rutaTable" value={{'$tablaAuxiliar'}}>
+                                            <input type="hidden" name="nDdocumento" id="nDdocumento">
                                         </div>
-                                        <div class="card-body" style="background-color: hsl(195, 25%, 94%)">
+                                        <div class="card-body" style="background-color: hsl(195, 81%, 73%)">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNewEmp" id="presBtnNewEmp" value="N">
                                             <div class="row border border-primary">
@@ -66,7 +74,7 @@
                                                 </div>
                                                 <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
                                                     <label for="" class="">#Documento</label>
-                                                    <input type="text" class="form-control text" name="num_documento" id="num_documento"
+                                                    <input type="text" class="form-control text" name="num_documento" maxlength="20" id="num_documento"
                                                      tabindex="2">
                                                 </div>  
                                                 <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
@@ -81,10 +89,10 @@
                                                 </div>                                                                                                  
                                             </div>  <!--cierre de row -->     
                                             
-                                            <div class="row border border-primary">
+                                            <div class="row border border-primary ">
                                                 <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary">
                                                     <label for="">F. Nacmto:</label>
-                                                    <input type="date" class="form-control text" name="fecha_nacimiento"
+                                                    <input type="date" class="form-control text mb-2" name="fecha_nacimiento"
                                                         id="fecha_nacimiento"  focusNext tabindex="5" 
                                                         title="" onchange="calculaEdad()">
                                                 </div> 
@@ -102,7 +110,7 @@
                                                 </div> 
                                                 <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
                                                     <label class="col-form-label ">Genero</label>
-                                                    <select class="select2 select2-danger focusNext text"
+                                                    <select class="select2 select2-danger focusNext mb-2 text"
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="8"
                                                         name="sexo_id" id="sexo_id">
@@ -131,7 +139,7 @@
                                             <div class="row border border-primary">                                            
                                                 <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
                                                     <label for="" class="">Telefonos</label>
-                                                    <input type="text" class="form-control text" name="telefonos" id="telefonos"
+                                                    <input type="text" class="form-control text mb-2" name="telefonos" id="telefonos"
                                                      tabindex="10">
                                                 </div>                                                                                     
                                                 <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
@@ -148,10 +156,10 @@
                                                 </div>                                                
                                             </div>  <!--cierre de row --> 
 
-                                            <div class="row border mt-2 mb-3 border border-primary">
+                                            <div class="row border border border-primary">
                                                 <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
                                                     <label class="col-form-label ">Profesión</label>
-                                                    <select class="select2 select2-danger focusNext text"
+                                                    <select class="select2 select2-danger focusNext mb-2 text"
                                                         data-dropdown-css-class="select2-danger select-sm"
                                                         class="my-class-drop" style="width: 100%" tabindex="13"
                                                         name="profesion_id" id="profesion_id">
@@ -247,7 +255,7 @@
                                                 <div class="row border border-primary">  
                                                     <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
                                                         <label for="">Nombre de familiar</label>
-                                                       <input type="text" class="form-control text" name="nombre_familiar"
+                                                       <input type="text" class="form-control text mb-2" name="nombre_familiar"
                                                             id="nombre_familiar"  placeholder="" focusNext tabindex="2" maxlength="80"
                                                             title="" tabindex="22">
                                                     </div>                                                                                              
@@ -272,7 +280,7 @@
                                                 <div class="row border mt-2 mb-3 border border-primary">                                                                                                                                                                                                   
                                                     <div class="col-sm-5 col-md-4 col-lg-12 border border-primary">
                                                         <label for="" class="col-form-label">Observaciones:</label>
-                                                        <textarea type="text" class="form-control text observacion" rows="1" id="observacion" name="observacion"
+                                                        <textarea type="text" class="form-control text observacion mb-2" rows="1" id="observacion" name="observacion"
                                                         placeholder="Digite observaciones pertinentes" tabindex="26"></textarea>
                                                     </div>                                                                                                                       
                                                 </div> <!--cierra row-->                                            
@@ -322,11 +330,7 @@
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>
-                                    <button type="button" class="btn btn-primary form-group btnSearchEmp btn-lg" title="Permite localizar un el refistro de un empleado"
-                                    id="prueba" name="" focusNext tabindex="20"><i
-                                        class="fa fa-search-location fa-lg"></i>Prueba
-                                </button>                                    
-                                </div>
+                                 </div>
                             </div>  <!--cierra row-->
                         </footer>
                     </form>
@@ -357,7 +361,7 @@
                 <body>
                     <div class="modal-body">
                         <div class="card-body p-2 mb-0 bg-success text-white">
-                            <table id="tablaClientesEvol2" class=" table table-bordered table-striped table-condensed table-hover" style="width:100%">
+                            <table id="tablaClientesEvol2" class=" table table-bordered table-striped table-condensed" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -391,20 +395,73 @@
 
 
 <script>
+
+            /**************************************************************
+             *Valida la existencia del documento de identidad del usuario   
+            ***************************************************************/
+            let nDocumento = document.getElementById("num_documento");
+           window.addEventListener('load', () => { 
+            // saltarEnter()
+            
+            $("#num_documento").blur(function(){
+                let numdcuto = document.getElementsByName('nDdocumento')[0].value 
+                let nDocInput = document.getElementsByName('num_documento')[0].value 
+                var attrAccion8 = $("#accionBotones").attr("accion");
+                // if (attrAccion8 == 'Actualizar' &&  numdcuto == nDocInput ) {
+                if (numdcuto !="") {
+
+                 }else if(numdcuto = nDocInput){     
+					let idEvolMed2 = document.getElementsByName('num_documento')[0].value
+					let data = new FormData()
+					data.append("num_documento",idEvolMed2);
+					let valuesDatE = [...data.entries()];
+					console.log(valuesDatE);	
+                    const validaReg = async () => {
+                            await axios.post("{{URL::to('/validaDocEmple')}}",data,{
+
+                            }).then((response) => {
+
+                                //  console.log(response.data)
+                                if(response.data['message'] == "Success"){  
+                                    // if (response.data){
+                                                // console.log(response.data)
+                                        document.getElementsByName('num_documento')[0].value= "";
+                                        document.getElementById('num_documento').focus()
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error Duplicado de documento',
+                                        text: 'EL DOCUMENTO DE IDENTIDAD QUE ESTÁ INGRESANDO YA EXISTE',
+                                        footer: 'No puede ingresar el mismo documento varias veces'
+                                    })  
+                                    document.getElementById('btnSave').disabled = true;
+
+                                }else{
+                                    document.getElementById('btnSave').disabled = false;
+                                }
+
+							}).catch(function(error) {
+								// Swal.fire({
+								// 	icon: 'error',
+								// 	title: 'Error interno',
+								// 	text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+								// 		'  ' + error,
+								// 	footer: ''
+								// })
+							// console.log(error);
+						})
+					}
+					validaReg();
+                }
+            })
+            return true
+        })    
+
 window.addEventListener('load', () => {
-    // const parse = require('node-html-parser');
-    // import routes from '../public/assets/routes.js'
-        // let espanol = idioma()
-        // emplea = new  empleadoBuscar()
-        
+ 
         let btnPrueba = document.getElementById('prueba') 
-
         let formEvolB = document.getElementById('formEmpleados')
-
         document.getElementById('btnCancelEmp').disabled = true;
-        // document.getElementById('btnSaveEmp').disabled = true;
         funcLib = new EmpleadoVista(); 
-       
 
         funcLib.desactivaInput();  
         document.getElementById('btnEditEmp').disabled = true;      
@@ -414,9 +471,7 @@ window.addEventListener('load', () => {
         let btnSearchEmp = document.getElementById('btnSearchEmp');    
     
         btnSearchEmp.addEventListener('click', () => {
-            // funcLib.tableSearch()
-            // funcLib.buscaAxios();
-                    $("#modalBuscarEvol2").modal({
+                        $("#modalBuscarEvol2").modal({
                         backdrop: 'static',
                         keyboard: false,
                         show: true
@@ -473,64 +528,25 @@ window.addEventListener('load', () => {
         })
 
           $('#tablaClientesEvol2').on("click", "button.btnCaptura", function () {
-                var datos = table.row($(this).parents("tr")).data();
-                let dataEvol = datos;
-                console.log(dataEvol)
-                funcLib.asignaValorEdit(dataEvol)
-
-                var btnGuardar = document.getElementById('btnSaveEmp');
-                btnGuardar.innerHTML = 'Actualizar'
-                
                 document.getElementById('btnSaveEmp').disabled = true;
                 document.getElementById('btnEditEmp').disabled = false;
                 document.getElementById('btnCancelEmp').disabled = false;
                 document.getElementById('btnNewEmp').disabled = true;
-                document.getElementById('btnSearchEmp').disabled = true;
-                let btnDeleteEmpclick1 = document.getElementById('btnDeleteEmp')
-                btnDeleteEmpclick1.disabled = false
+                document.getElementById('btnSearchEmp').disabled = false;
+                document.getElementById('btnDeleteEmp').disabled = false;
+                
+                var datos = table.row($(this).parents("tr")).data();
+                let dataEvol = datos;
+                // console.log(dataEvol)
+                funcLib.asignaValorEdit(dataEvol)
+                var btnGuardar = document.getElementById('btnSaveEmp');
+                btnGuardar.innerHTML = 'Actualizar'
             })
     })
- 
-
-
-// window.addEventListener('load', () => {
-// let btnSearchEmp = document.getElementById('btnSearchEmp');
-// // var rutaTablas = document.getElementsByName('rutaTable')[0].value; 
-
-// btnSearchEmp.addEventListener('click', () => {  
-//     alert('jaminson')
-//   let data = new FormData();
-//   data.append('codigo','100')
-//    let prueba = async () => {
-// //   var rutaTablas = document.getElementsByName('rutaTable')[0].value;
-//     var rutaTablas ="ttsdta"
-//        await axios.get("{{ URL::to($tablaAuxiliar) }}", data, {
- 
-//        }).then((resp) => {
-//            let dataSelect = resp.data;
-//            console.log(dataSelect);
- 
-//        }).catch(function(error) {
-//            alert(
-//                'Error, de jaminson intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
-//            )
-//            //console.log(error);
-//        })
-      
-//     } 
-//     prueba() 
-//     })
-//     return false;
-// })  
-
   
     //  nobackbutton()
     // saltarEnterFormulario()
-    /*******************************************************
-     * Llena la tabla del modal para la busqueda de clientes
-     * *****************************************************/
-
-
+ 
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
 			********************************************************/
@@ -556,9 +572,8 @@ window.addEventListener('load', () => {
                 document.getElementById('btnCancelEmp').disabled = false;
                 document.getElementById('btnSaveEmp').disabled = false;
                
-                document.getElementById('fecha').focus()
+                document.getElementById('tipodocumento_id').focus()
                 var attrAccion4 = $("#accionBotones").attr("accion");
-                document.getElementById('fecha').focus()
                 // alert(attrAccion4)    
 				return true
 			})
@@ -571,7 +586,7 @@ window.addEventListener('load', () => {
                 var attrAccion3 = $("#accionBotones").attr("accion");
                 // alert('botonNew'+' '+attrAccion3)
                 funcLib.activaInput();                
-				
+				document.getElementsByName('nDdocumento')[0].value =""
                 //cambioTextBotton('btnSaveEmp', 'Actualizar', 'Guardar')
                 var btnGuardar = document.getElementById('btnSaveEmp');
                 btnGuardar.innerHTML = 'Guardar'    
@@ -614,7 +629,7 @@ window.addEventListener('load', () => {
                     var attrAccion2 = $("#accionBotones").attr("accion");
                     let data = new FormData(formEmp)
                     let valuesDat = [...data.entries()];
-                    console.log(valuesDat);
+                    // console.log(valuesDat);
                     // return false;
                 if (validaOk === '') {
                     // console.log(values)                   
@@ -622,7 +637,7 @@ window.addEventListener('load', () => {
                         const empleadoSaveReg = async () => {
                             await axios.post("{{URL::to('/empleadoStore')}}",data,{
                             }).then((resp) => {
-                                console.log(resp.data)
+                                // console.log(resp.data)
                                 // console.log(resp.data['message'])
                                 // if(resp.data['message']=="Success"){
                                     if(resp.data){
@@ -663,40 +678,40 @@ window.addEventListener('load', () => {
                         }
                         empleadoSaveReg()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-                        let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+                        // let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
-                                "{{ URL::to('/clienteUpdateEvol') }}",
+                                "{{ URL::to('/empleadosUpdate') }}",
                                 data, {
 
                                 }).then((response) => {
 
-                                console.log(response.data['message'])
+                                
+                                if(response.data['message'] == "Success"){
+                                    console.log(response.data['message'])
+                                    document.getElementById('btnDeleteEmp').disabled = true;
+                                    document.getElementById('btnNewEmp').disabled = false;
+                                    document.getElementById('btnCancelEmp').disabled = true;
+                                    document.getElementById('btnSearchEmp').disabled = false;
+                                    document.getElementById('btnSaveEmp').disabled = true;
 
-                                document.getElementById('btnDeleteEmp').disabled = true;
-                                document.getElementById('btnNewEmp').disabled = false;
-                                document.getElementById('btnCancelEmp').disabled = true;
-                                document.getElementById('btnSearchEmp').disabled = false;
-                                document.getElementById('btnSaveEmp').disabled = true;
+                                    let newNom88 = document.getElementById('accionBotones')
+                                    newNom88.setAttribute('accion', "Guardar");
 
-                                /*Cuando se busca un registro se cambial atributo del input hidden*/
-                                let newNom88 = document.getElementById('accionBotones')
-                                newNom88.setAttribute('accion', "Guardar");
+                                    var btnGuardar2 = document.getElementById('btnSaveEmp');
+                                    btnGuardar2.innerHTML = 'Guardar'
+                                    funcLib.desactivaInput();
 
-                                var btnGuardar2 = document.getElementById('btnSaveEmp');
-                                btnGuardar2.innerHTML = 'Guardar'
-                                funcLib.desactivaInput();
-
-                                document.getElementById('textB').innerHTML = 'DATOS DE EMPLEADOS'                                
-                                funcLib.clearElements()	                                
-                                formEmp.reset()                                    
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'PERFECTO',
-                                    text: 'El registro se ACTUALIZÓ con exito',
-                                    footer: ''
-                                })
-
+                                    document.getElementById('textB').innerHTML = 'DATOS DE EMPLEADOS'                                
+                                    funcLib.clearElements()	                                
+                                    formEmp.reset()                                    
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'PERFECTO',
+                                        text: 'El registro se ACTUALIZÓ con exito',
+                                        footer: ''
+                                    })
+                                }        
                             }).catch(function(error) {
                                 Swal.fire({
                                     icon: 'error',
@@ -802,7 +817,7 @@ window.addEventListener('load', () => {
 			}).then((result) => {
 				if (result.isConfirmed) {
 					const formEmpE = document.querySelector('#formEmpleados');
-					let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+					let idEvolMed = document.getElementsByName('empleado_id')[0].value
 					let data = new FormData()
 					data.append("idEvolucion",idEvolMed);
 					let valuesDatE = [...data.entries()];
@@ -811,7 +826,7 @@ window.addEventListener('load', () => {
 					const anulaReg = async () => {  
 
 						await axios.post(
-							"{{ URL::To('/anula-CtrlMed') }}",data, {
+							"{{ URL::to('/anulaRegempleado') }}",data, {
 							}).then((response) => {
 					
                                 if(response.data['message'] == "Success"){  

@@ -11,7 +11,7 @@
     <section class="content">
       <div class="row pb-2 pt-1">
         <div class="col-5">
-          <b><h4 class="text-white bg-success">Administración General de Usuarios</h2></b>
+          <b><h4 class="text-white bg-success">Administración General de Empleados</h2></b>
         </div> 
         @if ($sinRegistro)
         <div class="col-2"></div>
@@ -26,8 +26,8 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped ">
+              <div class="card-body" style="background-color: rgb(0, 255, 162)">
+                <table id="example1" class="table table-bordered table-striped table-hover ">
                 <thead>
                     <tr>
                       <th>Id</th>  

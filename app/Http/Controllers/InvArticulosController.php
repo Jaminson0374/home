@@ -48,8 +48,8 @@ class InvArticulosController extends Controller
             // $idDtBasico->ult_hora_admin_med  = $request->hora;
             // $idDtBasico->save();
             
-            $invArticuloSave = InvInventariosModel::create($request->all()); 
-            return $invArticuloSave;
+            $invArticuloSave = InvArticulosModel::create($request->all()); 
+            // return $invArticuloSave;
             DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();

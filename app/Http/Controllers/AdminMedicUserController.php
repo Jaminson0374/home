@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminMedicUserModel;
 use App\Models\Cliente_datosbasico;
-use App\Models\Cliente_datosbasicos;
 use App\Models\InvArticulosModel;
 use App\Models\TipoAdminMedModel;
 use App\Models\InvUniMedidasModel;
@@ -15,14 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 class AdminMedicUserController extends Controller
 {
-
     public function index()
     {
         $clientesAdminMed = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos','edad','ult_fecha_admin_med','ult_hora_admin_med','estado_user')
         ->where("estado_servicio", "=", "ON")->get(); 
 
-         return view('backend.controles_medicos.admin_control_medico',compact('clientesAdminMed'));        
+         return view('backend.controles_medicos.administra_medicamentos.admin_administra_mdicamtos',compact('clientesAdminMed'));        
     }
 
 
@@ -42,7 +40,7 @@ class AdminMedicUserController extends Controller
         // $dtobasicoMed = Cliente_datosbasico::all()->where('id','=',$idUserBasico);
 
         
-        return view('backend.controles_medicos.add_admin_medicamento', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'adminMedMedicos', 'medicamentos'));
+        return view('backend.controles_medicos.administra_medicamentos.add_admin_medicamento', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'adminMedMedicos', 'medicamentos'));
     }
 
  

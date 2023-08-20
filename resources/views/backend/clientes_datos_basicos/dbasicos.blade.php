@@ -52,7 +52,7 @@
 
                     {{-- <div class="row justify-content-between"> --}}
                     {{-- <div class="card-body text-dark tarjeta_body"> --}}    
-                    <div class="col-sm-12" style="background-color: aqua">
+                    <div class="col-lg-12 col-md-12" style="background-color: aqua">
                         <div class="card card-primary card-outline">
                             <div class="border border-dark border-4 rounded bg-primary">
                                 <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">
@@ -215,7 +215,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
+                                        </div>    
                                         <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
                                             <label>Tipo Servicio</label>
                                             <select class="form-control focusNext text tiposervicio_id" style="width: 100%;"

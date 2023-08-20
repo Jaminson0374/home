@@ -5,22 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmpleadosModell extends Model
+class AsignaMedicamentosModel extends Model
 {
-    protected $table = "empleados";
+    protected $table = "asigna_medicamentos";
+    use HasFactory;
     protected $guarded = [
         'accionBotones',
         '_token',
         '_method',
         'softDeletes', 
 		'accionBotones', 
-		'presBtnNewEmp',
+		'presBtnNewAdm',
         'empleado_id',
         'timestamps',
         'idAdminMedica',
         '_method',
         'rutaTable',
-    ];	    
-
-    use HasFactory;
+    ];	        
 }

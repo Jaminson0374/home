@@ -234,7 +234,7 @@
                                             focusNext tabindex="22" disabled="true"><i class="fa fa-trash fa-lg"
                                                 style="color:#f30b0b;"></i> Anular </button>
 
-                                                <a href="{{ URL::to('/admin-Artiucion-diaria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                <a href="{{asset('/home')}}" class="btn btn-primary btn-lg float-right ml-3" title="Abandonar la ventana"
                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                     style="color:#f30b0b;"></i> Salir</a>    
                                     </div>

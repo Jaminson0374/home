@@ -92,19 +92,10 @@ class EmpleadosController extends Controller
          'empleados.gruposanguineo_id', 'empleados.direccion_res', 'empleados.email', 'empleados.fecha_nacimiento', 
          'empleados.lugar_ncmto','empleados.funciones','empleados.profesion_id','empleados.tipocontrato_id','empleados.salario',
          'empleados.nombre_familiar','empleados.telefono_familiar', 'empleados.email_famliar','empleados.parentezco_familiar',
-         'empleados.observacion','empleados.fecha_inicio',)->get();
+         'empleados.observacion','empleados.fecha_inicio',)->where('empleados.anulado','=',NULL)->get();
          return $empleadoIndex;
 
-        //  DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
-         // $tipoDocu = TipoDocumentoModell::all();    
-        // $pais = PaisModell::all();
-        // $departamento = DepartamentosModell::all();
-        // $ciudad = CiudadesModell::all();
-        // $genero = SexoModell::all();
-        // $grupo_rh= GrpSangreModell::all();
-        // $cargos = CargosModell::all();
-        // // $listaEmpleados = EmpleadosModell::where('id','=',$idEmpleado)->get();
-    }
+     }
 
     public function edit(EmpleadosModell $empleadosModell)
     {
@@ -114,17 +105,40 @@ class EmpleadosController extends Controller
  
     public function update(Request $request, EmpleadosModell $empleadosModell)
     {
-        $idCli=$request['empleado_id'];
-        $cliente_datosbasico = EmpleadosModell::findOrFail($idCli);
-        $cliente_datosbasico->fill($request->all());
-        $cliente_datosbasico->save();  
-        return $cliente_datosbasico;           
+
+        try {
+            DB::beginTransaction(); 
+            $idCli=$request['empleado_id'];
+            $cliente_datosbasico = EmpleadosModell::findOrFail($idCli);
+            $cliente_datosbasico->fill($request->all());
+            $cliente_datosbasico->save();  
+            // return $cliente_datosbasico;                    
+             
+            DB::commit();
+            } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error']);
+            }
+            return response()->json(['message' => 'Success']);   
     }
 
 
-    public function destroy(EmpleadosModell $empleadosModell)
+    public function destroy(Request $request, EmpleadosModell $empleadosModell)
     {
-        //
+           // return $request['idEvolucion'];
+
+           try {
+            DB::beginTransaction();
+            $idCliAnula=$request['idEvolucion'];
+            $EvolAnula = EmpleadosModell::findOrFail($idCliAnula);
+            $EvolAnula->anulado = "S";
+            $EvolAnula->save();  
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error']);
+        }
+        return response()->json(['message' => 'Success']);
     }
     public function busquedaEmpleado(){
         // ->where('evolucion_diaria.anulado','=','')
@@ -132,4 +146,16 @@ class EmpleadosController extends Controller
             
         return $browsEmp;         
     }    
+    public function validaDocEmpleado(Request $request, EmpleadosModell $empleadosModell){
+       
+    //    return $request['num_documento'];
+       $selectCliBco  = EmpleadosModell::where('num_documento','=',$request['num_documento'])->get();
+        // $idDtBasico =  EmpleadosModell::find($request['num_documento']);
+     $size = count($selectCliBco);
+    if($size >= 1){     
+        return response()->json(['message' => 'Success']);
+    }else{
+        return response()->json(['message' => 'Error']);
+        }    
+    }
 }

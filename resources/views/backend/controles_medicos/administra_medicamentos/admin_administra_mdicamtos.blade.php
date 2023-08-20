@@ -51,7 +51,8 @@
                         <td class="p-0 m-0 text-center">{{$row->ult_fecha_admin_med }}</td>
                         <td class="p-0 m-0 text-center">{{$row->ult_hora_admin_med}}</td>
                         <td>
-                            <a href="{{URL::to('add_medica_user/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0" id="" title="Ingresar, modificar y/o consultar Administración de medicamentos"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Admin</a>
+                            <a href="{{URL::to('add_medica_user/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Admin</a>
+                            <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0 bg bg-success" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
                         </td>
                     </tr>
                     @endforeach
