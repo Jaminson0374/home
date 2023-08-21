@@ -31,7 +31,9 @@
         font-size: 1em
     }
 </style>
-
+<header>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+</header>
     {{-- @if ($errors->any())
     <script>
         document.getElementById('selectDptoN').value = "old('dpto_nacimiento')";
@@ -398,55 +400,52 @@
 <!-- ******************************************************
       MODAL PARA LA BUSQUEDA DE CLIENTES DATOS BASICOS
       *****************************************************-->
-<!-- Modal -->
-
-
-<!-- Modal -->
-<div class="container-lg">
-    <div class="modal fade" id="modalBuscarServicio" class="modalBuscarServicio" data-backdrop="static" tabindex="-1"
-        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Lista de usarios datos básicos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {{-- tablaDtBasico --}}
-
-                <body>
-                    <div class="modal-body">
-                        <div class="card-body p-3 mb-2 bg-primary text-white">
-                            <table id="tablaClienServicio" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>DocIdent</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Edad</th>
-                                        <th>Telefonos</th>
-                                        <th class="text-center">Tipo de servicio</th>
-                                        <th class="text-center">Acción2</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodyTablaServicios">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
+      <!-- Modal -->
+      <div class="container-lg">
+        <div class="modal fade" id="modalService" class="modalService" data-backdrop="static" focusNext tabindex="-1"
+            role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Lista General de usarios</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-
-                </body>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    {{-- tablaDtBasico --}}
+                    <form action="" id="modalTable"></form>
+    
+                    <body>
+                        <div class="modal-body">
+                            <div class="card-body p-2 mb-0 bg-success text-white">
+                                <table id="tablaService" class=" table table-bordered table-striped table-condensed" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Documento</th>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>Edad</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyTabla">
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                        </div>
+                    </body>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Modal -->
 
 <script src="{{ asset('../resources/js/datatable.js') }}"></script>
 <script>
@@ -496,76 +495,69 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
-        let bodyTablaClientes = document.getElementById("bodyTablaServicio");
-        let modalBuscar = document.getElementById('modalBuscarServicio');
-        let btnSearchServicio = document.getElementById('btnSearchServicio');
-        btnSearchServicio.addEventListener('click', () => {
-            return false;
-                    $("#modalBuscarSevicio").modal({
+        var idcliservice = document.getElementsByName('datosbasicos_id')[0].value 
+        let btnSearchService = document.getElementById('btnSearchServicio');
+        btnSearchService.addEventListener('click', () => {
+            $("#modalService").modal({
                         backdrop: 'static',
                         keyboard: false,
                         show: true
                     });
-
-                    $('#modalBuscarServicio .modal-dialog').draggable({
-                        handle: ".modal-header"
-                    });
-
-                table = $('#tablaClienServicio').DataTable({
-                    responsive: true,
-                    serverSide: true,
-                    destroy: false,
-                    scrollY: '400px',
-                    paging: true,
-
-                    "ajax": {
-                        "url": "{{ URL::to('/buscarClienteUser') }}",
+                table = $('#tablaService').DataTable({
+                responsive: true,
+                serverSide: true,
+                destroy: false,
+                scroll: true,
+                scrollCollapse: true,
+                scrollY: '400px',
+                scrollx: true,
+                deferRender: true,
+                paging: true,
+                select: true,
+                bAutoWidth: false,
+                scrollCollapse: false,
+                "ajax": {
+                        "type": "POST",
+                        "dataType": 'json',
+                        "data": {dato_id: idcliservice},
+                        "url": "{{ URL::to('/showcaAsigMedic') }}",
+                        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         "dataSrc": ""
                     },
-                    "columns": [{
-                            "data": "id"
-                        },
-                        {
-                            "data": "num_documento"
-                        },
-                        {
-                            "data": "nombre"
-                        },
-                        {
-                            "data": "apellidos"
-                        },
-                        {
-                            "data": "descripcion"
-                        },
-
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "num_documento"},
+                        {"data": "nombre"},
+                        {"data": "apellidos"},
+                        {"data": "edad"},     
                     ],
-                    columnDefs: [{
-                            targets: 5,
+                     columnDefs: [{
+                            targets: 4,
                             visible: true
                         },
                         {
-                            targets: 6,
+                            targets: 5,
                             orderable: false,
                             data: null,
                             render: function(data, type, row, meta) {
                                 let fila = meta.row;
                                 let botones =
                                     `
-                                <button type='button' id='btnCapturaServicio' class='btnCapturaServicio btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
                                 return botones;
                             }
                         }
-
                     ],
                     "destroy": true,
-                    "language":{"url": "../../resources/js/espanol.json"}
-
+                    "language":{"url": "../../resources/js/espanol.json"
+                    }
                 }).draw()
-                return true
+              return true
         })
-        $('#tablaClienServicio').on("click", "button.btnCapturaServicio", function () {
+        $('#tablaService').on("click", "button.btnCaptura", function () {
                 formularioServicio.reset()
                 let data = table.row($(this).parents("tr")).data();
+                
                 funcBasic.asignaValorEdit(data)
 
                 /*Cuando se busca un registro se cambial atributo del input hidden*/
@@ -578,7 +570,7 @@
                 document.getElementById('btnDelete').disabled = false
                 document.getElementById('btnEdit').disabled = false
             })
-            return true   
+            // return true   
     })
 
 			/*****************************************************

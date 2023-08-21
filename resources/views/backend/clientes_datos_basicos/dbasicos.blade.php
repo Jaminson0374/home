@@ -708,11 +708,7 @@
                 document.getElementById('btnCancel').disabled = false;
                 document.getElementById('btnSearch').disabled = true;
             })
-           return true                                    
-    })
-
-    window.addEventListener('load', () => {
-
+ 
 			/*****************************************************
 				Limpia los campos al presionar el boton nuevo
 			********************************************************/

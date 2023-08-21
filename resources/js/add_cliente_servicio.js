@@ -44,9 +44,9 @@ class serviciosNewClientes2 {
 			case fecha_ingreso:
 				campoText = 'La FECHA DE INGRESO es requerida'
 				break;
-			case fecha_retiro:
-				campoText = 'La FECHA DE RETIRO es requerida'
-				break;				
+			// case fecha_retiro:
+			// 	campoText = 'La FECHA DE RETIRO es requerida'
+			// 	break;				
 			case empleado_id:
 				campoText = 'El PROFESIONAL QUE RECIBE AL USUARIO es requerido'
 				break;

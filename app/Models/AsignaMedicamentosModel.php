@@ -18,7 +18,7 @@ class AsignaMedicamentosModel extends Model
 		'presBtnNewAdm',
         'empleado_id',
         'timestamps',
-        'idAdminMedica',
+        'idAsignaMedica',
         '_method',
         'rutaTable',
     ];	        

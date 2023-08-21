@@ -18,6 +18,7 @@ use App\Models\MedicoExternoModel;
 use App\Models\RangoEpsModel;
 use App\Models\TipoAfiliacionModel;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 
 class ClientesController extends Controller
 {
@@ -49,18 +50,18 @@ class ClientesController extends Controller
             return $browsCliServicio;
     }
 
-    public function buscarCliUser(){
-        // return $request->id; 
+    public function buscarCliUser(Request $request, Clientes $clientes){
+        //  return $request->dato_id;
+        // return $request->datosbasicos_id; 
         // return $request->data['cubiculos_id'];
-
+        // ->join('tiposervicios', 'clientes.tiposervicio_id','=','tiposervicios.id')
+ 
         $locateCliente = DB::table('clientes')
         ->join('cliente_datosbasicos', 'clientes.datosbasicos_id','=','cliente_datosbasicos.id')
-        ->join('tiposervicios', 'clientes.tiposervicio_id','=','tiposervicios.id')
-        ->select('clientes.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre','cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
-                 'cliente_datosbasicos.telefonos_user','tiposervicios.descripcion')
-        ->get(); 
+        ->select('clientes.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre',
+        'cliente_datosbasicos.apellidos','cliente_datosbasicos.edad',
+        'cliente_datosbasicos.telefonos_user')->where('datosbasicos_id','=',$request->dato_id)->get(); 
 
-        $locateCliente = Clientes::all();
         return $locateCliente;
     }
 

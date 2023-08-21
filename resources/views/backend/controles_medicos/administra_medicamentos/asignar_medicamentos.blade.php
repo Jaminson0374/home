@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                     <input type="hidden" id="datosbasicos_id" name="datosbasicos_id" value={{$datosRow->id}}>
-                                    <input type="hidden" id="idAdminMedica" name="idAdminMedica">
+                                    <input type="hidden" id="idAsignaMedica" name="idAsignaMedica">
                                     <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
 
                                     <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
@@ -84,7 +84,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12 col-md-6 ">  
+                                    <div class="col-lg-4 col-sm-12 col-md-4 ">  
                                         <div class="col-lg-12 col-sm-12 col-md-12">
                                             <div class="card card-primary card-outline">
                                                 {{-- <div class="card-body">    --}}
@@ -96,8 +96,8 @@
                                                                 title="fecha en la que inicia el tratamiento">
                                                         </div>
                                                         <div class="col-lg-6 col-sm-12 col-md-6"> 
-                                                            <label for="" class="col-form-label">Hora suministro</label>
-                                                            <input type="time" class="form-control text" name="hora" max="24:00:00" min="01:00:00" step="1" id="hora"
+                                                            <label for="" class="col-form-label">Hora</label>
+                                                            <input type="time" class="form-control text" name="hora" max="24:00" min="01:00" step="1" id="hora"
                                                             style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">
                                                         </div> 
                                                     </div> 
@@ -108,14 +108,14 @@
                                             <div class="card card-primary card-outline">
                                                 {{-- <div class="card-body">    --}}
                                                     <div class="row">   
-                                                        <div class="col-lg-6 col-sm-12 col-md-6">                                                        
+                                                        <div class="col-lg-3 col-sm-12 col-md-3">                                                        
                                                             <label for="">Dosis:</label>
-                                                            <input type="number" class="form-control text p-0 text-center" name="dosis" id="dosis"
+                                                            <input type="text" class="form-control text p-0 text-center" name="dosis" id="dosis"
                                                             title="Cantidad de medicamento a suministrar" tabindex="7">
                                                         </div>        
-                                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="col-12 col-lg-9 col-md-9 col-sm-12">
                                                             <label for="">Uni. Med</label>
-                                                            <select class="select2 select2-danger"
+                                                            <select class="select2 select2-danger"6
                                                                 data-dropdown-css-class="select2-primary" style="width: 100%;"
                                                                 name="unimedida_id" id="unimedida_id" focusNext tabindex="8">
                                                                 <option selected="selected" disable value=" ">Seleciona U. Med </option>
@@ -134,7 +134,7 @@
                                             <div class="card card-primary card-outline">
                                                 {{-- <div class="card-body">    --}}
                                                     <div class="row">   
-                                                        <div class="col-lg-6 col-sm-12 col-md-6"> 
+                                                        <div class="col-lg-5 col-sm-12 col-md-5"> 
                                                             <label for="">Via Admin</label>
                                                             <select class="form-control tipoadmin_med_id" style="width: 100%;"
                                                                 name="tipoadmin_med_id" id="tipoadmin_med_id" focusNext tabindex="9" title="Seleccione la via o forma de como se suministrará el medicamento">
@@ -147,11 +147,11 @@
                                                         </div> 
                                                         <div class="col-lg-3 col-sm-12 col-md-3">
                                                             <label for="">Cada:</label>
-                                                            <input type="number" class="form-control text p-0 text-center" name="pososlogia_t"
+                                                            <input type="text" class="form-control text p-0 text-center" name="pososlogia_t"
                                                             id="pososlogia_t"  focusNext tabindex="10" 
                                                             title="Intervalo de tiempo entre dosis">
                                                         </div>  
-                                                        <div class="col-lg-3 col-sm-12 col-md-3">                                                     
+                                                        <div class="col-lg-4 col-sm-12 col-md-4 ">                                                     
                                                             <label for="">Hora/Día</label>
                                                             <select class="form-control" style="width: 100%;"
                                                                 name="pososlogia_h_d" id="pososlogia_h_d" focusNext tabindex="11" title="Selecicones Horas o dias para el suministró del medicamento">
@@ -180,18 +180,19 @@
                                             </div> <!--card card-primary-->
                                         </div>                                                                                            
                                     </div> 
-                                        <div class="col-lg-6 col-sm-12 col-md-6 p-0 m-0">
+                                        <div class="col-lg-8 col-sm-12 col-md-8 p-0 m-0">
                                             <div class="col-lg-12 col-sm-12 col-md-12">
-                                                <div class="card card-primary card-outline">
+                                                <div class="card card-warning card-outline">
                                                     {{-- <div class="card-body"> --}}
-                                                        <div class="col-lg-12 col-sm-12 col-md-12"> 
-                                                            <table id="tablaAdminMedMov" class="table table-bordered table-striped" style="width: 100%; border:#f6ee16">
+                                                        <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
+                                                            <table id="tablaAsigMedic" class="table table-bordered table-striped table-hover table-responsive">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>#</th>
                                                                         <th>Medicamento</th>
                                                                         <th>Hora</th>
                                                                         <th>Dosis</th>
+                                                                        <th>Medida</th>
+                                                                        <th>Via Admin</th>
                                                                         <th>Acción</th>
                                                                     </tr>
                                                                 </thead>
@@ -200,25 +201,23 @@
                                                                 </tbody>
                                                              </table>                                                            
                                                         </div>
-                                                    {{-- </div>                                                  --}}
+                                                    {{-- </div>  --}}
                                                 </div>
                                             </div>
                                         </div>
                             </div>                                                                                                    
                                         
-
-
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
                                 <script src="{{ asset('../resources/views/backend/controles_medicos/administra_medicamentos/asignar_medicamento.js') }}"></script>
-                                <script src="{{ asset('../resources/js/funciones.js') }}"></script>   
- 
+                                <script src="{{ asset('../resources/js/funciones.js') }}"></script>
+
                             </body>
                             <footer>
                                 <div class="row"> 
                                     <div class="col-lg-12 col-sm-12 col-md-12">
                                             <div class="card card-primary card-outline">
                                                 <div class="card-body">
-                                                        <div class="form-group pt-2">
+                                                        <div class="form-group">
                                                             <button  type="button" class="btn btn-primary btn-lg form-group btnNewAdm" title="Permite administrar un nuevo medicamento al usuario"
                                                                 focusNext tabindex="17" id="btnNewAdm" accionBtn="Nuevo" name="btnNewAdm">
                                                                 <i class="fa fa-file-archive fa-lg" style="color:#fffefed8;"></i> Nuevo Medicamento
@@ -260,91 +259,19 @@
         </section>
     </div>
 @endsection
-<!-- ******************************************************
-      MODAL PARA LA BUSQUEDA DE CLIENTES DATOS BASICOS
-      *****************************************************-->
 
-      <!-- Modal -->
-<div class="container-lg">
-    <div class="modal fade" id="modalBuscarEvol" class="modalBuscarEvol" data-backdrop="static" focusNext tabindex="-1"
-        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Lista General de usarios</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {{-- tablaDtBasico --}}
-                <form action="" id="modalTable"></form>
-
-                <body>
-                    <div class="modal-body">
-                        <div class="card-body p-2 mb-0 bg-primary text-white">
-                            <table id="tablaClientesEvol" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Estado</th>
-                                        <th>Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodyTabla">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    </div>
-                </body>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
 <script src="{{ asset('../resources/js/datatable.js') }}"></script>
 
 
 <script>
-
-// window.addEventListener('load', () => {
-// let btnSearchAdm = document.getElementById('btnSearchAdm');
-// btnSearchAdm.addEventListener('click', () => {  
-// //   let data = new FormData();
-//    let prueba = async () => {
-//        await axios.get("{{ URL::to('/buscar-CtrlMed') }}", {
- 
-//        }).then((resp) => {
-//            let dataSelect = resp.data;
-//            console.log(dataSelect);
- 
-//        }).catch(function(error) {
-//            alert(
-//                'Error, intente nuevamente, si el error persiste, por favor comuniquese con su Ing. de sistemas'
-//            )
-//            //console.log(error);
-//        })
-      
-//     } 
-//     prueba() 
-//     })
-// })  
-  
     //  nobackbutton()
     // saltarEnterFormulario()
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
+    
+            fillTableInterna()
         let formEvolB = document.getElementById('formAsignaMedicamento')
 
         document.getElementById('btnCancelAdm').disabled = true;
@@ -384,10 +311,8 @@
                 document.getElementById('btnCancelAdm').disabled = false;
                 document.getElementById('btnSaveAdm').disabled = false;
                
-                document.getElementById('fecha').focus()
+                document.getElementById('articulos_id').focus()
                 var attrAccion4 = $("#accionBotones").attr("accion");
-                document.getElementById('fecha').focus()
-                // alert(attrAccion4)    
 				return true
 			})
 
@@ -460,7 +385,6 @@
                                     document.getElementById('btnEditAdm').disabled = true;                                 
                                     document.getElementById('btnSearchAdm').disabled = false;
                                     document.getElementById('btnSaveAdm').disabled = true;
-
                                     /*Cuando se busca un registro se cambial atributo del input hidden*/
                                     let newNom88 = document.getElementById('accionBotones')
                                     newNom88.setAttribute('accion', "Guardar");
@@ -471,30 +395,32 @@
 
                                     document.getElementById('textB').innerHTML = 'CONTROL DE ADMINISTRACION DE MEDICAMENTOS A USUARIOS'                                
                                     funcAsigMed.clearElements()	                                
-                                    formEvolQ.reset()                      
+                                    // formEvolQ.reset() 
+                                    fillTableInterna()                     
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'PERFECTO',
                                         text: 'El registro se GUARDÓ con exito',
                                         footer: ''
                                     })
-                                }else{
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error interno',
-                                        text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
-                                            '  ',
-                                        footer: ''
-                                    })                                    
                                 }
+                                // }else{
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Error interno',
+                                //         text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                                //             '  ',
+                                //         footer: ''
+                                //     })                                    
+                                // }
                             })
                         }
                         AdminMedicaUser()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-                        let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+                        let idEvolMed = document.getElementsByName('idAsignaMedica')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
-                                "{{ URL::to('/clienteUpdateEvol') }}",
+                                "{{ URL::to('/update-asig-medic') }}",
                                 data, {
 
                                 }).then((response) => {
@@ -517,7 +443,8 @@
 
                                 document.getElementById('textB').innerHTML = 'REQUISICION DE MEDICAMENTOS'                                
                                 funcAsigMed.clearElements()	                                
-                                formEvolQ.reset()                                    
+                                formEvolQ.reset()
+                                fillTableInterna()                                    
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'PERFECTO',
@@ -630,7 +557,7 @@
 			}).then((result) => {
 				if (result.isConfirmed) {
 					const formEvolQE = document.querySelector('#formAsignaMedicamento');
-					let idEvolMed = document.getElementsByName('idAdminMedica')[0].value
+					let idEvolMed = document.getElementsByName('idAsignaMedica')[0].value
 					let data = new FormData()
 					data.append("idEvolucion",idEvolMed);
 					let valuesDatE = [...data.entries()];
@@ -749,8 +676,89 @@
     evitaCierreFormulario()
     nobackbutton()
 
+  /*******************************************************
+     * Llenar la tabla del de las asignaciones de medicamentos
+     * *****************************************************/    
+    function fillTableInterna(){
+         var idasigmedic = document.getElementsByName('datosbasicos_id')[0].value 
+        // let btnSearchService = document.getElementById('btnSearchServicio');
+        // function fillTableInterna(){  
+ 
+                table = $('#tablaAsigMedic').DataTable({
+                responsive: true,
+                serverSide: true,
+                destroy: false,
+                scroll: true,
+                scrollY: '260px',
+                scrollx: true,
+                deferRender: true,
+                ordering: false,
+                searching: false,
+                paging: false,
+                select: true,
+                bAutoWidth: false,
+                scrollCollapse: false,
+                "ajax": {
+                        "type": "POST",
+                        "dataType": 'json',
+                        "data": {dato_id: idasigmedic},
+                        "url": "{{ URL::to('/show-asig-medic') }}",
+                        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {"data": "medicamento"},
+                        {"data": "hora"},
+                        {"data": "dosis"},
+                        {"data": "medida"},
+                        {"data": "via_admin"},
+                    ],
+                     columnDefs: [{
+                            targets: 4,
+                            visible: true
+                        },
+                        {
+                            targets: 5,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
+                                return botones;
+                            }
+                        }
+                    ],
+                    "destroy": true,
+                    "language":{"url": "../../resources/js/espanol.json"
+                    }
+                }).draw()
 
+        }
 
+        window.addEventListener('load', () => { 
+            let formAsigMed = document.getElementById('formAsignaMedicamento')
+            $('#tablaAsigMedic').on("click", "button.btnCaptura", function () {
+                let formAsigMed = document.getElementById('formAsignaMedicamento')
+                let _diagnostico = document.getElementsByName('diagnostico')[0].value
+                formAsigMed.reset()
+                document.getElementsByName('diagnostico')[0].value = _diagnostico
+                let data = table.row($(this).parents("tr")).data();
+                // console.log(data)
+                funcAsigMed.asignaValorEdit(data)
+                // $idCli3=$request['idEvolMedica'];
+                /*Cuando se busca un registro se cambial atributo del input hidden*/
+                let newNom80 = document.getElementById('accionBotones')
+                newNom80.setAttribute('accion', "Actualizar");
+
+                var btnGuardar = document.getElementById('btnSaveAdm');
+                btnGuardar.innerHTML = 'Actualizar'
+
+                document.getElementById('btnDeleteAdm').disabled = false
+                document.getElementById('btnEditAdm').disabled = false
+            })
+        })
 </script>
 
 

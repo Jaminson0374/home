@@ -64,7 +64,7 @@ Route::post('/insert-cliente-servicio', [App\Http\Controllers\backend\ClientesCo
 Route::post('/clienteCliUpdateServicios', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
 Route::get('/delete-cliente/{id}', [App\Http\Controllers\backend\ClientesController::class, 'DeleteCliente'])->name('DeleteCliente');
 Route::post('/traeClienteConServicio', [App\Http\Controllers\backend\ClientesController::class, 'traeClienteServicio'])->name('TraeClienteConServicio');
-Route::get('/buscarClienteUser', [App\Http\Controllers\backend\ClientesController::class, 'buscarCliUser'])->name('BuscarClienteUser');
+Route::post('/buscarClienteUser', [App\Http\Controllers\backend\ClientesController::class, 'buscarCliUser'])->name('BuscarClienteUser');
 
 // Route::post('/clienteCliUpdateServicios/{idCliServi}', [App\Http\Controllers\backend\ClientesController::class, 'update'])->name('ClienteUpdateCliServicios');
 
@@ -193,6 +193,10 @@ Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserCont
 //*********************************************************************/
 Route::get('/asignar-medicamentos/{idUserMed}', [App\Http\Controllers\AsignaMedicamentosController::class, 'create'])->name('AsignarMedicamentos');
 Route::post('/store-asigna-medicamento', [App\Http\Controllers\AsignaMedicamentosController::class, 'store'])->name('StoreAsignaMedicamento');
+Route::post('/show-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'show'])->name('ShowAsigMedic');
+Route::post('/update-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'update'])->name('UpdateAsigMedic');
+
+
 // asignar_medicamentos.blade
 
 

@@ -58,26 +58,24 @@ class AsigMedicamento {
 	/******************************************************************************************************
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
-	asignaValorEdit(dataEvol) {
+	asignaValorEdit(dataAsigMed) {
 		let i = 0;
 
-		document.getElementsByName('articulos_id')[0].value = dataEvol.articulos_id
-		document.getElementsByName('dosis')[0].value = dataEvol.dosis
-		document.getElementsByName('unimedida_id')[0].value = dataEvol.unimedida_id
-		document.getElementsByName('pososlogia_t')[0].value = dataEvol.pososlogia_t
-		document.getElementsByName('pososlogia_h_d')[0].value = dataEvol.pososlogia_h_d
-		document.getElementsByName('tipoadmin_med_id')[0].value = dataEvol.tipoadmin_med_id
-		document.getElementsByName('fecha_inicio')[0].value = dataEvol.fecha_inicio
-		document.getElementsByName('hora')[0].value = dataEvol.hora_administracio
-		document.getElementsByName('indicaciones')[0].value = dataEvol.indicaciones
-		document.getElementsByName('diagnostico')[0].value = dataEvol.diagnostico
-
-		// document.getElementsByName("evolucion_id")[0].value = dataEvol.evolucion_id;
-		// document.getElementsByName("idEvolMedica")[0].value = dataEvol.id;
+		// document.getElementsByName('articulos_id')[0].value = dataAsigMed.articulos_id
+		document.getElementsByName('dosis')[0].value = dataAsigMed.dosis
+		// document.getElementsByName('unimedida_id')[0].value = dataAsigMed.unimedida_id
+		document.getElementsByName('pososlogia_t')[0].value = dataAsigMed.pososlogia_t
+		document.getElementsByName('pososlogia_h_d')[0].value = dataAsigMed.pososlogia_h_d
+		// document.getElementsByName('tipoadmin_med_id')[0].value = dataAsigMed.tipoadmin_med_id
+		document.getElementsByName('fecha_inicio')[0].value = dataAsigMed.fecha_inicio
+		// document.getElementsByName('hora')[0].value = dataAsigMed.hora
+		document.getElementsByName('indicaciones')[0].value = dataAsigMed.indicaciones
+		document.getElementsByName('idAsignaMedica')[0].value = dataAsigMed.id
 		
-		$("#tipoadmin_med_id").val(" ").trigger('change.tipoadmin_med_id');
-		$("#articulos_id").val(" ").trigger('change.select2');
-		$("#unimedida_id").val(" ").trigger('change.select2');
+		$("#tipoadmin_med_id").val(dataAsigMed.tipoadmin_med_id).trigger('change.tipoadmin_med_id');
+		$("#articulos_id").val(dataAsigMed.articulos_id).trigger('change.select2');
+		$("#unimedida_id").val(dataAsigMed.unimedida_id).trigger('change.select2');
+		$("#hora").val(dataAsigMed.hora)
 	}
 
 	/*cuando s epresiona el botón ok de la tabla del modal, se le da valor "Actualizar" al attributo accion del id accionbotones */
