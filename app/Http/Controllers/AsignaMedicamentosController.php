@@ -60,15 +60,18 @@ class AsignaMedicamentosController extends Controller
     {
             //  return $request->dato_id;
             // return $request->fecha_ingerir;
-
+            // ->where('administra_med_permanentes.fecha_ingerir','=',$date_today)
             $date_today = date("Y-m-d", strtotime($request->fecha_ingerir));
-            $adminMedicPerma = AdministraMedPermanentesModel::where('datosbasicos_id','=',$request->dato_id)
-            ->where('fecha_ingerir','=',$date_today)
-            ->join('inv_articulos', 'administra_med_permanente.articulos_id','=','inv_articulos.id')
-            ->select('administra_med_permanente.id','administra_med_permanente.datosbasicos_id','administra_med_permanente.articulos_id',
-            'administra_med_permanente.fecha_ingerir','administra_med_permanente.hora', 'administra_med_permanente.dosis',
-            'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'asigna_medicamentos.unimedida_id', 
-            'asigna_medicamentos.tipoadmin_med_id','asigna_medicamentos.indicaciones',
+            $adminMedicPerma = DB::table('administra_med_permanentes')->where('administra_med_permanentes.datosbasicos_id','=',$request->dato_id)
+            ->where('administra_med_permanentes.fecha_ingerir','=',$date_today)
+            ->join('asigna_medicamentos', 'administra_med_permanentes.asignamed_id','=','asigna_medicamentos.id')
+            ->join('inv_articulos', 'administra_med_permanentes.articulos_id','=','inv_articulos.id')
+            ->join('inv_unimedidas', 'administra_med_permanentes.unimedida_id','=','inv_unimedidas.id')
+            ->join('tipo_admin_med_user', 'administra_med_permanentes.tipoadmin_med_id','=','tipo_admin_med_user.id')
+            ->select('administra_med_permanentes.asignamed_id','administra_med_permanentes.asignamed_id','asigna_medicamentos.id','administra_med_permanentes.asignamed_id',
+            'administra_med_permanentes.fecha_ingerir','asigna_medicamentos.hora', 'asigna_medicamentos.dosis',
+            'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'administra_med_permanentes.unimedida_id', 
+            'administra_med_permanentes.tipoadmin_med_id','administra_med_permanentes.indicaciones','administra_med_permanentes.articulos_id',
             'inv_articulos.descripcion as medicamento',
             'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')            
             ->get();

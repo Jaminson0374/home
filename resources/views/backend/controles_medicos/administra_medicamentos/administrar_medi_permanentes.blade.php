@@ -450,12 +450,13 @@
                         }
                 })
     
-    $('#processAll').on("click", function () {                
+    // $('#processAll').on("click", function () {                
         consulta.done(function (data) {
             if (data.error !== undefined) {
                 console.log('Ha ocurrido un error: ' + data.error);
                 return false;
             } else {
+                  alert('haminson'+data[0].hora)
                     $('#tablaAsignados').DataTable({
                     "lengthChange": false,
                     "destroy": true,
@@ -481,32 +482,34 @@
 
                     // let data = table.row($(this).parents("tr")).data();
 
-                    //llenar array 
-                    let tabmd = data //table.rows().data()
-                    let tablaAsig =[];
-                    for(let i = 0; i< tabmd.length; i++){
-                        var datoNew = tabmd[i]
-                        //  console.log(datoNew)
-                        tablaAsig.push(datoNew)
-                    }
-                    // console.log(tablaAsig)
+                    //llenar array a partir de la una tabla 
+                    // let tabmd = data //table.rows().data()
+                    // let tablaAsig =[];
+                    // for(let i = 0; i< tabmd.length; i++){
+                    //     var datoNew = tabmd[i]
+                    //     tablaAsig.push(datoNew)
+                    // }
 
                     let tablaAsigDatos = document.querySelector('#bodyTablaAsig')
                     tablaAsigDatos.innerHTML="";
-                    for (let datoJson of tablaAsig){
-                        let hora1 =datoJson.hora;
+                    for(let i = 0; i< data.length; i++){ 
+                    // for (let datoJson of tablaAsig){
+                        let hora1 =data[i].hora;
                             let hora =(hora1.substring(0, 8))
                             tablaAsigDatos.innerHTML+=`
                         <tr>
-                            <td>${datoJson.id}</td>
-                            <td>${datoJson.medicamento}</td>
+                            <td>${data[i].id}</td>
+                            <td>${data[i].medicamento}</td>
                             <td>${hora}</td>
                             <td>${fechaing2}</td>                              
-                            <td>${id_clienteB}</td>
-                            <td>${datoJson.articulos_id}</td>
                             <td><input type="checkbox" class="custom-control custom-checkbox my-1 mr-sm-2" id="customControlInline" value="1" checked></td>
-                        
-                        </tr>`                      
+                            <td>${data[i].articulos_id}</td>
+                            <td>${data[i].unimedida_id}</td>
+                            <td>${data[i].tipoadmin_med_id}</td>                        
+                        </tr>
+                            
+
+                        `                      
                     }                
             }
                 return true;
@@ -516,7 +519,7 @@
             return false;
             });
 
-    })
+    // })
         
     }
         window.addEventListener('load', () => { 

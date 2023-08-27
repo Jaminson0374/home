@@ -548,7 +548,9 @@
 
                 let data = table.row($(this).parents("tr")).data();
 
-                //llenar array 
+                /************************************************
+                 llenar array a partir de la una tabla 
+                 ************************************************/
                 let tabmd = table.rows().data()
                 let tablaAsig =[];
                 for(let i = 0; i< tabmd.length; i++){
@@ -577,60 +579,37 @@
  
              })             
 
-// $(document).ready(function() {
-    // $(".listado_subproductos tr td input[type='checkbox']:checked").each(function(){
-        // var row = $(this).closest('tr');
 
-
-  $('#enviar').on('click', function(e) {
-    e.preventDefault()
-    seleccion = [];
-$("#tablaAsignados tr td input[type='checkbox']:checked").each(function(){
-   row = $(this).closest('tr');
-   seleccion.push({
-    medicamento : row.find('td').eq(0).text(),
-    hora : row.find('td').eq(1).text(),
-    fecha_ingerir : row.find('td').eq(2).text(),
-    datosbasicos_id : row.find('td:eq(3)').text(),
-    articulos_id : row.find('td:eq(4)').text(),
-    ok : row.find('td:eq(5)').text()
-   });
-});
-console.log(seleccion);
-
-    // var filas = [];
-    // $('#tablaAsignados tbody tr').each(function() {
-    //   var medicamento = $(this).find('td').eq(0).text();
-    //   var hora = $(this).find('td').eq(1).text();
-    //   var fecha_ingerir = $(this).find('td').eq(2).text();
-    //   var datosbasicos_id = $(this).find('td').eq(3).text();
-    //   var articulos_id = $(this).find('td').eq(4).text();
-    //   var ok = $(this).find('td').eq(5).text();
-
-    //   var fila = {
-    //     medicamento,
-    //     hora,
-    //     fecha_ingerir,
-    //     datosbasicos_id,
-    //     articulos_id,
-    //     ok
-    //   };
-    //   filas.push(fila);
-    // });
-    // console.log(filas);
-
-    $.ajax({
-        url:'{{URL::to("/store-medicamentos_perm")}}',
-        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        cache:false,
-        type:'post',
-        "dataType": 'json',
-        data:{registros:seleccion}
-        // success:function(data){
-        //     $('.resp_recetas').html(data.html3);
-        // }
-    });    
-  });
+    $('#enviar').on('click', function(e) {
+        e.preventDefault()
+        seleccion = [];
+        /*******************************************
+            crear un array con las filas que checked.
+        ***************************************************/
+            $("#tablaAsignados tr td input[type='checkbox']:checked").each(function(){
+            row = $(this).closest('tr');
+            seleccion.push({
+                medicamento : row.find('td').eq(0).text(),
+                hora : row.find('td').eq(1).text(),
+                fecha_ingerir : row.find('td').eq(2).text(),
+                datosbasicos_id : row.find('td:eq(3)').text(),
+                articulos_id : row.find('td:eq(4)').text(),
+                ok : row.find('td:eq(5)').text()
+            });
+        });
+        console.log(seleccion);
+        $.ajax({
+            url:'{{URL::to("/store-medicamentos_perm")}}',
+            "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            cache:false,
+            type:'post',
+            "dataType": 'json',
+            data:{registros:seleccion}
+            // success:function(data){
+            //     $('.resp_recetas').html(data.html3);
+            // }
+        });    
+    });
 })
 </script>
 

@@ -55,6 +55,8 @@
                             <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0 bg bg-success" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
                         </td>
                     </tr>
+                    {{--  --}}
+                    
                     @endforeach
                     </tbody>
                   </table>
