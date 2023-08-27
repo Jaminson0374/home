@@ -196,10 +196,13 @@ Route::post('/store-asigna-medicamento', [App\Http\Controllers\AsignaMedicamento
 Route::post('/show-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'show'])->name('ShowAsigMedic');
 Route::post('/update-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'update'])->name('UpdateAsigMedic');
 
+//CONTROLES MEDICOS - Administrar medicamento permanetes  *
+Route::get('/admin-medicamentos_perm/{idUserMed}', [App\Http\Controllers\AsignaMedicamentosController::class, 'create'])->name('AdminMedicamentosPerm');
+Route::post('/store-medicamentos_perm', [App\Http\Controllers\AdministraMedPermanentesController::class, 'store'])->name('StoreMedicamentosPerm');
 
 // asignar_medicamentos.blade
 
-
+//https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros
 //*********************************************************************
 //                               CONTABILIDAD                         *
 //*********************************************************************/

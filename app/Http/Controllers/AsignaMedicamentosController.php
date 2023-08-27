@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AsignaMedicamentosModel;
+use App\Models\AdministraMedPermanentesController;
+use App\Models\AdministraMedPermanentesModel;
 use App\Models\InvUniMedidasModel;
 use App\Models\InvArticulosModel;
 use App\Models\TipoAdminMedModel;
@@ -29,8 +31,8 @@ class AsignaMedicamentosController extends Controller
         $tipoViaAdmin = TipoAdminMedModel::all();
         $uniMedId = InvUniMedidasModel::all();
         
-                
-        return view('backend.controles_medicos.administra_medicamentos.asignar_medicamentos', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
+        return view('backend.controles_medicos.administra_medicamentos.administrar_medi_permanentes', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
+        // return view('backend.controles_medicos.administra_medicamentos.asignar_medicamentos', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
     }
 
 
@@ -57,18 +59,38 @@ class AsignaMedicamentosController extends Controller
     public function show(Request $request, AsignaMedicamentosModel $asignaMedicamentosModel)
     {
             //  return $request->dato_id;
-            $showAsignaMedicamento = DB::table('asigna_medicamentos')
-            ->join('inv_articulos', 'asigna_medicamentos.articulos_id','=','inv_articulos.id')
-            ->join('inv_unimedidas', 'asigna_medicamentos.unimedida_id','=','inv_unimedidas.id')
-            ->join('tipo_admin_med_user', 'asigna_medicamentos.tipoadmin_med_id','=','tipo_admin_med_user.id')
-            ->select('asigna_medicamentos.id','asigna_medicamentos.datosbasicos_id','asigna_medicamentos.articulos_id',
-            'asigna_medicamentos.fecha_inicio','asigna_medicamentos.hora', 'asigna_medicamentos.dosis',
+            // return $request->fecha_ingerir;
+
+            $date_today = date("Y-m-d", strtotime($request->fecha_ingerir));
+            $adminMedicPerma = AdministraMedPermanentesModel::where('datosbasicos_id','=',$request->dato_id)
+            ->where('fecha_ingerir','=',$date_today)
+            ->join('inv_articulos', 'administra_med_permanente.articulos_id','=','inv_articulos.id')
+            ->select('administra_med_permanente.id','administra_med_permanente.datosbasicos_id','administra_med_permanente.articulos_id',
+            'administra_med_permanente.fecha_ingerir','administra_med_permanente.hora', 'administra_med_permanente.dosis',
             'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'asigna_medicamentos.unimedida_id', 
             'asigna_medicamentos.tipoadmin_med_id','asigna_medicamentos.indicaciones',
             'inv_articulos.descripcion as medicamento',
-            'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')
-            ->where('datosbasicos_id','=',$request->dato_id)->get(); 
-            return $showAsignaMedicamento;
+            'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')            
+            ->get();
+
+            if(count($adminMedicPerma)>0){
+                return $adminMedicPerma;
+                
+            }else{
+                
+                $showAsignaMedicamento = DB::table('asigna_medicamentos')
+                ->join('inv_articulos', 'asigna_medicamentos.articulos_id','=','inv_articulos.id')
+                ->join('inv_unimedidas', 'asigna_medicamentos.unimedida_id','=','inv_unimedidas.id')
+                ->join('tipo_admin_med_user', 'asigna_medicamentos.tipoadmin_med_id','=','tipo_admin_med_user.id')
+                ->select('asigna_medicamentos.id','asigna_medicamentos.datosbasicos_id','asigna_medicamentos.articulos_id',
+                'asigna_medicamentos.fecha_inicio','asigna_medicamentos.hora', 'asigna_medicamentos.dosis',
+                'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'asigna_medicamentos.unimedida_id', 
+                'asigna_medicamentos.tipoadmin_med_id','asigna_medicamentos.indicaciones',
+                'inv_articulos.descripcion as medicamento',
+                'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')
+                ->where('datosbasicos_id','=',$request->dato_id)->get(); 
+                return $showAsignaMedicamento;
+            }
     }
 
  

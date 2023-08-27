@@ -68,10 +68,18 @@ class AsigMedicamento {
 		document.getElementsByName('pososlogia_h_d')[0].value = dataAsigMed.pososlogia_h_d
 		// document.getElementsByName('tipoadmin_med_id')[0].value = dataAsigMed.tipoadmin_med_id
 		document.getElementsByName('fecha_inicio')[0].value = dataAsigMed.fecha_inicio
-		// document.getElementsByName('hora')[0].value = dataAsigMed.hora
+		document.getElementsByName('hora')[0].value = dataAsigMed.hora
 		document.getElementsByName('indicaciones')[0].value = dataAsigMed.indicaciones
 		document.getElementsByName('idAsignaMedica')[0].value = dataAsigMed.id
+		document.querySelector('.horaMuestra').style.display = 'inline'
+		document.querySelector('.horaDbf').style.display = 'none'
 		
+		// const timeControl = document.querySelector('input[type="time"]');
+		// timeControl.value = dataAsigMed.hora;		
+		// alert(dataAsigMed.hora)
+		// ini_set('date.timezone','America/Bogota');
+		
+ 
 		$("#tipoadmin_med_id").val(dataAsigMed.tipoadmin_med_id).trigger('change.tipoadmin_med_id');
 		$("#articulos_id").val(dataAsigMed.articulos_id).trigger('change.select2');
 		$("#unimedida_id").val(dataAsigMed.unimedida_id).trigger('change.select2');

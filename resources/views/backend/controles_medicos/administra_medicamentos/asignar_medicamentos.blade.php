@@ -97,8 +97,13 @@
                                                         </div>
                                                         <div class="col-lg-6 col-sm-12 col-md-6"> 
                                                             <label for="" class="col-form-label">Hora</label>
-                                                            <input type="time" class="form-control text" name="hora" max="24:00" min="01:00" step="1" id="hora"
-                                                            style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">
+                                                            {{-- <input type="text" placeholder="HH:MM" data-inputmask-mask="99:99" class="form-control text" id="hora" > --}}
+                                                            
+                                                         <input type="datatime-local" class="form-control text horaMuestra" name="hora" max="24:00" min="01:00" step="1" id="hora" 
+                                                            style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6"> 
+                                                            
+                                                        <input type="time" class="form-control text horaDbf" name="hora" max="24:00" min="01:00" step="1" id="hora" 
+                                                        style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">                                                             
                                                         </div> 
                                                     </div> 
                                                 {{-- </div> --}}
@@ -252,6 +257,31 @@
                                     </div>
                                 </div>
                             </footer>
+                            <div class="col-lg-8 col-sm-12 col-md-8 p-0 m-0">
+                                <div class="col-lg-12 col-sm-12 col-md-12">
+                                    <div class="card card-warning card-outline">
+                                        {{-- <div class="card-body"> --}}
+                                            <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
+                                                <table id="tablaAsignados" class="table table-bordered table-striped table-hover table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Medicamento</th>
+                                                            <th>Hora</th>
+                                                            <th>Dosis</th>
+                                                            <th>Medida</th>
+                                                            <th>Via Admin</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bodyTablaAsig">
+                
+                                                    </tbody>
+                                                 </table>                                                            
+                                            </div>
+                                        {{-- </div>  --}}
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
                     </form>
                 </div>
@@ -261,6 +291,7 @@
 @endsection
 
 <script src="{{ asset('../resources/js/datatable.js') }}"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>      --}}
 
 
 <script>
@@ -270,7 +301,9 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
-    
+        document.querySelector('.horaMuestra').style.display = 'none'
+		document.querySelector('.horaDbf').style.display = 'inline'
+
             fillTableInterna()
         let formEvolB = document.getElementById('formAsignaMedicamento')
 
@@ -344,7 +377,10 @@
                 document.getElementById('btnNewAdm').disabled = true;
                 document.getElementById('btnSearchAdm').disabled = true;
                 botonNew.disabled = true;
- 
+                
+                document.querySelector('.horaMuestra').style.display = 'none'
+		        document.querySelector('.horaDbf').style.display = 'inline'
+
                 formEvolB2.reset()
                 document.getElementById('articulos_id').focus()
                 
@@ -733,8 +769,9 @@
                     "destroy": true,
                     "language":{"url": "../../resources/js/espanol.json"
                     }
+                    
                 }).draw()
-
+                    
         }
 
         window.addEventListener('load', () => { 
@@ -745,11 +782,39 @@
                 formAsigMed.reset()
                 document.getElementsByName('diagnostico')[0].value = _diagnostico
                 let data = table.row($(this).parents("tr")).data();
-                // console.log(data)
+
+                //llenar array 
+                let tabmd = table.rows().data()
+                let tablaAsig =[];
+                for(let i = 0; i< tabmd.length; i++){
+                     var datoNew = tabmd[i]
+                    //  console.log(datoNew)
+                    tablaAsig.push(datoNew)
+                }
+                console.log(tablaAsig)
+                let tablaAsigDatos = document.querySelector('#bodyTablaAsig')
+                tablaAsignados.innerHTML="";
+                // $("#tablaAsignados").dataTable().fnDestroy();
+               for (let datoJson of tablaAsig){
+                //   let nitDv = datoJson.documento+"-"+datoJson.dv
+                  tablaAsignados.innerHTML+=`
+                      <tr>
+                        <td>${datoJson.medicamento}</td>
+                        <td>${datoJson.hora}</td>
+                        <td>${datoJson.via_admin}</td>                              
+                        <td>${datoJson.dosis}</td>
+                        <td>${datoJson.medida}</td>
+                        <td>
+                         <button type="button" id="btnSelect" class="btn btn-primary btnSelect btn-sm" data-dismiss="modal" conseGast =${datoJson.consecutivo} codGas=${datoJson.cod_tipo_gasto} nitCedula=${datoJson.documento} dvNit=${datoJson.dv} nomEmpre=${datoJson.razon_social} docSoporte=${datoJson.doc_soporte} fechaTran=${datoJson.fecha_causacion} idProveedor=${datoJson.id_cliente} detalle=${datoJson.detalle_transaccion} saldo=${datoJson.saldo} vlrGast=${datoJson.valor_gasto} idGasto=${datoJson.id_gasto}>Ok</i></button>
+                          </td>                        
+                      </tr>`                      
+               }                
+ 
+               bodyTablaAsig 
+
                 funcAsigMed.asignaValorEdit(data)
-                // $idCli3=$request['idEvolMedica'];
-                /*Cuando se busca un registro se cambial atributo del input hidden*/
-                let newNom80 = document.getElementById('accionBotones')
+               
+                 let newNom80 = document.getElementById('accionBotones')
                 newNom80.setAttribute('accion', "Actualizar");
 
                 var btnGuardar = document.getElementById('btnSaveAdm');
