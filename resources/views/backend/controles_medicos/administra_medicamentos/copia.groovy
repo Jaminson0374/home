@@ -1250,3 +1250,19 @@
 </script>
 
 
+  "columns":[
+        {"data": "nro_socio"},
+        {"data": "nombre"},
+        {"data": "apellido"},
+        {"data": "dni"},
+        {"data": "fecha_nac", "width": "100px"},
+        {"data": "telefono"},
+        {"data": "descripcion_socio"},
+        {"data": "estado"},
+        {"data": "descripcion_cuota"},
+        {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button><button class='btn btn-info btn-sm btnCobrar'><i class='material-icons'>business_center</i></button></div></div>"},
+        {"data": "email" , "searchable": false  , "visible": false },
+        {"data": "id_tipo_socio" ,"searchable": false  , "visible": false},
+        {"data": "id_estado" ,"searchable": false  , "visible": false},
+        {"data": "id_tipo_cuota" ,"searchable": false  , "visible": false}
+    ]

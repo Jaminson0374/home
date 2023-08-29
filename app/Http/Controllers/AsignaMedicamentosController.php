@@ -30,9 +30,7 @@ class AsignaMedicamentosController extends Controller
         ->select('id','num_documento','nombre','apellidos', 'diagnostico')->where('id','=',$idUserBasico)->get();
         $tipoViaAdmin = TipoAdminMedModel::all();
         $uniMedId = InvUniMedidasModel::all();
-        
-        return view('backend.controles_medicos.administra_medicamentos.administrar_medi_permanentes', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
-        // return view('backend.controles_medicos.administra_medicamentos.asignar_medicamentos', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
+        return view('backend.controles_medicos.administra_medicamentos.asignar_medicamentos', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
     }
 
 
@@ -55,24 +53,52 @@ class AsignaMedicamentosController extends Controller
             return response()->json(['message' => 'Success']);
     }
 
+    // buscar_asig
+    public function buscar_asig(Request $request, AsignaMedicamentosModel $asignaMedicamentosModel)
+    {
+            //  return 'jaminson'.$request->dato_id;
+            // return 'jaminson'.$request->fecha_ingerir;
+            // ->where('administra_med_permanentes.fecha_ingerir','=',$date_today)
+            // $date_today = date("Y-m-d", strtotime($request->fecha_ingerir));
+            // return 'jaminson'.$date_today;
+                
+                $showAsignaMedicamento = DB::table('asigna_medicamentos')
+                ->where('asigna_medicamentos.datosbasicos_id','=',$request->dato_id)
+                ->join('inv_articulos', 'asigna_medicamentos.articulos_id','=','inv_articulos.id')
+                ->join('inv_unimedidas', 'asigna_medicamentos.unimedida_id','=','inv_unimedidas.id')
+                ->join('tipo_admin_med_user', 'asigna_medicamentos.tipoadmin_med_id','=','tipo_admin_med_user.id')
+                ->select('asigna_medicamentos.id','asigna_medicamentos.datosbasicos_id','asigna_medicamentos.articulos_id',
+                'asigna_medicamentos.fecha_inicio','asigna_medicamentos.horadbf', 'asigna_medicamentos.dosis',
+                'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'asigna_medicamentos.unimedida_id', 
+                'asigna_medicamentos.tipoadmin_med_id','asigna_medicamentos.indicaciones',
+                'inv_articulos.descripcion as medicamento',
+                'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')
+                ->get(); 
+                return $showAsignaMedicamento;
+                // 
+            
+    }
+
 
     public function show(Request $request, AsignaMedicamentosModel $asignaMedicamentosModel)
     {
-            //  return $request->dato_id;
-            // return $request->fecha_ingerir;
+            //  return 'jaminson'.$request->dato_id;
+            // return 'jaminson'.$request->fecha_ingerir;
             // ->where('administra_med_permanentes.fecha_ingerir','=',$date_today)
             $date_today = date("Y-m-d", strtotime($request->fecha_ingerir));
+            // return 'jaminson'.$date_today;
+
             $adminMedicPerma = DB::table('administra_med_permanentes')->where('administra_med_permanentes.datosbasicos_id','=',$request->dato_id)
             ->where('administra_med_permanentes.fecha_ingerir','=',$date_today)
             ->join('asigna_medicamentos', 'administra_med_permanentes.asignamed_id','=','asigna_medicamentos.id')
-            ->join('inv_articulos', 'administra_med_permanentes.articulos_id','=','inv_articulos.id')
-            ->join('inv_unimedidas', 'administra_med_permanentes.unimedida_id','=','inv_unimedidas.id')
-            ->join('tipo_admin_med_user', 'administra_med_permanentes.tipoadmin_med_id','=','tipo_admin_med_user.id')
-            ->select('administra_med_permanentes.asignamed_id','administra_med_permanentes.asignamed_id','asigna_medicamentos.id','administra_med_permanentes.asignamed_id',
-            'administra_med_permanentes.fecha_ingerir','asigna_medicamentos.hora', 'asigna_medicamentos.dosis',
-            'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'administra_med_permanentes.unimedida_id', 
-            'administra_med_permanentes.tipoadmin_med_id','administra_med_permanentes.indicaciones','administra_med_permanentes.articulos_id',
-            'inv_articulos.descripcion as medicamento',
+            ->join('inv_articulos', 'asigna_medicamentos.articulos_id','=','inv_articulos.id')
+            ->join('inv_unimedidas', 'asigna_medicamentos.unimedida_id','=','inv_unimedidas.id')
+            ->join('tipo_admin_med_user', 'asigna_medicamentos.tipoadmin_med_id','=','tipo_admin_med_user.id')
+            ->select('administra_med_permanentes.id','administra_med_permanentes.asignamed_id','administra_med_permanentes.asignamed_id','asigna_medicamentos.id as asig_id',
+            'administra_med_permanentes.fecha_ingerir','asigna_medicamentos.horadbf', 'asigna_medicamentos.dosis',
+            'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 
+            'asigna_medicamentos.tipoadmin_med_id','administra_med_permanentes.indicaciones','asigna_medicamentos.articulos_id',
+            'inv_articulos.descripcion as medicamento','inv_articulos.descripcion as medi','administra_med_permanentes.ok',
             'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')            
             ->get();
 
@@ -86,12 +112,13 @@ class AsignaMedicamentosController extends Controller
                 ->join('inv_unimedidas', 'asigna_medicamentos.unimedida_id','=','inv_unimedidas.id')
                 ->join('tipo_admin_med_user', 'asigna_medicamentos.tipoadmin_med_id','=','tipo_admin_med_user.id')
                 ->select('asigna_medicamentos.id','asigna_medicamentos.datosbasicos_id','asigna_medicamentos.articulos_id',
-                'asigna_medicamentos.fecha_inicio','asigna_medicamentos.hora', 'asigna_medicamentos.dosis',
+                'asigna_medicamentos.id as asignamed_id', 'asigna_medicamentos.ok',
+                'asigna_medicamentos.fecha_inicio','asigna_medicamentos.horadbf', 'asigna_medicamentos.dosis',
                 'asigna_medicamentos.pososlogia_t','asigna_medicamentos.pososlogia_h_d', 'asigna_medicamentos.unimedida_id', 
                 'asigna_medicamentos.tipoadmin_med_id','asigna_medicamentos.indicaciones',
-                'inv_articulos.descripcion as medicamento',
+                'inv_articulos.descripcion as medicamento','inv_articulos.descripcion as medi',
                 'tipo_admin_med_user.descripcion as via_admin','inv_unimedidas.descripcion as medida')
-                ->where('datosbasicos_id','=',$request->dato_id)->get(); 
+                ->where('asigna_medicamentos.datosbasicos_id','=',$request->dato_id)->get(); 
                 return $showAsignaMedicamento;
             }
     }
@@ -106,7 +133,7 @@ class AsignaMedicamentosController extends Controller
     {
         try {
             DB::beginTransaction();
-                $idCli=$request['idAsignaMedica'];
+                $idCli = $request['idAsignaMedica'];
                 $epsUpdate = AsignaMedicamentosModel::findOrFail($idCli);
                 $epsUpdate->fill($request->all());
                 $epsUpdate->save();  

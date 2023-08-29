@@ -110,9 +110,15 @@
               <li class="nav-item">
                 <a href="{{URL::to('/admin_medicamento_user')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Administración de medicamentos</p>
+                  <p>Medicmento Permante</p>
                 </a>
               </li> 
+              <li class="nav-item">
+                <a href="{{URL::to('/admin_medicamento_tempo')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Medicmento Temporal</p>
+                </a>
+              </li>               
               <li class="nav-item">
                 <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>

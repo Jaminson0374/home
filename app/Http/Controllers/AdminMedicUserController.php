@@ -11,7 +11,7 @@ use App\Models\EmpleadosModell;
 use App\Models\RequisicionMedicamentodsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+                                                                            //MEDICAMENTOS TEMPORALES
 class AdminMedicUserController extends Controller
 {
     public function index()
@@ -20,7 +20,7 @@ class AdminMedicUserController extends Controller
         ->select('id','num_documento','nombre','apellidos','edad','ult_fecha_admin_med','ult_hora_admin_med','estado_user')
         ->where("estado_servicio", "=", "ON")->get(); 
 
-         return view('backend.controles_medicos.administra_medicamentos.admin_administra_mdicamtos',compact('clientesAdminMed'));        
+         return view('backend.controles_medicos.administra_medicamentos.admin_admin_medicam_tempo',compact('clientesAdminMed'));        
     }
 
 
@@ -51,7 +51,7 @@ class AdminMedicUserController extends Controller
             DB::beginTransaction();        
             $idDtBasico =  Cliente_datosbasico::find($request->datosbasicos_id);
             $idDtBasico->ult_fecha_admin_med = $request->fecha;
-            $idDtBasico->ult_hora_admin_med  = $request->hora;
+            $idDtBasico->ult_hora_admin_med  = $request->hora; 
             $idDtBasico->save();
             
             $AdminMedicamentos = AdminMedicUserModel::create($request->all()); 

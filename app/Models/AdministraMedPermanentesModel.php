@@ -9,4 +9,5 @@ class AdministraMedPermanentesModel extends Model
 {
     protected $table = "administra_med_permanentes";
     use HasFactory;
+    protected $guarded = ['id','_token', 'created_at','update_at'];
 }

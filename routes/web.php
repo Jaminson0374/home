@@ -181,9 +181,7 @@ Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::c
 //                               CONTROLES MEDICOS              *
 //*********************************************************************/
 //          ADMINISTRACION DE MEDICAMENTOS
-Route::get('/admin_medicamento_user', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoUser');
-Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
-Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
+
 // Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
 // Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
 // Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
@@ -194,12 +192,21 @@ Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserCont
 Route::get('/asignar-medicamentos/{idUserMed}', [App\Http\Controllers\AsignaMedicamentosController::class, 'create'])->name('AsignarMedicamentos');
 Route::post('/store-asigna-medicamento', [App\Http\Controllers\AsignaMedicamentosController::class, 'store'])->name('StoreAsignaMedicamento');
 Route::post('/show-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'show'])->name('ShowAsigMedic');
+Route::post('/show-asig-medic_perm', [App\Http\Controllers\AsignaMedicamentosController::class, 'buscar_asig'])->name('ShowAsigMedicPerm');
+
 Route::post('/update-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'update'])->name('UpdateAsigMedic');
 
 //CONTROLES MEDICOS - Administrar medicamento permanetes  *
-Route::get('/admin-medicamentos_perm/{idUserMed}', [App\Http\Controllers\AsignaMedicamentosController::class, 'create'])->name('AdminMedicamentosPerm');
+Route::get('/admin_medicamento_user', [App\Http\Controllers\AdministraMedPermanentesController::class, 'index'])->name('AdminMedicamentoUser');
+Route::get('/admin-medicamentos_perm/{idUserMed}', [App\Http\Controllers\AdministraMedPermanentesController::class, 'create'])->name('AdminMedicamentosPerm');
 Route::post('/store-medicamentos_perm', [App\Http\Controllers\AdministraMedPermanentesController::class, 'store'])->name('StoreMedicamentosPerm');
 
+//*********************************************************************
+//CONTROLES MEDICOS - Asginación de los medicamentos temporales     *
+//*********************************************************************/
+Route::get('/admin_medicamento_tempo', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoTempo');
+Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
+Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
 // asignar_medicamentos.blade
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros

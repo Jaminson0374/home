@@ -41,7 +41,7 @@
                                 @endforeach
                                 <div class="row border border-dark border-4 m-2 rounded bg-primary">
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
-                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Administracion de Medicamentos
+                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Asignacion de Medicamentos Permanentes
                                         </h3>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
@@ -68,7 +68,7 @@
                                                         <select class="select2 select2-danger"
                                                             data-dropdown-css-class="select2-primary" style="width: 100%;"
                                                             name="articulos_id" id="articulos_id" focusNext tabindex="1">
-                                                            <option selected="selected" disable value=" ">Selecione medicameneto</option>
+                                                            <option selected="selected" disable value="">Selecione medicameneto</option>
                                                                 @foreach ($medicamentos as $medica)
                                                                     <option value={{$medica->id}}>{{$medica->descripcion}}
                                                                     </option>
@@ -99,10 +99,10 @@
                                                             <label for="" class="col-form-label">Hora</label>
                                                             {{-- <input type="text" placeholder="HH:MM" data-inputmask-mask="99:99" class="form-control text" id="hora" > --}}
                                                             
-                                                         <input type="datatime-local" class="form-control text horaMuestra" name="hora" max="24:00" min="01:00" step="1" id="hora" 
-                                                            style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6"> 
+                                                         {{-- <input type="datatime-local" class="form-control text horaMuestra" name="hora" max="24:00" min="01:00" step="1" id="hora" 
+                                                            style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">  --}}
                                                             
-                                                        <input type="time" class="form-control text horaDbf" name="hora" max="24:00" min="01:00" step="1" id="hora" 
+                                                        <input type="time" class="form-control text horaDbf" name="horadbf" max="24:00" min="01:00" step="1" id="horadbf" 
                                                         style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">                                                             
                                                         </div> 
                                                     </div> 
@@ -123,7 +123,7 @@
                                                             <select class="select2 select2-danger"6
                                                                 data-dropdown-css-class="select2-primary" style="width: 100%;"
                                                                 name="unimedida_id" id="unimedida_id" focusNext tabindex="8">
-                                                                <option selected="selected" disable value=" ">Seleciona U. Med </option>
+                                                                <option selected="selected" disable value="">Seleciona U. Med </option>
                                                                 @foreach ($uniMedId as $unimedId)
                                                                 <option value={{$unimedId->id}}>{{$unimedId->descripcion}}
                                                                 </option>
@@ -190,7 +190,7 @@
                                                 <div class="card card-warning card-outline">
                                                     {{-- <div class="card-body"> --}}
                                                         <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
-                                                            <table id="tablaAsigMedic" class="table table-bordered table-striped table-hover table-responsive">
+                                                            <table id="example2" class="table table-bordered table-striped table-hover table-responsive" style="width: 100%">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Medicamento</th>
@@ -211,7 +211,7 @@
                                             </div>
                                         </div>
                             </div>                                                                                                    
-                                        
+                                         
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
                                 <script src="{{ asset('../resources/views/backend/controles_medicos/administra_medicamentos/asignar_medicamento.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
@@ -258,29 +258,7 @@
                                 </div>
                             </footer>
                             <div class="col-lg-8 col-sm-12 col-md-8 p-0 m-0">
-                                <div class="col-lg-12 col-sm-12 col-md-12">
-                                    <div class="card card-warning card-outline">
-                                        {{-- <div class="card-body"> --}}
-                                            <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
-                                                <table id="tablaAsignados" class="table table-bordered table-striped table-hover table-responsive">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Medicamento</th>
-                                                            <th>Hora</th>
-                                                            <th>Dosis</th>
-                                                            <th>Medida</th>
-                                                            <th>Via Admin</th>
-                                                            <th>Acción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="bodyTablaAsig">
-                
-                                                    </tbody>
-                                                 </table>                                                            
-                                            </div>
-                                        {{-- </div>  --}}
-                                    </div>
-                                </div>
+ 
                             </div>                            
                         </div>
                     </form>
@@ -290,7 +268,7 @@
     </div>
 @endsection
 
-<script src="{{ asset('../resources/js/datatable.js') }}"></script>
+{{-- <script src="{{ asset('../resources/js/datatable.js') }}"></script> --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>      --}}
 
 
@@ -301,8 +279,8 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
-        document.querySelector('.horaMuestra').style.display = 'none'
-		document.querySelector('.horaDbf').style.display = 'inline'
+        // document.querySelector('.horaMuestra').style.display = 'none'
+		// document.querySelector('.horaDbf').style.display = 'inline'
 
             fillTableInterna()
         let formEvolB = document.getElementById('formAsignaMedicamento')
@@ -322,7 +300,6 @@
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
 			********************************************************/
-
             let formEvolB2 = document.getElementById('formAsignaMedicamento')
             let botonEdit = document.getElementById("btnEditAdm");
 			botonEdit.addEventListener('click', () => {
@@ -378,8 +355,8 @@
                 document.getElementById('btnSearchAdm').disabled = true;
                 botonNew.disabled = true;
                 
-                document.querySelector('.horaMuestra').style.display = 'none'
-		        document.querySelector('.horaDbf').style.display = 'inline'
+                // document.querySelector('.horaMuestra').style.display = 'none'
+		        // document.querySelector('.horaDbf').style.display = 'inline'
 
                 formEvolB2.reset()
                 document.getElementById('articulos_id').focus()
@@ -391,20 +368,23 @@
        /********************************************************************************************
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
-    window.addEventListener('load', () => {
-                    
+    window.addEventListener('load', () => {       
         selectorGuardar = document.querySelector('#btnSaveAdm')
         const formEvolQ = document.querySelector('#formAsignaMedicamento');
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
-                    let validaOk ="Ok";
+           
+                     let validaOk ="Ok";
 
-                    validaOk = funcAsigMed.validarCampos2()
+                    validaOk = funcAsigMed.validarCampos()
+
                     var attrAccion2 = $("#accionBotones").attr("accion");
                     let data = new FormData(formEvolQ)
                     let valuesDat = [...data.entries()];
                     console.log(valuesDat);
+                    // alert(validaOk)
                     // return false;
+                    
                 if (validaOk === '') {
                     // console.log(values)                   
                     if (attrAccion2 === 'Guardar') {
@@ -440,15 +420,6 @@
                                         footer: ''
                                     })
                                 }
-                                // }else{
-                                //     Swal.fire({
-                                //         icon: 'error',
-                                //         title: 'Error interno',
-                                //         text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
-                                //             '  ',
-                                //         footer: ''
-                                //     })                                    
-                                // }
                             })
                         }
                         AdminMedicaUser()
@@ -512,67 +483,6 @@
                 return true
         })
 
-        // setInterval(function() { 
-        //     let espanol = idioma()
-        //     let table4 = $('#tablaClientesEvol').DataTable({
-        //             responsive: true,
-        //             scroll: true,
-        //             scrollCollapse: true,
-        //             scrollY: '400px',
-        //             scrollx: true,
-        //             "ajax": {
-        //                 "url": "{{ URL::to('/buscar-CtrlMed') }}",
-        //                 "dataSrc": ""
-        //             },
-        //             "columns": [{
-        //                     "data": "id"
-        //                 },
-        //                 {
-        //                     "data": "fecha"
-        //                 },
-        //                 {
-        //                     "data": "hora"
-        //                 },
-        //                 {
-        //                     "data": "nombre"
-        //                 },
-        //                 {
-        //                     "data": "apellidos"
-        //                 },
-        //                 {
-        //                     "data": "descripcion"
-        //                 },
-        //             ],
-        //             columnDefs: [{
-        //                     targets: 5,
-        //                     visible: true
-        //                 },
-        //                 {
-        //                     targets: 6,
-        //                     orderable: false,
-        //                     data: null,
-        //                     render: function(data, type, row, meta) {
-        //                         let fila = meta.row;
-        //                         let botones =
-        //                             `
-        //                         <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
-        //                         return botones;
-        //                     }
-        //                 }
-
-        //             ],
-        //             "language": espanol,
-        //             "destroy": true
-
-        //         })
-                
-        // table4.ajax.reload(function(){
-        // $(".paginate_button > a").on("focus",function(){
-        // $(this).blur();
-        // });
-        // }, false);
-        // }, 10000);    
-    
     /*****************************************************
 	                Anular Registro
 	********************************************************/
@@ -720,31 +630,31 @@
         // let btnSearchService = document.getElementById('btnSearchServicio');
         // function fillTableInterna(){  
  
-                table = $('#tablaAsigMedic').DataTable({
-                responsive: true,
-                serverSide: true,
-                destroy: false,
-                scroll: true,
-                scrollY: '260px',
-                scrollx: true,
-                deferRender: true,
-                ordering: false,
-                searching: false,
-                paging: false,
-                select: true,
-                bAutoWidth: false,
-                scrollCollapse: false,
+                table = $('#example2').DataTable({
+                // responsive: true,
+                // serverSide: true,
+                // destroy: true,
+                // scroll: true,
+                // scrollY: '350px',
+                // scrollx: true,
+                // deferRender: true,
+                // ordering: true,
+                // searching: true,
+                // paging: false,
+                // select: true,
+                // bAutoWidth: false,
+                // scrollCollapse: false,
                 "ajax": {
                         "type": "POST",
                         "dataType": 'json',
                         "data": {dato_id: idasigmedic},
-                        "url": "{{ URL::to('/show-asig-medic') }}",
+                        "url": "{{ URL::to('/show-asig-medic_perm') }}",
                         "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         "dataSrc": ""
                     },
                     "columns": [
                         {"data": "medicamento"},
-                        {"data": "hora"},
+                        {"data": "horadbf"},
                         {"data": "dosis"},
                         {"data": "medida"},
                         {"data": "via_admin"},
@@ -777,6 +687,16 @@
         window.addEventListener('load', () => { 
             let formAsigMed = document.getElementById('formAsignaMedicamento')
             $('#tablaAsigMedic').on("click", "button.btnCaptura", function () {
+                var horaCover = $('#horadbf').val()
+                var dt = new Date(horaCover);
+                // var dt = horaCover;
+                var hours = dt.getHours() ; // da el valor en formato de 24 horas
+                var AmOrPm = hours >= 12 ? 'pm' : 'am';
+                hours = (hours % 12) || 12;
+                var minutes = dt.getMinutes() ;
+                var finalTime = "Time  - " + hours + ":" + minutes + " " + AmOrPm; 
+                console.log(finalTime) // Tiempo final - 22:10                    
+                
                 let formAsigMed = document.getElementById('formAsignaMedicamento')
                 let _diagnostico = document.getElementsByName('diagnostico')[0].value
                 formAsigMed.reset()
@@ -792,25 +712,25 @@
                     tablaAsig.push(datoNew)
                 }
                 console.log(tablaAsig)
-                let tablaAsigDatos = document.querySelector('#bodyTablaAsig')
-                tablaAsignados.innerHTML="";
-                // $("#tablaAsignados").dataTable().fnDestroy();
-               for (let datoJson of tablaAsig){
-                //   let nitDv = datoJson.documento+"-"+datoJson.dv
-                  tablaAsignados.innerHTML+=`
-                      <tr>
-                        <td>${datoJson.medicamento}</td>
-                        <td>${datoJson.hora}</td>
-                        <td>${datoJson.via_admin}</td>                              
-                        <td>${datoJson.dosis}</td>
-                        <td>${datoJson.medida}</td>
-                        <td>
-                         <button type="button" id="btnSelect" class="btn btn-primary btnSelect btn-sm" data-dismiss="modal" conseGast =${datoJson.consecutivo} codGas=${datoJson.cod_tipo_gasto} nitCedula=${datoJson.documento} dvNit=${datoJson.dv} nomEmpre=${datoJson.razon_social} docSoporte=${datoJson.doc_soporte} fechaTran=${datoJson.fecha_causacion} idProveedor=${datoJson.id_cliente} detalle=${datoJson.detalle_transaccion} saldo=${datoJson.saldo} vlrGast=${datoJson.valor_gasto} idGasto=${datoJson.id_gasto}>Ok</i></button>
-                          </td>                        
-                      </tr>`                      
-               }                
+            //     let tablaAsigDatos = document.querySelector('#bodyTablaAsig')
+            //     tablaAsignados.innerHTML="";
+            //     // $("#tablaAsignados").dataTable().fnDestroy();
+            //    for (let datoJson of tablaAsig){
+            //     //   let nitDv = datoJson.documento+"-"+datoJson.dv
+            //       tablaAsignados.innerHTML+=`
+            //           <tr>
+            //             <td>${datoJson.medicamento}</td>
+            //             <td>${datoJson.horadbf}</td>
+            //             <td>${datoJson.via_admin}</td>                              
+            //             <td>${datoJson.dosis}</td>
+            //             <td>${datoJson.medida}</td>
+            //             <td>
+            //              <button type="button" id="btnSelect" class="btn btn-primary btnSelect btn-sm" data-dismiss="modal" conseGast =${datoJson.consecutivo} codGas=${datoJson.cod_tipo_gasto} nitCedula=${datoJson.documento} dvNit=${datoJson.dv} nomEmpre=${datoJson.razon_social} docSoporte=${datoJson.doc_soporte} fechaTran=${datoJson.fecha_causacion} idProveedor=${datoJson.id_cliente} detalle=${datoJson.detalle_transaccion} saldo=${datoJson.saldo} vlrGast=${datoJson.valor_gasto} idGasto=${datoJson.id_gasto}>Ok</i></button>
+            //               </td>                        
+            //           </tr>`                      
+            //    }                
  
-               bodyTablaAsig 
+            //    bodyTablaAsig 
 
                 funcAsigMed.asignaValorEdit(data)
                

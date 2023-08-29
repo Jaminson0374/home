@@ -12,12 +12,12 @@
                     {{-- @method('post') --}}
     <section class="content">
       <div class="row pb-2 pt-1">
-        <div class="col-5">
-          <b><h4 class="text-white bg-success pt-2 pb-2" style="font-size: 2em">Administración de Medicamentos</h2></b>
+        <div class="col-7">
+          <b><h4 class="text-white bg-success " style="font-size: 1.5em">Administración y Asignación de Medicamentos Permanentes</h2></b>
         </div> 
         <div class="col-2"></div>
         <div class="col-2">   
-              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario-Reserva</a>
+              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus btn-md"></i>Crear Usuario</a>
         </div> 
       
       </div>      
@@ -43,19 +43,19 @@
                     </thead>
                     <tbody>
                      @foreach ($clientesAdminMed as $key=>$row )
-                    <tr style="height: 5px">
+                    <tr style="height: 2px">
                         <td class="p-0 m-0 text-center">{{$key+1}}</td>
                         <td class="p-0 m-0 text-left">{{$row->num_documento}}</td>
                         <td class="p-0 m-0">{{$row->nombre." ".$row->apellidos}}</td>
                         <td class="p-0 m-0 text-center">{{$row->edad}}</td>
                         <td class="p-0 m-0 text-center">{{$row->ult_fecha_admin_med }}</td>
-                        <td class="p-0 m-0 text-center">{{$row->ult_hora_admin_med}}</td>
+                        <td class="p-0 m-0 text-center">{{$row->ult_hora_admin_med}}</td> 
                         <td>
-                            <a href="{{URL::to('add_medica_user/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Admin</a>
-                            <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0 bg bg-success" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
+                            <a href="{{URL::to('admin-medicamentos_perm/'.$row->id)}}" class ="btn btn-primary btn-md" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado"><i class="fa fa-user-plus"></i>Admin</a>
+                            <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary bg bg-success btn-md" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
                         </td>
                     </tr>
-                    {{--  --}}
+                    {{-- style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;" --}}
                     
                     @endforeach
                     </tbody>
