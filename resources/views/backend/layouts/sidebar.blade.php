@@ -114,11 +114,13 @@
                 </a>
               </li> 
               <li class="nav-item">
-                <a href="{{URL::to('/admin_medicamento_tempo')}}" class="nav-link"> 
+                {{-- admin_medicamento_tempo --}}
+                <a href="{{URL::to('/index_admin_deposiciones')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Medicmento Temporal</p>
+                  <p>Deposiciones</p>
                 </a>
               </li>               
+
               <li class="nav-item">
                 <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>

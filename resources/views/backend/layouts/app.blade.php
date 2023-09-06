@@ -234,6 +234,10 @@ $(document).on("click", "#delete", function(e){
       "info": true,
       "autoWidth": false,
       "responsive": true,
+      "scroll": true,
+      "scrollx": true, 
+      "scrolly": true,    
+
     });
   });
 

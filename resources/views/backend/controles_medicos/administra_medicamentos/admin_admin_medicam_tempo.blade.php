@@ -10,27 +10,21 @@
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
                     @csrf
                     {{-- @method('post') --}}
-    <section class="content">
-      <div class="row pb-2 pt-1">
-        <div class="col-5">
-          <b><h4 class="text-white bg-success pt-2 pb-2" style="font-size: 2em">Administración de Medicamentos Temporales</h2></b>
-        </div> 
-        <div class="col-2"></div>
-        <div class="col-2">   
-              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario-Reserva</a>
-        </div> 
-      
-      </div>      
-    <!-- Main content -->
+     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12 col-lg-12 col-md-12 bg bg-primary">
+          <div class="col-lg-7 col-md-7">
+            {{-- <a class="btn btn-primary btn-md float-right" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario-Reserva</a> --}}
+          </div>
+                 
+          <div class="col-12 col-lg-12 col-md-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
-                    <thead>
+              <div class="card-body  bg bg-success">
+                <table id="example1" class="table table-bordered table-striped table-hover " style="width: 100%">
+                    <thead class="bg bg-warning">
+                      <b><h4 class="text-white bg-success" style="font-size: 2em">Administración de Medicamentos Temporales</h2>                      
                     <tr>
                       <th class="text-center">#</th> 
                       <th class="text-center">Documento</th>
@@ -41,7 +35,7 @@
                       <th class="text-center">Acción</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg bg-primary">
                      @foreach ($clientesAdminMed as $key=>$row )
                     <tr style="height: 5px">
                         <td class="p-0 m-0 text-center">{{$key+1}}</td>
@@ -51,8 +45,8 @@
                         <td class="p-0 m-0 text-center">{{$row->ult_fecha_admin_med }}</td>
                         <td class="p-0 m-0 text-center">{{$row->ult_hora_admin_med}}</td>
                         <td>
-                            <a href="{{URL::to('add_medica_user/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Admin</a>
-                            <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary btn-xs p-0 m-0 bg bg-success" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
+                            <a href="{{URL::to('add_medica_user/'.$row->id)}}" class ="btn btn-primary btn-lg p-0 m-0 bg bg-warning" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado">Admin</a>
+                            <a href="{{URL::to('asignar-medicamentos/'.$row->id)}}" class ="btn btn-primary btn-lg p-0 m-0 bg bg-success" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
                         </td>
                     </tr>
                     {{--  --}}

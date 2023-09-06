@@ -29,6 +29,10 @@
         display: flex;
         justify-content: center;
     }    
+    .fechaletras {
+        display: flex;
+        justify-content: center;
+    }    
 </style>
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -68,25 +72,40 @@
                                             <div class="card card-primary card-outline">
                                                 {{-- <div class="card-body"> --}}
                                                 <div class="row">
-                                                    <div class="col-lg-4 col-sm-4 col-sm-6">
-                                                        <label for="">Fecha en la que se administran los medicamentos:</label>
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        <label for="">Fecha Admin:</label>
                                                         <input type="date" class="form-control text" name="fecha_ingerir"
                                                             id="fecha_ingerir"  focusNext tabindex="5" 
                                                             title="fecha en la que inicia el tratamiento">
-                                                    </div>                                                                 
-                                                    <div class="col-lg-8 col-sm-12 col-md-8">
+                                                    </div> 
+                                                    <div class="col-12 col-lg-5 col-md-5 col-sm-12 border border-primary pb-2">
+                                                        <label class="">Cuidador</label>
+                                                        <select class="form-control select2 select2-danger"
+                                                            data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                            name="empleado_id" id="empleado_id">
+                                                            <option selected disable value=" ">Seleciona cuidador</option>
+                                                            @foreach ($empleadosAdmMed as $trabajador)
+                                                                <option value={{ $trabajador->id }}>{{ $trabajador->nombre }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-4 col-sm-12 col-md-4">
                                                         <label for="">Diagnóstico</label>  
                                                         <textarea type="text" class="form-control text text" rows="1" id="diagnostico" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" focusNext tabindex = "4" disabled = "true" >{{$datosRow->diagnostico}}</textarea>                                                                                                           
                                                     </div>
                                                 </div>
-                                                {{-- </div> --}}
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 fechaletras">
+                                        <h3 class="card-title float-right  bg bg-warning text-center" id="fechaLetras" style="font-weight: 900; font-size: 1.5em;">fecha</h3>
                                     </div>
                                     <div class="col-lg-12 col-sm-12 col-md-12 ">  
                                         <div class="card card-warning card-outline">
                                             <div class="col-lg-12 col-sm-12 col-md-12 bg-primary"> 
-                                                <label class="bg bg-success text-center" id="bgtext"><h3>Seleccione la fecha de administración de medicamentos</h3></label> 
+                                                {{-- <label class="bg bg-success text-center" id="bgtext"><h3>Seleccione la fecha de administración de medicamentos</h3></label>  --}}
                                                 <table id="example2" class="table table-bordered table-striped table-hover tbl-buys" style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -125,14 +144,13 @@
                                                     {{-- </div> <!--card-body--> --}}
                                                 </div> <!--card card-primary-->
                                             </div>  
-                                            <div class="" id="resp" name='resp'>jaminson</div>                                                                                 
+                                            <div class="" id="resp" name='resp'></div>                                                                                 
                                         </div>
                             </div>                                                                                                    
                                         
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
                                 <script src="{{ asset('../resources/views/backend/controles_medicos/administra_medicamentos/asignar_medicamento.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
-
                             </body>
                             <footer>
                                 <div class="row"> 
@@ -146,7 +164,7 @@
                                                             </button> --}}
                                                                  <button  type="submit" class="btn btn-primary btn-lg form-group" title="Guarda en la base de datos el nuevo registr o lactualización"
                                                                     focusNext tabindex="19" id="enviar" accionBtn="Guardar"name="enviar>
-                                                                    <i class="fa fa-save fa-lg" style="color:hsl(0, 0%, 100%);"></i> Enviar
+                                                                    <i class="fa fa-save fa-lg" style="color:hsl(0, 0%, 100%);"></i> Guardar
                                                                 </button>                                                            
                                                             
                                                             <button type="button" class="btn btn-primary form-group btnSearchAdm btn-lg" title="Permite localizar un tratamiento, para consultar, modificar o agregar una administracion de una dosis del medicamento"
@@ -189,12 +207,14 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
-        // document.querySelector('.horaMuestra').style.display = 'none'
+         // document.querySelector('.horaMuestra').style.display = 'none'
 		// document.querySelector('.horaDbf').style.display = 'inline'
 
             var fechar = document.getElementById('fecha_ingerir')
            
             fechar.addEventListener("change", ()=>{
+                funcAsigMed.fechaletras()
+
                 //let bgtext = document.getElementById('gbtext').innerHTML = 'Marque los Medicamentos que le suministró al uausuario en la fecha especificada'
                     var fechaingerir = document.getElementsByName('fecha_ingerir')[0].value  
                     fillTableInterna()
@@ -208,7 +228,6 @@
         let modalBuscarEvol = document.getElementById('modalBuscarEvol');
         let btnSearchAdm = document.getElementById('btnSearchAdm');
         })                  
-
 
         // setInterval(function() { 
         //     let espanol = idioma()
@@ -345,11 +364,12 @@
     window.addEventListener('load', () => { 
         $('#enviar').on('click', function(e) {
             e.preventDefault()
-        
+            
                 const seleccion = [];
                 let idasigmedic2 = document.getElementsByName('datosbasicos_id')[0].value 
                 let fechaingerir2 = document.getElementsByName('fecha_ingerir')[0].value 
                 let userIdM = document.getElementsByName('user_id')[0].value
+                let empleado_id = document.getElementsByName('empleado_id')[0].value
 
                 // con este se llena el array solo con los checkboz activos
             // $("#tablaAsignados tr td input[type='checkbox']:checked").each(function(){
@@ -368,12 +388,28 @@
                     ok : this.checked,
                     user_id : userIdM,
                     asignamed_id : row.find('td').eq(7).text(),
-        //             articulos_id : row.find('td:eq(5)').text(),
+                    empleado_id : empleado_id
+
+                    // hora_ingerir : row.find('td:eq(2)').text() ,                    
+         //             articulos_id : row.find('td:eq(5)').text(),
         //             ok : row.find('td:eq(6)').text()
         //             id : row.find('td').eq(0).text(),                
                 });
         });
-        // console.log(seleccion);
+        // console.log(seleccion.length);
+        let dtoEmpleado = document.getElementsByName('empleado_id')[0].value
+        let fechaAdmin = document.getElementsByName('fecha_ingerir')[0].value
+        if (seleccion.length == 0){
+                alert('ERROR SELECCIONE LA FECHA DE ADMINISTRACIÓN DE MEDICAMENTOS')
+                return false;
+        }else if (dtoEmpleado == " "){
+            alert('Debe seleccionar el cuidador que Admisnitró el medicamento')
+            return false;
+        }else if(fechaAdmin == ""){
+            alert('Seleccione la fecha en la que está administrando los medicamentos')
+            return false
+        }else{
+ 
         //Ordeno el array por la key id de forma ascendente
         seleccion.sort( (a, b) => {
             if (a.id > b.id) {
@@ -385,7 +421,7 @@
             if (a.id == b.id){
                 return 0
             }            
-    })
+        })
         console.log(seleccion);
          $.ajax({
             url:'{{URL::to("/store-medicamentos_perm")}}',
@@ -394,7 +430,27 @@
             type:'post',
             "dataType": 'json',
             data:{registros:seleccion},
-         })
+         }).then(function(data) {
+            console.log(data);
+            // $("p").text(data.title)
+            if(data['message']=="Success"){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'PERFECTO',
+                    text: 'Se guardó la lista de medicamento administrados al usuario',
+                    footer: ''
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error interno',
+                    text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+                    '  ' + error,
+                    footer: ''
+                })
+            }            
+        });
+    }
     });
 })
 </script>

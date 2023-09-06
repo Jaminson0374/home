@@ -11,6 +11,10 @@ use App\Models\TipoAdminMedModel;
 use App\Models\Cliente_datosbasico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+// use DateTime();
+
+// date_default_timezone_set("America/Bogota");
+
 
 class AsignaMedicamentosController extends Controller
 {
@@ -36,15 +40,29 @@ class AsignaMedicamentosController extends Controller
 
     public function store(Request $request)
     {
-        try {
+            
+          try {
             DB::beginTransaction();        
-            // $idDtBasico =  Cliente_datosbasico::find($request->datosbasicos_id);
-            // $idDtBasico->ult_fecha_admin_med = $request->fecha;
-            // $idDtBasico->ult_hora_admin_med  = $request->hora;
-            // $idDtBasico->save();
+ 
             
             $AdminMedicamentos = AsignaMedicamentosModel::create($request->all()); 
             // return $AdminMedicamentos;
+
+            // $AdminMedicamentos = AsignaMedicamentosModel::updateOrCreate(
+            //     ['id' => $request->id],
+            //     ['datosbasicos_id' => $request->datosbasicos_id,
+            //     'fecha_inicio' => $request->fecha_ingerir,
+            //     'horadbf' => $request->horadbf,
+            //     'dosis' => $request->dosis,
+            //     'pososlogia_t' => $request->pososlogia_t,
+            //     'pososlogia_h_d' => $request->pososlogia_h_d,
+            //     'unimedida_id' => $request->unimedida_id,
+            //     'unimedida_id' => $request->unimedida_id,
+            //     'tipoadmin_med_id' => $request->tipoadmin_med_id,
+            //     'indicaciones' => $request->indicaciones,
+            //     'user_id' => $request->user_id
+            // ]);
+
             DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -53,7 +71,7 @@ class AsignaMedicamentosController extends Controller
             return response()->json(['message' => 'Success']);
     }
 
-    // buscar_asig
+
     public function buscar_asig(Request $request, AsignaMedicamentosModel $asignaMedicamentosModel)
     {
             //  return 'jaminson'.$request->dato_id;

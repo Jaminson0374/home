@@ -565,7 +565,7 @@
                 let nDocInput = document.getElementsByName('num_documento')[0].value 
                 var attrAccion8 = $("#accionBotones").attr("accion");
                 if (attrAccion8 == 'Actualizar' & numdcuto ==nDocInput ) {
-                    //
+                    alert('que pasa')
                 }else{     
 
 					let idEvolMed2 = document.getElementsByName('num_documento')[0].value

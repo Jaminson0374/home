@@ -56,6 +56,7 @@
 
                                     <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                     <input type="hidden" name="presBtnNewAdm" id="presBtnNewAdm" value="N">
+                                    <input type="hidden" name="horadbf" id="horadbf">
  
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12 col-md-12 border border-4">
@@ -77,36 +78,45 @@
                                                     </div> 
                                                     <div class="col-lg-8 col-sm-12 col-md-8">
                                                         <label for="">Diagnóstico</label>  
-                                                        <textarea type="text" class="form-control text text" rows="1" id="diagnostico" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" focusNext tabindex = "4" disabled = "true" >{{$datosRow->diagnostico}}</textarea>                                                                                                           
+                                                        <textarea type="text" class="form-control text text" rows="1" id="diagnostico" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" disabled = "true" >{{$datosRow->diagnostico}}</textarea>                                                                                                           
                                                     </div>
                                                 </div>
                                                 {{-- </div> --}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-12 col-md-4 ">  
+                                    <div class="col-lg-4 col-sm-12 col-md-4">  
                                         <div class="col-lg-12 col-sm-12 col-md-12">
                                             <div class="card card-primary card-outline">
-                                                {{-- <div class="card-body">    --}}
                                                     <div class="row">   
-                                                        <div class="col-lg-6 col-sm-12 col-md-6">                                                        
+                                                        <div class="col-lg-12 col-sm-12 col-md-12">                                                        
                                                             <label for="">Fecha Inicio:</label>
                                                             <input type="date" class="form-control text" name="fecha_inicio"
-                                                                id="fecha_inicio"  focusNext tabindex="5" 
+                                                                id="fecha_inicio"  focusNext tabindex="2" 
                                                                 title="fecha en la que inicia el tratamiento">
                                                         </div>
-                                                        <div class="col-lg-6 col-sm-12 col-md-6"> 
-                                                            <label for="" class="col-form-label">Hora</label>
-                                                            {{-- <input type="text" placeholder="HH:MM" data-inputmask-mask="99:99" class="form-control text" id="hora" > --}}
-                                                            
-                                                         {{-- <input type="datatime-local" class="form-control text horaMuestra" name="hora" max="24:00" min="01:00" step="1" id="hora" 
-                                                            style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">  --}}
-                                                            
-                                                        <input type="time" class="form-control text horaDbf" name="horadbf" max="24:00" min="01:00" step="1" id="horadbf" 
-                                                        style="height: 30px" title="Hora en la que se debe suministrar el medicamento" tabindex="6">                                                             
-                                                        </div> 
-                                                    </div> 
-                                                {{-- </div> --}}
+                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-4 col-sm-12 col-md-4"> 
+                                                                    <label for="" class="col-form-label">HH</label> 
+                                                                    <input type="text" placeholder="HH" class="form-control text focusNext p-0" maxlength="2" size ="2" id="horaTime"  pattern="[0-9]+" name="horaTime" tabindex="3">
+                                                                </div>
+                                                                
+                                                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                                                    <label for="" class="col-form-label">MM</label>
+                                                                    <input type="text" placeholder="MM" class="form-control text p-0 focusNext" maxlength="2" size"2" id="minutoTime" name="minutoTime"  pattern="[0-9]+" tabindex="4">
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                                                    <label for="" class="col-form-label">AMPM</label>
+                                                                    <select class="form-control p-0 focusNext" style="width: 100%;" tabindex="5" 
+                                                                        name="ampmTime" id="ampmTime" focusNext tabindex="5">
+                                                                        <option selected="selected" disable value=""></option>
+                                                                        <option value="AM">AM</option>
+                                                                        <option value="PM">PM</option>
+                                                                    </select>
+                                                                </div>
+                                                                <h3 id="message" style="font-weight: 900; font-size: 1em;" class="card-title bg bg-danger text-white message">Error</h3>                  
+                                                            </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-sm-12 col-md-12">
@@ -141,7 +151,7 @@
                                                     <div class="row">   
                                                         <div class="col-lg-5 col-sm-12 col-md-5"> 
                                                             <label for="">Via Admin</label>
-                                                            <select class="form-control tipoadmin_med_id" style="width: 100%;"
+                                                            <select class="form-control tipoadmin_med_id p-0" style="width: 100%;"
                                                                 name="tipoadmin_med_id" id="tipoadmin_med_id" focusNext tabindex="9" title="Seleccione la via o forma de como se suministrará el medicamento">
                                                                 <option selected="selected" disable value=" ">Seleciona Via</option>
                                                                     @foreach ($tipoViaAdmin as $tpoMedica)
@@ -158,7 +168,7 @@
                                                         </div>  
                                                         <div class="col-lg-4 col-sm-12 col-md-4 ">                                                     
                                                             <label for="">Hora/Día</label>
-                                                            <select class="form-control" style="width: 100%;"
+                                                            <select class="form-control p-0" style="width: 100%;"
                                                                 name="pososlogia_h_d" id="pososlogia_h_d" focusNext tabindex="11" title="Selecicones Horas o dias para el suministró del medicamento">
                                                                 <option selected="selected" disable value=" ">Selecione</option>
                                                                 <option value="Horas">Horas</option>
@@ -171,24 +181,21 @@
                                         </div>  
                                         <div class="col-lg-12 col-sm-12 col-md-12">
                                             <div class="card card-primary card-outline">
-                                                {{-- <div class="card-body">    --}}
                                                     <div class="row">   
                                                         <div class="col-lg-12 col-sm-12 col-md-12 border">
-                                                            <label for="">Indicaciones:</label>
+                                                            <label for="">Observaciones:</label>
                                                             <textarea rows="1" class="form-control text" name="indicaciones"
                                                                 id="indicaciones"  focusNext tabindex="15" maxlength="245"
                                                                 title="Describa las indicaciones pertinentes a la administración del medicamento">
                                                             </textarea>
                                                         </div>
                                                     </div> 
-                                                {{-- </div> <!--card-body--> --}}
                                             </div> <!--card card-primary-->
                                         </div>                                                                                            
                                     </div> 
-                                        <div class="col-lg-8 col-sm-12 col-md-8 p-0 m-0">
+                                        <div class="col-lg-8 col-sm-12 col-md-8 ">
                                             <div class="col-lg-12 col-sm-12 col-md-12">
                                                 <div class="card card-warning card-outline">
-                                                    {{-- <div class="card-body"> --}}
                                                         <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
                                                             <table id="example2" class="table table-bordered table-striped table-hover table-responsive" style="width: 100%">
                                                                 <thead>
@@ -206,7 +213,6 @@
                                                                 </tbody>
                                                              </table>                                                            
                                                         </div>
-                                                    {{-- </div>  --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -235,12 +241,7 @@
                                                                 focusNext tabindex="19" id="btnSaveAdm" accionBtn="Guardar"name="btnSaveAdm">
                                                                 <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Guardar
                                                             </button>
-                                                            <button type="button" class="btn btn-primary form-group btnSearchAdm btn-lg" title="Permite localizar un tratamiento, para consultar, modificar o agregar una administracion de una dosis del medicamento"
-                                                                id="btnSearchAdm" name="btnSearchAdm" focusNext tabindex="20"><i
-                                                                    class="fa fa-search-location fa-lg"></i>
-                                                            Buscar Tratamiento
-                                                            </button>
-
+    
                                                             <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancelAdm" title="Cancela el proceso actual y limpia cada una de las celdas"
                                                                 focusNext tabindex="21"> <i class="fa fa-ban fa-lg"></i> Cancelar</button>
 
@@ -279,6 +280,11 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
+        document.querySelector('.message').style.display = 'none'
+        funcAsigMed = new AsigMedicamento()
+          
+        funcAsigMed.horaminutos()
+        
         // document.querySelector('.horaMuestra').style.display = 'none'
 		// document.querySelector('.horaDbf').style.display = 'inline'
 
@@ -287,15 +293,12 @@
 
         document.getElementById('btnCancelAdm').disabled = true;
         document.getElementById('btnSaveAdm').disabled = true;
-        funcAsigMed = new AsigMedicamento(); // 
-
 
         funcAsigMed.desactivaInput();  
         document.getElementById('btnEditAdm').disabled = true;      
 
         let bodyTablaClientesEvol = document.getElementById("bodyTabla");
         let modalBuscarEvol = document.getElementById('modalBuscarEvol');
-        let btnSearchAdm = document.getElementById('btnSearchAdm');
  
 			/*****************************************************
 				AL PRESIONAR EL BOTON MODIFICAR
@@ -316,7 +319,6 @@
                 document.getElementById('btnEditAdm').disabled = true;
                 document.getElementById('btnNewAdm').disabled = true;                
 				document.getElementById('btnDeleteAdm').disabled = true;
-                document.getElementById('btnSearchAdm').disabled = true;
                 botonEdit.disabled = true;
                 document.getElementById('btnCancelAdm').disabled = false;
                 document.getElementById('btnSaveAdm').disabled = false;
@@ -332,8 +334,7 @@
 			let botonNew = document.getElementById("btnNewAdm");
 			botonNew.addEventListener('click', () => {
                 var attrAccion3 = $("#accionBotones").attr("accion");
-                // alert('botonNew'+' '+attrAccion3)
-                funcAsigMed.activaInput();                
+                funcAsigMed.activaInput(); 
 				
                 //cambioTextBotton('btnSaveAdm', 'Actualizar', 'Guardar')
                 var btnGuardar = document.getElementById('btnSaveAdm');
@@ -352,19 +353,21 @@
 				document.getElementById('btnDeleteAdm').disabled = true;
                 document.getElementById('btnEditAdm').disabled = true;
                 document.getElementById('btnNewAdm').disabled = true;
-                document.getElementById('btnSearchAdm').disabled = true;
                 botonNew.disabled = true;
                 
                 // document.querySelector('.horaMuestra').style.display = 'none'
 		        // document.querySelector('.horaDbf').style.display = 'inline'
 
                 formEvolB2.reset()
+                funcAsigMed.fecha_actual();
                 document.getElementById('articulos_id').focus()
                 
 				return true
 			})
 			return true
         })                  
+
+
        /********************************************************************************************
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
@@ -374,9 +377,10 @@
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
            
-                     let validaOk ="Ok";
+                    let validaOk ="Ok";
 
                     validaOk = funcAsigMed.validarCampos()
+                    funcAsigMed.horaText()
 
                     var attrAccion2 = $("#accionBotones").attr("accion");
                     let data = new FormData(formEvolQ)
@@ -386,7 +390,6 @@
                     // return false;
                     
                 if (validaOk === '') {
-                    // console.log(values)                   
                     if (attrAccion2 === 'Guardar') {
                         const AdminMedicaUser = async () => {
                             await axios.post("{{URL::to('/store-asigna-medicamento')}}",data,{
@@ -399,7 +402,6 @@
                                     document.getElementById('btnNewAdm').disabled = false;
                                     document.getElementById('btnCancelAdm').disabled = true;
                                     document.getElementById('btnEditAdm').disabled = true;                                 
-                                    document.getElementById('btnSearchAdm').disabled = false;
                                     document.getElementById('btnSaveAdm').disabled = true;
                                     /*Cuando se busca un registro se cambial atributo del input hidden*/
                                     let newNom88 = document.getElementById('accionBotones')
@@ -437,7 +439,6 @@
                                 document.getElementById('btnDeleteAdm').disabled = true;
                                 document.getElementById('btnNewAdm').disabled = false;
                                 document.getElementById('btnCancelAdm').disabled = true;
-                                document.getElementById('btnSearchAdm').disabled = false;
                                 document.getElementById('btnSaveAdm').disabled = true;
 
                                 /*Cuando se busca un registro se cambial atributo del input hidden*/
@@ -448,7 +449,7 @@
                                 btnGuardar2.innerHTML = 'Guardar'
                                 funcAsigMed.desactivaInput();
 
-                                document.getElementById('textB').innerHTML = 'REQUISICION DE MEDICAMENTOS'                                
+                                document.getElementById('textB').innerHTML = 'ASIGNACION DE MEDICAMENTOS'                                
                                 funcAsigMed.clearElements()	                                
                                 formEvolQ.reset()
                                 fillTableInterna()                                    
@@ -519,7 +520,6 @@
                                     document.getElementById('btnDeleteAdm').disabled = true;
                                     document.getElementById('btnNewAdm').disabled = false;
                                     document.getElementById('btnCancelAdm').disabled = true;
-                                    document.getElementById('btnSearchAdm').disabled = false;
                                     document.getElementById('btnSaveAdm').disabled = true;
                                     document.getElementById('btnEditAdm').disabled = true;  
                             
@@ -573,7 +573,6 @@
 
 				document.getElementById('btnDeleteAdm').disabled = true;
                 document.getElementById('btnEditAdm').disabled = true;
-                document.getElementById('btnSearchAdm').disabled = false;
                 botonCancel.disabled = true;
                 document.getElementById('btnNewAdm').disabled = false;
                 document.getElementById('btnSaveAdm').disabled = true; 
@@ -686,32 +685,23 @@
 
         window.addEventListener('load', () => { 
             let formAsigMed = document.getElementById('formAsignaMedicamento')
-            $('#tablaAsigMedic').on("click", "button.btnCaptura", function () {
-                var horaCover = $('#horadbf').val()
-                var dt = new Date(horaCover);
-                // var dt = horaCover;
-                var hours = dt.getHours() ; // da el valor en formato de 24 horas
-                var AmOrPm = hours >= 12 ? 'pm' : 'am';
-                hours = (hours % 12) || 12;
-                var minutes = dt.getMinutes() ;
-                var finalTime = "Time  - " + hours + ":" + minutes + " " + AmOrPm; 
-                console.log(finalTime) // Tiempo final - 22:10                    
-                
+            $('#example2').on("click", "button.btnCaptura", function () {
+                let data = table.row($(this).parents("tr")).data();
+                 
                 let formAsigMed = document.getElementById('formAsignaMedicamento')
                 let _diagnostico = document.getElementsByName('diagnostico')[0].value
                 formAsigMed.reset()
                 document.getElementsByName('diagnostico')[0].value = _diagnostico
-                let data = table.row($(this).parents("tr")).data();
 
-                //llenar array 
-                let tabmd = table.rows().data()
-                let tablaAsig =[];
-                for(let i = 0; i< tabmd.length; i++){
-                     var datoNew = tabmd[i]
-                    //  console.log(datoNew)
-                    tablaAsig.push(datoNew)
-                }
-                console.log(tablaAsig)
+                //llenar array y luego con el array se llena la tabla
+                // let tabmd = table.rows().data()
+                // let tablaAsig =[];
+                // for(let i = 0; i< tabmd.length; i++){
+                //      var datoNew = tabmd[i]
+                //     //  console.log(datoNew)
+                //     tablaAsig.push(datoNew)
+                // }
+                // console.log(tablaAsig)
             //     let tablaAsigDatos = document.querySelector('#bodyTablaAsig')
             //     tablaAsignados.innerHTML="";
             //     // $("#tablaAsignados").dataTable().fnDestroy();
@@ -729,8 +719,6 @@
             //               </td>                        
             //           </tr>`                      
             //    }                
- 
-            //    bodyTablaAsig 
 
                 funcAsigMed.asignaValorEdit(data)
                

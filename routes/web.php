@@ -201,13 +201,32 @@ Route::get('/admin_medicamento_user', [App\Http\Controllers\AdministraMedPermane
 Route::get('/admin-medicamentos_perm/{idUserMed}', [App\Http\Controllers\AdministraMedPermanentesController::class, 'create'])->name('AdminMedicamentosPerm');
 Route::post('/store-medicamentos_perm', [App\Http\Controllers\AdministraMedPermanentesController::class, 'store'])->name('StoreMedicamentosPerm');
 
+
 //*********************************************************************
 //CONTROLES MEDICOS - Asginación de los medicamentos temporales     *
 //*********************************************************************/
 Route::get('/admin_medicamento_tempo', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoTempo');
 Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
 Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
-// asignar_medicamentos.blade
+
+//*********************************************************************
+//CONTROLES MEDICOS - CREAR PLANILLA VACIA DE DESPOSICIONES                                   *
+//*********************************************************************/
+Route::get('/index_admin_deposiciones', [App\Http\Controllers\DeposicionPlanillaController::class, 'index'])->name('AdminDesposicionesUser');
+Route::get('/create_planilla_deposiciones/{idUserMed}', [App\Http\Controllers\DeposicionPlanillaController::class, 'create'])->name('CreatePlanillaDeposiciones');
+Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaController::class, 'buscar_planillas'])->name('BuscarPlanillas');
+Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'store'])->name('StorePlanilla');
+Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
+
+//*********************************************************************
+//CONTROLES MEDICOS - ADD LLENAR CTROL DESPOSICIONES                   *
+//*********************************************************************/
+Route::get('/create_add_deposiciones/{idUserMed}', [App\Http\Controllers\DeposicionesController::class, 'create'])->name('CreateAddDeposiciones');
+// Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaController::class, 'buscar_planillas'])->name('BuscarPlanillas');
+// Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'store'])->name('StorePlanilla');
+// Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
+Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::class, 'buscarPlaniDepo'])->name('BuscarPlaniDepo');
+Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::class, 'buscarAddPlanillas'])->name('BuscaraDDPlaniDepo');
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros
 //*********************************************************************
@@ -215,13 +234,6 @@ Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserCont
 //*********************************************************************/
 //          CONSECUTIVO de documentos
 Route::post('/busca_consecutivo', [App\Http\Controllers\ConsecutivosController::class, 'buscaConsecutivo'])->name('BuscaConsecutivo');
-// Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
-// Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
-// Route::get('/buscar-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'busquedaCtrlMed'])->name('BuscarControlMedico');
-// Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
-// Route::post('/anula-CtrlMed', [App\Http\Controllers\EvolucionDiariaController::class, 'anularRegistro'])->name('anulaControlMedico');
-
-
 
 
 

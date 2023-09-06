@@ -8,17 +8,14 @@ use App\Models\InvUniMedidasModel;
 use App\Models\InvArticulosModel;
 use App\Models\TipoAdminMedModel;
 use App\Models\Cliente_datosbasico;
+use App\Models\EmpleadosModell;
 use App\Models\AdministraMedPermanentesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdministraMedPermanentesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $clientesAdminMed = DB::table('cliente_datosbasicos')
@@ -28,11 +25,7 @@ class AdministraMedPermanentesController extends Controller
          return view('backend.controles_medicos.administra_medicamentos.admin_admin_mdicamtos_perma',compact('clientesAdminMed'));        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create($idUserBasico)
     {
         $medicamentos = DB::table('inv_articulos')->select('id','referencia','descripcion')
@@ -43,23 +36,19 @@ class AdministraMedPermanentesController extends Controller
         ->select('id','num_documento','nombre','apellidos', 'diagnostico')->where('id','=',$idUserBasico)->get();
         $tipoViaAdmin = TipoAdminMedModel::all();
         $uniMedId = InvUniMedidasModel::all();
+        $empleadosAdmMed = EmpleadosModell::all();
         
-        return view('backend.controles_medicos.administra_medicamentos.administrar_medi_permanentes', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos'));
+        return view('backend.controles_medicos.administra_medicamentos.administrar_medi_permanentes', compact('medicamentos','dtobasicoMed','tipoViaAdmin','uniMedId', 'medicamentos', 'empleadosAdmMed'));
     }
 
 
     
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request, AdministraMedPermanentesModel $AdministraMedPermanentesModel)
     {
         
-        //  try {
-        //     DB::beginTransaction(); 
+         try {
+            DB::beginTransaction(); 
         // 'created_at' => now(),
         // 'updated_at' => now()
             // $registros2 = json_encode($request->registros);
@@ -80,60 +69,44 @@ class AdministraMedPermanentesController extends Controller
                 'fecha_ingerir' => $request->registros[$i]['fecha_ingerir'],
                 'ok' => $request->registros[$i]['ok'],
                 'user_id' => $request->registros[$i]['user_id'],
-                'asignamed_id'=> $request->registros[$i]['asignamed_id']
-            ]);
+                'asignamed_id'=> $request->registros[$i]['asignamed_id'],
+                'empleado_id'=> $request->registros[$i]['empleado_id']]);
             }
-               
+
+            // $idDtBasico =  Cliente_datosbasico::find($request->datosbasicos_id);
+            // $idDtBasico->ult_fecha_admin_med = $request->registro[$i]['fecha_ingerir'];
+            // $idDtBasico->ult_hora_admin_med  = $request->registro[$i]['hora_ingerir'];
+            // $idDtBasico->save();
+
                 // Pelicula::firstOrCreate(['fk_segmento' => '1', 'fk_empresa' => '1']);
                 // DB::table('administra_med_permanentes')->insert($datos);
             // }
-        //     DB::commit();
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return response()->json(['message' => 'Error']);
-        // }
-        // return response()->json(['message' => 'Success']);        
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error']);
+        }
+        return response()->json(['message' => 'Success']);        
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\AdministraMedPermanentesModel  $administraMedPermanentesModel
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function show(AdministraMedPermanentesModel $administraMedPermanentesModel)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\AdministraMedPermanentesModel  $administraMedPermanentesModel
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(AdministraMedPermanentesModel $administraMedPermanentesModel)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AdministraMedPermanentesModel  $administraMedPermanentesModel
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(Request $request, AdministraMedPermanentesModel $administraMedPermanentesModel)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\AdministraMedPermanentesModel  $administraMedPermanentesModel
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy(AdministraMedPermanentesModel $administraMedPermanentesModel)
     {
         //
