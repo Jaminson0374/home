@@ -2,49 +2,24 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class AsigMedicamento {
+class DeposicionesCtrl {
 
 	validarCampos() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
-		 let _diagnostico = document.getElementsByName('diagnostico')[0].value
-		 let _dosis = document.getElementsByName('dosis')[0].value
-		 let _pososlogia_t = document.getElementsByName('pososlogia_t')[0].value
-		 let _pososlogia_h_d = document.getElementsByName('pososlogia_h_d')[0].value
-		 let _fecha_inicio = document.getElementsByName('fecha_inicio')[0].value
-		//  let _horadbf = document.getElementsByName('horadbf')[0].value
-		 let _indicaciones = document.getElementsByName('indicaciones')[0].value
-		 let _horaTime = document.getElementsByName('horaTime')[0].value
-		 let _minutoTime = document.getElementsByName('minutoTime')[0].value
-		 let _ampmTime = document.getElementsByName('ampmTime')[0].value
-
-		 let _unimedida_id = $("#unimedida_id").val()
-		 let _tipoadmin_med_id = $("#tipoadmin_med_id").val();
-		 let _articulos_id = $("#articulos_id").val();
-
+		let _empleados_id = document.getElementsByName('empleado_id')[0].value
+		let _diaCtrl = document.getElementsByName('dia_ctrl')[0].value
 		let camposForm = "";
-		let campoText = "";
-		if (camposForm) {
-			}else if(_articulos_id === ""){  
-					campoText ="Debe seleccionar el MEDICAMENTO"
-					document.getElementById('articulos_id').focus()
-			}else if(_horaTime === ""){  
-				campoText ="Digite la hora"
-				document.getElementById('horaTime').focus()
-			}else if(_ampmTime === ""){  
-				campoText ="Debe seleccionar el AM o PM"
-				document.getElementById('ampmTime').focus()
-			}else if( _dosis === ""){ 
-					campoText ="Digite la DOSIS a suminitrar del medicamento"
-					document.getElementById('dosis').focus()
-			}else if(  _unimedida_id === ""){ 
-					campoText ="Seleccione la UNIDAD DE MEDIDA de la dosis"
-					document.getElementById('unimedida_id').focus()
-			}else if(_tipoadmin_med_id === ""){  
-					campoText = "Seleccion  la vía de administración del medicamento"
-					document.getElementById('tipoadmin_med_id').focus()
-			// }else if(_horadbf === ""){  
-			// 		campoText ="Selecicone la HORA en la que se debe suministrar el medicamento "
-			// 		document.getElementById('horadbf').focus()
-			}
+		let campoText = "ok";
+		switch (campoText) {
+			case _empleados_id:  
+				campoText ="Debe seleccionar el cuiador o responsable del control de las deposiciones"
+					document.getElementById('empleado_id').focus()
+					break;
+			case _diaCtrl:
+				campoText ="Digite el dia en el cual el usuario realizó las deposiciones"
+				document.getElementById('dia_ctrl').focus()
+				break;
+		}
+		
 		return campoText;
 	} 
 	/******************************************************************************************************

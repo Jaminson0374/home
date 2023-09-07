@@ -7,19 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class DesposicionesModel extends Model
 {
-    protected $table = 'deposicion_planilla';
+    protected $table = 'deposiciones';
     use HasFactory;
     protected $guarded = [
-        'accionBotones',
-        'idCliente',
-        'id',
+        'datosbasicos_id',
         '_token',
-        '_method',
-        'softDeletes', 
-        'timestamps', 
-        'presBtnNew',
-        '_method',  
-        'nDdocumento',    
+        'planilla_id',
+        'mes_ctrl',
+        'ano',
     ];    
     
 }

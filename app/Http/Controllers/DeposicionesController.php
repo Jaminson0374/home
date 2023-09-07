@@ -29,9 +29,9 @@ class DeposicionesController extends Controller
 
         $dtobasicoMed = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos', 'diagnostico')->where('id','=',$idUserBasico)->get();
-        $empleadosAdmMed = EmpleadosModell::all();
+        $deposicionMedMedicos = EmpleadosModell::all();
         
-        return view('backend.controles_medicos.deposiciones.add_ctrl_deposiciones', compact('dtobasicoMed'));
+        return view('backend.controles_medicos.deposiciones.add_ctrl_deposiciones', compact('dtobasicoMed','deposicionMedMedicos'));
     }
     
     public function buscarPlaniDepo(Request $request, DeposicionPlanillaModel $DeposicionPlanillaModel)
@@ -56,9 +56,10 @@ class DeposicionesController extends Controller
             $showAddAsignaPlanillas = DB::table('deposiciones')
             ->where('deposicion_planilla.datosbasicos_id','=',$request->datosbasicos_id)
             ->where("anulado", "=", NULL)
-            ->select('deposicion_planilla.id','deposicion_planilla.mes_letra','deposicion_planilla.ano',
-            'deposicion_planilla.useranomes','deposicion_planilla.mes', 
-            'deposicion_planilla.anulado', 'deposicion_planilla.datosbasicos_id',)->get(); 
+            ->join('empleados', 'deposiciones.empleado_id','=','empleados.id')
+            ->select('deposiciones.dia_ctrl','deposiciones.dia_deposicion','deposiciones.noche_deposicion',
+            'deposiciones.total_deposiciones','deposiciones.observaciones','deposiciones.empleado_id', 
+            DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as cuidador'), 'deposicion.empleado_id')->get(); 
             return $showAddAsignaPlanillas;    
 
         }else if($request->data['okFalse']== "02"){ // validar la existencia del día en la planilla
@@ -77,24 +78,32 @@ class DeposicionesController extends Controller
     }
             
     }
+    public function llenaplanidiaria(){
+        /*select('deposicion_planilla.id','deposicion_planilla.mes_letra','deposicion_planilla.ano_ctrl',
+        'deposicion_planilla.useranomes','deposicion_planilla.dia_ctrl','deposicion_planilla.noche_ctrl',
+        'deposicion_planilla.mes_ctrl','deposicion_planilla.dia_desposicion','deposicion_planilla.noche_desposicion',  
+        'deposicion_planilla.total_deposiciones','deposicion_planilla.anulado', 'deposicion_planilla.datosbasicos_id',)->get();*/         
+    }
 
-    public function store(Request $request, DeposicionPlanillaModel $deposicionPlanillaModel)
+    public function store(Request $request, DesposicionesModel $DeposicionModel)
     {
-        return 'jaminson'.$request->all();
+        // return $request->data;
+        // return $request->data['datosbasicos_id'];
         try {
             DB::beginTransaction();        
             // $idDtBasico =  Cliente_datosbasico::find($request->datosbasicos_id);
             // $idDtBasico->planilla_actual = $request->planilla_actual;
             // $idDtBasico->save();
             
-            $AdminMedicamentos = DeposicionPlanillaModel::create($request->all()); 
-
+            $depodiscionCtrl = DB::table('deposiciones')->insert($request->all());
+            // return $depodiscionCtrl;
             DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json(['message' => 'Error']);
             }
             return response()->json(['message' => 'Success']);
+
     }
 
     public function show(DesposicionesModel $desposicionesModel)

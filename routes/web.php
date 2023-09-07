@@ -219,14 +219,12 @@ Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaControlle
 Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
 
 //*********************************************************************
-//CONTROLES MEDICOS - ADD LLENAR CTROL DESPOSICIONES                   *
+//CONTROLES MEDICOS - ADD LLENAR CTROL DESPOSICIONES CON LOS DÍAS     *
 //*********************************************************************/
 Route::get('/create_add_deposiciones/{idUserMed}', [App\Http\Controllers\DeposicionesController::class, 'create'])->name('CreateAddDeposiciones');
-// Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaController::class, 'buscar_planillas'])->name('BuscarPlanillas');
-// Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'store'])->name('StorePlanilla');
-// Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
+Route::post('/store-dia-planilla', [App\Http\Controllers\DeposicionesController::class, 'store'])->name('StoreDiaPlanilla');
 Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::class, 'buscarPlaniDepo'])->name('BuscarPlaniDepo');
-Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::class, 'buscarAddPlanillas'])->name('BuscaraDDPlaniDepo');
+Route::post('/buscar-add-plani_dia', [App\Http\Controllers\DeposicionesController::class, 'buscarAddPlanillas'])->name('BuscaraDDPlaniDepo');
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros
 //*********************************************************************

@@ -25,6 +25,10 @@
     .card {
         background: #dfdef9;
     }
+    .butonAll {
+        display: flex;
+        justify-content: center;
+    }        
 </style>
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -33,7 +37,7 @@
         <section class="content">
             <div class="card border-2">
                 {{-- <div class="card-body text-dark tarjeta_body"> --}}
-                    <form role="form" name="formAddPlanillas" id="formAddPlanillas" action="">
+                    <form role="form" name="formAddDiaPlanillas" id="formAddDiaPlanillas" action="">
                         @csrf
                         <div class="col-lg-12 col-md-12">
                             <body>
@@ -41,44 +45,35 @@
                                 @endforeach
                                 <div class="row border border-dark border-4 m-2 rounded bg-primary">
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
-                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Planilla para el control de desposiciones
+                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Planilla de control de desposiciones Diarias No. 
                                         </h3>
+                                        <h3 id="num_plani" class="float-right m-0 p-0 bg-danger" style="font-weight: 900; font-size: 1.5em;" class="card-title"></h3>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
                                         <h3 class="card-title float-right" style="font-weight: 900; font-size: 1em;">
-                                        USUARIO/CLIENTE --- {{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos}}
+                                        USUARIO --- {{$datosRow->num_documento.' '.$datosRow->nombre.' '.$datosRow->apellidos}}
                                         </h3>
                                     </div>
                                 </div>
-                                    <input type="hidden" id="datosbasicos_id" name="datosbasicos_id" value={{$datosRow->id}}>
-                                    <input type="hidden" id="idAsignaMedica" name="idAsignaMedica">
                                     <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
+                                    <input type="hidden" name="datosbasicos_id" value={{$datosRow->id}}>
+                                    <input type="hidden" name="planilla_id">
 
-                                    <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
-                                    <input type="hidden" name="presBtnNewAdm" id="presBtnNewAdm" value="N">
-                                    <input type="hidden" name="horadbf" id="horadbf">
- 
-                                <div class="row">
+                                    <div class="row">
                                     <div class="col-lg-4 col-sm-12 col-md-4">  
                                         <div class="col-lg-12 col-sm-12 col-md-12">
-                                            <div class="card card-primary card-outline">
-                                                <div class="row">   
-                                                    <div class="col-12 col-lg-4 col-sm-12 col-md-12">                                                        
-                                                        <label for="">Planilla#</label>
-                                                        <input type="text" class="form-control float-right text" name="useranomes"
-                                                            id="useranomes"  focusNext tabindex="2" 
-                                                            title="# de la planilla">
-                                                    </div>
+                                             <div class="card card-primary card-outline">
+                                                <div class="row pb-2">   
                                                     <div class="col-12 col-lg-3 col-sm-12 col-md-12">                                                        
                                                         <label for="">AÑO:</label>
-                                                        <input type="text" class="form-control text" name="ano"
-                                                            id="ano_ctrl"  focusNext tabindex="2" 
-                                                            title="Año de control deposiciones">
+                                                        <input type="text" class="form-control text bg-info" name="ano"
+                                                            id="ano"  focusNext tabindex="1" 
+                                                            title="Año de control deposiciones" disabled>
                                                     </div> 
                                                     <div class="col-12 col-lg-5 col-sm-12 col-md-12">                                                        
                                                         <label for="">Mes</label>
-                                                        <select class="form-control text"
-                                                            name="mes_ctrl" id="mes_ctrl" focusNext tabindex="1">
+                                                        <select class="form-control text bg-info"
+                                                            name="mes_ctrl" id="mes_ctrl" focusNext tabindex="2" disabled>
                                                             <option selected="selected" disable value=" ">Selecione mes</option>
                                                                     <option value="01">Enero</option>
                                                                     <option value="02">Febrero</option>
@@ -93,54 +88,51 @@
                                                                     <option value="11">Noviembre</option>
                                                                     <option value="12">Diciembre</option>
                                                         </select>
-                                                    </div>                                                                                                       
-                                                </div>
-                                            </div>                                            
-                                                <div class="card card-primary card-outline">
-                                                    <div class="row pt-2 pb-2">   
-                                                        <div class="col-lg-6 col-sm-12 col-md-6">                                                        
-                                                            <label for="">Día Ctrl  :</label>
-                                                            <input type="number" class="form-control text" name="ano_ctrl"
-                                                                id="ano_ctrl"  focusNext tabindex="2" min="0"
+                                                    </div>  
+                                                        <div class="col-lg-4 col-sm-12 col-md-4">                                                        
+                                                            <label for="">Día del Ctrl  :</label>
+                                                            <input type="number" class="form-control text" name="dia_ctrl"
+                                                                id="dia_ctrl"  focusNext tabindex="3" min="0"
                                                                 title="Año de control deposiciones">
-                                                        </div>  
-                                                    </div>
+                                                        </div>                                                                                                                                                           
                                                 </div>
                                                     <div class="card card-primary card-outline">
-                                                        <label for="" class="text-center">Cant. de Deposiciones</label>
                                                         <div class="row">
-                                                            
                                                             <div class="col-lg-6 col-sm-12 col-md-6">  
-                                                                <label for="">Día</label>
-                                                                <input type="number" class="form-control text" name="ano_ctrl"
-                                                                    id="ano_ctrl"  focusNext tabindex="2" min="0"
-                                                                    title="Año de control deposiciones">
+                                                                <label for="">Deposiciones Día</label>
+                                                                <input type="number" class="form-control text" name="dia_deposicion"
+                                                                    id="dia_deposicion"  focusNext min="0" tabindex="4"
+                                                                    title="Digite la cantidad de deposicione realizadas en el día">
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12 col-md-6">        
-                                                                    <label for="">Noche</label>
-                                                                    <input type="number" class="form-control text" name="ano_ctrl"
-                                                                        id="ano_ctrl"  focusNext tabindex="2" min="0"
-                                                                        title="Año de control deposiciones"> 
+                                                                    <label for="">Deposiciones Noche</label>
+                                                                    <input type="number" class="form-control text" name="noche_deposicion"
+                                                                        id="noche_deposicion"  focusNext min="0" tabindex="5"
+                                                                        title="Año de la planilla"> 
                                                             </div>                                                                                                                                   
-                                                               {{--  <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="deposicion_dia">
-                                                                    <label class="form-check-label" style="font-size: 1.2em" for="flexCheckDefault">
-                                                                     Deposiciones en el Día
-                                                                    </label>
-                                                                  </div>
-                                                                  <div class="form-check">
-                                                                    <input class="form-check-input"  type="checkbox" value="" id="flexCheckChecked" name="deposicion_noche">
-                                                                    <label class="form-check-label" style="font-size: 1.2em" for="flexCheckChecked">
-                                                                      Deposiciones en la Noche
-                                                                    </label>
-                                                                  </div>--}}
                                                         </div>
                                                     </div>
+                                                    <div class="card card-primary card-outline">
+                                                        <div class="row pb-2">
+                                                            <div class="col-lg-12 col-sm-5 col-md-12">
+                                                                <label for="">Cuidador</label>
+                                                                    <select class="select2 select2-danger"
+                                                                    data-dropdown-css-class="select2-primary" style="width: 100%;"
+                                                                    name="empleado_id" id="empleado_id" focusNext tabindex="6" title = "Seleccione la persona encargada de la administracion del medicamento" >
+                                                                    <option selected="selected" disable value="">Seleciona cuidador</option>
+                                                                    @foreach ($deposicionMedMedicos as $depoCtrl)
+                                                                        <option value={{$depoCtrl->id}}>{{$depoCtrl->nombre.' '.$depoCtrl->apellidos}}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>                                                        
+                                                            </div>                                                               
+                                                        </div> <!-- cierre de row -->    
+                                                    </div>                                                    
                                                     <div class="card card-primary card-outline">
                                                         <div class="row">
                                                             <div class="col-lg-12 col-sm-12 col-md-12">                                                        
                                                                 <label for="">Observación</label>
-                                                                <textarea class="form-control text" name="observacion" id="observacion" cols="50" rows="2"></textarea>   
+                                                                <textarea class="form-control text" name="observacion" id="observacion" cols="50" rows="2" tabindex="7"></textarea>   
                                                             </div>
                                                         </div> 
                                                     </div> 
@@ -148,19 +140,21 @@
                                                         <div class="col-lg-12 col-sm-12 col-md-12">
                                                                 <div class="card card-primary card-outline">
                                                                     {{-- <div class="card-body"> --}}
-                                                                            <div class="form-group">
+                                                                            <div class="form-group butonAll">
                                                                                 <button type="button"
-                                                                                    class="btn btn-primary form-group btnSearch btn-md m-2"
-                                                                                    id="btnSearch" name="btnSearch" tabindex="30"><i
+                                                                                    class="btn btn-primary form-group btnSearch btn-md m-1"
+                                                                                    id="btnSearch" name="btnSearch" tabindex="8"><i
                                                                                     class="fa fa-search-location fa-lg" title="Buscar una planilla "></i>
                                                                                     <b>Planillas</b>
                                                                                 </button>                                                                                                 
-                                                                                <button  type="submit" class="btn btn-primary btn-md form-group m-2" title="Guarda en la base de datos el nuevo registr o lactualización"
-                                                                                    focusNext tabindex="19" id="btnSaveAdm" accionBtn="Guardar"name="btnSaveAdm">
+                                                                                <button  type="submit" class="btn btn-primary btn-md form-group m-1" title="Guarda en la base de datos el nuevo registr o lactualización"
+                                                                                    focusNext tabindex="9" id="btnSaveAdm" accionBtn="Guardar"name="btnSaveAdm">
                                                                                     <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i>Guardar
                                                                                 </button>
-                                                                               
-                                                                                    <a href="{{ URL::to('/index_admin_deposiciones') }}" class="btn btn-primary btn-md float-righ  m-2" title="Abandonar la ventana"
+                                                                                <button type="button" class="btn btn-primary form-group btn-md m-1" id="btnCancelAdm" title="Cancela el proceso actual y limpia cada una de las celdas"
+                                                                                    focusNext tabindex="21"> <i class="fa fa-ban fa-lg"></i> Cancelar
+                                                                                </button>                                                                               
+                                                                                    <a href="{{ URL::to('/index_admin_deposiciones') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
                                                                                         focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                                         style="color:#f30b0b;"></i> Salir</a>    
                                                                             </div>
@@ -168,6 +162,7 @@
                                                                 </div>
                                                         </div>
                                                     </div>                                                    
+                                            </div>
                                         </div>
                                     </div> 
                                         <div class="col-lg-8 col-sm-12 col-md-8 ">
@@ -195,7 +190,6 @@
                                             </div>
                                         </div>
                             </div>                                                                                                    
-                                         
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
                                 <script src="{{ asset('../resources/views/backend/controles_medicos/deposiciones/deposiciones.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
@@ -264,8 +258,18 @@
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
 window.addEventListener('load', () => { 
+    let funcDepo = new DeposicionesCtrl()
+                document.querySelector('#empleado_id').style.display = 'none'
+                // document.querySelector('#total_deposicion')
+                document.querySelector('#observacion').style.display = 'none'  
+                document.querySelector('#dia_ctrl').style.display = 'none'  
+                document.querySelector('#dia_deposicion').style.display = 'none'  
+                document.querySelector('#noche_deposicion').style.display = 'none'   
+                document.querySelector('#btnSaveAdm').style.display = 'none'
+                document.querySelector('#empleado_id').style.display = 'none' 
 
-     let formPlani = document.getElementById('formAddPlanillas')
+        /*PROCEDIMIENTO PARA BUSCAR PLANILLA Y LLENAR*/
+        let formPlani = document.getElementById('formAddDiaPlanillas')
         let btnSearch = document.getElementById('btnSearch');
         btnSearch.addEventListener('click', () => {
             let idUserPlanilla = document.getElementsByName('datosbasicos_id')[0].value 
@@ -311,7 +315,7 @@ window.addEventListener('load', () => {
 
                         ],
                         "destroy": true,
-                        "language":{"url": "../resources/js/espanol.json"}
+                        "language":{"url": "../../resources/js/espanol.json"}
                 }).draw()
                     return true
             })
@@ -319,27 +323,44 @@ window.addEventListener('load', () => {
             $('#example1').on("click", "button.btnCaptura", function () {
                 // formPlani.reset()
                 // var datos = table_user.row($(this).parents("tr")).data();
+
                 let data = table_user.row($(this).parents("tr")).data();
                 
-                console.log(data)
+                document.getElementById("num_plani").innerHTML ='No.'+data.useranomes
+                document.getElementsByName("mes_ctrl")[0].value = data.mes
+                document.getElementsByName('ano')[0].value = data.ano
+                document.getElementsByName('dia_ctrl')[0].value = 0
+                var _idPlanilla = document.getElementsByName('planilla_id')[0].value = data.id
+                document.getElementById('dia_ctrl').focus()
 
-                // fillTablePlanillas(data.id)
+                document.querySelector('#empleado_id').style.display = 'inline'
+                // document.querySelector('#total_deposicion')
+                document.querySelector('#observacion').style.display = 'inline'  
+                document.querySelector('#dia_ctrl').style.display = 'inline'  
+                document.querySelector('#dia_deposicion').style.display = 'inline'  
+                document.querySelector('#noche_deposicion').style.display = 'inline'   
+                document.querySelector('#btnSaveAdm').style.display = 'inline' 
+                document.querySelector('#empleado_id').style.display = 'inline'                
 
-                // funcBasic.asignaValorEdit(data)
 
-                // var texto = document.getElementById("textB")
-                // texto.innerHTML = 'CONSULTANDO EL REGISTRO DE USUARIO'
-                
-                /*Cuando se busca un registro se cambial atributo del input hidden*/
-                // let newNom80 = document.getElementById('accionBotones')
-                // newNom80.setAttribute('accion', "Actualizar");
 
-                // var btnGuardar = document.getElementById('btnSave');
-                // btnGuardar.innerHTML = 'Actualizar'
+                // let numplani = document.getElementById("num_plani").innerHTML ='No.'+data.useranomes
+                // let userId = document.getElementById("user_id").innerHTML
+                // let diaCtrl = document.getElementsByName('dia_ctrl')[0].value  
+                // let diaDepo = document.getElementsByName('dia_desposicion')[0].value  
+                // let nocheDepo = document.getElementsByName('noche_deposicion')[0].value  
+                // let planiId = data.id 
+                // let emplaId = document.getElementsByName('empleado_id')[0].value
+                // let totalDepo = document.getElementsByName('total_deposicion')[0].value = diaDepo+nocheDepo
+                // let observaDepo = document.getElementsByName('observacion')[0].value  
+                             
 
-                // document.getElementById('btnDelete').disabled = false;
-                // document.getElementById('btnSearch').disabled = true;
-                // document.getElementById('btnSaveAdm').disabled = false;
+                console.log(data.id)
+
+                fillTablePlanillas(data.id)
+
+                 document.getElementById('btnSearch').disabled = true;
+                document.getElementById('btnSaveAdm').disabled = false;
             })
     /* FIN DEL CODIGO PARA LLENAR TABLA DEL MODAL DE BUSQUEDA DE LA PLANILLA            
     /************************************************************************/
@@ -349,19 +370,17 @@ window.addEventListener('load', () => {
         document.getElementsByName('ano')[0].value = yyy;  
         document.getElementById('btnSaveAdm').disabled = true;
 
-        fillTablePlanillas()
+        // fillTablePlanillas() //pendiente
 
             // saltarEnter()
             /******************************************************************
              *Valida la existencia de la planilla en el mes y año seleccionado  
             *******************************************************************/
-                let idclienteBasico = document.getElementsByName('datosbasicos_id')[0].value 
                 let _mesChange = document.querySelector('#mes')
                 
                 $( "#mes" ).on( "change", function() {
                     let _ano3 = document.getElementsByName('ano')[0].value
-                    let _mes3 = document.getElementsByName('mes')[0].value 
-                    let locatePlanilla = idclienteBasico+_ano3+_mes3 
+                    let _mes3 = document.getElementsByName('mes_ctrl')[0].value 
                     // alert(locatePlanilla)
                     if (_ano3 <=0){
                         alert('Por favor digite el año...')
@@ -369,11 +388,9 @@ window.addEventListener('load', () => {
                         const validaReg = async () => {
                             await axios.post("{{ URL::to('buscar_planillas')}}", {
                                 data: {
-                                    datosbasicos_id: idclienteBasico,
                                     mes: _mes3,
                                     ano: _ano3, 
                                     okFalse: '02',
-                                    dato_id: locatePlanilla
                                 }                        
                                 }).then((response) => {
                                      console.log(response.data)
@@ -412,53 +429,86 @@ window.addEventListener('load', () => {
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
         selectorGuardar = document.querySelector('#btnSaveAdm')
-        const formEvolQ = document.querySelector('#formAddPlanillas');
+        const formEvolQ = document.querySelector('#formAddDiaPlanillas');
 
-        // _mesletra = meses[_mes3]
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
-                let idclienteBasico3 = document.getElementsByName('datosbasicos_id')[0].value 
-                let _mes3 = document.getElementsByName('mes')[0].value 
-                let _ano3 = document.getElementsByName('ano')[0].value 
-                let _userId = document.getElementsByName('user_id')[0].value 
-                var meses = ["Enero","Febrero", "Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]             
-                // alert(meses[_mes3-1]) 
-                // let _planilla_actual = meses[_mes3]+" de "+_ano3           
-                let _iduserAnoMes = idclienteBasico3+_ano3+_mes3
-                    // let data = new FormData(formEvolQ)
-                    // let valuesDat = [...data.entries()];
-                    // console.log(valuesDat);
+            var meses = ["Enero","Febrero", "Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+            valiCampos = funcDepo.validarCampos()
+            if (valiCampos === "ok"){
+                let _diaDepo    = document.getElementsByName('dia_deposicion')[0].value 
+                let _nocheDepo  = document.getElementsByName('noche_deposicion')[0].value
+                let _diaCtrl    = document.getElementsByName('dia_ctrl')[0].value
+                let _mesCtrl    = document.getElementsByName('mes_ctrl')[0].value
+                let _totalDepo  = Number(_diaDepo)+Number(_nocheDepo)
+                if(_totalDepo === 0){
+                    Swal.fire({
+                        title: '!ALERTA! Se guardará este día: '+_diaCtrl+' '+'de la planilla de: '+meses[Number(_mesCtrl)-1]+' '+'sin deposiciones, Está seguro de Continuar?',
+                        text: "!No podrás revertir el proceso!", 
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Continuar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {                
+                            const desposicionesPlanilla = async () => {
+                                await axios.post("{{URL::to('/store-dia-planilla')}}",{
+                                        data: {
+                                            observacion : document.getElementsByName('observacion')[0].value,
+                                            dia_ctrl : Number(_diaCtrl),
+                                            dia_deposicion : document.getElementsByName('dia_deposicion')[0].value,
+                                            noche_deposicion :document.getElementsByName('noche_deposicion')[0].value,
+                                            total_deposiciones : _totalDepo,
+                                            empleado_id : document.getElementsByName('empleado_id')[0].value,
+                                            planilla_id : document.getElementsByName('planilla_id')[0].value,
+                                            user_id: document.getElementsByName('user_id')[0].value
+                                        }                
+                                    }).then((resp) => {
+                                        // console.log(resp.data)
+                                        console.log(resp.data['message'])
+                                        if(resp.data['message']=="Success"){
+                                            document.getElementById('btnSaveAdm').disabled = true;
+                                            document.getElementsByName('dia_ctrl')[0].value  =""
+                                            document.getElementsByName('dia_desposicion')[0].value =""
+                                            document.getElementsByName('noche_deposicion')[0].value =""
+                                            document.getElementsByName('empleado_id')[0].value = " "
+                                            document.getElementsByName('observacion')[0].value = ""
+                                            document.getElementsByName('planilla_id')[0].value =""
 
-                         const desposicionesPlanilla = async () => {
-                            await axios.post("{{URL::to('/store-planilla')}}",{
-                                data: {
-                                    datosbasicos_id: idclienteBasico3,
-                                    mes: _mes3,
-                                    ano: _ano3,
-                                    useranomes: _iduserAnoMes,
-                                    mes_letra: meses[_mes3-1],
-                                    user_id: _userId
-                                }                
-                            }).then((resp) => {
-                                // console.log(resp.data)
-                                console.log(resp.data['message'])
-                                if(resp.data['message']=="Success"){
-                                    document.getElementById('btnSaveAdm').disabled = true;
-                                    $("#mes").val(" ").trigger('change.select2');
+                                            document.querySelector('#observacion').style.display = 'none'  
+                                            document.querySelector('#dia_ctrl').style.display = 'none'  
+                                            document.querySelector('#dia_deposicion').style.display = 'none'  
+                                            document.querySelector('#noche_deposicion').style.display = 'none'   
+                                            document.querySelector('#btnSaveAdm').style.display = 'none'
+                                            document.querySelector('#empleado_id').style.display = 'none'                                      
 
-                                    fillTablePlanillas()                     
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'PERFECTO',
-                                        text: 'La Planilla se GUARDÓ Correctamente',
-                                        footer: ''
+                                            // fillTablePlanillas() pendiente                    
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'PERFECTO',
+                                                text: 'Este día se GUARDÓ en la planilla Correctamente',
+                                                footer: ''
+                                            })
+                                        }
                                     })
-                                }
-                            })
-                            
-                    }
-                    desposicionesPlanilla()
-                })
+                            }
+                            desposicionesPlanilla()
+                        }else{
+                            document.getElementById('dia_deposicion').focus()
+                        }
+                    })
+                }
+            }else{
+                Swal.fire({
+                        icon: 'error',
+                        title: 'El Formulario Tiene Datos Incompletos *',
+                        text: valiCampos,
+                        footer: ''
+                    })
+            }    
+        })
 
             $('#example2').on("click", "button.btnCaptura", function () {
                 let data = table.row($(this).parents("tr")).data();
@@ -495,7 +545,7 @@ window.addEventListener('load', () => {
                                         text: 'Se ANULO la planilla con exito',
                                         footer: ''
                                     })
-                                    fillTablePlanillas()
+                                    // fillTablePlanillas() //pendiente
                                 }    
 							}).catch(function(error) {
 								Swal.fire({
@@ -527,30 +577,30 @@ window.addEventListener('load', () => {
             })
 })
 
-  /*******************************************************
-     * Llenar la tabla del de las asignaciones de medicamentos
-     * *****************************************************/    
+    /*******************************************************
+     * Llenar la tabla del de la PLANILLA DEL MES SELECICONADO
+     ******************************************************/    
     function fillTablePlanillas(){
         
         let idasigmedic = document.getElementsByName('datosbasicos_id')[0].value 
-        
-                table = $('#example2').DataTable({
+
+            table = $('#example2').DataTable({
                     scrollY: '300px',
                 "ajax": {
                         "type": "POST",
                         "dataType": 'json',
-                        "data": {okFalse: "01",datosbasicos_id: idasigmedic},
-                        "url": "{{ URL::to('/buscar-add-planillas') }}",
+                        "data": {okFalse: "01",planilla_id: _idPlanilla},
+                        "url": "{{ URL::to('/buscar-add-plani_dia') }}",
                         "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         "dataSrc": ""
                     },
                     "columns": [
-                        {"data": "id"},
                         {"data": "dia_ctrl"},
                         {"data": "dia_deposicion"},
                         {"data": "noche_deposicion"},
-                        {"data": "observacion"},
-                        {"data": "num_veces"}
+                        {"data": "total_deposiciones"},
+                        {"data": "cuidador"},
+                        {"data": "observacion"}
                     ],
                      columnDefs: [{
                             targets: 5,
