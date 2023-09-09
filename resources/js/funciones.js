@@ -265,7 +265,13 @@ function quitarcomas(){
 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   */
-}
+ }
+ function diasDelMes(_ano,_mes){
+  let diasMes = Date.getDaysInMonth(_ano, _mes) 
+  // let primerDia = Date.today().moveToFirstDayOfMonth(01)   // Returns the first day of the current month.
+  // let ultimoDia = Date.today().moveToLastDayOfMonth(01)    // Returns the last day of the current month.
+  return diasMes
+ }
 
 
 

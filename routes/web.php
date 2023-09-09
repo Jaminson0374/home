@@ -225,6 +225,7 @@ Route::get('/create_add_deposiciones/{idUserMed}', [App\Http\Controllers\Deposic
 Route::post('/store-dia-planilla', [App\Http\Controllers\DeposicionesController::class, 'store'])->name('StoreDiaPlanilla');
 Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::class, 'buscarPlaniDepo'])->name('BuscarPlaniDepo');
 Route::post('/buscar-add-plani_dia', [App\Http\Controllers\DeposicionesController::class, 'buscarAddPlanillas'])->name('BuscaraDDPlaniDepo');
+Route::post('/destroy-dia-plani', [App\Http\Controllers\DeposicionesController::class, 'destroy'])->name('DestryDiaPlani');
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros
 //*********************************************************************

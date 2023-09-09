@@ -54,12 +54,13 @@ class DeposicionesController extends Controller
             // return $meses[];
             
             $showAddAsignaPlanillas = DB::table('deposiciones')
-            ->where('deposicion_planilla.datosbasicos_id','=',$request->datosbasicos_id)
-            ->where("anulado", "=", NULL)
+            ->where('deposiciones.planilla_id','=',$request->planilla_id)
+            ->where("deposiciones.anulado", "=", NULL)
             ->join('empleados', 'deposiciones.empleado_id','=','empleados.id')
-            ->select('deposiciones.dia_ctrl','deposiciones.dia_deposicion','deposiciones.noche_deposicion',
-            'deposiciones.total_deposiciones','deposiciones.observaciones','deposiciones.empleado_id', 
-            DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as cuidador'), 'deposicion.empleado_id')->get(); 
+            ->select("deposiciones.id",'deposiciones.planilla_id','deposiciones.dia_ctrl','deposiciones.dia_deposicion',
+            'deposiciones.noche_deposicion','deposiciones.total_deposiciones','deposiciones.empleado_id', 
+            DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as cuidador'), 
+            'deposiciones.observacion','empleados.num_documento')->get(); 
             return $showAddAsignaPlanillas;    
 
         }else if($request->data['okFalse']== "02"){ // validar la existencia del día en la planilla
@@ -122,8 +123,20 @@ class DeposicionesController extends Controller
         //
     }
 
-    public function destroy(DesposicionesModel $desposicionesModel)
+    public function destroy(Request $request, DesposicionesModel $desposicionesModel)
     {
-        //
-    }
+                // return $request->data['id'];
+                try {
+                    DB::beginTransaction();
+                        $nPlani =$request->data['id'];
+                        $numPlanilla = DesposicionesModel::findOrFail($nPlani);
+                        $numPlanilla->anulado = "S";
+                        $numPlanilla->save();  
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    return response()->json(['message' => 'Error']);
+                }
+                return response()->json(['message' => 'Success']);        
+        }
 }

@@ -7,13 +7,14 @@ class DeposicionesCtrl {
 	validarCampos() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
 		let _empleados_id = document.getElementsByName('empleado_id')[0].value
 		let _diaCtrl = document.getElementsByName('dia_ctrl')[0].value
+		// alert(_empleados_id)
 		let camposForm = "";
-		let campoText = "ok";
+		let campoText = " ";
 		switch (campoText) {
 			case _empleados_id:  
 				campoText ="Debe seleccionar el cuiador o responsable del control de las deposiciones"
-					document.getElementById('empleado_id').focus()
-					break;
+				document.getElementById('empleado_id').focus()
+				break;
 			case _diaCtrl:
 				campoText ="Digite el dia en el cual el usuario realizó las deposiciones"
 				document.getElementById('dia_ctrl').focus()

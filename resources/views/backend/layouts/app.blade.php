@@ -72,7 +72,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Derechos reservados &copy; 2023 <a href="https://www.fundaroca.org/">PC-Soft.com.co</a>.</strong>
+    <strong>Derechos reservados &copy; 2023 <a href="https://www.fundaroca.org/">www:/Fundación Hogar la Roca</a>.</strong>
     todos los derechos reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
@@ -148,6 +148,11 @@
 <!-- toastr -->
 <script src="{{asset('toastr/toastr.min.js')}}"></script>
 <script src="{{asset('sweetalert2/sweetalert2.all.min.js')}}"></script>
+
+<!-- plugin de date-->
+<script src="{{asset('backend/Datejs-master/build/date.js')}}"></script>
+<script src="{{asset('backend/Datejs-master/build/date-es-CO.js')}}"></script> 
+
 
 <!-- ./Plugin DataTable Externa -->
 {{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
@@ -232,11 +237,10 @@ $(document).on("click", "#delete", function(e){
       "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false,
       "responsive": true,
       "scroll": true,
       "scrollx": true, 
-      "scrolly": true,    
+      "scrolly": true, 
 
     });
   });

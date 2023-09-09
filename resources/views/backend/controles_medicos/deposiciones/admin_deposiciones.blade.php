@@ -16,10 +16,10 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body bg bg-info">
-                <table id="example1" class="table table-bordered table-striped " style="width: 100%">
+              <div class="card-body bg bg-success">
+                <table id="example1" class="table table-bordered table-striped bg bg-primary" style="width: 100%">
                 <b><h4 class="text-white bg-danger" style="font-size: 1.5em">Control de Deposiciones</h2></b>
-                    <thead>
+                    <thead class="bg bg-danger text-white">
                     <tr>
                       <th class="text-center">#</th> 
                       <th class="text-center">Documento</th>
@@ -66,4 +66,12 @@
   </form>
 </div>
   @endsection 
+  <script>
+    window.addEventListener('load', () =>{
+      $('#example1').DataTable({
+        destroy: "true",
+         scrollY: "500px",
+      })
+    })
+  </script>
  
