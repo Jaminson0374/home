@@ -227,7 +227,25 @@ Route::post('/buscar-plani-depo', [App\Http\Controllers\DeposicionesController::
 Route::post('/buscar-add-plani_dia', [App\Http\Controllers\DeposicionesController::class, 'buscarAddPlanillas'])->name('BuscaraDDPlaniDepo');
 Route::post('/destroy-dia-plani', [App\Http\Controllers\DeposicionesController::class, 'destroy'])->name('DestryDiaPlani');
 
-//https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registros
+//*********************************************************************
+//CONTROLES MEDICOS - CONTROL DE GLUCOMETRIA                          *
+//*********************************************************************/
+Route::get('/index_admin_glucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'index'])->name('AdminGlucometriaUser');
+Route::get('/create-ctrglucometria/{idUserMed}', [App\Http\Controllers\CtlGlucometriaController::class, 'create'])->name('CreateCtrGlucometria');
+Route::post('/store-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'store'])->name('storeCtrGlucometria');
+Route::post('/show-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'show'])->name('ShowCtrGlucometria');
+Route::post('/destroy-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'destroy'])->name('DestroyCtrGlucometria');
+
+//*********************************************************************
+//CONTROLES MEDICOS - CONTROL DE GLUCOMETRIA                          *
+//*********************************************************************/
+Route::get('/index_visitas_pro', [App\Http\Controllers\VisitaProfesionalesController::class, 'index'])->name('VisitasProfesionales');
+Route::get('/create-visitas-pro/{idUserMed}', [App\Http\Controllers\VisitaProfesionalesController::class, 'create'])->name('CreateVisitasPro');
+// Route::post('/store-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'store'])->name('storeCtrGlucometria');
+// Route::post('/show-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'show'])->name('ShowCtrGlucometria');
+// Route::post('/destroy-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'destroy'])->name('DestroyCtrGlucometria');
+
+//https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registro
 //*********************************************************************
 //                               CONTABILIDAD                         *
 //*********************************************************************/

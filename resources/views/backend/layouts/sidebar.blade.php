@@ -134,12 +134,23 @@
                 </a>
               </li>                                                 
               <li class="nav-item">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+                <a href="{{URL::to('/index_admin_glucometria')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Glucometría</p>
+                  <p>Ctrl Glucometría</p>
                 </a>
               </li>
-                                      
+              <li class="nav-item">
+                <a href="{{URL::to('/admin-clientes-Citas')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ctrl signos vitales</p>
+                </a>
+              </li>                                                 
+              <li class="nav-item">
+                <a href="{{URL::to('/index_visitas_pro')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Visita Profesionales</p>
+                </a>
+              </li>                                      
             </ul>
           </li>
 

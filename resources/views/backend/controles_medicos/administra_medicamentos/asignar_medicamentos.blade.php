@@ -197,7 +197,7 @@
                                             <div class="col-lg-12 col-sm-12 col-md-12">
                                                 <div class="card card-warning card-outline">
                                                         <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
-                                                            <table id="example2" class="table table-bordered table-striped table-hover table-responsive" style="width: 100%">
+                                                            <table id="example2" class="table table-bordered table-striped table-hover" style="width: 100%">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Medicamento</th>

@@ -178,8 +178,8 @@
                                                 <div class="card card-warning card-outline">
                                                         <div class=" container col-lg-12 col-sm-12 col-md-12 bg-primary text-white"> 
                                                             {{-- table-responsive --}}
-                                                            <table id="example2" class="table table-bordered table-striped table-hover bg-danger text-white" style="width: 100%">
-                                                                <thead class="bg bg-success">
+                                                            <table id="example2" class="table table-bordered table-striped table-hover text-dark font-weight-bold"  style="width: 100%; background-color: hsl(125, 85%, 79%)">
+                                                                <thead class="bg bg-success" style="">
                                                                     <tr>
                                                                         <th>Fecha Dia</th>
                                                                         <th class="text-center">De Día</th>

@@ -97,9 +97,9 @@
                                         <div class="col-lg-8 col-sm-12 col-md-8 ">
                                             <div class="col-lg-12 col-sm-12 col-md-12">
                                                 <div class="card card-warning card-outline">
-                                                        <div class="col-lg-12 col-sm-12 col-md-12 bg-success"> 
-                                                            <table id="example2" class="table table-bordered table-striped table-hover table-responsive" style="width: 100%">
-                                                                <thead>
+                                                        <div class="col-lg-12 col-sm-12 col-md-12 bg bg-warning"> 
+                                                            <table id="example2" class="table table-bordered table-striped table-hover font-weight-bold bg-success" style="width: 100%">
+                                                                <thead class="bg-dark text--white">
                                                                     <tr>
                                                                         <th>#</th>
                                                                         <th>Año</th>
@@ -131,7 +131,7 @@
                                                         <div class="form-group">
                                                             <button  type="submit" class="btn btn-primary btn-lg form-group" title="Guarda en la base de datos el nuevo registr o lactualización"
                                                                 focusNext tabindex="19" id="btnSaveAdm" accionBtn="Guardar"name="btnSaveAdm">
-                                                                <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Crear Planilla
+                                                                <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i> Guardar la Planilla
                                                             </button>
                                                                 <a href="{{ URL::to('/index_admin_deposiciones') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                                     focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
@@ -296,7 +296,7 @@
         let idasigmedic = document.getElementsByName('datosbasicos_id')[0].value 
         
                 table = $('#example2').DataTable({
-                    scrollY: '300px',
+                    scrollY: '450px',
                 "ajax": {
                         "type": "POST",
                         "dataType": 'json',
