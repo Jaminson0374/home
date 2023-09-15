@@ -2,45 +2,28 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class CtrlGlucometria {
+class SeguiTerapia {
 
 	validarCampos() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
-		 let _glucometria = document.getElementsByName('glucometria')[0].value
-		 let _fecha = document.getElementsByName('fecha')[0].value
-		 let _observaciones = document.getElementsByName('observaciones')[0].value
-		 let _horaTime = document.getElementsByName('horaTime')[0].value
-		 let _minutoTime = document.getElementsByName('minutoTime')[0].value
-		 let _ampmTime = document.getElementsByName('ampmTime')[0].value
+		 let _fecha_ini = document.getElementsByName('fecha_ini')[0].value
+		 let _fecha_fin = document.getElementsByName('fecha_fin')[0].value
+		 let _num_sesiones = document.getElementsByName('num_sesiones')[0].value
+		 let _proceso_medico_id  = document.getElementsByName('proceso_medico_id')[0].value
 
-		 let _empleado_id = $("#empleado_id").val()
-
-		let camposForm = "";
-		let campoText = "";
-		if (camposForm) {
-            }else if(_fecha === ""){
-                campoText ="Debe seleccionar el fecha del control"
-                document.getElementById('fecha').focus()                
-			}else if(_horaTime === ""){  
-				campoText ="Digite la hora"
-				document.getElementById('horaTime').focus()
-			}else if(_ampmTime === ""){  
-				campoText ="Debe seleccionar AM o PM"
-				document.getElementById('ampmTime').focus()
-			}else if(_glucometria === ""){ 
-					campoText ="Digite el valor de la glucometría"
-					document.getElementById('glucometria').focus()
-            }else if(_empleado_id === ""){  
-					campoText ="Debe seleccionar cuidador de turno"
-					document.getElementById('empleadi_id').focus()                    
+		let campoText = " ";
+		if (_proceso_medico_id === ""){  
+			campoText ="Seleccione el proceso de terapia o actividad"
+			document.getElementById('proceso_medico_id').focus()
+            }else if(_fecha_ini === ""){
+                campoText ="Debe seleccionar el fecha inicial"
+                document.getElementById('fecha_ini').focus()      
+            }else if(_fecha_fin === ""){
+                campoText ="Debe seleccionar el fecha final"
+                document.getElementById('fecha_fin').focus()      				          
 			}
-		return campoText;
+			return campoText;
 	} 
 
-	accionConsulta(){
-		let saveAccion = "Actualizar"
-		let newNom100 = document.getElementById('accionBotones')
-		newNom100.setAttribute('accion', `${saveAccion}`);
-	}
 	
 	clearElements(){
 
@@ -53,7 +36,6 @@ class CtrlGlucometria {
 
 	}
 	
-
 	/*Función para concatenar la hora, para guardarla en la dbf*/
 
 	horaText(){
@@ -82,12 +64,12 @@ class CtrlGlucometria {
             console.log('hora:'+hTT)
             if (hTT < 0 || hTT > 12 ) {
 				document.getElementById('horaTime').focus()
-                document.getElementById('enviar').disabled = true;
+                document.getElementById('btnSaveAdm').disabled = true;
 
                 document.getElementById('message').innerHTML = "Error en la hora establecida, la hora de estar entre 01 y 12"
 		        document.querySelector('.message').style.display = 'inline'
             }else{
-                document.getElementById('enviar').disabled = false;
+                document.getElementById('btnSaveAdm').disabled = false;
                 document.querySelector('.message').style.display = 'none'
             }            
         })
@@ -97,20 +79,20 @@ class CtrlGlucometria {
             // console.log('minutos:'+mTT)
             if ( mTT < 0 || mTT > 59 ) {
 				document.getElementById('minutoTime').focus()
-                document.getElementById('enviar').disabled = true;
+                document.getElementById('btnSaveAdm').disabled = true;
                
                 document.getElementById('message').innerHTML = "Error en los Minutos establecidos, Los minutos deben estar entre 00 y 59"
 		        document.querySelector('.message').style.display = 'inline'
             }else{
 
-                document.getElementById('enviar').disabled = false;
+                document.getElementById('btnSaveAdm').disabled = false;
                 document.querySelector('.message').style.display = 'none'
             }            
         })		        		
 	}
 
 	/*llenar input date con la fecha actual*/
-	fecha_actual(fecha4){
+	fecha_actual(){
 		var fecha = new Date(); //Fecha actual
 		var mes = fecha.getMonth()+1; //obteniendo mes
 		var dia = fecha.getDate(); //obteniendo dia
@@ -119,7 +101,7 @@ class CtrlGlucometria {
 		  dia='0'+dia; //agrega cero si el menor de 10
 		if(mes<10)
 		  mes='0'+mes //agrega cero si el menor de 10
-		document.getElementsByName('fecha')[0].value=ano+"-"+mes+"-"+dia;		
+		document.getElementById('fecha_inicio').value=ano+"-"+mes+"-"+dia;		
 	}
 	
 	/*Función que Convierte la fecha elegida en texto Ej. Domingo 30 de junio de 2023*/
@@ -141,5 +123,6 @@ class CtrlGlucometria {
 
         document.getElementById('fechaLetras').innerHTML = fecha_formateada;                		
 	}
+
 }
 

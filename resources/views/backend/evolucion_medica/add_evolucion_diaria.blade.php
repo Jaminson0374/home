@@ -55,19 +55,19 @@
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNewEvol" id="presBtnNewEvol" value="N">
                                             <div class="row border mb-2">
-                                                <div class="col-12 col-lg-2 col-sm-4 border"><h3><b>Hora y fecha de proceso:</b></h3></div>  
-                                                <div class="col-12 col-lg-3 col-sm-5 col-md-2 border">
+                                                <div class="col-12 col-lg-2 col-sm-12 border"><h3><b>Hora y fecha de proceso:</b></h3></div>  
+                                                <div class="col-12 col-lg-3 col-sm-12 col-md-2 border">
                                                         <label for=""><h5><b>Fecha:</b></h5></label>
                                                         <input type="date" class="form-control text text" name="fecha"
                                                             id="fecha" title="Digite en que se realiza este proceso" focusNext tabindex="1">
                                                 </div>
 
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border">
                                                     <label for="" class=""><h5><b>Hora:</b></h5></label>
                                                     <input type="time" class="form-control text" name="hora" max="24:00:00" min="01:00:00" step="1" id="hora"
                                                     style="height: 40px" title="Hora de la atención médica" focusNext tabindex="2">
                                                 </div>                                                    
-                                                <div class="col-12 col-lg-5 col-md-4 col-sm-2 pb-2 border">
+                                                <div class="col-12 col-lg-5 col-md-4 col-sm-12 pb-2 border">
                                                     <label for=""><h5><b>Quien realiza el proceso?</b></h5></label>
                                                         <select class="select2 select2-danger text"
                                                         data-dropdown-css-class="select2-primary" style="width: 100%;"
@@ -81,20 +81,20 @@
                                                 </div>                          
                                             </div> <!--cierre de row -->
                                             <div class="row border mb-2 bg-primary">
-                                                <div class="col-12 col-lg-2 col-sm-2 border"><h3><b>Patología:</b></h3></div>  
-                                                    <div class="col-12 col-lg-10 col-sm-10 col-md-10 border">
+                                                <div class="col-12 col-lg-2 col-sm-12 border"><h3><b>Patología:</b></h3></div>  
+                                                    <div class="col-12 col-lg-10 col-sm-12 col-md-10 border">
                                                         <textarea type="text" class="form-control text text mt-2 mb-2" rows="1" id="diagnostico" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" focusNext tabindex = "4" disabled = "true" >{{$datosRow->diagnostico}}</textarea>
                                                     </div>   
                                             </div>
                                             <div class="row border mb-2">
-                                                <div class="col-12 col-sm-2 col-lg-2 border"><h3><b>Subjetivo:</b></h3></div>  
+                                                <div class="col-12 col-sm-12 col-lg-2 border"><h3><b>Subjetivo:</b></h3></div>  
                                                     <div class="col-sm-12 col-md-10 col-lg-10 border">
                                                         <textarea type="text" class="form-control text mt-2 mb-2" rows="1" id="subjetivo" name="subjetivo" title="Se registra como se siente el paciente según de lo que explique o de lo que el profesional observe."
                                                         placeholder="Describa sobre cómo se siente el paciente según de lo que explique o de lo que el profesional observe." focusNext tabindex="5"></textarea>
                                                     </div>   
                                             </div>
                                             <div class="row border bg-danger">
-                                                <div class="col-12 col-sm-2 col-lg-2 border"><h4><b>Apreciación:</b></h4></div>  
+                                                <div class="col-12 col-sm-12 col-lg-2 border"><h4><b>Apreciación:</b></h4></div>  
                                                     <div class="col-sm-12 col-md-10 col-lg-10 border">
                                                         <textarea type="text" class="form-control text mt-2 mb-2" rows="2" id="apreciacion" name="apreciacion" title="Se escriben los diagnósticos y luego, se debe escribir un comentario sobre la evolución del paciente, exámenes auxiliares nuevos, incidentes, diagnósticos nuevos."
                                                         placeholder="Describa los diagnósticos y escriba un comentario sobre la evolución del paciente, exámenes auxiliares nuevos, incidentes, diagnósticos nuevos." focusNext tabindex="13"></textarea>
@@ -102,7 +102,7 @@
                                             </div>
                                 
                                             <div class="row border">
-                                                <div class="col-12 col-sm-4 col-md-3 col-lg-2 border">
+                                                <div class="col-12 col-sm-12 col-md-3 col-lg-2 border">
                                                     <label for="" class="col-form-label "><h4><b>Tipo Evolución:</b></h4></label>
                                                 </div>
                                                 <div class="col-sm-12 col-lg-3 col-md-3 col-lg-5 border">
@@ -115,7 +115,7 @@
                                                 </div>        
                                             </div> 
                                             <div class="row border bg-primary">
-                                                <div class="col-12 col-sm-10 col-md-2 col-lg-2 border"><h4><b>Plan a seguir:</b></h4></div>  
+                                                <div class="col-12 col-sm-12 col-md-2 col-lg-2 border"><h4><b>Plan a seguir:</b></h4></div>  
                                                     <div class="col-sm-12 col-md-10 col-lg-10 border">
                                                         <textarea type="text" class="form-control text mt-2 mb-2" rows="1" id="plan" name="plan" title="En este apartado se coloca en plan diagnostico o terapeutico a seguir"
                                                         placeholder="Describa el plan diagnostico o terapeutico a seguir" focusNext tabindex="14"></textarea>

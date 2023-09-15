@@ -78,6 +78,33 @@
               </li>          
             </ul>
           </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                MIS COLABORADORES
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{URL::to('/empledadosIndex')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Empleados</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/add-user-index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Personal Externo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -150,36 +177,15 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Visita Profesionales</p>
                 </a>
-              </li>                                      
+              </li>    
+              <li class="nav-item">
+                <a href="{{URL::to('/index-seguimto-terapia')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Seguimto Terapia</p>
+                </a>
+              </li>                                                        
             </ul>
           </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
-              <p>
-                MIS COLABORADORES
-                <i class="fas fa-angle-left right"></i>
-                <!-- <span class="badge badge-info right">6</span> -->
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{URL::to('/empledadosIndex')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Empleados</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{URL::to('/add-user-index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Informes</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>

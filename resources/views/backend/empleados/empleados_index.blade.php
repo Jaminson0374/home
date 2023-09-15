@@ -27,8 +27,8 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body" style="background-color: rgb(0, 255, 162)">
-                <table id="example1" class="table table-bordered table-striped table-hover ">
-                <thead>
+                <table id="example2" class="table table-bordered table-striped table-hover bg-primary">
+                <thead class="bg-warning">
                     <tr>
                       <th>Id</th>  
                       <th>DocIdent</th> 
@@ -72,77 +72,18 @@
     </section>
     <!-- /.content -->
 
-       {{-- <script src={{ asset('../resources/js/datos_basicos.js')}}></script> --}}
   
   </form>
 </div>
-{{-- <script src="{{ asset('/backend/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/popper.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.js') }}"></script> --}}
 <script>
-    /*******************************************************
-     * Llena la tabla del modal para la busqueda de clientes
-     * *****************************************************/
-    //  let btnServicio = document.getElementById('btnServicio');
 
-// window.addEventListener('load', () => {
-    async function aplicarServicio(idCliente) {
-      // window.location.assign("{{URL::to('/asignar-servicio')}}")
-  alert('jdkhaskdhaskhd')
-        let data = new FormData();
-        // data.append("id", idCliente);
+    // window.addEventListener('load', () => {
+    //     tabla2 = $('#example2').DataTable({
+    //       destroy : "true",
 
-             await axios.get("{{ URL::to('/asignar-servicio1')}}",data,{}).then((resp) => {
-                alert('entra')
-                    let dataRepuesta = resp.data;
-
-                    console.log(dataRepuesta)
-                    alert(dataRepuesta)
-                }).catch((error) => {
-                  alert(error)  
-                  console.log(error);
-                })
-                // aplicarServicio()
-           }
-          // })
+    //     })
+    // })
  
 </script>
-      // {{-- <script type="text/javascript"> 
-      //   window.onload =() => {
-      //     let bodyTablaClientes = document.getElementById("bodyTabla");
-      //     axios.get("{{URL::to('/admin-clientes')}}").then((res)=>{
-      //       //let response =JSON.parse(res.data.costo_servicio);
-      //       let data = res.data;
-      //      console.log(data);
-
-           
-      //       bodyTablaClientes.innerHTML="";
-          
-      //      for (let datoJson of data){
-      //      bodyTablaClientes.innerHTML+=`
-      //                 <tr>
-      //                   <td>${datoJson.num_documento}</td>
-      //                   <td>${datoJson.nombre+" "+datoJson.apellidos}</td>
-      //                   <td>${datoJson.edad}</td>                              
-      //                   <td>${datoJson.telefonos_user}</td>
-      //                   <td">${datoJson.descripcion}</td>
-                 
-      //                   <td>
-      //                       <a href="{{URL::to('/edit-cliente/.${datoJson.id}') }}" class="btn btn-info btn-md">Editar</a>
-      //                       <a href="{{URL::to('/delete-cliente/.${datoJson.id}') }}" class ="btn btn-danger btn-md" id="delete_cli">Eliminar</a>
-      //                   </td>
-      //               </tr>` 
-
-      //      }
-      //     }).catch((error)=>{
-      //          console.log(error);
-      //     })
-      //   } 
-      //   </script> --}}
-       
-       {{-- class="text-center" --}}
-
-
   @endsection 
  

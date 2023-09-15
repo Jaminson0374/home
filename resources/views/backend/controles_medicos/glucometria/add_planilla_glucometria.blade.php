@@ -131,7 +131,7 @@
                                                             <th>#</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Glucometria</th>
+                                                            <th>Glucometria mg/dl</th>
                                                             <th>Cuidador</th>
                                                             <th>Acción</th>
                                                         </tr>                                                            

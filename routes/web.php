@@ -214,7 +214,7 @@ Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserCont
 //*********************************************************************/
 Route::get('/index_admin_deposiciones', [App\Http\Controllers\DeposicionPlanillaController::class, 'index'])->name('AdminDesposicionesUser');
 Route::get('/create_planilla_deposiciones/{idUserMed}', [App\Http\Controllers\DeposicionPlanillaController::class, 'create'])->name('CreatePlanillaDeposiciones');
-Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaController::class, 'buscar_planillas'])->name('BuscarPlanillas');
+Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaControllerer::class, 'buscar_planillas'])->name('BuscarPlanillas');
 Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'store'])->name('StorePlanilla');
 Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
 
@@ -237,13 +237,30 @@ Route::post('/show-ctrglucometria', [App\Http\Controllers\CtlGlucometriaControll
 Route::post('/destroy-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'destroy'])->name('DestroyCtrGlucometria');
 
 //*********************************************************************
-//CONTROLES MEDICOS - CONTROL DE GLUCOMETRIA                          *
+//CONTROLES MEDICOS - CONTROL DE VISITAS DE PROFESIONALES                         *
 //*********************************************************************/
 Route::get('/index_visitas_pro', [App\Http\Controllers\VisitaProfesionalesController::class, 'index'])->name('VisitasProfesionales');
 Route::get('/create-visitas-pro/{idUserMed}', [App\Http\Controllers\VisitaProfesionalesController::class, 'create'])->name('CreateVisitasPro');
-// Route::post('/store-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'store'])->name('storeCtrGlucometria');
-// Route::post('/show-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'show'])->name('ShowCtrGlucometria');
-// Route::post('/destroy-ctrglucometria', [App\Http\Controllers\CtlGlucometriaController::class, 'destroy'])->name('DestroyCtrGlucometria');
+Route::post('/store-visita-pro', [App\Http\Controllers\VisitaProfesionalesController::class, 'store'])->name('storeVisitaPro');
+Route::post('/show-visita', [App\Http\Controllers\VisitaProfesionalesController::class, 'show'])->name('ShowVisitas');
+Route::post('/destroy-visita-pro', [App\Http\Controllers\VisitaProfesionalesController::class, 'destroy'])->name('DestroyVisitaPro');
+
+//*********************************************************************
+//CONTROLES MEDICOS - CONTROL DE SEGUIMIENTO A TERAPIAS                         *
+//*********************************************************************/
+/*En esta tabla (terapi_actividad) se ingresan la programación de las sesiones de terapias y/o actividades*/
+/********************************************************************************************* */
+Route::get('/create-terapia/{idUserMed}', [App\Http\Controllers\TerapiaActividadController::class, 'create'])->name('CreateTerapia');
+Route::post('/store-terapia', [App\Http\Controllers\TerapiaActividadController::class, 'store'])->name('StoreTerapia');
+Route::post('/show-terapia', [App\Http\Controllers\TerapiaActividadController::class, 'show'])->name('ShowTerapia');
+Route::post('/destroy-terapia', [App\Http\Controllers\TerapiaActividadController::class, 'destroy'])->name('DestroyTerapia');
+
+/*En esta Tabla (seguimto_terapia) se ingresan las terapias o actividades realizadas*/
+Route::get('/index-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'index'])->name('IndexSeguimtoTerapia');
+Route::get('/create-seguimto-terapia/{idUserMed}', [App\Http\Controllers\SeguimtoTerapiaController::class, 'create'])->name('CreateSeguimtoTerapia');
+Route::post('/store-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'store'])->name('StoreSeguimtoTerapia');
+Route::post('/show-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'show'])->name('ShowSeguimtoTerapia');
+Route::post('/destroy-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'destroy'])->name('DestroySeguimtoTerapia');
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registro
 //*********************************************************************

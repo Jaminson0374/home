@@ -4,7 +4,9 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- antes se ocultaba el sidebar en sm ahora se hace md --}}
+      {{-- <li class="nav-item d-none d-sm-inline-block"> --}}
+      <li class="nav-item d-none d-md-inline-block">
         <a href="{{asset('/home')}}" class="nav-link">Inicio</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">

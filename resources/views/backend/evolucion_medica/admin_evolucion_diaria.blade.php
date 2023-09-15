@@ -6,7 +6,7 @@
 </head>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper bg-warning">
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
                     @csrf
                     {{-- @method('post') --}}
@@ -26,11 +26,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card ">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="adminEvolucionMedica" class="table table-bordered table-striped">
-                    <thead>
+                <table id="adminEvolucionMedica" class="table table-bordered table-striped bg-success">
+                    <thead class="bg-info">
                     <tr>
                       <th class="text-center">ID</th> 
                       <th class="text-center">Documento</th>

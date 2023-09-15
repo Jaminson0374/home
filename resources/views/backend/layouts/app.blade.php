@@ -120,6 +120,10 @@
 <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+{{-- <script src="{{asset('backend/plugins/datatables/dataTables.editor.min.js')}}"></script> --}}
+
+{{-- <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script> --}}
 <script src="{{asset('backend/plugins/jszip/jszip.min.js')}}"></script>
 <script src="{{asset('backend/plugins/pdfmake/pdfmake.min.js')}}"></script>
 <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
@@ -159,6 +163,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --}}
 <!--    Datatables-->
+
+{{-- hola 13 de septiembre--}}
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
 
 {{-- <script src="{{asset('../resources/js/funciones.js')}}"></script> --}}
@@ -231,39 +237,39 @@ $(document).on("click", "#delete", function(e){
     //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "responsive": true,
-      "scroll": true,
-      "scrollx": true, 
-      "scrolly": true, 
+    // $('#example2').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": true,
+    //   "ordering": true,
+    //   "info": true,
+    //   "responsive": true,
+    //   "scroll": true,
+    //   "scrollx": true, 
+    //   "scrolly": true, 
 
-    });
+    // });
   });
 
-  $('#adminEvolucionMedica').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+  // $('#adminEvolucionMedica').DataTable({
+  //     "paging": true,
+  //     "lengthChange": false,
+  //     "searching": true,
+  //     "ordering": true,
+  //     "info": true,
+  //     "autoWidth": false,
+  //     "responsive": true,
+  //   });
 
-    $('#adminSignosVitales').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+    // $('#adminSignosVitales').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": true,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false,
+    //   "responsive": true,
+    // });
 
   $(document).on("click", "#btnsalir_edit", function(e){
     e.preventDefault();

@@ -2,23 +2,22 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class CtrlGlucometria {
+class VisitasMedicas {
 
 	validarCampos() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
-		 let _glucometria = document.getElementsByName('glucometria')[0].value
 		 let _fecha = document.getElementsByName('fecha')[0].value
-		 let _observaciones = document.getElementsByName('observaciones')[0].value
+		//  let _observaciones = document.getElementsByName('observaciones')[0].value
 		 let _horaTime = document.getElementsByName('horaTime')[0].value
 		 let _minutoTime = document.getElementsByName('minutoTime')[0].value
 		 let _ampmTime = document.getElementsByName('ampmTime')[0].value
-
-		 let _empleado_id = $("#empleado_id").val()
+		 let _empleado_id = document.getElementsByName('empleado_id')[0].value
+		 let _personalexterno_id = document.getElementsByName('personalexterno_id')[0].value
 
 		let camposForm = "";
-		let campoText = "";
+		let campoText = " ";
 		if (camposForm) {
             }else if(_fecha === ""){
-                campoText ="Debe seleccionar el fecha del control"
+                campoText ="Debe seleccionar el fecha de la visita"
                 document.getElementById('fecha').focus()                
 			}else if(_horaTime === ""){  
 				campoText ="Digite la hora"
@@ -26,12 +25,12 @@ class CtrlGlucometria {
 			}else if(_ampmTime === ""){  
 				campoText ="Debe seleccionar AM o PM"
 				document.getElementById('ampmTime').focus()
-			}else if(_glucometria === ""){ 
-					campoText ="Digite el valor de la glucometría"
-					document.getElementById('glucometria').focus()
-            }else if(_empleado_id === ""){  
-					campoText ="Debe seleccionar cuidador de turno"
-					document.getElementById('empleado_id').focus()                    
+            }else if(_personalexterno_id === ""){  
+					campoText ="Debe seleccionar Profesional que lo visita"
+					document.getElementById('personalexterno_id').focus()                    
+			}else if(_empleado_id === ""){ 
+					campoText ="Selecion el cuidador"
+					document.getElementById('empleado_id').focus()
 			}
 		return campoText;
 	} 
@@ -58,10 +57,15 @@ class CtrlGlucometria {
 
 	horaText(){
 		let hhT = document.getElementsByName('horaTime')[0].value
+		let ampm2 ="";
 		let horaT = hhT+":"
 		if(hhT < 10){
 			horaT = "0"+hhT+":"
+			// ampm2="AM";
 		}
+		// if(hhT > 12){
+		// 	ampm2="PM";
+		// }		
 		let mmT = document.getElementsByName('minutoTime')[0].value
 		let minutoT = mmT+" "
 		if(mmT < 10){
@@ -70,23 +74,30 @@ class CtrlGlucometria {
 		if(mmT ==""){
 			minutoT = "00"+mmT+" " 
 		}
-		console.log('hora:'+horaT+' '+'minutos: '+minutoT)
+		// console.log('hora:'+horaT+' '+'minutos: '+minutoT)
 		let ampmT = document.getElementsByName('ampmTime')[0].value
-		document.getElementsByName('horadbf')[0].value = horaT+minutoT+ampmT		
+		document.getElementsByName('hora')[0].value = horaT+minutoT+ampmT		
+		// document.getElementsByName('hora')[0].value = horaT+minutoT+ampm2	
 	}
 
 	/*Función para validar la entrada de los valore la hora y de los minutos*/
 	horaminutos(){
 		$("#horaTime").blur(function(){
             let hTT = document.getElementsByName('horaTime')[0].value
-            console.log('hora:'+hTT)
+            // console.log('hora:'+hTT)
             if (hTT < 0 || hTT > 12 ) {
 				document.getElementById('horaTime').focus()
                 document.getElementById('enviar').disabled = true;
 
                 document.getElementById('message').innerHTML = "Error en la hora establecida, la hora de estar entre 01 y 12"
 		        document.querySelector('.message').style.display = 'inline'
-            }else{
+            }else if(hTT ===""){
+				document.getElementById('horaTime').focus()
+                document.getElementById('enviar').disabled = true;
+
+                document.getElementById('message').innerHTML = "Error digite las hora"
+		        document.querySelector('.message').style.display = 'inline'			
+			}else{
                 document.getElementById('enviar').disabled = false;
                 document.querySelector('.message').style.display = 'none'
             }            
@@ -110,7 +121,7 @@ class CtrlGlucometria {
 	}
 
 	/*llenar input date con la fecha actual*/
-	fecha_actual(fecha4){
+	fecha_actual(){
 		var fecha = new Date(); //Fecha actual
 		var mes = fecha.getMonth()+1; //obteniendo mes
 		var dia = fecha.getDate(); //obteniendo dia
@@ -124,7 +135,7 @@ class CtrlGlucometria {
 	
 	/*Función que Convierte la fecha elegida en texto Ej. Domingo 30 de junio de 2023*/
 	fechaletras(){
-        let fechai = $("#fecha_ingerir").val()
+        let fechai = $("#fecha").val()
         var meses = [
         "Enero", "Febrero", "Marzo",
         "Abril", "Mayo", "Junio", "Julio",
@@ -141,5 +152,6 @@ class CtrlGlucometria {
 
         document.getElementById('fechaLetras').innerHTML = fecha_formateada;                		
 	}
+
 }
 

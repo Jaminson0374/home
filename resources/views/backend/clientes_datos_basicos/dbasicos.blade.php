@@ -70,7 +70,7 @@
                                     <input type="hidden" name="presBtnNew" id="presBtnNew" value="N">
 
                                     <div class="row border mt-2 mb-3 border border-primary">
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary">
                                             <label class=" ">*Tipo Documento</label>
                                             <select class="select2 select2-danger focusNext text"
                                                 data-dropdown-css-class="select2-danger select-sm" class="my-class-drop"
@@ -84,20 +84,20 @@
                                         </div>
                                         <input type="hidden" name="nDdocumento" id="nDdocumento">
 
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="" class="">*Doc Identidad</label>
                                             <input type="text" class="form-control text focusNext pb-2" maxlength="25"
                                                 tabindex="2" name="num_documento" id="num_documento"
                                                 pattern="[A-Za-z0-9]{1,25}" placeholder="Digite No. del documento"
                                                 style="height:40px;">
                                         </div>
-                                        <div class="ccol-12 col-lg-3 col-md-4 col-sm-2 border border-primary">
+                                        <div class="ccol-12 col-lg-3 col-md-4 col-sm-12 border border-primary">
                                             <label for="nombre" class="">*Nombre:</label>
                                             <input type="text" class="form-control text focusNext" maxlength="40"
                                                 tabindex="3" name="nombre" id="nombre" placeholder="Digite Nombre">
                                         </div>
 
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary">
                                             <label for="apellidos" class="">*Apellidos:</label>
                                             <input type="text" class="form-control text focusNext" maxlength="40"
                                                 tabindex="4" name="apellidos" id="apellidos"
@@ -106,14 +106,14 @@
                                     </div> <!--cierra row-->
 
                                     <div class="row border mt-2 mb-3 border border-primary ">
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary  pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary  pb-2">
                                             <label class="">*Nacionalidad</label>
                                             <select class="form-control focusNext text" id="nacionalidad_id"
                                                 name="nacionalidad_id" tabindex="5">
                                                 <option disable value="">País</option>
                                             </select>
                                         </div>
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label class="">*Dpto Nacimiento</label>
                                             <select class="form-control text focusNext" style="width: 100%;" tabindex="6"
                                                 id="departamento_id" name="departamento_id">
@@ -122,7 +122,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label class="">*Ciudad Ncmnto</label>
                                             <select class="form-control sNext text" style="width: 100%;" tabindex="7"
                                                 id="ciudad_id" name="ciudad_id">
@@ -131,7 +131,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="" class="">*F. nacimiento:</label>
                                             <input type="date" class="form-control text focusNext fecha_nacimiento "
                                                 id="fecha_nacimiento" name="fecha_nacimiento" onchange="tuEdadReal()"
@@ -140,12 +140,12 @@
                                     </div> <!--cierra row-->
 
                                     <div class="row border mt-2 mb-3 border border-primary">
-                                        <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-2 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="edad" class="">Edad:</label>
                                             <input type="text" class="form-control text focusNext" name="edad"
                                                 tabindex="9" id="edad" placeholder="Edad">
                                         </div>
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="SelectSexo" class="">*Genero</label>
                                             <select class="form-control focusNext text" id="sexo_id" tabindex="10"
                                                 name="sexo_id">
@@ -157,7 +157,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-2 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="SelectSexo" class="">Grupo RH</label>
                                             <select class="form-control focusNext text" tabindex="11"
                                                 id="grupoSanguineo_id" name="grupoSanguineo_id">
@@ -170,7 +170,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-lg-5 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-5 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="" class="">*Teléfonos :</label>
                                             <input type="text" class="form-control text focusNext" maxlength="60"
                                                 tabindex="12" id="telefonos_user" name="telefonos_user"
@@ -180,20 +180,20 @@
                                     </div> <!--cierra row-->
 
                                     <div class="row border mt-2 border border-primary ">
-                                        <div class="col-12 col-lg-5 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-5 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="dirRes" class="">Dirección
                                                 Residencial:</label>
                                             <input type="text" class="form-control text focusNext" maxlength="100"
                                                 name="direccion_res" tabindex="14" id="direccion_res"
                                                 placeholder="Digite Dirección residencial">
                                         </div>
-                                        <div class="col-12 col-lg-3 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-3 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="dirRes" class="">Barrio Residencial:</label>
                                             <input type="text" class="form-control text focusNext" maxlength="50"
                                                 name="barrio_res" tabindex="14" id="barrio_res"
                                                 placeholder="Barrio residencial">
                                         </div>
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label for="" class="">*Email Usuario:</label>
                                             <input type="email" class="form-control text focusNext" maxlength="50"
                                                 tabindex="14" id="email_user" name="email_user"
@@ -201,8 +201,8 @@
                                         </div>
                                     </div> <!-- row-->
                                     <div class="row border mt-2 border border-primary ">
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">                                                
-                                            {{-- <div class="col-8 col-sm-4"> --}}
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary pb-2">                                                
+                                            {{-- <div class="col-8 col-sm-412> --}}
                                                 <label>Institución Remitente</label>
                                                 <select class="form-control select2 select2-danger"
                                                     data-dropdown-css-class="select2-danger"
@@ -216,7 +216,7 @@
                                                 </select>
                                             </div>
                                         </div>    
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label>Tipo Servicio</label>
                                             <select class="form-control focusNext text tiposervicio_id" style="width: 100%;"
                                                 name="tiposervicio_id" id="tiposervicio_id" tabindex="13">
@@ -229,7 +229,7 @@
                                                 @endforeach
                                             </select>
                                         </div> 
-                                        <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary pb-2">
+                                        <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary pb-2">
                                             <label>Servicio</label>
                                             <select class="form-control focusNext text servicio_id" style="width: 100%;"
                                                 name="servicio_id" id="servicio_id" tabindex="13">
@@ -252,7 +252,7 @@
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
                                             <div
-                                                class="col-12 col-lg-12 col-md-4 col-sm-2 border border-primary pb-2">
+                                                class="col-12 col-lg-12 col-md-4 col-sm-12 border border-primary pb-2">
                                                 <label for="" class="">Peso Kg</label>
                                                 <input type="text" 
                                                     class="form-control text focusNext peso" maxlength="10"
@@ -266,14 +266,14 @@
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
                                             <div
-                                                class="col-12 col-lg-12 col-md-4 col-sm-2 border border-primary pb-2">
+                                                class="col-12 col-lg-12 col-md-4 col-sm-12 border border-primary pb-2">
                                                 <label for="" class="">Fecha inicio dd-mm-aaaa</label>
                                                 <input type="date" readonly
                                                     class="form-control text focusNext"
                                                     id="fecha_creacion" tabindex="15" name="fecha_creacion">
                                             </div>
                                                 <div
-                                                    class="col-12 col-lg-12 col-md-4 col-sm-2 border border-primary pb-2">
+                                                    class="col-12 col-lg-12 col-md-4 col-sm-12 border border-primary pb-2">
                                                     <label for="" class="">Fecha retiro</label>
                                                     <input type="date" readonly
                                                         class="form-control text focusNext "
@@ -286,7 +286,7 @@
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
                                             <div
-                                                class="col-12 col-lg-12 col-md-4 col-sm-2 border border-primary pb-2">
+                                                class="col-12 col-lg-12 col-md-4 col-sm-12 border border-primary pb-2">
                                                 <label for="SelectSexo" class="">Estado usuario</label>
                                                 <select class="form-control estado_user focusNext text" tabindex="11"
                                                     id="estado_user" name="estado_user">
@@ -307,7 +307,7 @@
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
                                             <div
-                                                class="col-12 col-lg-12 col-md-4 col-sm-2 border border-primary pb-2">
+                                                class="col-12 col-lg-12 col-md-4 col-sm-12 border border-primary pb-2">
                                                 <!-- <div id="area-chart" style="height: 338px;" class="full-width-chart"></div> -->
                                                 <div class="user-panel mt-1 pb-1 mb-1 d-flex">
                                                     <div class="image">
@@ -332,7 +332,7 @@
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
                                         <div class="row border">
-                                            <div class="col-12 col-lg-4 col-md-4 col-sm-2">
+                                            <div class="col-12 col-lg-4 col-md-4 col-sm-12>
                                                 <label for="" class="col-form-label">Familiar1</label>
                                                 <select class="form-control select2 select2-danger"
                                                     data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -344,7 +344,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-12 col-lg-4 col-md-4 col-sm-2">
+                                            <div class="col-12 col-lg-4 col-md-4 col-sm-12>
                                                 <label for="" class="col-form-label">Familiar1</label>
                                                 <select class="form-control select2 select2-danger"
                                                     data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -356,7 +356,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-12 col-lg-4 col-md-4 col-sm-2">
+                                            <div class="col-12 col-lg-4 col-md-4 col-sm-12>
                                                 <label for="" class="col-form-label">Familiar1</label>
                                                 <select class="form-control select2 select2-danger"
                                                     data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -377,14 +377,14 @@
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
                                         <div class="row border  mt-2">
-                                            <div class="col-12 col-lg-6 col-md-4 col-sm-2 pb-2">
+                                            <div class="col-12 col-lg-6 col-md-4 col-sm-12 pb-2">
                                                 <label for="" class=""><b>Patología:</b></label>
                                                 <textarea type="text" class="form-control text diagnostico" id="diagnostico" name="diagnostico" tabindex="21"
                                                     placeholder="Describa el diagnóstico o problema con el el usuario ingresa a la fundación"
                                                     title="Diagnóstico o problema con el el usuario ingresa a la fundación" rows="1"></textarea>
                                             </div>
 
-                                            <div class="col-12 col-lg-6 col-md-4 col-sm-2 pb-2">
+                                            <div class="col-12 col-lg-6 col-md-4 col-sm-12 pb-2">
                                                 <label for="" class=""><b>Recomendaciones
                                                         médicas:</b></label>
                                                 <textarea type="text" class="form-control text " id="recomendacion_med" name="recomendacion_med" tabindex="22"
@@ -393,14 +393,14 @@
                                         </div> <!--cierra row-->
 
                                         <div class="row border mt-2">
-                                            <div class="col-12 col-lg-6 col-md-4 col-sm-2 pb-2">
+                                            <div class="col-12 col-lg-6 col-md-4 col-sm-12 pb-2">
                                                 <label for="" class=""><b>Dieta
                                                         nutricional:</b></label>
                                                 <textarea type="text" class="form-control text observacion" id="dieta_nutricio" name="dieta_nutricio"
                                                     tabindex="23" placeholder="Digite el tipo de dieta o recomendación nutricional" rows="1"></textarea>
                                             </div>
 
-                                            <div class="col-12 col-lg-6 col-md-4 col-sm-2 pb-2">
+                                            <div class="col-12 col-lg-6 col-md-4 col-sm-12 pb-2">
                                                 <label for="" class=""><b>Medicamentos que se le
                                                         suministra:</b></label>
                                                 <textarea type="text" class="form-control text" id="suministro_medic" name="suministro_medic" tabindex="24"
@@ -409,7 +409,7 @@
                                         </div> <!--cierra row-->
 
                                         <div class="row border mt-2 ">
-                                            <div class="col-12 col-lg-12 col-md-4 col-sm-2 pb-2">
+                                            <div class="col-12 col-lg-12 col-md-4 col-sm-12 pb-2">
                                                 <label for="" class="">Observaciones:</label>
                                                 <textarea type="text" class="form-control text" id="observacion" name="observacion" tabindex="25"
                                                     placeholder="Digite observaciones pertinentes" rows="1"></textarea>
