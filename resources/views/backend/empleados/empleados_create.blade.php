@@ -59,7 +59,7 @@
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNewEmp" id="presBtnNewEmp" value="N">
                                             <div class="row border border-primary">
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-2 col-lg-2 border border-primary">
                                                     <label class="">Tipo Docu</label>
                                                     <select class="select2 select2-danger focusNext text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -72,17 +72,17 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary pb-2">
+                                                <div class="col-12 col-lg-2 col-md-2 col-sm-12 border border-primary pb-2">
                                                     <label for="" class="">#Documento</label>
                                                     <input type="text" class="form-control text" name="num_documento" maxlength="20" id="num_documento"
                                                      tabindex="2">
                                                 </div>  
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label for="" class="">Nombre</label>
                                                     <input type="text" class="form-control text" name="nombre" id="nombre"
                                                      tabindex="3">
                                                 </div>  
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label for="" class="">Apellido</label>
                                                     <input type="text" class="form-control text" name="apellidos" id="apellidos"
                                                      tabindex="4">
@@ -90,25 +90,25 @@
                                             </div>  <!--cierre de row -->     
                                             
                                             <div class="row border border-primary ">
-                                                <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary">
+                                                <div class="col-lg-2 col-sm-12 col-md-2 border border-primary">
                                                     <label for="">F. Nacmto:</label>
                                                     <input type="date" class="form-control text mb-2" name="fecha_nacimiento"
                                                         id="fecha_nacimiento"  focusNext tabindex="5" 
                                                         title="" onchange="calculaEdad()">
                                                 </div> 
-                                                <div class="col-lg-2 col-sm-5 col-sm-6 border border-primary">
+                                                <div class="col-lg-2 col-sm-12 col-md-2 border border-primary">
                                                     <label for="">Edad:</label>
                                                     <input type="number" class="form-control text" name="edad"
                                                         id="edad"  focusNext tabindex="6" 
                                                         title="" disabled readonly style="background-color: #eef3eb;">
                                                 </div> 
-                                                <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
+                                                <div class="col-lg-4 col-sm-12 col-dm-4 border border-primary">
                                                     <label for="">Lugar ncmto:</label>
                                                     <input type="text" class="form-control text" name="lugar_ncmto"
                                                         id="lugar_ncmto"  focusNext tabindex="7" 
                                                         title="">
                                                 </div> 
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border border-primary">
                                                     <label class="col-form-label ">Genero</label>
                                                     <select class="select2 select2-danger focusNext mb-2 text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -121,7 +121,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>                                                
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border border-primary">
                                                     <label class="col-form-label ">Grp RH</label>
                                                     <select class="select2 select2-danger focusNext text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -137,19 +137,19 @@
                                             </div> <!-- cierre row -->
 
                                             <div class="row border border-primary">                                            
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label for="" class="">Telefonos</label>
                                                     <input type="text" class="form-control text mb-2" name="telefonos" id="telefonos"
                                                      tabindex="10">
                                                 </div>                                                                                     
-                                                <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
+                                                <div class="col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                         <label for="">Direccion</label>
                                                         <textarea rows="1" class="form-control text" name="direccion_res"
                                                             id="direccion_res"  placeholder="" focusNext tabindex="2" maxlength="100"
                                                             title="" tabindex="11">
                                                         </textarea>
                                                 </div>
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label for="" class="">Email</label>
                                                     <input type="email" class="form-control text" name="email" id="email"
                                                      tabindex="12">
@@ -157,7 +157,7 @@
                                             </div>  <!--cierre de row --> 
 
                                             <div class="row border border border-primary">
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label class="col-form-label ">Profesión</label>
                                                     <select class="select2 select2-danger focusNext mb-2 text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -169,7 +169,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>    
-                                                <div class="col-sm-5 col-md-4 col-lg-4 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-4 border border-primary">
                                                     <label class="col-form-label ">Cargo</label>
                                                     <select class="select2 select2-danger focusNext text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -183,7 +183,7 @@
                                                     </select>
                                                 </div>                                                                                                  
                                                 
-                                                <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                     <label class="col-form-label ">Contarto trabajo</label>
                                                     <select class="select2 select2-danger focusNext text"
                                                         data-dropdown-css-class="select2-danger select-sm"
@@ -197,7 +197,7 @@
                                                 </div>
                                             </div>  <!--cierre de row -->  
                                             <div class="row border mt-2 mb-3 border border-primary">                                                                                        
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border border-primary">
                                                     <label for="">Fecha inicio:</label>
                                                     <input type="date" class="form-control text" name="fecha_inicio"
                                                         id="fecha_inicio"  focusNext tabindex="16" 
@@ -210,13 +210,13 @@
                                                         {{-- </div>                                                                                                      --}}
                                                 </div>    
 
-                                                <div class="col-sm-5 col-md-4 col-lg-5 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-5 border border-primary">
                                                     <label for="" class="col-form-label">Funciones:</label>
                                                     <textarea type="text" class="form-control text " rows="7" id="funciones" name="funciones"
                                                     placeholder="Digite observaciones pertinentes" tabindex="18"></textarea>
                                                 </div>                                                                                                     
  
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border border-primary">
                                                     <label for="">Foto perfil</label>
                                                         <div class="card card-primary">
                                                                 <div class="user-panel mt-1 pb-1 mb-1 d-flex">
@@ -230,7 +230,7 @@
                                                         </div>
                                                 </div>
         
-                                                <div class="col-sm-5 col-md-4 col-lg-2 border border-primary">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 border border-primary">
                                                     <label for="">Hoja de vida</label>
                                                     <div class="card card-primary">
                                                             <div class="user-panel mt-1 pb-1 mb-1 d-flex">
@@ -244,7 +244,7 @@
                                                     </div>
                                                 </div>                                                            
         
-                                                    <div class="col-sm-5 col-md-4 col-lg-1 border border-primary">
+                                                    <div class="col-sm-12 col-md-4 col-lg-1 border border-primary">
                                                         <label for="" class="col-form-label">Estado</label>
                                                         <input class="form-control text focusNext" type="checkbox"
                                                             tabindex="21" name="estado" id="estado" checked
@@ -253,24 +253,24 @@
                                                     </div>            
                                                 </div> <!--cierre de row -->   
                                                 <div class="row border border-primary">  
-                                                    <div class="col-lg-4 col-sm-5 col-sm-6 border border-primary">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                         <label for="">Nombre de familiar</label>
                                                        <input type="text" class="form-control text mb-2" name="nombre_familiar"
                                                             id="nombre_familiar"  placeholder="" focusNext tabindex="2" maxlength="80"
                                                             title="" tabindex="22">
                                                     </div>                                                                                              
-                                                    <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary">
+                                                    <div class="col-12 col-lg-2 col-md-4 col-sm-12 border border-primary">
                                                         <label for="" class="">Telefono familiar</label>
                                                         <input type="text" class="form-control text" name="telefono_familiar" id="telefono_familiar"
                                                          tabindex="23">
                                                     </div>                                                                                     
 
-                                                    <div class="col-12 col-lg-4 col-md-4 col-sm-2 border border-primary">
+                                                    <div class="col-12 col-lg-4 col-md-4 col-sm-12 border border-primary">
                                                         <label for="" class="">Email familiar</label>
                                                         <input type="email" class="form-control text" name="email_famliar" id="email_famliar"
                                                          tabindex="24">
                                                     </div>    
-                                                    <div class="col-12 col-lg-2 col-md-4 col-sm-2 border border-primary">
+                                                    <div class="col-12 col-lg-2 col-md-4 col-sm-12 border border-primary">
                                                         <label for="" class="">Parentezco</label>
                                                         <input type="text" class="form-control text" name="parentezco_familiar" id="parentezco_familiar"
                                                          tabindex="25">
@@ -278,7 +278,7 @@
                                                 </div>  <!--cierre de row --> 
                                                 
                                                 <div class="row border mt-2 mb-3 border border-primary">                                                                                                                                                                                                   
-                                                    <div class="col-sm-5 col-md-4 col-lg-12 border border-primary">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 border border-primary">
                                                         <label for="" class="col-form-label">Observaciones:</label>
                                                         <textarea type="text" class="form-control text observacion mb-2" rows="1" id="observacion" name="observacion"
                                                         placeholder="Digite observaciones pertinentes" tabindex="26"></textarea>

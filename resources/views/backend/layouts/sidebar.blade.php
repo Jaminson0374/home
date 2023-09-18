@@ -183,7 +183,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Seguimto Terapia</p>
                 </a>
-              </li>                                                        
+              </li>   
+              <li class="nav-item">
+                <a href="{{URL::to('/index-evento_adverso')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Envento Adverso</p>
+                </a>
+              </li>                      
             </ul>
           </li>
           <li class="nav-item">

@@ -75,7 +75,7 @@ th,td {
                                 </div>
                                     <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
                                     <input type="hidden" name="datosbasicos_id" value={{$datosRow->id}}>
-                                    <input type="hidden" name="planilla_id">
+                                    <input type="hidden" name="planilla_id" id="planilla_id">
                                     ><input type="hidden" id="numsesion" name="numsesion">
 
                                     <div class="row">
@@ -85,15 +85,15 @@ th,td {
                                                 <div class="row pb-2">   
                                                     <div class="col-12 col-lg-5 col-sm-12 col-md-8">                                                        
                                                         <label for="">Fecha:</label>
-                                                        <input type="date" class="form-control text" name="Fecha"
-                                                            id="Fecha"  focusNext tabindex="1" 
+                                                        <input type="date" class="form-control text" name="fecha"
+                                                            id="fecha"  focusNext tabindex="1" 
                                                             title="Fecha de la sesión">
                                                     </div> 
                                                     <div class="col-lg-4 col-sm-12 col-md-4">                                                        
                                                         <label for="">#Sesión:</label>
 
                                                         <select class="form-control text"
-                                                            name="num_sesiones" id="num_sesiones" focusNext tabindex="2">
+                                                            name="sesion" id="sesion" focusNext tabindex="2">
                             
                                                         </select>                                                            
                                                     </div>                                                                                                                                                           
@@ -126,7 +126,7 @@ th,td {
                                                                 <label for="">Profesional</label>
                                                                     <select class="select2 select2-danger"
                                                                     data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="profesional_id" id="profesional_id" focusNext tabindex="6" title = "Seleccione la persona encargada de la administracion del medicamento" >
+                                                                    name="personalexterno_id" id="personalexterno_id" focusNext tabindex="6" title = "Seleccione la persona encargada de la administracion del medicamento" >
                                                                     <option selected="selected" disable value="">Seleciona cuidador</option>
                                                                     @foreach ($personalExternoTerapia as $extGuiTep)
                                                                         <option value={{$extGuiTep->id}}>{{$extGuiTep->nombre.' '.$extGuiTep->apellidos}}
@@ -140,7 +140,7 @@ th,td {
                                                         <div class="row">
                                                             <div class="col-lg-12 col-sm-12 col-md-12">                                                        
                                                                 <label for="">Descripción</label>
-                                                                <textarea class="form-control text" name="observacion" id="observacion" cols="50" rows="2" tabindex="7"></textarea>   
+                                                                <textarea class="form-control text" name="descripcion" id="descripcion" cols="50" rows="2" tabindex="7"></textarea>   
                                                             </div>
                                                         </div> 
                                                     </div> 
@@ -178,9 +178,9 @@ th,td {
                                                                                 <button type="button" class="btn btn-primary form-group btn-md m-1" id="btnCancelAdm" title="Cancela el proceso actual y limpia cada una de las celdas"
                                                                                     focusNext tabindex="10"> <i class="fa fa-ban fa-lg"></i> Cancelar
                                                                                 </button>                                                                               
-                                                                                    <a href="{{ URL::to('/index_admin_deposiciones') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
+                                                                                    <a href="{{ URL::to('/index-seguimto-terapia') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
                                                                                         focusNext tabindex="11" id="btnExit"><i class="fa fa-arrow-right fa-lg"
-                                                                                        style="color:#f30b0b;"></i> Salir</a>    
+                                                                                        style="color:#f30b0b;"></i>Salir</a>    
                                                                             </div>
                                                                     {{-- </div>   --}}
                                                                 </div>
@@ -191,21 +191,22 @@ th,td {
                                     </div> 
                                         <div class="col-lg-8 col-sm-12 col-md-8">
                                             {{-- <div class="col-lg-12 col-sm-12 col-md-12"> --}}
-                                                        <div class=" table-wrapper col-lg-12 col-sm-12 col-md-12 bg-primary text-white "> 
+                                                        <div class="table-wrapper col-lg-12 col-sm-12 col-md-12 bg-primary text-white "> 
                                                             <table id="example2" class="table  table-bordered table-striped table-hover text-dark"  style="width: 100%; background-color: hsl(125, 85%, 79%)">
                                                                 <thead class="bg bg-success" style="">
                                                                     <tr>
-                                                                        <th># Sesión</th>
+                                                                        <th>#</th>
                                                                         <th>Hora</th>
                                                                         <th>Fecha</th>
                                                                         <th>Profesional</th>
                                                                         <th>Descripcion</th>
                                                                         <th>Cuidador</th>
+                                                                        <th>Id</th>
                                                                         <th><i class="fa fa-trash"><i></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="bodyTabla">
-                            
+ 
                                                                 </tbody>
                                                              </table>                                                            
                                                         </div>
@@ -213,9 +214,11 @@ th,td {
                                         </div>
                             </div>                                                                                                    
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-                                <script src="{{ asset('../resources/views/backend/controles_medicos/seguimiento_terapia/deposiciones.js') }}"></script>
+                                <script src="{{ asset('../resources/views/backend/controles_medicos/seguimiento_terapia/segui_terapia.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
+                                <script src="{{ asset('../resources/js/enter_form.js') }}"></script>
 
+                         </body>
                             <footer>
 
                             </footer>
@@ -230,10 +233,10 @@ th,td {
       MODAL PARA LA BUSQUEDA DE CLIENTES DATOS BASICOS
       *****************************************************-->
 <!-- Modal -->
-<div class="container-xl">
+<div class="container-lg">
     <div class="modal fade" id="modalBuscarPln" class="modalBuscarPln" data-backdrop="static" tabindex="-1"
         role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Lista de Planillas de {{$datosRow->nombre.' '.$datosRow->apellidos}}</h5>
@@ -251,7 +254,7 @@ th,td {
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Terapia/Actividad</th>
+                                        <th class="text-center">Terapia</th>
                                         <th class="text-center">Fecha Ini</th>
                                         <th class="text-center">Fecha Fin</th>
                                         <th class="text-center">Acción</th>
@@ -283,8 +286,8 @@ window.addEventListener('load', () => {
     let funcSegui = new SeguiTerapia()
                 document.querySelector('#empleado_id').style.display = 'none'
                 document.querySelector('#personalexterno_id').style.display = 'none' 
-                document.querySelector('#descripion').style.display = 'none'  
-                document.querySelector('#num_sesiones').style.display = 'none'  
+                document.querySelector('#descripcion').style.display = 'none'  
+                document.querySelector('#sesion').style.display = 'inline'  
                 document.querySelector('#horaTime').style.display = 'none'  
                 document.querySelector('#minutoTime').style.display = 'none'  
                 document.querySelector('#ampmTime').style.display = 'none'  
@@ -298,7 +301,7 @@ window.addEventListener('load', () => {
         btnSearch.addEventListener('click', () => {
             let idUserPlanilla = document.getElementsByName('datosbasicos_id')[0].value 
 
-                $("#modalBuscarPln").modal({
+               var myModal =  $("#modalBuscarPln").modal({
                     backdrop: 'static',
                     keyboard: false,
                     show: true
@@ -316,7 +319,7 @@ window.addEventListener('load', () => {
                         "type": "POST",
                         "dataType": 'json',
                         "data": {datosbasicos_id: idUserPlanilla},
-                        "url": "{{ URL::to('/buscar-plani-depo') }}",
+                        "url": "{{ URL::to('/show-plani-Modal-terapia') }}",
                         "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         "dataSrc": ""
                         },
@@ -350,35 +353,31 @@ window.addEventListener('load', () => {
                     return true
             })
  
-            $('#example1').on("click", "button.btnCaptura", function () {
-                let data = table_user.row($(this).parents("tr")).data();
+            // $('#example1').on("click", "button.btnCaptura", function () {
+                // let data = table_user.row($(this).parents("tr")).data();
+                
+            $('#example1 tbody').on('click', 'tr', function () {
+                let data = table_user.row( this ).data();
+                // console.log(dataTemp.id)                                
                 fillTablePlanillas(data.id)
 
-                // document.getElementById("num_plani").innerHTML ='No.'+data.useranomes
-                
-                document.getElementById("numsesion").innerHTML ='No.'+data.num_sesiones
-
-                // document.getElementsByName("mes_ctrl")[0].value = data.mes
-                // document.getElementsByName('ano')[0].value = data.ano
-
-                document.getElementsByName('num_sesiones')[0].value = 0
+                document.getElementsByName('sesion')[0].value = 0
                 var _idPlanilla = document.getElementsByName('planilla_id')[0].value = data.id
                 
                 document.getElementsByName("numsesion")[0].value = data.num_sesiones
-                document.getElementById('num_sesiones').focus()
+                document.getElementById('sesion').focus()
                 document.querySelector('#empleado_id').style.display = 'inline'
                 document.querySelector('#personalexterno_id').style.display = 'inline' 
-                document.querySelector('#descripion').style.display = 'inline'  
-                document.querySelector('#num_sesiones').style.display = 'inline'  
+                document.querySelector('#descripcion').style.display = 'inline'  
+                document.querySelector('#sesion').style.display = 'inline'  
                 document.querySelector('#horaTime').style.display = 'inline'  
                 document.querySelector('#minutoTime').style.display = 'inline'  
                 document.querySelector('#ampmTime').style.display = 'inline'  
                 document.querySelector('#fecha').style.display = 'inline'   
                 document.querySelector('#btnSaveAdm').style.display = 'inline'
                 document.querySelector('#btnCancelAdm').style.display = 'inline' 
- 
-                //  document.getElementById('btnSearch').disabled = true;
                 document.getElementById('btnSaveAdm').disabled = false;
+                 $("#modalBuscarPln").dispose()                
             })
     /* FIN DEL CODIGO PARA LLENAR TABLA DEL MODAL DE BUSQUEDA DE LA PLANILLA            
     /************************************************************************/
@@ -405,27 +404,25 @@ window.addEventListener('load', () => {
 
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
-            
-            let valiCampos = funcDepo.validarCampos()
-            // alert(valiCampos)
+            let _horas = document.getElementsByName('horaTime')[0].value
+		    let _ampm = document.getElementsByName('ampmTime')[0].value
+		    let _minutos = document.getElementsByName('minutoTime')[0].value            
+            let _hora = funcSegui.horaText(_horas,_minutos,_ampm)
+            // document.getElementsByName('horadbf')[0].value = _hora		
+            let valiCampos = funcSegui.validarSequiCampos()
+
             if (valiCampos === " "){
-                let _diaDepo    = document.getElementsByName('dia_deposicion')[0].value 
-                let _nocheDepo  = document.getElementsByName('noche_deposicion')[0].value
-                let _diaCtrl    = document.getElementsByName('num_sesiones')[0].value
                 let planiId2    = document.getElementsByName('planilla_id')[0].value 
-                let _mesCtrl    = document.getElementsByName('mes_ctrl')[0].value
-                let _totalDepo  = Number(_diaDepo)+Number(_nocheDepo)
-                // if(_totalDepo === 0){ // si total deposiciones es = 0
-                // }              
                             const desposicionesPlanilla = async () => {
-                                await axios.post("{{URL::to('/store-dia-planilla')}}",{
+                                await axios.post("{{URL::to('/store-seguimto-terapia')}}",{
                                         data: {
-                                            observacion : document.getElementsByName('observacion')[0].value,
-                                            num_sesiones : Number(_diaCtrl),
-                                            dia_deposicion : document.getElementsByName('dia_deposicion')[0].value,
-                                            noche_deposicion :document.getElementsByName('noche_deposicion')[0].value,
-                                            total_deposiciones : _totalDepo,
-                                            empleado_id : document.getElementsByName('empleado_id')[0].value,
+                                            fecha : document.getElementsByName('fecha')[0].value,
+                                            sesion : document.getElementsByName('sesion')[0].value,
+                                            hora : _hora,
+                                            personalexterno_id  : document.getElementsByName('personalexterno_id')[0].value,
+                                            descripcion : document.getElementsByName('descripcion')[0].value,
+                                            empleado_id : document.getElementsByName('empleado_id')[0].value, 
+                                            datosbasicos_id : document.getElementsByName('datosbasicos_id')[0].value,
                                             planilla_id : document.getElementsByName('planilla_id')[0].value,
                                             user_id: document.getElementsByName('user_id')[0].value
                                         }                
@@ -433,28 +430,25 @@ window.addEventListener('load', () => {
                                         // console.log(resp.data)
                                         console.log(resp.data['message'])
                                         if(resp.data['message']==="Success"){
-                                            // document.getElementsByName('num_sesiones')[0].value  =""
-                                            document.getElementsByName('dia_deposicion')[0].value =""
-                                            document.getElementsByName('noche_deposicion')[0].value =""
-                                            document.getElementsByName('empleado_id')[0].value = " "
-                                            document.getElementsByName('observacion')[0].value = ""
-                                            // document.getElementsByName('planilla_id')[0].value =""
+                                            let _nsesion = document.getElementsByName('sesion')[0].value
+                                            document.getElementsByName('fecha')[0].value = " "
+                                            document.getElementsByName('sesion')[0].value = " "
+                                            document.getElementsByName('horaTime')[0].value = " "
+                                            document.getElementsByName('minutoTime')[0].value = " "
+                                            document.getElementsByName('ampmTime')[0].value = " "
+                                            document.getElementsByName('personalexterno_id')[0].value = " "
+                                            document.getElementsByName('descripcion')[0].value = " "
+                                            document.getElementsByName('empleado_id')[0].value = " " 
 
-                                            // document.querySelector('#observacion').style.display = 'none'  
-                                            // document.querySelector('#num_sesiones').style.display = 'none'  
-                                            // document.querySelector('#dia_deposicion').style.display = 'none'  
-                                            // document.querySelector('#noche_deposicion').style.display = 'none'   
-                                            // document.querySelector('#btnSaveAdm').style.display = 'none'
-                                            // document.querySelector('#empleado_id').style.display = 'none' 
-                                             document.querySelector('#btnSearch').style.display = 'none'
-                                             document.querySelector('#btnCancelAdm').style.display = 'inline'
+                                            document.querySelector('#btnSearch').style.display = 'none'
+                                            document.querySelector('#btnCancelAdm').style.display = 'inline'
 
-                                             document.getElementById('num_sesiones').focus()
+                                            document.getElementById('fecha').focus()
                                             fillTablePlanillas(planiId2) 
                                             Swal.fire({
                                                 icon: 'success',
                                                 title: 'PERFECTO',
-                                                text: 'EL Día '+Number(_diaCtrl)+' se GUARDÓ en la planilla Correctamente',
+                                                text: 'EL la sesión # '+Number(_nsesion)+' se GUARDÓ en la planilla Correctamente',
                                                 footer: ''
                                             })
                                         }
@@ -470,17 +464,128 @@ window.addEventListener('load', () => {
                     })
             }    
         })
-            $('#example2').on("click", "button.btnCaptura", function () {
-                let data = table.row($(this).parents("tr")).data();
-                console.log(data)
 
-                let anoctr2 = document.getElementsByName('ano')[0].value
-                let mesctr2 =document.getElementsByName('mes_ctrl')[0].value
-                let idDiaPlanilla = data.id;
+   /*****************************************************
+	Limpia los campos al presionar el boton cancelar
+	********************************************************/
+			let botonCancel = document.getElementById("btnCancelAdm");
+			botonCancel.addEventListener('click', () => {
+                
+                document.querySelector('#btnSaveAdm').style.display = "none"
+                document.querySelector('#btnSearch').style.display = "inline"
+                document.getElementsByName('empleado_id')[0].value = " "
+                document.getElementsByName('descripcion')[0].value = ""
+
+                document.querySelector('#descripcion').style.display = 'none'  
+                document.querySelector('#sesion').style.display = 'none'  
+                document.querySelector('#fecha').style.display = 'none'  
+                document.querySelector('#minutoTime').style.display = 'none'   
+                document.querySelector('#horaTime').style.display = 'none'   
+                document.querySelector('#ampmTime').style.display = 'none'   
+                document.querySelector('#empleado_id').style.display = 'none'
+                document.querySelector('#btnCancelAdm').style.display = 'none'               
+            })                      
+ }) 
+
+    /*******************************************************
+     * Llenar la tabla del de la PLANILLA DEL PROCESO SELECICONADO
+     ******************************************************/    
+    function fillTablePlanillas(idPlanilla){
+            table = $('#example2').DataTable({
+                    fixedHeader : 'true',
+                    scrollY: '400px',
+                    scrollx: 'true',
+                    scrollX: '400´X',
+                    destroy: 'true',
+                    autoWidth: 'false',
+                    responsive: 'true',
+                "ajax": {
+                        "type": "POST",
+                        "dataType": 'json',
+                        "data": {okFalse: "01",planilla_id: idPlanilla},
+                        "url": "{{ URL::to('/show-seguimto-Terapia') }}",
+                        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        "dataSrc": ""
+                },
+                        "initComplete":function( settings, data){
+                            console.log(data)
+                            let tabmd = data
+                                let totDia =document.getElementsByName('numsesion')[0].value
+                                console.log(totDia)
+                                let seleDias = document.getElementById('sesion')
+                                console.log(tabmd.length)
+
+                                seleDias.innerHTML = '<option selected="selected" disable value=" ">Sesión</option>'
+                                if(tabmd.length === 0){
+                                    for(let i = 1; i <= totDia; i++){
+                                        seleDias.innerHTML += `<option class="font-weight-bold" value=${i}>${i}</option>`
+                                    }
+                                }else{
+                                    let sino = 0
+                                    for(let i = 1; i <= totDia; i++){
+                                    console.log(tabmd.length)
+                                        let _dmi = i;
+                                        if(i<10){_dmi = "0"+i;}
+                                            for(let b = 0; b< tabmd.length; b++){   
+                                                if(Number(tabmd[b]['sesion']) === Number(i)){
+                                                    sino = 0
+                                                    break
+                                                }else{
+                                                    sino = 1
+                                                }
+                                            }
+                                            if(sino === 1){
+                                                seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi}>${_dmi}</option>`
+                                                sino = 0
+                                            }
+                                    }
+                                }                                    
+                    },     
+                    "columns": [
+                        {"data": "sesion"},
+                        {"data": "hora"},
+                        {"data": "fecha"},
+                        {"data": "doc_identidad"},
+                        {"data": "descripcion"},
+                        {"data": "num_documento"},
+                        {"data": "id"}
+                    ],
+                     columnDefs: [{
+                            targets: 6,
+                            visible: true
+                        },
+                        {
+                            targets: 7,
+                            orderable: false,
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                let fila = meta.row;
+                                let botones =
+                                    `
+                                     <i style="color: #ee2015" class="fa fa-trash"><button type='button' id='btnCaptura' class='btnCaptura' title="Eliminar dia de la planilla"></button></i>
+                                    `
+                                return botones;
+                                // style="color:#f30b0b;"
+                            }
+                        }
+                    ],
+                    "destroy": true,
+                    "language":{"url": "../../resources/js/espanol.json"
+                    }
+                })
+   $('#example2 tbody').on('click', 'tr', function () {
+        var dataTemp = table.row( this ).data();
+        // console.log(dataTemp.id)
+            // $('#example2').on("click", "button.btnCaptura", function () {
+                // let data = table.row($(this).parents("tr")).data();
+                // console.log(data)
+
+                let idDiaPlanilla = dataTemp.id;
                 Swal.fire({
-                title: 'Se ANULARÁ el día '+data.num_sesiones+' '+'de la planilla del mes de '+meses[Number(mesctr2)-1]+' '+'del año: '+anoctr2+' '+',Está seguro de Anularla?',
+                title: 'Se ANULARÁ LA SESIÓN No.'+dataTemp.sesion+' '+'Está seguro de Anularla?',
                 text: "!No podrás revertir el proceso!", 
                 icon: 'warning',
+                allowOutsideClick: false,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -488,9 +593,8 @@ window.addEventListener('load', () => {
                 cancelButtonText: 'Cancelar'
 			}).then((result) => {
 				if (result.isConfirmed) {
-					// console.log(valuesDatE);	
                     const anulaReg = async () => {
-                            await axios.post("{{URL::to('/destroy-dia-plani')}}",{
+                            await axios.post("{{URL::to('/destroy-seguimto-terapia')}}",{
                                 data: {
                                     id: idDiaPlanilla
                                 }                
@@ -523,145 +627,7 @@ window.addEventListener('load', () => {
 			}) 						
                 
         })
-
-
-   /*****************************************************
-	Limpia los campos al presionar el boton cancelar
-	********************************************************/
-			let botonCancel = document.getElementById("btnCancelAdm");
-			botonCancel.addEventListener('click', () => {
-                
-                document.querySelector('#btnSaveAdm').style.display = "none"
-                document.querySelector('#btnSearch').style.display = "inline"
-                document.getElementsByName('dia_deposicion')[0].value =""
-                document.getElementsByName('noche_deposicion')[0].value =""
-                document.getElementsByName('empleado_id')[0].value = " "
-                document.getElementsByName('observacion')[0].value = ""
-
-                document.querySelector('#observacion').style.display = 'none'  
-                document.querySelector('#num_sesiones').style.display = 'none'  
-                document.querySelector('#dia_deposicion').style.display = 'none'  
-                document.querySelector('#noche_deposicion').style.display = 'none'   
-                document.querySelector('#empleado_id').style.display = 'none'
-                document.querySelector('#btnCancelAdm').style.display = 'none'               
-            })               
- }) 
-
-    /*******************************************************
-     * Llenar la tabla del de la PLANILLA DEL PROCESO SELECICONADO
-     ******************************************************/    
-    function fillTablePlanillas(idPlanilla){
-        
-        let idasigmedic = document.getElementsByName('datosbasicos_id')[0].value 
-        // table32 = $('#example2').destroy()
-            table = $('#example2').DataTable({
-                    fixedHeader : 'true',
-                    scrollY: '400px',
-                    scrollx: 'true',
-                    scrollX: '400´X',
-                    destroy: 'true',
-                    autoWidth: 'false',
-                    responsive: 'true',
-                "ajax": {
-                        "type": "POST",
-                        "dataType": 'json',
-                        "data": {okFalse: "01",planilla_id: idPlanilla},
-                        "url": "{{ URL::to('/buscar-add-plani_dia') }}",
-                        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        "dataSrc": ""
-                },
-                        "initComplete":function( settings, data){
-                            console.log(data)
-                            let tabmd = data
-                                // let _anos = document.getElementsByName('ano')[0].value // data.ano
-                                // let _mesCt = document.getElementsByName('mes_ctrl')[0].value // data.mes
-                                let totDia =diasDelMes(_anos,Number(_mesCt)-1)   
-                                let totDia = tabmd.num_sesiones 
-                                let seleDias = document.getElementById('num_sesiones')
-                                seleDias.innerHTML = '<option selected="selected" disable value=" ">Días</option>'
-                                    let sino = 0
-                                    for(let i = 1; i <= totDia; i++){
-                                        let _dmi = i;
-                                        if(i<10){_dmi = "0"+i;}
-                                            for(let b = 0; b< tabmd.length; b++){   
-                                                if(Number(tabmd[b]['num_sesiones']) === Number(i)){
-                                                    sino = 0
-                                                    break
-                                                }else{
-                                                    sino = 1
-                                                }
-                                            }
-                                            if(sino === 1){
-                                                seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi}>${_dmi}</option>`
-                                                sino = 0
-                                            }
-                                    }                                    
-                    },     
-                    "columns": [
-                        {"data": "num_sesiones"},
-                        {"data": "dia_deposicion"},
-                        {"data": "noche_deposicion"},
-                        {"data": "total_deposiciones"},
-                        {"data": "num_documento"},
-                        {"data": "id"}
-                    ],
-                     columnDefs: [{
-                            targets: 5,
-                            visible: true
-                        },
-                        {
-                            targets: 6,
-                            orderable: false,
-                            data: null,
-                            render: function(data, type, row, meta) {
-                                let fila = meta.row;
-                                let botones =
-                                    `
-                                     <i style="color: #ee2015" class="fa fa-trash"><button type='button' id='btnCaptura' class='btnCaptura' title="Eliminar dia de la planilla"></button></i>
-                                    `
-                                return botones;
-                                // style="color:#f30b0b;"
-                            }
-                        }
-                    ],
-                    "destroy": true,
-                    "language":{"url": "../../resources/js/espanol.json"
-                    }
-                })
-    }
-
-    /*PROCESEO PARA LLENAR EL SELECT DE LOS num_sesiones CON LOS DÍAS QUE ESTÁ SIN PROCESAR*/
-    // window.addEventListener('load', () => {
-    //     $('#example1').on("click", "button.btnCaptura", function () { 
-    //         setTimeout(function(){ 
-    //             var table = $('#example2').DataTable();
-    //                 let tabmd = table.rows().data()
-    //                 let _anos = document.getElementsByName('ano')[0].value // data.ano
-    //                 let _mesCt = document.getElementsByName('mes_ctrl')[0].value // data.mes
-    //                 let totDia =diasDelMes(_anos,Number(_mesCt)-1)   
-    //                 let seleDias = document.getElementById('num_sesiones')
-    //                 seleDias.innerHTML = '<option selected="selected" disable value=" ">Días</option>'
-    //                     let sino = 0
-    //                     for(let i = 1; i <= totDia; i++){
-    //                         let _dmi = i;
-    //                         if(i<10){_dmi = "0"+i;}
-    //                             for(let b = 0; b< tabmd.length; b++){   
-    //                                 if(Number(tabmd[b]['num_sesiones']) === Number(i)){
-    //                                     sino = 0
-    //                                     break
-    //                                 }else{
-    //                                     sino = 1
-    //                                 }
-    //                             }
-    //                             if(sino === 1){
-    //                                 seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi}>${_dmi}</option>`
-    //                                 sino = 0
-    //                             }
-    //                     }        
-    //         }, 500); 
-    //     })
-
-    // })
+   }
 </script>
 
 

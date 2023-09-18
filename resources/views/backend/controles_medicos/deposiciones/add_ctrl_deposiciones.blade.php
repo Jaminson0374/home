@@ -126,7 +126,7 @@
                                                                 <label for="">Cuidador</label>
                                                                     <select class="select2 select2-danger"
                                                                     data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="empleado_id" id="empleado_id" focusNext tabindex="6" title = "Seleccione la persona encargada de la administracion del medicamento" >
+                                                                    name="empleado_id" id="empleado_id" focusNext tabindex="6" title = "Seleccione el cuidador de turno" >
                                                                     <option selected="selected" disable value="">Seleciona cuidador</option>
                                                                     @foreach ($deposicionMedMedicos as $depoCtrl)
                                                                         <option value={{$depoCtrl->id}}>{{$depoCtrl->nombre.' '.$depoCtrl->apellidos}}

@@ -259,8 +259,20 @@ Route::post('/destroy-terapia', [App\Http\Controllers\TerapiaActividadController
 Route::get('/index-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'index'])->name('IndexSeguimtoTerapia');
 Route::get('/create-seguimto-terapia/{idUserMed}', [App\Http\Controllers\SeguimtoTerapiaController::class, 'create'])->name('CreateSeguimtoTerapia');
 Route::post('/store-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'store'])->name('StoreSeguimtoTerapia');
-Route::post('/show-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'show'])->name('ShowSeguimtoTerapia');
+Route::post('/show-plani-Modal-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'show_modal'])->name('ShowSeguiModal');
+Route::post('/show-seguimto-Terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'showPlaniPrincipal'])->name('ShowSeguimtoTerapia');
 Route::post('/destroy-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaController::class, 'destroy'])->name('DestroySeguimtoTerapia');
+
+//*********************************************************************
+//CONTROLES MEDICOS - REPORTE DE EVENTO ADVERSO, SINTOMATOLOGÍA O MUERTE                      *
+//*********************************************************************/
+Route::get('/index-evento_adverso', [App\Http\Controllers\EventoAdversoController::class, 'index'])->name('IndexEventoAdverso');
+Route::get('/create-evento/{idUserMed}', [App\Http\Controllers\EventoAdversoController::class, 'create'])->name('CreateEvento');
+Route::post('/store-evento', [App\Http\Controllers\EventoAdversoController::class, 'store'])->name('StoreEvento');
+// Route::post('/show-plani-Modal-terapia', [App\Http\Controllers\EventoAdversoController::class, 'show_modal'])->name('ShowSeguiModal');
+// Route::post('/show-seguimto-Terapia', [App\Http\Controllers\EventoAdversoController::class, 'showPlaniPrincipal'])->name('ShowSeguimtoTerapia');
+// Route::post('/destroy-seguimto-terapia', [App\Http\Controllers\EventoAdversoController::class, 'destroy'])->name('DestroySeguimtoTerapia');
+
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registro
 //*********************************************************************

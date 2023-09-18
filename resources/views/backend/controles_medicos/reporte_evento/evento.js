@@ -2,61 +2,65 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class SeguiTerapia {
+class EventoAdverso {
 
-	validarCampos() { //Valida los campos de la creación de la planilla del proceso medico
-		 let _fecha_ini = document.getElementsByName('fecha_ini')[0].value
-		 let _fecha_fin = document.getElementsByName('fecha_fin')[0].value
-		 let _num_sesiones = document.getElementsByName('num_sesiones')[0].value
-		 let _proceso_medico_id  = document.getElementsByName('proceso_medico_id')[0].value
-
-		let campoText = " ";
-		if (_proceso_medico_id === ""){  
-			campoText ="Seleccione el proceso de terapia o actividad"
-			document.getElementById('proceso_medico_id').focus()
-            }else if(_fecha_ini === ""){
-                campoText ="Debe seleccionar el fecha inicial"
-                document.getElementById('fecha_ini').focus()      
-            }else if(_fecha_fin === ""){
-                campoText ="Debe seleccionar el fecha final"
-                document.getElementById('fecha_fin').focus()      				          
-			}
-			return campoText;
-	} 
-
-	validarSequiCampos() { //Valida los campos de la entrada de la sesiones en la planilla
+	validarEventoCampos() { //Valida los campos de la entrada de la sesiones en la planilla
 		let _fecha = document.getElementsByName('fecha')[0].value
-		let _sesion = document.getElementsByName('sesion')[0].value
-		let _horaTime = document.getElementsByName('horaTime')[0].value
-		let _ampmTime = document.getElementsByName('ampmTime')[0].value
+		let _hora = document.getElementsByName('hora')[0].value
+		// let _horaTime = document.getElementsByName('horaTime')[0].value
+		// let _ampmTime = document.getElementsByName('ampmTime')[0].value
 		let _personalexterno_id  = document.getElementsByName('personalexterno_id')[0].value
 		let _descripcion  = document.getElementsByName('descripcion')[0].value
 		let _empleado_id  = document.getElementsByName('empleado_id')[0].value
+		let _entidadremitente_id  = document.getElementsByName('entidadremitente_id')[0].value
+		let _acompanante_id   = document.getElementsByName('acompanante_id')[0].value
+
 		
 	   let campoText = " ";
 	   if (_fecha === ""){   
-		   campoText ="Seleccione la fecha de aplicación de la sesión"
+		   campoText ="Seleccione la fecha evento"
 		   document.getElementById('fecha').focus()
-		   }else if(_sesion === ""){
-			   campoText ="Debe ingresar la sesión respectiva"
-			   document.getElementById('sesion').focus()      				          
-			}else if(_horaTime === ""){
-				campoText ="Debe ingresar la hora de aplicación de la sesión"
-				document.getElementById('horaTime').focus()      				          
-			}else if(_ampmTime === ""){
-				campoText ="Seleccione Am o Pm dependiendo de la hora ingresada"
-				document.getElementById('ampmTime').focus()
+		   }else if(_hora === ""){
+			   campoText ="Debe ingresar la hora del evento"
+			   document.getElementById('hora').focus()      				          
+			// }else if(_horaTime === ""){
+			// 	campoText ="Debe ingresar la hora de aplicación de la sesión"
+			// 	document.getElementById('horaTime').focus()      				          
+			// }else if(_ampmTime === ""){
+			// 	campoText ="Seleccione Am o Pm dependiendo de la hora ingresada"
+			// 	document.getElementById('ampmTime').focus()
+         				      				          	          				      				          
+			}else if(_entidadremitente_id === ""){
+				campoText ="Seleccione el Cuidador de turno del usuario"
+				document.getElementById('entidadremitente_id').focus()      				          				      				          
 			}else if(_personalexterno_id === ""){
-				campoText ="Seleccione el profesional que realiza la terapia o actividad"
-				document.getElementById('personalexterno_id').focus()      				          				      				          
+				campoText ="Seleccione el profesional"
+				document.getElementById('personalexterno_id').focus()      	
 			}else if(_empleado_id === ""){
 				campoText ="Seleccione el Cuidador de turno del usuario"
-				document.getElementById('empleado_id').focus()      				          				      				          
-			}
+				document.getElementById('empleado_id').focus()   
+			}else if(_acompanante_id === ""){
+				campoText ="Seleccione el familiar o encargado del usuaeio"
+				document.getElementById('acompanante_id').focus()      					   						
+		}			
+		
 		   return campoText;
    } 
    
+   cleae_element(){
+	// document.getElementsByName('sesion')[0].value
+    document.getElementsByName('fecha')[0].value = " "
+    // document.getElementsByName('sesion')[0].value = " "
+    document.getElementsByName('hora')[0].value = " "
+    // document.getElementsByName('minutoTime')[0].value = " "
+    // document.getElementsByName('ampmTime')[0].value = " "
+    document.getElementsByName('personalexterno_id')[0].value = " "
+    document.getElementsByName('descripcion')[0].value = " "
+    document.getElementsByName('empleado_id')[0].value = " " 
+    document.querySelector('#btnSaveAdm').style.display = 'none'
+    document.querySelector('#btnCancelAdm').style.display = 'inline'
 
+   }
 	/*Función para concatenar la hora, para guardarla en la dbf*/
 
 	horaText(horas,minutos,ampm){
