@@ -16,30 +16,29 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body" style="background-color: rgb(0, 247, 255)">
-                <table id="example1" class="table table-bordered table-striped bg-info font-weight-bold text-white" style="width: 100%">
-                <b><h4 class="text-white bg-info" style="font-size: 1.5em">REPORTE DE EVENTO ADVERSO, SINTOMATOLOGÍA O MUERTE</h2></b>
+              <div class="card-body" style="background-color: rgb(132, 255, 0)">
+                <table id="example1" class="table table-bordered table-striped bg-primary font-weight-bold text-white" style="width: 100%">
+                <b><h4 class="bg-warning text-dark font-weight-bold" style="font-size: 1.5em">LISTA DE CHEQUEO PARA LA ENTREGA DE TURNO</h2></b>
                     <thead class="bg-warning text-dark font-weight-bold">
                     <tr>
                       <th class="text-center">#</th> 
                       <th class="text-center">Fecha</th>
-                      <th class="text-center">Nombre y Apellidos  </th>
+                      <th class="text-center">Nombre y Apellidos -Usuario</th>
                       <th class="text-center">Edad</th>
-                      <th class="text-center">Ult Reporte</th>
+                      <th class="text-center">Ult Cambio</th>
                       <th class="text-center">Acción</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    @foreach ($indexEventoAdverso as $key=>$row)
+                    <tbody title="">
+                    @foreach ($indexChequeoTurno as $key=>$row)
                     <tr style="height: 2px">
                         <td class="p-0 m-0 text-center">{{$key+1}}</td>
                         <td class="p-0 m-0 text-left">{{$row->num_documento}}</td>
                         <td class="p-0 m-0">{{$row->nombre." ".$row->apellidos}}</td>
                         <td class="p-0 m-0 text-center">{{$row->edad}}</td>
-                        <td class="p-0 m-0 text-center">{{$row->ult_reporte_evento}}</td>
+                        <td class="p-0 m-0 text-center">{{$row->ult_chequeo_turno}}</td>
                         <td>
-                            <a href="{{URL::to('/create-evento/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Llenar formato de Eventos adeversos, sintomatología o muerte"><i class="fa fa-user-plus"></i>Evento</a>
-                            {{-- <a href="{{URL::to('/create-terapia/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Programar las sesiones de Terapia y/o Actividades a realizar"><i class="fa fa-user-plus"></i>Programar</a> --}}
+                            <a href="{{URL::to('/create-chequeo-turno/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Llenar formato de Eventos adeversos, sintomatología o muerte"><i class="fa fa-user-plus"></i>Evento</a>
                         </td>
                     </tr>
                     {{-- style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;" --}}
@@ -71,7 +70,9 @@
       $('#example1').DataTable({
         destroy: "true",
          scrollY: "500px",
-         language: {"url":"../resources/js/espanol.json"},
+        language: {"url":"../resources/js/espanol.json"},
       })
+      return true
     })
   </script>
+ 

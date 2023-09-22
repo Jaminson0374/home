@@ -60,11 +60,11 @@ th,td {
 
                         <div class="col-lg-12 col-md-12">
                             <body>
-                                @foreach($createEvento as $datosRow)
+                                @foreach($createChequeo as $datosRow)
                                 @endforeach
                                 <div class="row border border-dark border-4 m-2 rounded bg-primary">
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
-                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">EVENTO ADVERSO, SINTOMATOLOGÍA O MUERTE 
+                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Chequeo Entrega de Turno 
                                         </h3>
                                         <h3 id="num_plani" class="float-right m-0 p-0 bg-danger" style="font-weight: 900; font-size: 1.5em;" class="card-title"></h3>
                                     </div>
@@ -90,86 +90,51 @@ th,td {
                                                 <div class="col-12 col-lg-6 col-sm-12 col-md-6">                                                        
                                                     <label for="">Hora*</label>
                                                     <input type="time" class="form-control m-0 p-0"  name="hora" id="hora"
-                                                        title="Hora de el evento" focusNext tabindex="2">
+                                                        title="Hora de la entrega o del recibimiento del turno" focusNext tabindex="2">
                                                 </div>                                                    
                                             </div>
                                                          <div class="row pb-2 border">
-                                                            <div class="col-lg-12 col-sm-12 col-md-12">
-                                                                <label for="">Entidad Remitente*</label>
+                                                            <div class="col-lg-6 col-sm-12 col-md-6">
+                                                                <label for="">Turno*</label>
                                                                     <select class="select2 select2-danger"
                                                                     data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="entidadremitente_id" id="entidadremitente_id" focusNext tabindex="3" title = "Seleccione la entidad que remite al usuario" >
-                                                                    <option selected="selected" disable value="">Entidad</option>
-                                                                    @foreach ($empresaRemitenteEvento as $entidadEvento)
-                                                                        <option value={{$entidadEvento->id}}>{{$entidadEvento->nombre_eps}}
-                                                                        </option>
-                                                                    @endforeach
+                                                                    name="entidadremitente_id" id="entidadremitente_id" focusNext tabindex="3" title = "Seleccione el turno que entrega o recibe" >
+                                                                    <option selected="selected" disable value="">Turno</option>
+                                                                        <option value="1">Día</option>
+                                                                        <option value="2">Noche</option>
                                                                 </select>                                                        
                                                             </div>                                                               
                                                         </div> <!-- cierre de row -->
-                                                        <div class="row pb-2border">
-                                                            <div class="col-lg-12 col-sm-12 col-md-12">
-                                                                <label for="">Profesional*</label>
-                                                                    <select class="select2 select2-danger"
-                                                                    data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="personalexterno_id" id="personalexterno_id" focusNext tabindex="4" title = "Seleccione el profesional" >
-                                                                    <option selected="selected" disable value="">Médico</option>
-                                                                    @foreach ($personalExternoEvento as $extEvento)
-                                                                        <option value={{$extEvento->id}}>{{$extEvento->nombre.' '.$extEvento->apellidos}}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>                                                        
-                                                                </div>                                                               
-                                                            </div> <!-- cierre de row -->    
  
                                                         <div class="row pb-2 border">
                                                             <div class="col-lg-12 col-sm-5 col-md-12">
-                                                                <label for="">Cuidador*</label>
-                                                                    <select class="select2 select2-danger empleado_id"
+                                                                <label for="">Cuidador que Entrega*</label>
+                                                                    <select class="select2 select2-danger"
                                                                     data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="empleado_id" id="empleado_id" focusNext tabindex="5" title = "Seleccione el cuidador" >
+                                                                    name="cuidador_entrega_id" id="cuidador_entrega_id" focusNext tabindex="5" title = "Seleccione el cuidador" >
                                                                     <option selected="selected" disable value="">Seleciona cuidador</option>
-                                                                    @foreach ($empleadosEventos as $cuidaEvento)
-                                                                        <option value={{$cuidaEvento->id}}>{{$cuidaEvento->nombre.' '.$cuidaEvento->apellidos}}
+                                                                    @foreach ($empleadosChequeos as $cuidaChequeoEntr)
+                                                                        <option value={{$cuidaChequeoEntr->id}}>{{$cuidaChequeoEntr->nombre.' '.$cuidaChequeoEntr->apellidos}}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>                                                        
                                                             </div>                                                               
                                                         </div> <!-- cierre de row -->
+
                                                         <div class="row pb-2 border">
                                                             <div class="col-lg-12 col-sm-5 col-md-12">
-                                                                <label for="">Familiar*</label>
-                                                                <select class="select2 select2-danger acompanante_id"
+                                                                <label for="">Cuidador que Recibe*</label>
+                                                                    <select class="select2 select2-danger"
                                                                     data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                                    name="acompanante_id" id="acompanante_id" focusNext tabindex="6" title = "Seleccione familia y/o Acompañante" >
-                                                                    <option selected="selected" disable value="">Familiar</option>
-                                                                        @foreach ($acompananteEvento as $acompaEvento)
-                                                                            <option value={{$acompaEvento->id}}>{{$acompaEvento->nombre.' '.$acompaEvento->apellidos}}
-                                                                             </option>
-                                                                        @endforeach
+                                                                    name=cuidador_recibe_id" id=cuidador_recibe_id" focusNext tabindex="5" title = "Seleccione el cuidador" >
+                                                                    <option selected="selected" disable value="">Seleciona cuidador</option>
+                                                                    @foreach ($empleadosChequeos as $cuidaChequeo)
+                                                                        <option value={{$cuidaChequeo->id}}>{{$cuidaChequeo->nombre.' '.$cuidaChequeo->apellidos}}
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>                                                        
                                                             </div>                                                               
                                                         </div> <!-- cierre de row -->
-                                                        <div class="row border">
-                                                            <div class="col-lg-12 col-sm-12 col-md-12">                                                        
-                                                                <label for="">Novedad</label>
-                                                                <textarea class="form-control text" name="descripcion" id="descripcion" cols="50" rows="2" tabindex="7"></textarea>   
-                                                            </div>
-                                                        </div> 
-                                                        <div class="row boeder">
-                                                            <div class="col-lg-12 col-sm-12 col-md-12">                                                        
-                                                                <label for="">Medio info</label>
-                                                                <textarea class="form-control text" name="medio_informacion" id="medio_informacion" cols="50" rows="1" tabindex="8"></textarea>   
-                                                            </div>
-                                                        </div> 
-                                                    {{-- </div>   --}}
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 border border-primary">
-                                                        <label for="">Anexos</label>
-                                                            <div class="card card-primary">
-                                                                <input type="file" id="seleccionArchivos" class="btn btn-success" name="anexos"
-                                                                    accept="image/*" tabindex="9">
-                                                            </div>
-                                                    </div>
                                                     
                                                     <div class="row"> 
                                                         <div class="col-lg-12 col-sm-12 col-md-12">
@@ -205,16 +170,10 @@ th,td {
                                                                 <thead class="bg bg-success" style="">
                                                                     <tr>
                                                                         <th>#</th>
-                                                                        <th>Fecha</th>
-                                                                        <th>Hora</th>
-                                                                        <th>Medio Inf</th> 
-                                                                        <th>Evento</th>
-                                                                        <th>Cuidador</th>
-                                                                        <th>Profesional</th>
-                                                                        <th>Eps</th>
-                                                                        <th>Familiar</th> 
-                                                                                
-                                                                        
+                                                                        <th>Lista Chequeo</th>
+                                                                        <th>Si</th>
+                                                                        <th>No</th>
+                                                                        <th>Observación</th> 
                                                                         {{-- <th><i class="fa fa-trash"><i></th> --}}
                                                                     </tr>
                                                                 </thead>
@@ -225,7 +184,7 @@ th,td {
                                                         </div>
                                         </div>
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-                                <script src="{{ asset('../resources/views/backend/controles_medicos/reporte_evento/evento.js') }}"></script>
+                                <script src="{{ asset('../resources/views/backend/controles_medicos/chequeo_entrega_turno/entrega_turno.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
                                 <script src="{{ asset('../resources/js/enter_form.js') }}"></script>
 
@@ -286,7 +245,7 @@ window.addEventListener('load', () => {
                                             anexos : document.getElementsByName('anexos')[0].value,
                                             datosbasicos_id : document.getElementsByName('datosbasicos_id')[0].value,
                                             user_id : document.getElementsByName('user_id')[0].value,
-                                            id : document.getElementsByName('idEvento')[0].value,
+                                            id : document.getElementsByName('id')[0].value,
                                             ult_reporte_evento : document.getElementsByName('fecha')[0].value
                                         }                
                                     }).then((resp) => {
@@ -295,7 +254,6 @@ window.addEventListener('load', () => {
                                         if(resp.data['message']==="Success"){
                                             document.querySelector('#btnSaveAdm').style.display = 'none'
                                             document.querySelector('#btnCancelAdm').style.display = 'inline'
-                                            let planiId2 = document.getElementsByName('datosbasicos_id')[0].value
 
                                             document.getElementById('fecha').focus()
                                             fillTablePlanillas(planiId2) 
@@ -307,7 +265,6 @@ window.addEventListener('load', () => {
                                             })
                                         }
                                     })
-                                 return true   
                             }
                             desposicionesPlanilla()
             }else{
@@ -342,10 +299,53 @@ window.addEventListener('load', () => {
             })                   
 
  }) 
+    /***********************************************************************
+     * Llenar la tabla con lsita de chequeo - al presional el boton NUEVO
+     **********************************************************************/  
+     function fillTableNuevo(){
+            table = $('#example2').DataTable({
+                    fixedHeader : 'true',
+                    scrollY: '400px',
+                    scrollx: 'true',
+                    scrollX: '400´X',
+                    destroy: 'true',
+                    autoWidth: 'true',
+                    responsive: 'true',
+                "ajax": {
+                        "type": "POST",
+                        "dataType": 'json',
+                        // "data": {planilla_id: idPlanilla},
+                        "url": "{{ URL::to('/busquedaListaChequeo') }}",
+                        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        "dataSrc": ""
+                },
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "fecha"},
+                        {"data": "hora"},
+                        {"data": "medio_informacion"}, 
+                        {"data": "descripcion"},
+                        {"data": "empleado_id"},
+                        {"data": "personalexterno_id"},
+	                    {"data": "entidadremitente_id"},
+	                    {"data": "acompanante_id"},                                            
+                     ],
+                     columnDefs: [
+                                  {targets: 4, visible: false},
+                                  {targets: 5, visible: false},
+                                  {targets: 6, visible: false},
+                                  {targets: 7, visible: false},
+                                  {targets: 8, visible: false},
+                    ],
+                    "destroy": true,
+                    "language":{"url": "../../resources/js/espanol.json"
+                    }
+                })
+        }
 
-    /*******************************************************
-     * Llenar la tabla del de la PLANILLA DEL PROCESO SELECICONADO
-     ******************************************************/    
+    /***********************************************************************
+     * Llenar la tabla con lsita de chequeo - al presional el boton BUSCAR
+     **********************************************************************/    
     function fillTablePlanillas(idPlanilla){
             table = $('#example2').DataTable({
                     fixedHeader : 'true',
@@ -388,7 +388,6 @@ window.addEventListener('load', () => {
    $('#example2 tbody').on('click', 'tr', function () {
         var dataTemp = table.row( this ).data();
         let funcEvento = new EventoAdverso();
-        funcEvento.activa_element(false)
         funcEvento.captura_datos(dataTemp)
         document.querySelector('#btnSaveAdm').style.display = "inline"
         document.querySelector('#btnCancelAdm').style.display = 'inline'

@@ -40,7 +40,7 @@ class EventoAdversoController extends Controller
 
      public function store(Request $request, EventoAdversoModel $eventoAdversoModel)
     {
-     return $request->data['ult_reporte_evento'];
+    //  return $request->data['ult_reporte_evento'];
      try {
         DB::beginTransaction();        
 
@@ -50,8 +50,7 @@ class EventoAdversoController extends Controller
 
         $storeAdm = EventoAdversoModel::updateOrCreate(
             ['id' => $request->data['id']],
-            ['id' => $request->data['id'],
-            'fecha' => $request->data['fecha'],
+            ['fecha' => $request->data['fecha'],
             'hora' => $request->data['hora'],
             'personalexterno_id' => $request->data['personalexterno_id'],
             'entidadremitente_id' => $request->data['entidadremitente_id'],
@@ -72,12 +71,24 @@ class EventoAdversoController extends Controller
     }
 
  
-    public function show(EventoAdversoModel $eventoAdversoModel)
+    public function show(Request $request, EventoAdversoModel $eventoAdversoModel)
     {
-        //
-    }
+              
+            $showEvento = DB::table('reporte_evento')
+            ->where('reporte_evento.datosbasicos_id','=',$request->planilla_id)
+            ->where("reporte_evento.anulado", "=", NULL)
+            ->select("reporte_evento.id",'reporte_evento.fecha',DB::raw('substr(reporte_evento.hora,1,5) as hora'),
+            'reporte_evento.descripcion','reporte_evento.empleado_id', 'reporte_evento.personalexterno_id',
+            'reporte_evento.entidadremitente_id','reporte_evento.acompanante_id','reporte_evento.medio_informacion')->get(); 
+            return $showEvento; 
 
-  
+            // ->join('empleados', 'reporte_evento.empleado_id','=','empleados.id')
+            // ->join('medicos_externos', 'reporte_evento.personalexterno_id','=','medicos_externos.id')            
+            /* CONCATENA, CONVIERTE A TEXTO Y SUBSTRAE
+            // DB::raw('CONCAT(CONVERT(substr(reporte_evento.hora,1,2) %12, CHAR),CONVERT(substr(reporte_evento.hora,3,4), CHAR)) as hora')*/
+            
+    }
+     
     public function edit(EventoAdversoModel $eventoAdversoModel)
     {
         //
@@ -89,8 +100,19 @@ class EventoAdversoController extends Controller
         //
     }
 
-    public function destroy(EventoAdversoModel $eventoAdversoModel)
+    public function destroy(Request $request, EventoAdversoModel $eventoAdversoModel)
     {
-        //
+        $nPlani = $request->data['id'];
+        try {
+         DB::beginTransaction();
+             $numPlanilla = EventoAdversoModel::findOrFail($nPlani);
+             $numPlanilla->anulado = "S";
+             $numPlanilla->save();  
+         DB::commit();
+     } catch (\Exception $e) {
+         DB::rollBack();
+         return response()->json(['message' => 'Error']);
+     }
+     return response()->json(['message' => 'Success']);  
     }
 }

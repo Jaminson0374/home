@@ -189,7 +189,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Envento Adverso</p>
                 </a>
-              </li>                      
+              </li>   
+              <li class="nav-item">
+                <a href="{{URL::to('/index-chequeo-turno')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Entrega turno</p>
+                </a>
+              </li>                                                
             </ul>
           </li>
           <li class="nav-item">

@@ -269,9 +269,19 @@ Route::post('/destroy-seguimto-terapia', [App\Http\Controllers\SeguimtoTerapiaCo
 Route::get('/index-evento_adverso', [App\Http\Controllers\EventoAdversoController::class, 'index'])->name('IndexEventoAdverso');
 Route::get('/create-evento/{idUserMed}', [App\Http\Controllers\EventoAdversoController::class, 'create'])->name('CreateEvento');
 Route::post('/store-evento', [App\Http\Controllers\EventoAdversoController::class, 'store'])->name('StoreEvento');
-// Route::post('/show-plani-Modal-terapia', [App\Http\Controllers\EventoAdversoController::class, 'show_modal'])->name('ShowSeguiModal');
-// Route::post('/show-seguimto-Terapia', [App\Http\Controllers\EventoAdversoController::class, 'showPlaniPrincipal'])->name('ShowSeguimtoTerapia');
-// Route::post('/destroy-seguimto-terapia', [App\Http\Controllers\EventoAdversoController::class, 'destroy'])->name('DestroySeguimtoTerapia');
+Route::post('/show-evento-adverso', [App\Http\Controllers\EventoAdversoController::class, 'show'])->name('ShowEvento');
+Route::post('/destroy-evento', [App\Http\Controllers\EventoAdversoController::class, 'destroy'])->name('DestroyEvento');
+
+//*********************************************************************
+//CONTROLES MEDICOS - CHEQUE DE LA ENTREGA DE TURNO                   *
+//*********************************************************************/
+Route::get('/index-chequeo-turno', [App\Http\Controllers\ChequeoDiarioController::class, 'index'])->name('IndexChequeoTurno');
+Route::get('/create-chequeo-turno/{idUserMed}', [App\Http\Controllers\ChequeoDiarioController::class, 'create'])->name('CreateChequeoTurno');
+Route::post('/store-chequeo-turno', [App\Http\Controllers\ChequeoDiarioController::class, 'store'])->name('StoreChequeoTurno');
+Route::post('/show-chequeo-turno', [App\Http\Controllers\ChequeoDiarioController::class, 'show'])->name('ShowChequeoTurno');
+Route::post('/busqueda-chequeo-turno', [App\Http\Controllers\ChequeoDiarioController::class, 'busquedaChequeo'])->name('BusquedaChequeoTurno');
+Route::post('/busqueda-chequeo-lista', [App\Http\Controllers\ChequeoDiarioController::class, 'busquedaListaChequeo'])->name('BusquedaListaChequeoTurno');
+Route::post('/destroy-chequeo-turno', [App\Http\Controllers\ChequeoDiarioController::class, 'destroy'])->name('DestroyChequeoTurno');
 
 
 //https://www.youtube.com/watch?v=e0jcxoAI-0c guardar multiples registro
@@ -293,3 +303,7 @@ Route::get('/datatable', function() {
     return view('backend.cliente.datatable');
 });
 
+
+/* CONCATENA, CONVIERTE A TEXTO Y SUBSTRAE
+DB::raw('CONCAT(CONVERT(substr(reporte_evento.hora,1,2) %12, CHAR),CONVERT(substr(reporte_evento.hora,3,4), CHAR)) as hora')
+*/

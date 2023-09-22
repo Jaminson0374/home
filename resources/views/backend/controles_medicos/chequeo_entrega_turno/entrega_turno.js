@@ -53,16 +53,6 @@ class EventoAdverso {
 		$('#acompanante_id').val(dataBrows.acompanante_id).trigger('change.select2')
 	}
 
-	activa_element(activa){
-		document.getElementById('fecha').disabled = activa
-		document.getElementById('hora').disabled = activa
-		document.getElementById('medio_informacion').disabled = activa
-		document.getElementById('personalexterno_id').disabled = activa
-		document.getElementById('descripcion').disabled = activa
-		document.getElementById('empleado_id').disabled = activa
-		document.getElementById('entidadremitente_id').disabled = activa
-		document.getElementById('acompanante_id').disabled = activa		
-	}
    	clear_element(activaElemt){
 		document.getElementsByName('fecha')[0].value = " "
 		document.getElementsByName('hora')[0].value = " "
