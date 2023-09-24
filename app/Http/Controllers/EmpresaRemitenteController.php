@@ -97,7 +97,7 @@ class EmpresaRemitenteController extends Controller
             try {
                 DB::beginTransaction();
                 $idArtiAnula=$request['idArtiAnular'];
-                $artiAnula = InvArticulosModel::findOrFail($idArtiAnula);
+                $artiAnula = EmpresaRemitenteModell::findOrFail($idArtiAnula);
                 $artiAnula->anulado = "S";
                 $artiAnula->save();  
                 DB::commit();

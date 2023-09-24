@@ -36,7 +36,7 @@
                         <td class="p-0 m-0 text-left">{{$row->num_documento}}</td>
                         <td class="p-0 m-0">{{$row->nombre." ".$row->apellidos}}</td>
                         <td class="p-0 m-0 text-center">{{$row->edad}}</td>
-                        <td class="p-0 m-0 text-center">{{$row->ult_chequeo_turno}}</td>
+                        <td class="p-0 m-0 text-center">{{$row->ult_cambio_turno}}</td>
                         <td>
                             <a href="{{URL::to('/create-chequeo-turno/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Llenar formato de Eventos adeversos, sintomatología o muerte"><i class="fa fa-user-plus"></i>Evento</a>
                         </td>

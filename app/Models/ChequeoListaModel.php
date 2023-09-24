@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChequeoListaModel extends Model
 {
+    protected $table = "chequeo_lista";
     use HasFactory;
 }

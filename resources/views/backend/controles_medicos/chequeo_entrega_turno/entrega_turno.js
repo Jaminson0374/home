@@ -2,81 +2,66 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class EventoAdverso {
+class ChequeoTurno {
 
-	validarEventoCampos() { //Valida los campos de la entrada de la sesiones en la planilla
+	validarTurnosCampos() { //Valida los campos de la entrada de la sesiones en la planilla
 		let _fecha = document.getElementsByName('fecha')[0].value
 		let _hora = document.getElementsByName('hora')[0].value
-		// let _horaTime = document.getElementsByName('horaTime')[0].value
-		// let _ampmTime = document.getElementsByName('ampmTime')[0].value
-		let _personalexterno_id  = document.getElementsByName('personalexterno_id')[0].value
-		let _descripcion  = document.getElementsByName('descripcion')[0].value
-		let _empleado_id  = document.getElementsByName('empleado_id')[0].value
-		let _entidadremitente_id  = document.getElementsByName('entidadremitente_id')[0].value
-		let _acompanante_id   = document.getElementsByName('acompanante_id')[0].value
+		let _cuidador_entrega_id  = document.getElementsByName('cuidador_entrega_id')[0].value
+		let _cuidador_recibe_id  = document.getElementsByName('cuidador_recibe_id')[0].value
+		let _turno_entrega  = document.getElementsByName('turno_entrega')[0].value
 		
 	   let campoText = " ";
 	   if (_fecha === ""){   
-		   campoText ="Seleccione la fecha evento"
+		   campoText ="Seleccione la FECHA del cambio de turno"
 		   document.getElementById('fecha').focus()
 		   }else if(_hora === ""){
-			   campoText ="Debe ingresar la hora del evento"
-			   document.getElementById('hora').focus()      				          
-			}else if(_entidadremitente_id === ""){
-				campoText ="Seleccione el Cuidador de turno del usuario"
-				document.getElementById('entidadremitente_id').focus()      				          				      				          
-			}else if(_personalexterno_id === ""){
-				campoText ="Seleccione el profesional"
-				document.getElementById('personalexterno_id').focus()      	
-			}else if(_empleado_id === ""){
-				campoText ="Seleccione el Cuidador de turno del usuario"
-				document.getElementById('empleado_id').focus()   
-			}else if(_acompanante_id === ""){
-				campoText ="Seleccione el familiar o encargado del usuaeio"
-				document.getElementById('acompanante_id').focus()      					   						
+			   campoText ="Debe ingresar la HORA del cambio de turno"
+			   document.getElementById('hora').focus()     
+			}else if(_turno_entrega === ""){
+				campoText ="Debe Seleccionar el tipo de turno"
+				document.getElementById('turno_entrega').focus()   			    				          
+			}else if(_cuidador_entrega_id === ""){
+				campoText ="Seleccione el Auxiliar o Cuidador que ENTREGA el turno"
+				document.getElementById('cuidador_entrega_id').focus()      				          				      				          
+			}else if(_cuidador_recibe_id === ""){
+				campoText ="Seleccione el Auxiliar o Cuidador que RECIBE el turno"
+				document.getElementById('cuidador_recibe_id').focus()      				   						
 		}			
 		
 		   return campoText;
-   } 
+	} 
    
    captura_datos(dataBrows){
+	   let _hra = dataBrows.hora 
 		document.getElementsByName('fecha')[0].value = dataBrows.fecha
-		document.getElementsByName('hora')[0].value = dataBrows.hora
-		document.getElementsByName('descripcion')[0].value = dataBrows.descripcion
-		document.getElementsByName('medio_informacion')[0].value = dataBrows.medio_informacion
-		// document.getElementsByName('anexos')[0].value = dataBrows.anexo
-		document.getElementsByName('idEvento')[0].value = dataBrows.id	
-
-		$("#personalexterno_id").val(dataBrows.personalexterno_id).trigger('change.select2');
-		$('#empleado_id').val(dataBrows.empleado_id).trigger('change.select2')
+		document.getElementsByName('hora')[0].value = _hra.substring(0,5)	
+		$("#cuidador_entrega_id").val(dataBrows.cuidador_entrega_id).trigger('change.select2');
+		$('#cuidador_recibe_id').val(dataBrows.cuidador_recibe_id).trigger('change.select2')
 		$('#entidadremitente_id').val(dataBrows.entidadremitente_id).trigger('change.select2')
-		$('#acompanante_id').val(dataBrows.acompanante_id).trigger('change.select2')
+		$('#turno_entrega').val(dataBrows.turno_entrega).trigger('change.select2')
 	}
 
    	clear_element(activaElemt){
 		document.getElementsByName('fecha')[0].value = " "
 		document.getElementsByName('hora')[0].value = " "
-		document.getElementsByName('descripcion')[0].value = " "
-		document.getElementsByName('medio_informacion')[0].value = ""
+		// document.getElementsByName('descripcion')[0].value = " "
 		
 		document.querySelector('#btnNewAdm').style.display = 'inline'
 		document.querySelector('#btnSaveAdm').style.display = 'none'
 		document.querySelector('#btnCancelAdm').style.display = 'inline'
 		document.querySelector('#btnDeleteAdm').style.display = 'none'
 
-		$("#personalexterno_id").val(" ").trigger('change.select2');
-		$('#empleado_id').val(" ").trigger('change.select2')
-		$('#entidadremitente_id').val(" ").trigger('change.select2')
-		$('#acompanante_id').val(" ").trigger('change.select2')
+		$('#cuidador_entrega_id').val(" ").trigger('change.select2')
+		$('#cuidador_recibe_id').val(" ").trigger('change.select2')
+		$('#turno_entrega').val(" ").trigger('change.select2')
 
 		document.getElementById('fecha').disabled = activaElemt
 		document.getElementById('hora').disabled = activaElemt
-		document.getElementById('medio_informacion').disabled = activaElemt
-		document.getElementById('personalexterno_id').disabled = activaElemt
-		document.getElementById('descripcion').disabled = activaElemt
-		document.getElementById('empleado_id').disabled = activaElemt
-		document.getElementById('entidadremitente_id').disabled = activaElemt
-		document.getElementById('acompanante_id').disabled = activaElemt	
+		document.getElementById('cuidador_entrega_id').disabled = activaElemt
+		document.getElementById('cuidador_recibe_id').disabled = activaElemt
+		// document.getElementById('descripcion').disabled = activaElemt
+		document.getElementById('turno_entrega').disabled = activaElemt
    }
 	/*Función para concatenar la hora, para guardarla en la dbf*/
 
@@ -131,6 +116,15 @@ class EventoAdverso {
         })		        		
 	}
 
+	hora_actual(){
+		// crea un nuevo objeto `Date`
+            var today = new Date();
+            // obtener la hora en la configuración regional de EE. UU. en 12 horas es 'en-US' para 24 horas se le agrega: { hour12: false }
+            var now = today.toLocaleTimeString('en-US',{ hour12: false });
+            document.getElementsByName('hora')[0].value = now.substring(0,5)
+            // console.log(now.substring(0,5));  
+	}        
+
 	/*llenar input date con la fecha actual*/
 	fecha_actual(){
 		var fecha = new Date(); //Fecha actual
@@ -141,7 +135,7 @@ class EventoAdverso {
 		  dia='0'+dia; //agrega cero si el menor de 10
 		if(mes<10)
 		  mes='0'+mes //agrega cero si el menor de 10
-		document.getElementById('fecha_inicio').value=ano+"-"+mes+"-"+dia;		
+		document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;		
 	}
 	
 	/*Función que Convierte la fecha elegida en texto Ej. Domingo 30 de junio de 2023*/

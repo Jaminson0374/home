@@ -9,4 +9,7 @@ class ChequeoDiarioModel extends Model
 {
     protected $table = "chequeo_diario";    
     use HasFactory;
+    protected $guarded = [
+        'id',
+    ];
 }
