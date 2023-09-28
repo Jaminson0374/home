@@ -41,6 +41,7 @@
                                         <div class="card-body" style="background-color: #08a2ef">
                                             <input type="hidden" name="accionBotones" accion="Guardar" id="accionBotones">
                                             <input type="hidden" name="presBtnNewArti" id="presBtnNewArti" value="N">
+                                            <input type="hidden" name="idArticulo" id="idArticulo">
                                             <div class="row border pb-2">
                                                 <div class="col-12 col-lg-3 col-md-4 col-sm-3">
                                                     <label>Referencia</label>
@@ -62,6 +63,19 @@
                                             </div> <!--cierre row-->
 
                                             <div class="row border pb-2">
+                                                <div class="col-12 col-lg-3 col-md-6 col-sm-3">
+                                                    <label for="">Categoría</label>
+                                                        <select class="select2 select2-danger"
+                                                        data-dropdown-css-class="select2-primary" style="width: 100%;"
+                                                        name="categoria_id" id="categoria_id" focusNext tabindex="4">
+                                                        <option selected="selected" disable value=" ">Seleciona categoría</option>
+                                                        @foreach ($_categoriasInv as $cateInv)
+                                                            <option value={{$cateInv->id}}>{{$cateInv->descripcion}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>                                                        
+                                                </div>   
+                                                                                                
                                                 <div class="col-12 col-lg-3 col-md-4 col-sm-2">
                                                     <label for="">Linea</label>
                                                         <select class="select2 select2-danger"
@@ -74,18 +88,7 @@
                                                         @endforeach
                                                     </select>                                                        
                                                 </div>                                                                  
-                                                <div class="col-12 col-lg-3 col-md-6 col-sm-3">
-                                                    <label for="">Categoría</label>
-                                                        <select class="select2 select2-danger"
-                                                        data-dropdown-css-class="select2-primary" style="width: 100%;"
-                                                        name="categoria_id" id="categoria_id" focusNext tabindex="4">
-                                                        <option selected="selected" disable value=" ">Seleciona categoría</option>
-                                                        @foreach ($_categoriasInv as $cateInv)
-                                                            <option value={{$cateInv->id}}>{{$cateInv->descripcion}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>                                                        
-                                                </div>                  
+               
                                     
                                                 <div class="col-12 col-lg-3 col-md-4 col-sm-2">
                                                     <label for="">Uni. Med</label>
@@ -458,7 +461,7 @@
                 /*Cuando se busca un registro se cambial atributo del input hidden*/
                 // let newNom80 = document.getElementById('accionBotones')
                 // newNom80.setAttribute('accion', "Actualizar");
-
+                document.getElementsByName('idArticulo')[0].value = data.id
                 var btnGuardar = document.getElementById('btnSaveArti');
                 btnGuardar.innerHTML = 'Actualizar'
                 
@@ -563,7 +566,7 @@
                     var attrAccion2 = $("#accionBotones").attr("accion");
                     let data = new FormData(formArtiQ)
                     let valuesDat = [...data.entries()];
-                    // console.log(valuesDat);
+                    console.log(valuesDat);
                     // return false
                 if (validaOk === '') {
                     // console.log(values)                   
@@ -618,10 +621,11 @@
                         }
                         clienteArtiMedica()
                     } else if (attrAccion2 === 'Actualizar'){ //Si se va a actualizar el registro
-                        let idArtiMed = document.getElementsByName('idArtiAnular')[0].value
+                        let idArticulo = document.getElementsByName('idArticulo')[0].value
+                        // let idArtiMed = document.getElementsByName('idArtiAnular')[0].value
                         const clienteCitaActualiza = async () => {  
                             await axios.post(
-                                "{{ URL::to('/clienteUpdateArti') }}",
+                                "{{ URL::to('/Update-articulo') }}",
                                 data, {
 
                                 }).then((response) => {
@@ -765,7 +769,7 @@
 					const anulaReg = async () => {  
 
 						await axios.post(
-							"{{ URL::To('/anulaArticulo') }}",data, {
+							"{{ URL::To('/destroyArticulo-inv') }}",data, {
 							}).then((response) => {
 					
                                 if(response.data['message'] == "Success"){  

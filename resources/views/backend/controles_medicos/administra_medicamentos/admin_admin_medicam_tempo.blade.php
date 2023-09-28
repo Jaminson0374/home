@@ -24,7 +24,7 @@
               <div class="card-body  bg bg-success">
                 <table id="example1" class="table table-bordered table-striped table-hover " style="width: 100%">
                     <thead class="bg bg-warning">
-                      <b><h4 class="text-white bg-success" style="font-size: 2em">Administración de Medicamentos Temporales</h2>                      
+                      <b><h4 class="text-dark bg-success" style="font-size: 2em">Administración de Medicamentos Temporales</h2>                      
                     <tr>
                       <th class="text-center">#</th> 
                       <th class="text-center">Documento</th>

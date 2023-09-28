@@ -69,11 +69,17 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Asignar Servicio</p>
                 </a>
-              </li>                        
-              <li class="nav-item" tile ="menus">
-                <a href="{{URL::to('/all-cliente')}}" class="nav-link">
+              </li>    
+              <li class="nav-item">
+                <a href="{{URL::to('/add-cliente-datobasic')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Acompañantes</p>
+                  <p>Usuarios Info Basica</p>
+                </a>
+              </li>                                    
+              <li class="nav-item" tile ="menus">
+                <a href="{{URL::to('/index-familia')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Familiares/Acomp</p>
                 </a>
               </li>          
             </ul>
@@ -99,7 +105,7 @@
               <li class="nav-item">
                 <a href="{{URL::to('/add-user-index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Personal Externo</p>
+                  <p>Profesional Externo</p>
                 </a>
               </li>
             </ul>
@@ -140,6 +146,12 @@
                   <p>Medicmento Permante</p>
                 </a>
               </li> 
+              <li class="nav-item">
+                <a href="{{URL::to('/admin_med_tempo')}}" class="nav-link"> 
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Medicmento Tmporal</p>
+                </a>
+              </li>               
               <li class="nav-item">
                 {{-- admin_medicamento_tempo --}}
                 <a href="{{URL::to('/index_admin_deposiciones')}}" class="nav-link"> 

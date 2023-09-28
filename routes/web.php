@@ -3,6 +3,7 @@ use App\Http\controller\backend\ClientesController;
 use App\Http\Controllers\backend\TipoDocumentoController;
 use App\Http\Controllers\backend\EmpleadosController;
 use App\Http\Controllers\backend\ClientesDatosBasicosControlle;
+use App\Http\Controllers\DeposicionPlanillaController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +80,18 @@ Route::post('/clienteCliUpdate/{idcliente}', [App\Http\Controllers\backend\Clien
 Route::post('anulaRegistroBsc', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'anularRegistroBsc'])->name('AnulaRegistroBsc');
 Route::post('validaDocumentoBsco', [App\Http\Controllers\backend\ClientesDatosBasicosController::class, 'validaDocumento'])->name('ValidaDocumento');
 
+/**************************************************************************
+Administrador de Familiares y Acopañantes 
+//************************************************************************* */
+
+Route::get('/index-familia', [App\Http\Controllers\AcompanantesController::class, 'index'])->name('IndexFamilia');
+Route::get('/create-familiares/{idFamiliar}', [App\Http\Controllers\AcompanantesController::class, 'create'])->name('CreateFamiliares');
+Route::post('/store-familiares', [App\Http\Controllers\AcompanantesController::class, 'store'])->name('StoreFamiliares');
+Route::post('destroy-familiares', [App\Http\Controllers\AcompanantesController::class, 'destroy'])->name('DestroyFamiliares');
+Route::post('show-familiares', [App\Http\Controllers\AcompanantesController::class, 'show'])->name('ShowFamiliares');
+Route::post('validaDoc-familiares', [App\Http\Controllers\AcompanantesController::class, 'validaDoc'])->name('ValidDocFamiliares');
+
+
 //*********************************************************************
 //      EMPLEADOS                                                *
 //*********************************************************************/
@@ -115,7 +128,7 @@ Route::post('/anulaRegistroCar', [App\Http\Controllers\CargosController::class, 
 //*********************************************************************
 //                                 CITAS MEDICAS                      *
 //*********************************************************************/
-Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminCitasMedicas');
+// Route::get('/admin-citas-medicas', [App\Http\Controllers\CitasMedicasController::class, 'index'])->name('AdminCitasMedicas');
 Route::get('/add-citas-medicas/{idDtoBasico}', [App\Http\Controllers\CitasMedicasController::class, 'create'])->name('AddCitasMedicas');
 Route::post('/insert-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'store'])->name('InsertClienteCitas');
 Route::get('/buscar-cliente-citas', [App\Http\Controllers\CitasMedicasController::class, 'busquedaClienteCita'])->name('BuscarClienteCitas');
@@ -149,8 +162,8 @@ Route::get('/helpSignosVitales', [App\Http\Controllers\SignosVitalesController::
 Route::get('/inv_articulos', [App\Http\Controllers\InvArticulosController::class, 'create'])->name('InvArticuloCreate');
 Route::post('/invArticulosStore', [App\Http\Controllers\InvArticulosController::class, 'store'])->name('invArticulosStore');
 Route::get('/buscarArticulos_show', [App\Http\Controllers\InvArticulosController::class, 'show'])->name('BuscarArticulosShow');
-// Route::post('/clienteUpdateEvol', [App\Http\Controllers\EvolucionDiariaController::class, 'update'])->name('ClienteUpdateEvol');
-Route::post('/anulaArticulo', [App\Http\Controllers\InvArticulosController::class, 'destroy'])->name('AnulaArticuloInv');
+Route::post('/Update-articulo', [App\Http\Controllers\InvArticulosController::class, 'update'])->name('UpdateArticulo');
+Route::post('/destroyArticulo-inv',   [App\Http\Controllers\InvArticulosController::class, 'destroy'])->name('AnulaArticuloInv');
 
 // LINEAS
 Route::get('/invLineasCreate', [App\Http\Controllers\InvLineasController::class, 'create'])->name('InvLineasCreate');
@@ -193,7 +206,7 @@ Route::get('/asignar-medicamentos/{idUserMed}', [App\Http\Controllers\AsignaMedi
 Route::post('/store-asigna-medicamento', [App\Http\Controllers\AsignaMedicamentosController::class, 'store'])->name('StoreAsignaMedicamento');
 Route::post('/show-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'show'])->name('ShowAsigMedic');
 Route::post('/show-asig-medic_perm', [App\Http\Controllers\AsignaMedicamentosController::class, 'buscar_asig'])->name('ShowAsigMedicPerm');
-
+Route::post('/destroy-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'destroy'])->name('DestroyAsigMedic');
 Route::post('/update-asig-medic', [App\Http\Controllers\AsignaMedicamentosController::class, 'update'])->name('UpdateAsigMedic');
 
 //CONTROLES MEDICOS - Administrar medicamento permanetes  *
@@ -201,20 +214,39 @@ Route::get('/admin_medicamento_user', [App\Http\Controllers\AdministraMedPermane
 Route::get('/admin-medicamentos_perm/{idUserMed}', [App\Http\Controllers\AdministraMedPermanentesController::class, 'create'])->name('AdminMedicamentosPerm');
 Route::post('/store-medicamentos_perm', [App\Http\Controllers\AdministraMedPermanentesController::class, 'store'])->name('StoreMedicamentosPerm');
 
-
+ 
 //*********************************************************************
-//CONTROLES MEDICOS - Asginación de los medicamentos temporales     *
+//CONTROLES MEDICOS - Asginación de los medicamentos TEMPORALES       *
 //*********************************************************************/
-Route::get('/admin_medicamento_tempo', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoTempo');
-Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
-Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
+/*Tabla = asig_med_tempo*/
+Route::get('/create-asig-med_tempo/{idUserMed}', [App\Http\Controllers\AsigMediTempoController::class, 'create'])->name('CreateAsigMedTempo');
+Route::post('/store-asig-med_tempo', [App\Http\Controllers\AsigMediTempoController::class, 'store'])->name('StoreAsigMedTempo');
+Route::post('/show-asig-med_tempo', [App\Http\Controllers\AsigMediTempoController::class, 'show'])->name('ShowAsigMedTempo');
+Route::post('/buscar-asig-med_tempo', [App\Http\Controllers\AsigMediTempoController::class, 'buscar_asigTempo'])->name('BuscarsigMedTempo');
+Route::post('/destroy-asig-med_tempo', [App\Http\Controllers\AsigMediTempoController::class, 'destroy'])->name('DestroyAsigMedTempo');
+Route::post('/update-asig-med_tempo', [App\Http\Controllers\AsigMediTempoController::class, 'update'])->name('UpdateAsigMedTempo');
+
+//CONTROLES MEDICOS - Administrar medicamento REMPORALES *
+/*Table = admin_med_tempo */
+Route::get('/admin_med_tempo', [App\Http\Controllers\AdminMediTempoController::class, 'index'])->name('AdminMedTempo');
+Route::get('/create-med_tempo/{idUserMed}', [App\Http\Controllers\AdminMediTempoController::class, 'create'])->name('CreateMedTempo');
+Route::post('/store-med_tempo', [App\Http\Controllers\AdminMediTempoController::class, 'store'])->name('StoreMedTempo');
+/***************************************************** */
+
+
+// //*********************************************************************
+// //CONTROLES MEDICOS - Asginación de los medicamentos temporales     *
+// //*********************************************************************/
+// Route::get('/admin_medicamento_tempo', [App\Http\Controllers\AdminMedicUserController::class, 'index'])->name('AdminMedicamentoTempo');
+// Route::get('/add_medica_user/{idUserMed}', [App\Http\Controllers\AdminMedicUserController::class, 'create'])->name('AddMedicaUser');
+// Route::post('/insert_AdminMedicamento', [App\Http\Controllers\AdminMedicUserController::class, 'store'])->name('InsertAdminMedicamento');
 
 //*********************************************************************
 //CONTROLES MEDICOS - CREAR PLANILLA VACIA DE DESPOSICIONES                                   *
 //*********************************************************************/
 Route::get('/index_admin_deposiciones', [App\Http\Controllers\DeposicionPlanillaController::class, 'index'])->name('AdminDesposicionesUser');
 Route::get('/create_planilla_deposiciones/{idUserMed}', [App\Http\Controllers\DeposicionPlanillaController::class, 'create'])->name('CreatePlanillaDeposiciones');
-Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaControllerer::class, 'buscar_planillas'])->name('BuscarPlanillas');
+Route::post('/buscar_planillas', [App\Http\Controllers\DeposicionPlanillaController::class, 'show'])->name('BuscarPlanillas');
 Route::post('/store-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'store'])->name('StorePlanilla');
 Route::post('/deposiciones-destroy-planilla', [App\Http\Controllers\DeposicionPlanillaController::class, 'destroy'])->name('DeposcionesDestroyPlanilla');
 

@@ -2,20 +2,22 @@
 /*******************************************************************************************
 AQUI COMIENZAN LOS METODOS PARA GUARDAR, EDITAR Y ELIMINAR
 *********************************************************************************************/
-class AsigMedicamento {
+class AsigMedicamentoTempo {
 
 	validarCampos() { //SE GUARDA EN VARIABLE EL CONTENIDO DE CADA ID (NAM DEL INPUT), PARA LUEGO GUARDARLO EN LA DBF
-		 let _diagnostico = document.getElementsByName('diagnostico')[0].value
+		//  let _diagnostico = document.getElementsByName('diagnostico')[0].value
 		 let _dosis = document.getElementsByName('dosis')[0].value
 		 let _pososlogia_t = document.getElementsByName('pososlogia_t')[0].value
 		 let _pososlogia_h_d = document.getElementsByName('pososlogia_h_d')[0].value
 		 let _fecha_inicio = document.getElementsByName('fecha_inicio')[0].value
+         let _fecha_fin = document.getElementsByName('fecha_fin')[0].value
 		 let _hora = document.getElementsByName('hora')[0].value
 		 let _indicaciones = document.getElementsByName('indicaciones')[0].value
-		//  let _horaTime = document.getElementsByName('horaTime')[0].value
-		//  let _minutoTime = document.getElementsByName('minutoTime')[0].value
-		//  let _ampmTime = document.getElementsByName('ampmTime')[0].value
-
+         let _duracion_dias = document.getElementsByName('duracion_dias')[0].value
+         let _personalexterno_id = document.getElementsByName('personalexterno_id')[0].value
+         let _dx = document.getElementsByName('dx')[0].value
+         
+        
 		 let _unimedida_id = $("#unimedida_id").val()
 		 let _tipoadmin_med_id = $("#tipoadmin_med_id").val();
 		 let _articulos_id = $("#articulos_id").val();
@@ -26,6 +28,19 @@ class AsigMedicamento {
 			}else if(_articulos_id === ""){  
 					campoText ="Debe seleccionar el MEDICAMENTO"
 					document.getElementById('articulos_id').focus()
+			}else if(_dx === ""){  
+					campoText ="Digite el diagnóstico DX"
+					document.getElementById('dx').focus() 
+            }else if(_personalexterno_id === ""){  
+					campoText ="Seleccione el médico que autoriza el medicamento"
+					document.getElementById('personalexterno_id').focus()                     
+                    _personalexterno_id
+            }else if(_fecha_inicio === ""){  
+                    campoText ="Seleccione la fecha de inicio del tratamiento"
+                    document.getElementById('fecha_inicio').focus() 
+            }else if(_fecha_fin === ""){  
+                    campoText ="Seleccione la fecha de final del tratamiento"
+                    document.getElementById('fecha_fin').focus()                                                             
 			}else if(_hora === ""){  
 				campoText ="Seleccione la hora"
 				document.getElementById('hora').focus()
@@ -38,9 +53,6 @@ class AsigMedicamento {
 			}else if(_tipoadmin_med_id === ""){  
 					campoText = "Seleccion  la vía de administración del medicamento"
 					document.getElementById('tipoadmin_med_id').focus()
-			// }else if(_horadbf === ""){  
-			// 		campoText ="Selecicone la HORA en la que se debe suministrar el medicamento "
-			// 		document.getElementById('horadbf').focus()
 			}
 		return campoText;
 	} 
@@ -48,32 +60,23 @@ class AsigMedicamento {
 	los valores traen de la busqueda se asigna los valor a cada elemento de del formulario, para editarlos
 	******************************************************************************************************/
 	asignaValorEdit(dataAsigMed) {
-		let i = 0;
-
-		// document.getElementsByName('articulos_id')[0].value = dataAsigMed.articulos_id
 		document.getElementsByName('dosis')[0].value = dataAsigMed.dosis
-		// document.getElementsByName('unimedida_id')[0].value = dataAsigMed.unimedida_id
 		document.getElementsByName('pososlogia_t')[0].value = dataAsigMed.pososlogia_t
 		document.getElementsByName('pososlogia_h_d')[0].value = dataAsigMed.pososlogia_h_d
-		// document.getElementsByName('tipoadmin_med_id')[0].value = dataAsigMed.tipoadmin_med_id
 		document.getElementsByName('fecha_inicio')[0].value = dataAsigMed.fecha_inicio
 		document.getElementsByName('indicaciones')[0].value = dataAsigMed.indicaciones
-		document.getElementsByName('idAsignaMedica')[0].value = dataAsigMed.id
-		
-		// let _horaTime = dataAsigMed.hora
+		document.getElementsByName('idAsignaMedica')[0].value = dataAsigMed.id	
 		document.getElementsByName('hora')[0].value = dataAsigMed.hora
-		// let _minutoTime = dataAsigMed.horadbf
-		// document.getElementsByName('minutoTime')[0].value = _minutoTime.substring(3,5)
-		// let _ampmTime = dataAsigMed.horadbf
-		// document.getElementsByName('ampmTime')[0].value = _ampmTime.substring(6,8)
-
-		// document.querySelector('.horaMuestra').style.display = 'inline'
-		// document.querySelector('.horaDbf').style.display = 'none'
-
+        document.getElementsByName('duracion_dias')[0].value = dataAsigMed.duracion_dias 
+        document.getElementsByName('dx')[0].value = dataAsigMed.dx
+        document.getElementsByName('fecha_fin')[0].value = dataAsigMed.fecha_fin     
+		
+        $("#personalexterno_id").val(dataAsigMed.personalexterno_id).trigger('change.select2');
 		$("#tipoadmin_med_id").val(dataAsigMed.tipoadmin_med_id).trigger('change.tipoadmin_med_id');
 		$("#articulos_id").val(dataAsigMed.articulos_id).trigger('change.select2');
 		$("#unimedida_id").val(dataAsigMed.unimedida_id).trigger('change.select2');
 		$("#hora").val(dataAsigMed.hora)
+		// $("$fecha_fin").val(dataAsigMed.fecha_fin)
 	}
 
 	/*cuando s epresiona el botón ok de la tabla del modal, se le da valor "Actualizar" al attributo accion del id accionbotones */
@@ -99,7 +102,7 @@ class AsigMedicamento {
 	clearElements(){
 		// document.getElementsByName("fecha_inicio")[0].value = Date();
 		// document.getElementsByName("hora")[0].value = '';
-
+        $("#personalexterno_id").val(" ").trigger('change.select2');
 		$("#tipoadmin_med_id").val(" ").trigger('change.tipoadmin_med_id');
 		$("#articulos_id").val(" ").trigger('change.select2');
 		$("#unimedida_id").val(" ").trigger('change.select2');
@@ -113,14 +116,13 @@ class AsigMedicamento {
 		document.getElementById('pososlogia_h_d').disabled = true;
 		document.getElementById('tipoadmin_med_id').disabled = true;
 		document.getElementById('fecha_inicio').disabled = true;
-		// document.getElementById('horadbf').disabled = true;
 		document.getElementById('indicaciones').disabled = true;
 		document.getElementById('hora').disabled = true;
-		// document.getElementById('horaTime').disabled = true;
-		// document.getElementById('minutoTime').disabled = true;
-		// document.getElementById('ampmTime').disabled = true;
-
-	}
+        document.getElementById('duracion_dias').disabled = true;
+        document.getElementById('personalexterno_id').disabled = true;
+        document.getElementById('dx').disabled = true;
+        document.getElementById('fecha_fin').disabled = true;
+    }
 	activaInput(){
 		document.getElementById('articulos_id').disabled = false;
 		document.getElementById('dosis').disabled = false;
@@ -129,12 +131,12 @@ class AsigMedicamento {
 		document.getElementById('pososlogia_h_d').disabled = false;
 		document.getElementById('tipoadmin_med_id').disabled = false;
 		document.getElementById('fecha_inicio').disabled = false;
-		// document.getElementById('horadbf').disabled = false;
 		document.getElementById('indicaciones').disabled = false;
 		document.getElementById('hora').disabled = false;
-		// document.getElementById('horaTime').disabled = false;
-		// document.getElementById('minutoTime').disabled = false;
-		// document.getElementById('ampmTime').disabled = false;
+        document.getElementById('duracion_dias').disabled = false;
+        document.getElementById('personalexterno_id').disabled = false;
+        document.getElementById('dx').disabled = false;
+        document.getElementById('fecha_fin').disabled = false;
 	}
 	
 

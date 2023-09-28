@@ -20,12 +20,18 @@ class EvolucionDiariaController extends Controller
     public function index()
     {
         $clientesEvolucionDiaria = DB::table('cliente_datosbasicos')
-        ->join('evolucion_diaria', 'cliente_datosbasicos.id','=','evolucion_diaria.datosbasicos_id')
-        ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')
-        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre',
-        'cliente_datosbasicos.apellidos','evolucion.descripcion','evolucion_diaria.evolucion_id',
+        ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento',
+        DB::raw('CONCAT(cliente_datosbasicos.nombre," ",cliente_datosbasicos.apellidos) as nombre'),
         'cliente_datosbasicos.edad','cliente_datosbasicos.ult_fecha_evo','cliente_datosbasicos.ult_hora_evo',
         'cliente_datosbasicos.ult_evolucion','cliente_datosbasicos.estado_user')->where("cliente_datosbasicos.estado_servicio", "=", "on")->get(); 
+
+        // $clientesEvolucionDiaria = DB::table('cliente_datosbasicos')
+        // ->join('evolucion_diaria', 'cliente_datosbasicos.id','=','evolucion_diaria.datosbasicos_id')
+        // ->join('evolucion', 'evolucion_diaria.evolucion_id','=','evolucion.id')
+        // ->select('cliente_datosbasicos.id','cliente_datosbasicos.num_documento','cliente_datosbasicos.nombre',
+        // 'cliente_datosbasicos.apellidos','evolucion.descripcion','evolucion_diaria.evolucion_id',
+        // 'cliente_datosbasicos.edad','cliente_datosbasicos.ult_fecha_evo','cliente_datosbasicos.ult_hora_evo',
+        // 'cliente_datosbasicos.ult_evolucion','cliente_datosbasicos.estado_user')->where("cliente_datosbasicos.estado_servicio", "=", "on")->get(); 
 
          return view('backend.evolucion_medica.admin_evolucion_diaria',['listaEvolucion' => $clientesEvolucionDiaria]);
       

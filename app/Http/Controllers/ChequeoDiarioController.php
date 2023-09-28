@@ -111,7 +111,7 @@ class ChequeoDiarioController extends Controller
         $showDiarioChequeo = DB::table('chequeo_diario')
         ->where('chequeo_diario.planilla_id','=',$request->planilla_id)
         ->where("chequeo_diario.anulado", "=", NULL)
-        ->join('chequeo_lista','chequeo_diario.planilla_id','=','chequeo_lista.id')
+        ->join('chequeo_lista','chequeo_diario.listachequeo_id','=','chequeo_lista.id')
         ->select("chequeo_diario.id",'chequeo_diario.planilla_id',
         'chequeo_diario.si_no','chequeo_diario.observacion', 
         'chequeo_lista.descripcion')->get(); 
@@ -124,8 +124,28 @@ class ChequeoDiarioController extends Controller
         return $showNuevaLista; 
     }       
     
-    public function destroy(ChequeoDiarioModel $chequeoDiarioModel)
+    public function destroy(Request $request, ChequeoDiarioModel $chequeoDiarioModel)
     {
-        //
+        $nPlani = $request->data['id'];
+        try {
+         DB::beginTransaction();
+             $numPlanilla = ChequeoPlanillaModel::findOrFail($nPlani);
+             $numPlanilla->anulado = "S";
+             $numPlanilla->save();  
+
+             //De esta forma tambien se pueden modificar los registros que cumplan la condicion   
+            //  $tabulatorsHistory = DB::table('cat_tabulator_histories')
+            //  ->where('id_tabulator', $name)
+            //  ->where('is_active', true)
+            //  ->update(['is_active' => false]);
+             
+             ChequeoDiarioModel::where('planilla_id',$nPlani)->update(['anulado'=>"S"]);
+
+         DB::commit();
+     } catch (\Exception $e) {
+         DB::rollBack();
+         return response()->json(['message' => 'Error']);
+     }
+     return response()->json(['message' => 'Success']);  
     }
 }

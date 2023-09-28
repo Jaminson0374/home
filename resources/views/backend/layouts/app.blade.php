@@ -71,13 +71,13 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
+  {{-- <footer class="main-footer">
     <strong>Derechos reservados &copy; 2023 <a href="https://www.fundaroca.org/">www:/Fundación Hogar la Roca</a>.</strong>
     todos los derechos reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
     </div>
-  </footer>
+  </footer> --}}
 </div>
 <!-- ./wrapper -->
 

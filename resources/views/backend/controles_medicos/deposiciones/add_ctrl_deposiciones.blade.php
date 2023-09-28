@@ -307,10 +307,33 @@ window.addEventListener('load', () => {
                             {"data": "mes_letra"},
                             {"data": "useranomes"},
                         ],
-                        columnDefs: [{
-                                targets: 4,
-                                visible: true
-                            },
+                    //     "initComplete":function( settings, data){
+                    //         console.log(data)
+                    //         let tabmd = data
+                    //             let _anos2 = document.getElementsByName('ano')[0].value // data.ano
+                    //             let _mesCt2 = document.getElementsByName('mes_ctrl')[0].value // data.mes
+                    //             let totDia2 =diasDelMes(_anos2,Number(_mesCt2)-1)   
+                    //             let seleDias2 = document.getElementById('dia_ctrl')
+                    //             seleDias2.innerHTML = '<option selected="selected" disable value=" ">Días</option>'
+                    //                 let sino = 0
+                    //                 for(let i = 1; i <= totDia2; i++){
+                    //                     let _dmi = i;
+                    //                     if(i<10){_dmi = "0"+i;}
+                    //                         for(let b = 0; b< tabmd.length; b++){   
+                    //                             if(Number(tabmd[b]['dia_ctrl']) === Number(i)){
+                    //                                 sino = 0
+                    //                                 break
+                    //                             }else{
+                    //                                 sino = 1
+                    //                             }
+                    //                         }
+                    //                         if(sino === 1){
+                    //                             seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi}>${_dmi}</option>`
+                    //                             sino = 0
+                    //                         }
+                    //                 }                                    
+                    // },                          
+                        columnDefs: [
                             {
                                 targets: 5,
                                 orderable: false,
@@ -545,9 +568,10 @@ window.addEventListener('load', () => {
                             let tabmd = data
                                 let _anos = document.getElementsByName('ano')[0].value // data.ano
                                 let _mesCt = document.getElementsByName('mes_ctrl')[0].value // data.mes
-                                let totDia =diasDelMes(_anos,Number(_mesCt)-1)   
+                                let totDia =diasDelMes(_anos,Number(_mesCt)-1)   //Total de días que tiene un mes 
                                 let seleDias = document.getElementById('dia_ctrl')
                                 seleDias.innerHTML = '<option selected="selected" disable value=" ">Días</option>'
+                                if(tabmd.length >0){
                                     let sino = 0
                                     for(let i = 1; i <= totDia; i++){
                                         let _dmi = i;
@@ -564,7 +588,15 @@ window.addEventListener('load', () => {
                                                 seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi}>${_dmi}</option>`
                                                 sino = 0
                                             }
-                                    }                                    
+                                    }
+                                }else{
+                                    for(let i = 1; i <= totDia; i++){
+                                        let _dmi2 = i;
+                                        if(i<10){_dmi2 = "0"+i;}
+                                            seleDias.innerHTML += `<option class="font-weight-bold" value=${_dmi2}>${_dmi2}</option>`  
+                                        
+                                    }
+                                }                                    
                     },     
                     "columns": [
                         {"data": "dia_ctrl"},

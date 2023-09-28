@@ -56,7 +56,7 @@
                         <div class="card card-primary card-outline">
                             <div class="border border-dark border-4 rounded bg-primary">
                                 <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">
-                                    Administracion de Usuarios
+                                    Informacion Básica de los Usuarios
                                 </h3>
                             </div>
                         </div>
@@ -565,7 +565,7 @@
                 let nDocInput = document.getElementsByName('num_documento')[0].value 
                 var attrAccion8 = $("#accionBotones").attr("accion");
                 if (attrAccion8 == 'Actualizar' & numdcuto ==nDocInput ) {
-                    alert('que pasa')
+                    // alert('que pasa')
                 }else{     
 
 					let idEvolMed2 = document.getElementsByName('num_documento')[0].value

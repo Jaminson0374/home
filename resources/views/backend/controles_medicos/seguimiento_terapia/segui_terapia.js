@@ -27,8 +27,8 @@ class SeguiTerapia {
 	validarSequiCampos() { //Valida los campos de la entrada de la sesiones en la planilla
 		let _fecha = document.getElementsByName('fecha')[0].value
 		let _sesion = document.getElementsByName('sesion')[0].value
-		let _horaTime = document.getElementsByName('horaTime')[0].value
-		let _ampmTime = document.getElementsByName('ampmTime')[0].value
+		let _hora = document.getElementsByName('hora')[0].value
+		// let _ampmTime = document.getElementsByName('ampmTime')[0].value
 		let _personalexterno_id  = document.getElementsByName('personalexterno_id')[0].value
 		let _descripcion  = document.getElementsByName('descripcion')[0].value
 		let _empleado_id  = document.getElementsByName('empleado_id')[0].value
@@ -40,12 +40,9 @@ class SeguiTerapia {
 		   }else if(_sesion === ""){
 			   campoText ="Debe ingresar la sesión respectiva"
 			   document.getElementById('sesion').focus()      				          
-			}else if(_horaTime === ""){
+			}else if(_hora === ""){
 				campoText ="Debe ingresar la hora de aplicación de la sesión"
-				document.getElementById('horaTime').focus()      				          
-			}else if(_ampmTime === ""){
-				campoText ="Seleccione Am o Pm dependiendo de la hora ingresada"
-				document.getElementById('ampmTime').focus()
+				document.getElementById('hora').focus()      				          
 			}else if(_personalexterno_id === ""){
 				campoText ="Seleccione el profesional que realiza la terapia o actividad"
 				document.getElementById('personalexterno_id').focus()      				          				      				          
@@ -56,7 +53,24 @@ class SeguiTerapia {
 		   return campoText;
    } 
    
-
+   llenasegui(datos){
+                   // let formPlani2 = document.getElementById('formAddDiaPlanillas')
+                    // formPlani2.reset();
+                    document.getElementsByName('fecha')[0].value = datos.fecha
+                    let jamin = $('#personalexterno_id').val("datos.personalexterno_id").trigger('change.select2')
+                    // alert(dataRow.personalexterno_id)
+                    let _jjk = datos.sesion
+                    if(datos.sesion <10){
+                         _jjk="0"+datos.sesion
+                    }
+                    // alert(_jjk)
+                    document.getElementsByName('sesion')[0].value = _jjk
+                    
+                    $('#empleado_id').val("datos.empleado_id").trigger('change.select2')
+                    document.getElementsByName('descripcion')[0].value = datos.descripcion
+                    document.getElementsByName('hora')[0].value = datos.hora
+						
+   }
 	/*Función para concatenar la hora, para guardarla en la dbf*/
 
 	horaText(horas,minutos,ampm){

@@ -22,10 +22,11 @@ class InvArticulosModel extends Model
         'softDeletes', 
         'timestamps',
         'presBtnNewArti',
-        'idArtiAnular'      
+        'idArtiAnular',
+        'idArticulo'     
     ];
     //Relacion de uno a muchos
-    public Function Requi_medicamentos () {
-        return $this->hasMany('RequisicionMedicamentodsModel', 'id_articulos','id');
-    }
+    // public Function Requi_medicamentos () {
+    //     return $this->hasMany('RequisicionMedicamentodsModel', 'id_articulos','id');
+    // }
 }

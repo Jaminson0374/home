@@ -171,7 +171,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                                                 focusNext tabindex="13"><i class="fa fa-trash fa-lg"
                                                                                     style="color:#f30b0b;"></i> Anular </button>
                                     
-                                                                                    <a href="{{ URL::to('/index-evento_adverso') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
+                                                                                    <a href="{{ URL::to('/index-chequeo-turno') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
                                                                                         focusNext tabindex="14" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                                         style="color:#f30b0b;"></i> Salir</a>    
                                                                             </div>
@@ -275,12 +275,10 @@ window.addEventListener('load', () => {
             funEvento.fecha_actual()
             funEvento.hora_actual()   
  
-
             document.querySelector('#btnNewAdm').style.display = 'inline'
 	        document.querySelector('#btnSaveAdm').style.display = 'none'
             document.querySelector('#btnCancelAdm').style.display = 'none'
 	        document.querySelector('#btnDeleteAdm').style.display = 'none'
-
             
             let idCliEvento = document.getElementsByName('datosbasicos_id')[0].value
             // fillTablePlanillas(idCliEvento)
@@ -386,13 +384,12 @@ window.addEventListener('load', () => {
                 funEvento.fecha_actual()
                 funEvento.hora_actual() 
                 
+                /*cerrar la ventana modal */
                 var table = $('#example2').DataTable();
                         //clear datatable
                         table.clear().draw();
                         //destroy datatable
                         table.destroy();
-
-  
             }) 
         /****************************************************
             BOTON NUEVO - Nuevo Registro
@@ -457,9 +454,10 @@ window.addEventListener('load', () => {
 
                 $('#example1 tbody').on('click', 'tr', function () {
                     let data = table.row( this ).data();
-                    console.log(data)                                
+                    // console.log(data)                                
                     fillTablePlanillas(data.id)
                     document.getElementsByName('New_Update')[0].value = 'updateReg'
+                    document.getElementsByName('planilla_id')[0].value = data.id
                             //    CierraPopup();
                         $("#modalChequeo").modal("toggle");
                         // console.log(data)
@@ -467,13 +465,70 @@ window.addEventListener('load', () => {
                         document.querySelector('#btnNewAdm').style.display = 'none'
                         document.querySelector('#btnSaveAdm').style.display = 'inline'
                         document.querySelector('#btnCancelAdm').style.display = 'inline'
-                        document.querySelector('#btnDeleteAdm').style.display = 'inline'
-                        
+                        document.querySelector('#btnDeleteAdm').style.display = 'inline'                        
                 })
 
             })             
-
- }) 
+   /*****************************************************
+	Elminar el registro que está en en el formulario
+	********************************************************/
+    let botonDel = document.getElementById("btnDeleteAdm");
+			botonDel.addEventListener('click', () => {
+                // let funcEvento2 = new EventoAdverso();
+            Swal.fire({
+                title: 'Se ANULARÁ LA PLANILLA QUE SE MUESTRA EN EL FORMULARIO, ¿Está seguro de Anularla?',
+                text: "!No podrás revertir el proceso!", 
+                icon: 'warning',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Anular',
+                cancelButtonText: 'Cancelar'
+			}).then((result) => {
+				if (result.isConfirmed) {
+                    const anulaReg = async () => {
+                            await axios.post("{{URL::to('/destroy-chequeo-turno')}}",{
+                                data: {
+                                    id:  document.getElementsByName('planilla_id')[0].value
+                                }                
+                            }).then((response) => {
+                                 console.log(response.data)
+                                if(response.data['message'] == "Success"){  
+                                        // funcEvento2.clear_element(true)  
+                                        // document.querySelector('#btnCancelAdm').style.display = 'none'
+                                        // let planiId3 = document.getElementsByName('datosbasicos_id')[0].value 
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'PERFECTO',
+                                        text: 'Se ANULO el Evento con exito',
+                                        footer: ''
+                                    })
+                                        /*cerrar la ventana modal */
+                                        var table = $('#example2').DataTable();
+                                        table.clear().draw();
+                                        table.destroy();
+                                        funEvento.clear_element(true)    
+                                        document.querySelector('#btnCancelAdm').style.display = 'none'                                
+                                }    
+							}).catch(function(error) {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error interno',
+									text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
+										'  ' + error,
+									footer: ''
+								})
+							// console.log(error);
+						})
+					}
+					anulaReg();
+				}
+			}) 
+            return true						      
+        }) 
+        return true
+    }) 
  
     /***********************************************************************
      * BOTON NUEVO - Llenar la tabla con lista de chequeo - al presional el boton NUEVO
@@ -511,7 +566,7 @@ window.addEventListener('load', () => {
                                 return '<input type="checkbox" '  + ((row.si_no == '1') ? 'checked' : '') + ' id="input' + row.id + '" class="filter-ck text" />';
                               }
                               return data;
-                          },
+                          }, 
                       },                                             
                       {
                           targets: [3],
@@ -608,62 +663,6 @@ window.addEventListener('load', () => {
 //    })
 
 
-   /*****************************************************
-	Elminar el registro que está en en el formulario
-	********************************************************/
-//     let botonDelete = document.getElementById("btnDeleteAdm");
-// 			botonDelete.addEventListener('click', () => {
-//                 let funcEvento2 = new EventoAdverso();
-//                 Swal.fire({
-//                 title: 'Se ANULARÁ EL EVENTO QUE SE MUESTRA EN EL FORMULARIO, ¿Está seguro de Anularlo?',
-//                 text: "!No podrás revertir el proceso!", 
-//                 icon: 'warning',
-//                 allowOutsideClick: false,
-//                 showCancelButton: true,
-//                 confirmButtonColor: '#3085d6',
-//                 cancelButtonColor: '#d33',
-//                 confirmButtonText: 'Anular',
-//                 cancelButtonText: 'Cancelar'
-// 			}).then((result) => {
- 
-// 				if (result.isConfirmed) {
-//                     const anulaReg = async () => {
-//                             await axios.post("{{URL::to('/destroy-evento')}}",{
-//                                 data: {
-//                                     id:  document.getElementsByName('idEvento')[0].value
-//                                 }                
-//                             }).then((response) => {
-//                                  console.log(response.data)
-//                                 if(response.data['message'] == "Success"){  
-//                                         funcEvento2.clear_element(true)  
-//                                         document.querySelector('#btnCancelAdm').style.display = 'none'
-//                                         let planiId3 = document.getElementsByName('datosbasicos_id')[0].value 
-//                                     Swal.fire({
-//                                         icon: 'success',
-//                                         title: 'PERFECTO',
-//                                         text: 'Se ANULO el Evento con exito',
-//                                         footer: ''
-//                                     })
-//                                     fillTablePlanillas(planiId3) 
-//                                 }    
-// 							}).catch(function(error) {
-// 								Swal.fire({
-// 									icon: 'error',
-// 									title: 'Error interno',
-// 									text: 'Por favor reinicie la apliación, si el problema continua comuniquese con su asesor' +
-// 										'  ' + error,
-// 									footer: ''
-// 								})
-// 							// console.log(error);
-// 						})
-// 					}
-// 					anulaReg();
-// 				}
-// 			}) 
-//             return true						
-                
-//         })
-//    }
 
 //    $("#example2 tr td input[type='checkbox']").each(function(){
 

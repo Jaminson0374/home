@@ -61,7 +61,7 @@
                                     <input type="hidden" id="datosbasicos_id" name="datosbasicos_id" value={{$datosRow->id}}>
                                     <input type="hidden" id="idAsignaMedica" name="idAsignaMedica">
                                     <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
-                                    <input type="hidden" name="horadbf" id="horadbf">
+                                    {{-- <input type="hidden" name="horadbf" id="horadbf"> --}}
 
  
                                 <div class="row">
@@ -76,8 +76,12 @@
                                                             id="fecha" focusNext tabindex="1" 
                                                             title="fecha en la que inicia el tratamiento">
                                                     </div> 
-                                                    
-                                                        <div class="col-lg-1 col-sm-12 col-md-1"> 
+                                                    <div class="col-lg-3 col-sm-12 col-md-6">                                                     
+                                                        <label for="">Hora*</label>
+                                                        <input type="time" class="form-control "  name="hora" id="hora"
+                                                        title="Hora de del proceso" focusNext tabindex="6">
+                                                    </div>                                                      
+                                                        {{-- <div class="col-lg-1 col-sm-12 col-md-1"> 
                                                             <label for="" class="col-form-label">HH</label> 
                                                             <input type="text" placeholder="HH" class="form-control text text-center focusNext p-0" maxlength="2" size ="2" id="horaTime"  pattern="[0-9]+" name="horaTime" tabindex="2">
                                                         </div>
@@ -94,7 +98,7 @@
                                                                 <option value="AM">AM</option>
                                                                 <option value="PM">PM</option>
                                                             </select>
-                                                        </div>
+                                                        </div> --}}
 
                                                     <div class="col-lg-2 col-sm-12 col-md-2"> 
                                                         <label for="" class="col-form-label">Glucometría</label> 
@@ -175,7 +179,7 @@
                                                                     <i class="fa fa-save fa-lg" style="color:hsl(0, 0%, 100%);"></i> Guardar
                                                                 </button>                                                            
                                                             
-                                                                <a href="{{ URL::to('/admin_glucometria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                                <a href="{{ URL::to('/index_admin_glucometria') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                                 focusNext tabindex="7" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                 style="color:#f30b0b;"></i> Salir</a>    
                                                         </div>
@@ -197,19 +201,19 @@
 <script>
     window.addEventListener('load', () => {
         let funcActi = new CtrlGlucometria()
-        funcActi.horaminutos()
+        // funcActi.horaminutos()
             fillTableInterna()
             /*GUARDA EL ITEN EN LA TABLA*/
             $('#enviar').on('click', function(e) {
                 e.preventDefault()
-                    funcAsigMed.horaText()
+                    // funcAsigMed.horaText()
                     const seleccion     = [];
                     let _idGlu          = document.getElementsByName('datosbasicos_id')[0].value 
                     let _fechaGlu       = document.getElementsByName('fecha')[0].value 
                     let _userIdM        = document.getElementsByName('user_id')[0].value
                     let _empleado_id    = document.getElementsByName('empleado_id')[0].value
                     let _glucometria    = document.getElementsByName('glucometria')[0].value
-                    let _hora           = document.getElementsByName('horadbf')[0].value
+                    let _hora           = document.getElementsByName('hora')[0].value
             // console.log(seleccion);
             $.ajax({
                 url:'{{URL::to("/store-ctrglucometria")}}',
@@ -308,11 +312,11 @@
         let idasigmedic = document.getElementsByName('datosbasicos_id')[0].value; 
             table = $('#example2').DataTable({
                 // fixedHeader : 'true',
-                    scrollY: '400px',
+                    // scrollY: '400px',
                     // scrollx: 'false',
                     // responsive: 'true',
                     destroy: 'true',
-                    // autoWidth: 'false',
+                    autoWidth: 'false',
                 "ajax": {
                         "type": "POST",
                         "dataType": 'json',
@@ -340,7 +344,7 @@
                                 let fila = meta.row;
                                 let botones =
                                     `
-                                        <button type='button' id='btnCaptura' class='btnCaptura btn btn-warning btn-md' title="Eliminar dia de la planilla"><i class="fa fa-trash"><i></button>
+                                        <button type='button' id='btnCaptura' class='btnCaptura btn-warning fa fa-trash' title="Eliminar dia de la planilla"></button>
                                     `
                                 return botones;
                                 // style="color:#f30b0b;"

@@ -6,18 +6,18 @@
 </head>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper bg-warning">
+<div class="content-wrapper">
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
                     @csrf
                     {{-- @method('post') --}}
     <section class="content">
       <div class="row pb-2 pt-1">
-        <div class="col-5">
-          <b><h4 class="text-white bg-success">Administración de Evolución Diaria</h2></b>
+        <div class="col-7">
+          <b><h4 class="text-dark bg-warning" style="font-size: 1.5em">Administración y Asignación de Medicamentos TEMPORALES</h2></b>
         </div> 
         <div class="col-2"></div>
         <div class="col-2">   
-              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus"></i>Nuevo Usuario-Reserva</a>
+              <a class="btn btn-primary btn-md" href="{{URL::to('/add-cliente-datobasic')}}" title="Crear usuario nuevo en a la institución"><i class="fa fa-user-plus btn-md"></i>Crear Usuario</a>
         </div> 
       
       </div>      
@@ -25,35 +25,38 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-            <div class="card ">
+          <div class="col-12" >
+            <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="adminEvolucionMedica" class="table table-bordered table-striped bg-success">
-                    <thead class="bg-info">
+                <table id="example1" class="table table-bordered table-striped text-white " style="width: 100%; background: #2d40e6">
+                    <thead class="bg-warning">
                     <tr>
-                      <th class="text-center">ID</th> 
+                      <th class="text-center">#</th> 
                       <th class="text-center">Documento</th>
-                      <th class="text-center">Nombre</th>
+                      <th class="text-center"> Nombre y Apellidos  </th>
                       <th class="text-center">Edad</th>
-                      <th class="text-center">Ult Fecha Evo</th>
-                      <th class="text-center">Ult Hora Evo</th>
+                      <th class="text-center">Ult Fe admin</th>
+                      <th class="text-center">Ult Hora admin</th>
                       <th class="text-center">Acción</th>
                     </tr>
                     </thead>
                     <tbody>
-                     @foreach ($listaEvolucion as $key=>$row )
-                    <tr>
-                        <td>{{$key+1}}</td>
-                        <td class="text-left">{{$row->num_documento}}</td>
-                        <td>{{$row->nombre}}</td>
-                        <td class="text-center">{{$row->edad}}</td>
-                        <td>{{$row->ult_fecha_evo }}</td>
-                        <td>{{$row->ult_hora_evo }}</td>
+                     @foreach ($clientesAdminMed as $key=>$row )
+                    <tr style="height: 2px">
+                        <td class="p-0 m-0 text-center">{{$key+1}}</td>
+                        <td class="p-0 m-0 text-left">{{$row->num_documento}}</td>
+                        <td class="p-0 m-0">{{$row->nombre." ".$row->apellidos}}</td>
+                        <td class="p-0 m-0 text-center">{{$row->edad}}</td>
+                        <td class="p-0 m-0 text-center">{{$row->ult_fec_adm_med_tmp }}</td>
+                        <td class="p-0 m-0 text-center">{{$row->ult_hora_adm_med_tmp}}</td> 
                         <td>
-                            <a href="{{URL::to('add-evolucion-diaria/'.$row->id)}}" class ="btn btn-primary btn-xs" id="" title="Ingresar, modificar y/o consultar Evolución médica"><i class="fa fa-user-plus" style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;"></i>Evol Med</a>
+                            <a href="{{URL::to('create-med_tempo/'.$row->id)}}" class ="btn btn-primary btn-md" id="" title="Ingresar, modificar y/o consultar la Administración permanentes de medicamentos asignado"><i class="fa fa-user-plus"></i>Admin</a>
+                            <a href="{{URL::to('create-asig-med_tempo/'.$row->id)}}" class ="btn btn-primary bg bg-success btn-md" id="" title="Asignación de los medicamentos permanentes del usuario"><b>Asignar</b></a>
                         </td>
                     </tr>
+                    {{-- style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;" --}}
+                    
                     @endforeach
                     </tbody>
                   </table>

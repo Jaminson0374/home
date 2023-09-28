@@ -3,7 +3,11 @@
 <head>
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
+<style>
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 8px 10px; /* e.g. change 8x to 4px here */
+}  
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
@@ -43,15 +47,16 @@
                     <tbody>
                     @foreach ($empleadoIndex as $key=>$row )
                     <tr>
+                      {{-- tipo_doc.' '.$row-> --}}
                         <td>{{$key+1}}</td>
-                        <td>{{$row->tipo_doc.' '.$row->num_documento}}</td>
-                        <td>{{$row->empleado}}</td>
+                        <td>{{$row->num_documento}}</td>
+                        <td>{{$row->nombre}}</td>
                         <td>{{$row->edad}}</td>
                         <td>{{$row->telefonos}}</td>
                         <td>{{$row->cargo}}</td> 
                         <td>{{$row->sexo}}</td> 
                         <td>
-                            <a href="{{URL::to('/empleadosCreate')}}" class ="btn btn-primary btn-xs" id="" title="Consultar, Agregar, o desactivar empleados"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"><i><i class="fa fa-trash" style="color:#f30b0b;"></i>Empleado</a>
+                            <a href="{{URL::to('/empleadosCreate')}}" class ="btn btn-primary btn-xs" id="" title="Consultar, Agregar, o desactivar empleados"><i class="fa fa-user-plus" style="color:#0bf31e;"></i><i class="fa fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -77,12 +82,14 @@
 </div>
 <script>
 
-    // window.addEventListener('load', () => {
-    //     tabla2 = $('#example2').DataTable({
-    //       destroy : "true",
+    window.addEventListener('load', () => {
+        tabla2 = $('#example2').DataTable({
+          destroy : "true",
+          paging: true,
+          "pageLengt": '25',
 
-    //     })
-    // })
+        })
+    })
  
 </script>
   @endsection 

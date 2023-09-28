@@ -33,6 +33,9 @@
         display: flex;
         justify-content: center;
     }    
+    table.dataTable tbody th, table.dataTable tbody td {
+    padding: 8px 10px; /* e.g. change 8x to 4px here */
+    }    
 </style>
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -248,15 +251,8 @@
     function fillTableInterna(){
         let idasigmedic = document.getElementsByName('datosbasicos_id')[0].value
             table = $('#example2').DataTable({
-                    "scrollY": '400px',
                     "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
                     "ordering": true,
-                    "info": true,
-                    "scroll": true,
-                    "scrollx": true, 
-                    "scrolly": true, 
                     "destroy": true,
                 "ajax": {
                         "type": "POST",
@@ -287,7 +283,7 @@
                                 let fila = meta.row;
                                 let botones =
                                     `
-                                        <button type='button' id='btnCaptura' class='btnCaptura btn btn-warning btn-md' title="Eliminar programación Actividad y/o Terapia"><i class="fa fa-trash"><i></button>
+                                        <button type='button' id='btnCaptura' class='btnCaptura btn-md fa fa-trash' title="Eliminar programación Actividad y/o Terapia"></button>
                                     `
                                 return botones;
                                 // style="color:#f30b0b;"

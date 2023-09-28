@@ -56,10 +56,13 @@ class SeguimtoTerapiaController extends Controller
         //Busqueda para llenar planilla del modal
         $showAddAsignaPlanillas = DB::table('terapia_actividad')
         ->where('terapia_actividad.datosbasicos_id','=',$request->datosbasicos_id)
-        ->where("anulado", "=", NULL)
+        ->join('procesos_medicos','terapia_actividad.proceso_medico_id','=','procesos_medicos.id')
+        ->where("terapia_actividad.anulado", "=", NULL)
         ->select('terapia_actividad.id','terapia_actividad.proceso_medico_id','terapia_actividad.fecha_ini',
-        'terapia_actividad.fecha_fin','terapia_actividad.num_sesiones',
-        'terapia_actividad.anulado', 'terapia_actividad.datosbasicos_id',)->get(); 
+        'terapia_actividad.fecha_fin','terapia_actividad.num_sesiones','procesos_medicos.descripcion',
+        'terapia_actividad.anulado', 'terapia_actividad.datosbasicos_id',
+        )->get(); 
+        
         return $showAddAsignaPlanillas;    
     }
 
@@ -77,8 +80,10 @@ class SeguimtoTerapiaController extends Controller
             ->join('medicos_externos', 'seguimto_terapia.personalexterno_id','=','medicos_externos.id')
             ->select("seguimto_terapia.id",'seguimto_terapia.planilla_id','seguimto_terapia.sesion',
             'seguimto_terapia.hora','seguimto_terapia.fecha','seguimto_terapia.descripcion','seguimto_terapia.empleado_id', 
-            'empleados.nombre as cuidador','medicos_externos.nombre as profesional', 
-            'medicos_externos.doc_identidad','empleados.num_documento')->get(); 
+            'empleados.nombre as cuidador','medicos_externos.nombre as profesional', 'seguimto_terapia.personalexterno_id',
+            DB::raw('CONCAT(CONVERT(substr(seguimto_terapia.hora,1,2), CHAR),CONVERT(substr(seguimto_terapia.hora,3,3), CHAR)) as hora'),
+            'medicos_externos.doc_identidad','empleados.num_documento', 'seguimto_terapia.empleado_id')->get(); 
+            // DB::raw('CONCAT(CONVERT(substr(seguimto_terapia.hora,1,2) %12, CHAR),CONVERT(substr(seguimto_terapia.hora,3,4), CHAR)) as hora'),
             return $showAddAsignaPlanillas; 
         }
     }

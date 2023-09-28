@@ -76,7 +76,7 @@ th,td {
                                     <input type="hidden" id="user_id" name="user_id" value={{auth()->user()->id}}>
                                     <input type="hidden" name="datosbasicos_id" value={{$datosRow->id}}>
                                     <input type="hidden" name="planilla_id" id="planilla_id">
-                                    ><input type="hidden" id="numsesion" name="numsesion">
+                                    <input type="hidden" id="numsesion" name="numsesion">
 
                                     <div class="row">
                                     <div class="col-lg-4 col-sm-12 col-md-4">  
@@ -90,7 +90,7 @@ th,td {
                                                             title="Fecha de la sesión">
                                                     </div> 
                                                     <div class="col-lg-4 col-sm-12 col-md-4">                                                        
-                                                        <label for="">#Sesión:</label>
+                                                        <label for="">Sesión#</label>
 
                                                         <select class="form-control text"
                                                             name="sesion" id="sesion" focusNext tabindex="2">
@@ -100,23 +100,16 @@ th,td {
                                                 </div>
                                                     <div class="card card-primary card-outline">
                                                         <div class="row">
-                                                            <div class="col-lg-4 col-sm-12 col-md-4"> 
-                                                                <label for="" class="col-form-label">HH</label> 
-                                                                <input type="text" placeholder="HH" class="form-control text text-center focusNext p-0" maxlength="2" size ="2" id="horaTime"  pattern="[0-9]+" name="horaTime" tabindex="2">
+                                                            <div class="col-12 col-lg-6 col-sm-12 col-md-6">                                                        
+                                                                <label for="">Hora*</label>
+                                                                <input type="time" class="form-control m-0 p-0"  name="hora" id="hora"
+                                                                    title="Hora deL CAMBIO de turno" focusNext tabindex="2">
+                                                            </div>                                                    
+
+                                                           <div class="col-lg-4 col-sm-12 col-md-4"> 
+                                                                {{-- <label for="" class="col-form-label">Sesión #</label>  --}}
+                                                                <input type="text"class="form-control text text-center focusNext p-0 sesion2" id="sesion2" name="sesion2">
                                                             </div>
-                                                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                                                <label for="" class="col-form-label">MM</label>
-                                                                <input type="text" placeholder="MM" class="form-control text-center text p-0 focusNext" maxlength="2" size"2" id="minutoTime" name="minutoTime"  pattern="[0-9]+" tabindex="3">
-                                                            </div> 
-                                                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                                                <label for="" class="col-form-label">AMPM</label>
-                                                                <select class="form-control p-0 focusNext text-center" style="width: 100%;" tabindex="4" 
-                                                                    name="ampmTime" id="ampmTime" focusNext tabindex="5">
-                                                                    <option selected="selected" disable value=""></option>
-                                                                    <option value="AM">AM</option>
-                                                                    <option value="PM">PM</option>
-                                                                </select>
-                                                            </div>                                                                                                                                                                                         
                                                         </div>
                                                  
                                                     </div>
@@ -192,7 +185,7 @@ th,td {
                                         <div class="col-lg-8 col-sm-12 col-md-8">
                                             {{-- <div class="col-lg-12 col-sm-12 col-md-12"> --}}
                                                         <div class="table-wrapper col-lg-12 col-sm-12 col-md-12 bg-primary text-white "> 
-                                                            <table id="example2" class="table  table-bordered table-striped table-hover text-dark"  style="width: 100%; background-color: hsl(125, 85%, 79%)">
+                                                            <table title ="Click = MUESTRA EL REGISTRO EN EL FORMULARIO, Doble Click = ELIMINA EL REGISTRO" id="example2" class="table  table-bordered table-striped table-hover text-dark"  style="width: 100%; background-color: hsl(125, 85%, 79%)">
                                                                 <thead class="bg bg-success" style="">
                                                                     <tr>
                                                                         <th>#</th>
@@ -202,7 +195,6 @@ th,td {
                                                                         <th>Descripcion</th>
                                                                         <th>Cuidador</th>
                                                                         <th>Id</th>
-                                                                        <th><i class="fa fa-trash"><i></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="bodyTabla">
@@ -257,7 +249,6 @@ th,td {
                                         <th class="text-center">Terapia</th>
                                         <th class="text-center">Fecha Ini</th>
                                         <th class="text-center">Fecha Fin</th>
-                                        <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="bodyTabla">
@@ -282,15 +273,14 @@ th,td {
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
 window.addEventListener('load', () => { 
+    document.querySelector('.sesion2').style.display = 'none'
     var meses = ["Enero","Febrero", "Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     let funcSegui = new SeguiTerapia()
                 document.querySelector('#empleado_id').style.display = 'none'
                 document.querySelector('#personalexterno_id').style.display = 'none' 
                 document.querySelector('#descripcion').style.display = 'none'  
-                document.querySelector('#sesion').style.display = 'inline'  
-                document.querySelector('#horaTime').style.display = 'none'  
-                document.querySelector('#minutoTime').style.display = 'none'  
-                document.querySelector('#ampmTime').style.display = 'none'  
+                document.querySelector('#sesion').style.display = 'inline' 
+                document.querySelector('#hora').style.display = 'none'  
                 document.querySelector('#fecha').style.display = 'none'   
                 document.querySelector('#btnSaveAdm').style.display = 'none'
                 document.querySelector('#btnCancelAdm').style.display = 'none' 
@@ -325,27 +315,9 @@ window.addEventListener('load', () => {
                         },
                         "columns": [
                             {"data": "id"},
-                            {"data": "proceso_medico_id"},
+                            {"data": "descripcion"},
                             {"data": "fecha_ini"},
                             {"data": "fecha_fin"},
-                        ],
-                        columnDefs: [{
-                                targets: 3,
-                                visible: true
-                            },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                data: null,
-                                render: function(data, type, row, meta) {
-                                    let fila = meta.row;
-                                    let botones =
-                                        `
-                                    <button type='button' id='btnCaptura' class='btnCaptura btn btn-primary btn-md' data-dismiss="modal"><i class="fa fa-check-circle"></i></i></button>`
-                                    return botones;
-                                }
-                            }
-
                         ],
                         "destroy": true,
                         "language":{"url": "../../resources/js/espanol.json"}
@@ -353,12 +325,11 @@ window.addEventListener('load', () => {
                     return true
             })
  
-            // $('#example1').on("click", "button.btnCaptura", function () {
-                // let data = table_user.row($(this).parents("tr")).data();
-                
             $('#example1 tbody').on('click', 'tr', function () {
                 let data = table_user.row( this ).data();
-                // console.log(dataTemp.id)                                
+                formPlani.reset()
+                $('#personalexterno_id').val(' ').trigger('change.select2')
+                $('#empleado_id').val(' ').trigger('change.select2')
                 fillTablePlanillas(data.id)
 
                 document.getElementsByName('sesion')[0].value = 0
@@ -366,35 +337,18 @@ window.addEventListener('load', () => {
                 
                 document.getElementsByName("numsesion")[0].value = data.num_sesiones
                 document.getElementById('sesion').focus()
+                document.querySelector('.sesion2').style.display = 'none'
                 document.querySelector('#empleado_id').style.display = 'inline'
                 document.querySelector('#personalexterno_id').style.display = 'inline' 
                 document.querySelector('#descripcion').style.display = 'inline'  
                 document.querySelector('#sesion').style.display = 'inline'  
-                document.querySelector('#horaTime').style.display = 'inline'  
-                document.querySelector('#minutoTime').style.display = 'inline'  
-                document.querySelector('#ampmTime').style.display = 'inline'  
+                document.querySelector('#hora').style.display = 'inline'  
                 document.querySelector('#fecha').style.display = 'inline'   
                 document.querySelector('#btnSaveAdm').style.display = 'inline'
                 document.querySelector('#btnCancelAdm').style.display = 'inline' 
                 document.getElementById('btnSaveAdm').disabled = false;
-                 $("#modalBuscarPln").dispose()                
+                $("#modalBuscarPln").modal("toggle"); 
             })
-    /* FIN DEL CODIGO PARA LLENAR TABLA DEL MODAL DE BUSQUEDA DE LA PLANILLA            
-    /************************************************************************/
-    //  let nDocumento = document.getElementById("num_documento");
-            
-        /*Traigo el año actual de la fecha acrual*/
-        /*const date = new Date();
-        let yyy = date.getFullYear();
-        document.getElementsByName('ano')[0].value = yyy;  
-        document.getElementById('btnSaveAdm').disabled = true;*/
-
-             // saltarEnter()
-
-        /*********************************/
-        // document.querySelector('.message').style.display = 'none'
-        // document.querySelector('.horaMuestra').style.display = 'none'
-		// document.querySelector('.horaDbf').style.display = 'inline'
 
        /********************************************************************************************
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
@@ -404,11 +358,6 @@ window.addEventListener('load', () => {
 
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
-            let _horas = document.getElementsByName('horaTime')[0].value
-		    let _ampm = document.getElementsByName('ampmTime')[0].value
-		    let _minutos = document.getElementsByName('minutoTime')[0].value            
-            let _hora = funcSegui.horaText(_horas,_minutos,_ampm)
-            // document.getElementsByName('horadbf')[0].value = _hora		
             let valiCampos = funcSegui.validarSequiCampos()
 
             if (valiCampos === " "){
@@ -418,13 +367,13 @@ window.addEventListener('load', () => {
                                         data: {
                                             fecha : document.getElementsByName('fecha')[0].value,
                                             sesion : document.getElementsByName('sesion')[0].value,
-                                            hora : _hora,
                                             personalexterno_id  : document.getElementsByName('personalexterno_id')[0].value,
                                             descripcion : document.getElementsByName('descripcion')[0].value,
                                             empleado_id : document.getElementsByName('empleado_id')[0].value, 
                                             datosbasicos_id : document.getElementsByName('datosbasicos_id')[0].value,
                                             planilla_id : document.getElementsByName('planilla_id')[0].value,
-                                            user_id: document.getElementsByName('user_id')[0].value
+                                            user_id: document.getElementsByName('user_id')[0].value,
+                                            hora: document.getElementsByName('hora')[0].value
                                         }                
                                     }).then((resp) => {
                                         // console.log(resp.data)
@@ -433,14 +382,15 @@ window.addEventListener('load', () => {
                                             let _nsesion = document.getElementsByName('sesion')[0].value
                                             document.getElementsByName('fecha')[0].value = " "
                                             document.getElementsByName('sesion')[0].value = " "
-                                            document.getElementsByName('horaTime')[0].value = " "
-                                            document.getElementsByName('minutoTime')[0].value = " "
-                                            document.getElementsByName('ampmTime')[0].value = " "
+
+                                            document.getElementsByName('hora')[0].value = " "
                                             document.getElementsByName('personalexterno_id')[0].value = " "
                                             document.getElementsByName('descripcion')[0].value = " "
                                             document.getElementsByName('empleado_id')[0].value = " " 
-
+                                            $('#personalexterno_id').val(' ').trigger('change.select2')
+                                            $('#empleado_id').val(' ').trigger('change.select2')      
                                             document.querySelector('#btnSearch').style.display = 'none'
+                                            document.querySelector('.sesion2').style.display = 'none'
                                             document.querySelector('#btnCancelAdm').style.display = 'inline'
 
                                             document.getElementById('fecha').focus()
@@ -470,20 +420,20 @@ window.addEventListener('load', () => {
 	********************************************************/
 			let botonCancel = document.getElementById("btnCancelAdm");
 			botonCancel.addEventListener('click', () => {
-                
+                formPlani.reset()
                 document.querySelector('#btnSaveAdm').style.display = "none"
                 document.querySelector('#btnSearch').style.display = "inline"
                 document.getElementsByName('empleado_id')[0].value = " "
                 document.getElementsByName('descripcion')[0].value = ""
-
+                document.querySelector('.sesion2').style.display = 'none'
                 document.querySelector('#descripcion').style.display = 'none'  
                 document.querySelector('#sesion').style.display = 'none'  
                 document.querySelector('#fecha').style.display = 'none'  
-                document.querySelector('#minutoTime').style.display = 'none'   
-                document.querySelector('#horaTime').style.display = 'none'   
-                document.querySelector('#ampmTime').style.display = 'none'   
-                document.querySelector('#empleado_id').style.display = 'none'
-                document.querySelector('#btnCancelAdm').style.display = 'none'               
+                document.querySelector('#hora').style.display = 'none'   
+                document.querySelector('#btnCancelAdm').style.display = 'none'
+               
+                $('#personalexterno_id').val(' ').trigger('change.select2')
+                $('#empleado_id').val(' ').trigger('change.select2')                 
             })                      
  }) 
 
@@ -550,30 +500,13 @@ window.addEventListener('load', () => {
                         {"data": "num_documento"},
                         {"data": "id"}
                     ],
-                     columnDefs: [{
-                            targets: 6,
-                            visible: true
-                        },
-                        {
-                            targets: 7,
-                            orderable: false,
-                            data: null,
-                            render: function(data, type, row, meta) {
-                                let fila = meta.row;
-                                let botones =
-                                    `
-                                     <i style="color: #ee2015" class="fa fa-trash"><button type='button' id='btnCaptura' class='btnCaptura' title="Eliminar dia de la planilla"></button></i>
-                                    `
-                                return botones;
-                                // style="color:#f30b0b;"
-                            }
-                        }
-                    ],
+ 
                     "destroy": true,
                     "language":{"url": "../../resources/js/espanol.json"
                     }
                 })
-   $('#example2 tbody').on('click', 'tr', function () {
+
+     $('#example2 tbody').on('dblclick', 'tr', function () {
         var dataTemp = table.row( this ).data();
         // console.log(dataTemp.id)
             // $('#example2').on("click", "button.btnCaptura", function () {
@@ -627,7 +560,29 @@ window.addEventListener('load', () => {
 			}) 						
                 
         })
-   }
+        $('#example2 tbody').on('click', 'tr', function () {
+                    let dataTmp2 = table.row( this ).data();
+ 
+                    /*Este se utiliza cuando es con el boton */
+                    // let dataTmp2 = table.row($(this).parents("tr")).data();
+                    
+                    document.querySelector('.sesion2').style.display = 'inline'
+                    document.querySelector('#sesion').style.display = 'none'
+                    document.querySelector('#btnSaveAdm').style.display = "none"
+                    document.getElementsByName('descripcion')[0].value = dataTmp2.descripcion
+                    $('#personalexterno_id').val(dataTmp2.personalexterno_id).trigger('change.select2')
+                    $('#empleado_id').val(dataTmp2.empleado_id).trigger('change.select2')
+                    document.getElementsByName('hora')[0].value = dataTmp2.hora
+                    document.getElementsByName('fecha')[0].value = dataTmp2.fecha
+                    let _jjk = dataTmp2.sesion
+                    if(dataTmp2.sesion <10){
+                         _jjk="0"+dataTmp2.sesion
+                    }
+                    document.getElementsByName('sesion2')[0].value = _jjk                    
+                    // console.log(dataTmp2)
+                })    
+            // })
+        }
 </script>
 
 

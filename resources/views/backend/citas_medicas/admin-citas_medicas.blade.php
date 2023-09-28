@@ -48,7 +48,7 @@
               </div> --}}
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="adminClientes" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped " style="width: 100%">
                     <thead>
                     <tr>
                       <th class="text-center">ID</th> 
@@ -105,11 +105,13 @@
   
   </form>
 </div>
-{{-- <script src="{{ asset('/backend/datatable_externa_1_10_20/jquery-3.3.1.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/popper.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/backend/datatable_externa_1_10_20/datatables.min.js') }}"></script> --}}
 <script>
+  window.addEventListener('load', () =>{
+    $('#example1').DataTable({
+      destroy: "true"
+    })
+  }) 
+
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/

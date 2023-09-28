@@ -41,32 +41,7 @@ class DeposicionPlanillaController extends Controller
     
     public function buscar_planillas(Request $request, DeposicionPlanillaModel $DeposicionPlanillaModel)
     {
-       
-            if ($request->okFalse == "01"){  //buscar todas las planilla del id selecionado
-                // $meses = ["Enero","Febrero", "Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];                
-                // return $meses[];
-                $showAsignaPlanillas = DB::table('deposicion_planilla')
-                ->where('deposicion_planilla.datosbasicos_id','=',$request->datosbasicos_id)
-                ->where("anulado", "=", NULL)
-                ->select('deposicion_planilla.id','deposicion_planilla.datosbasicos_id','deposicion_planilla.mes_letra',
-                'deposicion_planilla.useranomes','deposicion_planilla.created_at','deposicion_planilla.mes', 'deposicion_planilla.ano',
-                'deposicion_planilla.anulado')->get(); 
-                return $showAsignaPlanillas;    
-
-            }else if($request->data['okFalse']== "02"){ // validar la existencia de la planilla
-                // return $request->data['dato_id'].' '.$request->data['okFalse'];
-                $showAsignaPlanillas2 = DB::table('deposicion_planilla')
-                ->where('deposicion_planilla.useranomes','=',$request->data['dato_id'])
-                ->where("anulado", "=", NULL)
-                ->select('deposicion_planilla.useranomes')->get();
-
-                if(count($showAsignaPlanillas2)>0){
-                    $planilla = $showAsignaPlanillas2[0]->useranomes;
-                    return ['message'=>'Error', 'planilla' =>$planilla];
-                }else{
-                    return ['message'=>'Success'];
-            }
-        }
+ 
     }
  
     public function store(Request $request, DeposicionPlanillaModel $deposicionPlanillaModel)
@@ -90,9 +65,33 @@ class DeposicionPlanillaController extends Controller
     }
 
 
-    public function show(DeposicionPlanillaModel $deposicionPlanillaModel)
+    public function show(Request $request, DeposicionPlanillaModel $deposicionPlanillaModel)
     {
-        //
+        if ($request->okFalse == "01"){  //buscar todas las planilla del id selecionado
+            // $meses = ["Enero","Febrero", "Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];                
+            // return $meses[];
+            $showAsignaPlanillas = DB::table('deposicion_planilla')
+            ->where('deposicion_planilla.datosbasicos_id','=',$request->datosbasicos_id)
+            ->where("anulado", "=", NULL)
+            ->select('deposicion_planilla.id','deposicion_planilla.datosbasicos_id','deposicion_planilla.mes_letra',
+            'deposicion_planilla.useranomes','deposicion_planilla.created_at','deposicion_planilla.mes', 'deposicion_planilla.ano',
+            'deposicion_planilla.anulado')->get(); 
+            return $showAsignaPlanillas;    
+
+        }else if($request->data['okFalse']== "02"){ // validar la existencia de la planilla
+            // return $request->data['dato_id'].' '.$request->data['okFalse'];
+            $showAsignaPlanillas2 = DB::table('deposicion_planilla')
+            ->where('deposicion_planilla.useranomes','=',$request->data['dato_id'])
+            ->where("anulado", "=", NULL)
+            ->select('deposicion_planilla.useranomes')->get();
+
+            if(count($showAsignaPlanillas2)>0){
+                $planilla = $showAsignaPlanillas2[0]->useranomes;
+                return ['message'=>'Error', 'planilla' =>$planilla];
+            }else{
+                return ['message'=>'Success'];
+        }
+    }
     }
 
     public function edit(DeposicionPlanillaModel $deposicionPlanillaModel)

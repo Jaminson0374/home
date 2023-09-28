@@ -26,7 +26,7 @@ class CitasMedicasController extends Controller
       
         $clientesCitasMedicas = DB::table('cliente_datosbasicos')
         ->select('id','num_documento','nombre','apellidos',
-        'edad','citas_pendte','estado_user')->where("estado_user", "=", "ON")->get(); 
+        'edad','citas_pendte','estado_user')->where("cliente_datosbasicos.estado_servicio", "=", "on")->get(); 
       
         return view('backend.citas_medicas.admin-citas_medicas',['listaCitas' => $clientesCitasMedicas]);
     }

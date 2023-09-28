@@ -91,21 +91,29 @@ class InvArticulosController extends Controller
  
     public function update(Request $request, InvArticulosModel $invArticulosModel)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\InvArticulosModel  $invArticulosModel
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, InvArticulosModel $invArticulosModel)
-    {
-            // return $request['idEvolucion'];
+            // return $request['idEvolMedica'];
             try {
                 DB::beginTransaction();
-                $idArtiAnula=$request['idArtiAnular'];
+                $idCli3=$request['idArticulo'];
+                $clienteCita = InvArticulosModel::findOrFail($idCli3);
+                $clienteCita->fill($request->all());
+                $clienteCita->save();  
+       
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Error']);
+            }
+            // return  $clienteCita; 
+            return response()->json(['message' => 'Success']);
+    }
+
+    public function destroy(Request $request, InvArticulosModel $invArticulosModel)
+    {
+            // return $request['idArticulo'];
+            try {
+                DB::beginTransaction();
+                $idArtiAnula=$request['idArticulo'];
                 $artiAnula = InvArticulosModel::findOrFail($idArtiAnula);
                 $artiAnula->anulado = "S";
                 $artiAnula->save();  
@@ -115,6 +123,7 @@ class InvArticulosController extends Controller
                 return response()->json(['message' => 'Error']);
             }
             return response()->json(['message' => 'Success']);
+            // return $artiAnula;
     }
 
 }

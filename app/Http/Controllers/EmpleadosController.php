@@ -25,10 +25,10 @@ class EmpleadosController extends Controller
         ->join('sexo', 'empleados.sexo_id','=','sexo.id')
         ->join('tipo_documentos', 'empleados.tipodocumento_id','=','tipo_documentos.id')
         ->join('cargos', 'empleados.cargo_id', '=','cargos.id')
-        ->select('empleados.id',DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
+        ->select('empleados.id','empleados.nombre',
         'tipo_documentos.descripcion as tipo_doc', 'empleados.num_documento', 'cargos.descripcion as cargo',
         'empleados.edad','empleados.telefonos','sexo.descripcion as sexo')->get();
-
+        // DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as empleado'),
         $sinRegistro=true;
         if($empleadoIndex){
             $sinRegistro=true;

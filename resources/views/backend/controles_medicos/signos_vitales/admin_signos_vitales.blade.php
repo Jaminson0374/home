@@ -29,7 +29,7 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="adminSignosVitales" class="table table-bordered table-striped">
+                <table id="adminSignosVitales" class="table table-bordered table-striped" style="width: 100%">
                     <thead>
                     <tr>
                       <th class="text-center">ID</th> 
@@ -76,7 +76,13 @@
   
   </form>
 </div>
-
+<script>
+  window.addEventListener('load', () =>{
+    $('#adminSignosVitales').DataTable({
+      destroy: "true"
+    })
+  }) 
+</script>
 
   @endsection 
  

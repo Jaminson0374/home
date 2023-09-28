@@ -39,7 +39,7 @@
     </head>
     <div class="content-wrapper jaminson">
         <section class="content">
-            <div class="card border-2">
+            <div class="card border-2 bg-primary text-dark">
                 {{-- <div class="card-body text-dark tarjeta_body"> --}}
                     <form role="form" name="formAsignaMedicamento" id="formAsignaMedicamento" action="">
                         @csrf
@@ -47,9 +47,9 @@
                             <body>
                                 @foreach($dtobasicoMed as $datosRow)
                                 @endforeach
-                                <div class="row border border-dark border-4 m-2 rounded bg-primary">
+                                <div class="row border border-dark border-4 m-2 rounded bg-success">
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
-                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Administracion de Medicamentos
+                                        <h3 id="textB" style="font-weight: 900; font-size: 1.5em;" class="card-title">Administracion de Medicamentos TEMPORALES
                                         </h3>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
@@ -72,13 +72,13 @@
                                             <div class="card card-primary card-outline">
                                                 {{-- <div class="card-body"> --}}
                                                 <div class="row">
-                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                    <div class="col-lg-2 col-md-3 col-sm-12">
                                                         <label for="">Fecha Admin:</label>
                                                         <input type="date" class="form-control text" name="fecha_ingerir"
                                                             id="fecha_ingerir"  focusNext tabindex="5" 
                                                             title="fecha en la que inicia el tratamiento">
                                                     </div> 
-                                                    <div class="col-12 col-lg-5 col-md-5 col-sm-12 border border-primary pb-2">
+                                                    <div class="col-12 col-lg-3 col-md-5 col-sm-12 border border-primary pb-2">
                                                         <label class="">Cuidador</label>
                                                         <select class="form-control select2 select2-danger"
                                                             data-dropdown-css-class="select2-danger" style="width: 100%;"
@@ -91,20 +91,34 @@
                                                         </select>
                                                     </div>
                                                     
-                                                    <div class="col-lg-4 col-sm-12 col-md-4">
-                                                        <label for="">Diagnóstico</label>  
-                                                        <textarea type="text" class="form-control text text" rows="1" id="diagnostico" name="diagnostico" title="Problema o diagnóstico con el que entra el paciente a la fundación" focusNext tabindex = "4" disabled = "true" >{{$datosRow->diagnostico}}</textarea>                                                                                                           
+                                                    <div class="col-lg-3 col-sm-12 col-md-4">
+                                                        <label for="">DX</label>  
+                                                        <textarea type="text" class="form-control text text" rows="1" id="dx" name="dx" title="" focusNext tabindex = "4" disabled = "true" >{{$datosRow->diagnostico}}</textarea>                                                                                                           
                                                     </div>
+                                                    {{-- <div class="row">--}}
+                                                        <div class="col-lg-2 col-sm-12 col-md-6">  
+                                                            <label for="">Desde</label>
+                                                            <input type="date" class="form-control text " disabled name="fecha_inicio"
+                                                            id="fecha_inicio"  focusNext tabindex="3" 
+                                                            title="fecha en la que inicia el tratamiento">
+                                                        </div>
+                                                        <div class="col-lg-2 col-sm-12 col-md-6">                                                        
+                                                            <label for="">Hasta</label>
+                                                            <input type="date" class="form-control text " disabled name="fecha_fin"
+                                                            id="fecha_fin"  focusNext tabindex="4" 
+                                                            title="fecha en la que termina el tratamiento">
+                                                        </div>                                                        
+                                                    {{-- </div>   --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 fechaletras">
-                                        <h3 class="card-title float-right  bg bg-warning text-center" id="fechaLetras" style="font-weight: 900; font-size: 1.5em;">fecha</h3>
+                                        <h3 class="card-title float-right  bg bg-success text-center" id="fechaLetras" style="font-weight: 900; font-size: 1.5em;">fecha</h3>
                                     </div>
                                     <div class="col-lg-12 col-sm-12 col-md-12 ">  
                                         <div class="card card-warning card-outline">
-                                            <div class="col-lg-12 col-sm-12 col-md-12 bg-primary"> 
+                                            <div class="col-lg-12 col-sm-12 col-md-12 bg-info"> 
                                                 {{-- <label class="bg bg-success text-center" id="bgtext"><h3>Seleccione la fecha de administración de medicamentos</h3></label>  --}}
                                                 <table id="example2" class="table table-bordered table-striped table-hover tbl-buys" style="width:100%">
                                                     <thead>
@@ -175,7 +189,7 @@
                                                             <button type="button" class="btn btn-primary form-group btn-lg" id="btnCancelAdm" title="Cancela el proceso actual y limpia cada una de las celdas"
                                                                 focusNext tabindex="21"> <i class="fa fa-ban fa-lg"></i> Cancelar</button>
 
-                                                                <a href="{{ URL::to('/admin_medicamento_user') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
+                                                                <a href="{{ URL::to('/admin_med_tempo') }}" class="btn btn-primary btn-lg float-right" title="Abandonar la ventana"
                                                                 focusNext tabindex="23" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                 style="color:#f30b0b;"></i> Salir</a>    
                                                         </div>
@@ -200,15 +214,11 @@
 
 
 <script>
-    //  nobackbutton()
-    // saltarEnterFormulario()
+ 
     /*******************************************************
      * Llena la tabla del modal para la busqueda de clientes
      * *****************************************************/
      window.addEventListener('load', () => {
-         // document.querySelector('.horaMuestra').style.display = 'none'
-		// document.querySelector('.horaDbf').style.display = 'inline'
-
             var fechar = document.getElementById('fecha_ingerir')
            
             fechar.addEventListener("change", ()=>{
@@ -226,21 +236,7 @@
 
         let modalBuscarEvol = document.getElementById('modalBuscarEvol');
         let btnSearchAdm = document.getElementById('btnSearchAdm');
-        })                  
-
-        // setInterval(function() { 
-        //     let espanol = idioma()
-        //     let table4 = $('#tablaClientesEvol').DataTable({
-    
-        //         })
-                
-        // table4.ajax.reload(function(){
-        // $(".paginate_button > a").on("focus",function(){
-        // $(this).blur();
-        // });
-        // }, false);
-        // }, 10000);    
-    
+        })                    
 
     /*****************************************************
 	Limpia los campos al presionar el boton cancelar
@@ -319,7 +315,7 @@
                     dataType: "JSON",
                     headers: {'X-CSRF-TOKEN': $('meta[nam="csrf-token"]').attr('content')},
                     data: {dato_id: idasigmedic,fecha_ingerir: fechaingerir},
-                    url: "{{ URL::to('/show-asig-medic') }}",
+                    url: "{{ URL::to('/show-asig-med_tempo') }}",
                     "dataSrc": ""
                 },
                     
@@ -345,7 +341,8 @@
                               return data;
                           } 
                       }
-                    //   {targets: , visible: false}
+                    //   {targets: 6, visible: false},
+                    
 
                             // {targets: [checkCol], 
                             // render: function ( data, type, row ) {
@@ -369,9 +366,22 @@
         // Marcar/desmarcar casillas de verificación para todas las filas de la tabla
         $('input[type="checkbox"]', rows).prop('checked', this.checked);
          });
+
+         let formAsigMed = document.getElementById('formAsignaMedicamento')
+            $('#example2 tbody').on('click', 'tr', function () {
+                    let dataTemp = tablaMed.row( this ).data();
+                    // let data = table.row($(this).parents("tr")).data();
+                    console.log(dataTemp)
+                    formAsigMed.reset()
+                    document.getElementsByName('dx')[0].value = dataTemp.dx
+                    document.getElementsByName('fecha_fin')[0].value = dataTemp.fecha_fin     
+		            document.getElementsByName('fecha_inicio')[0].value = dataTemp.fecha_inicio                    
+                    // funcAsigMed.asignaValorEdit(dataTemp)
+            })               
     }
 
-    window.addEventListener('load', () => { 
+    window.addEventListener('load', () => {             
+            
         $('#enviar').on('click', function(e) {
             e.preventDefault()
             
@@ -391,21 +401,20 @@
                 info = $(this).closest('tr').data();
                 info.checked = this.checked
                 // console.log(info.checked = this.checked)
-                let _okk2 = 0;
+                let _okk = 0;
                 if( info.checked){
-                    _okk2 = 1
+                    _okk = 1
                     // console.log('verdadero')
                 }else{
-                    _okk2 = 0
+                    _okk = 0
                     // console.log('falso')
-                }                
-                // console.log(info.checked = this.checked)
+                }
                 // this.checked
                 seleccion.push({
                     id : row.find('td').eq(6).text(),
                     datosbasicos_id : idasigmedic2,
                     fecha_ingerir : fechaingerir2,
-                    ok : _okk2,
+                    ok : _okk,
                     user_id : userIdM,
                     asignamed_id : row.find('td').eq(7).text(),
                     empleado_id : empleado_id
@@ -442,16 +451,18 @@
                 return 0
             }            
         })
-       const jamin2 = seleccion
-       let regi_seleccion2 = jamin2.sort(((a, b) => a.id - b.id));
-       console.log(regi_seleccion2)
+        // console.log(seleccion);
+        const jamin = seleccion
+       let regi_seleccion = jamin.sort(((a, b) => a.id - b.id));
+       console.log(regi_seleccion)
+        // return false
          $.ajax({
-            url:'{{URL::to("/store-medicamentos_perm")}}',
+            url:'{{URL::to("/store-med_tempo")}}',
             "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             cache:false,
             type:'post',
             "dataType": 'json',
-            data:{registros:regi_seleccion2},
+            data:{registros:regi_seleccion},
          }).then(function(data) {
             console.log(data);
             // $("p").text(data.title)

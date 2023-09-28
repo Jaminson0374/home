@@ -273,5 +273,14 @@ function quitarcomas(){
   return diasMes
  }
 
+ function cerrarModal(){
+                  /*cerrar la ventana modal */
+                  var table = $('#example2').DataTable();
+                  //clear datatable
+                  table.clear().draw();
+                  //destroy datatable
+                  table.destroy();
+ }
+
 
 

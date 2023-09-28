@@ -4,7 +4,11 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   {{-- <script src="{{ asset('../resources/js/back_off.js') }}"></script> --}}
 </head>
-
+  <style>
+  table.dataTable tbody th, table.dataTable tbody td {
+    padding: 8px 10px; /* e.g. change 8x to 4px here */
+}    
+  </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <form role="form" name="formClienteAdmin" id="formClienteAdmin" action="">
@@ -38,7 +42,7 @@
                         <td class="p-0 m-0 text-center">{{$row->edad}}</td>
                         <td class="p-0 m-0 text-center">{{$row->ult_cambio_turno}}</td>
                         <td>
-                            <a href="{{URL::to('/create-chequeo-turno/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Llenar formato de Eventos adeversos, sintomatología o muerte"><i class="fa fa-user-plus"></i>Evento</a>
+                            <a href="{{URL::to('/create-chequeo-turno/'.$row->id)}}" class ="btn btn-primary btn-md m-0 text-center" id="" title="Llenar formato de Eventos adeversos, sintomatología o muerte"><i class="fa fa-user-plus"></i>Turno</a>
                         </td>
                     </tr>
                     {{-- style="color:#f3600b;"></i><i class="fa fa-pencil-alt"></i><i class="fa fa-trash" style="color:#f30b0b;" --}}
@@ -69,7 +73,6 @@
     window.addEventListener('load', () =>{
       $('#example1').DataTable({
         destroy: "true",
-         scrollY: "500px",
         language: {"url":"../resources/js/espanol.json"},
       })
       return true

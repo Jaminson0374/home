@@ -60,12 +60,18 @@ class CtlGlucometriaController extends Controller
             ->where("ctrl_glucometria.datosbasicos_id", "=", $request->datosbasicos_id)
             ->where("ctrl_glucometria.anulado", "=", NULL)
             ->join('empleados', 'ctrl_glucometria.empleado_id','=','empleados.id')
-            ->select("ctrl_glucometria.id",'ctrl_glucometria.fecha','ctrl_glucometria.hora',
+            ->select("ctrl_glucometria.id",'ctrl_glucometria.fecha',
             'ctrl_glucometria.glucometria', 'ctrl_glucometria.empleado_id','empleados.num_documento', 
             DB::raw('CONCAT(empleados.nombre," ",empleados.apellidos) as cuidador'), 
+            DB::raw('CONCAT(CONVERT(substr(ctrl_glucometria.hora,1,2) %12, CHAR),CONVERT(substr(ctrl_glucometria.hora,3,4), CHAR)) as hora'),
             'ctrl_glucometria.observaciones')->get(); 
             return $showAddAsignaPlanillas;    
-    }
+
+              // ->join('empleados', 'reporte_evento.empleado_id','=','empleados.id')
+            // ->join('medicos_externos', 'reporte_evento.personalexterno_id','=','medicos_externos.id')            
+            /* CONCATENA, CONVIERTE A TEXTO Y SUBSTRAE
+            // DB::raw('CONCAT(CONVERT(substr(reporte_evento.hora,1,2) %12, CHAR),CONVERT(substr(reporte_evento.hora,3,4), CHAR)) as hora')*/
+        }
 
      public function edit(CtrlGlucometriaModel $ctrlGlucometriaModel)
     {

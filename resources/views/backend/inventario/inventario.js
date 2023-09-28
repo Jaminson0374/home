@@ -33,10 +33,10 @@ class invArticulos {
 		// var campoText="";
 		let camposForm = "";
 		switch (camposForm) {
-			case _referencia:
-				campoText = 'La REFERENCIA del Articulo está vacía'
-				document.getElementById("referencia").focus()
-				break;
+			// case _referencia:
+			// 	campoText = 'La REFERENCIA del Articulo está vacía'
+			// 	document.getElementById("referencia").focus()
+			// 	break;
 			case _descripcion:
 				campoText = 'La DESCRIPCIÓN esta vacía'
 				document.getElementById("descripcion").focus()
