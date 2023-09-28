@@ -61,7 +61,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     <div class="content-wrapper jaminson">
         <section class="content">
             <div class="card border-2">
-                    <form role="form" name="formAddDiaPlanillas" id="formAddDiaPlanillas" action="">
+                    <form role="form" name="formExternos" id="formExternos" action="">
                         @csrf
 
                         <div class="col-lg-12 col-md-12">
@@ -92,8 +92,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                             <div class="row pb-2">   
                                                 <div class="col-12 col-lg-2 col-sm-12 col-md-4">                                                        
                                                     <label class=" ">*Tipo_Documento</label>
-                                                    <select class="select2 select2-danger focusNext text"
-                                                    data-dropdown-css-class="select2-danger select-sm" class="my-class-drop"
+                                                    <select class="form-control focusNext text"
                                                     style="width: 100%" tabindex="1" name="tipodocumento_id" id="tipodocumento_id">
                                                     @foreach ($tipoDocFami as $tipoDoc)
                                                         <option value={{ $tipoDoc->id }}>
@@ -149,7 +148,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                                     placeholder="Dirección laboral">                                               
                                                             </div>                                                                 
                                                             <div class="col-lg-3 col-sm-12 col-md-3">
-                                                                <label for="" class="">*Teléfonos :</label>
+                                                                <label for="" class="">*Teléfonos:</label>
                                                                 <input type="text" class="form-control text focusNext" maxlength="60"
                                                                     tabindex="8" id="telefonos" name="telefonos"
                                                                     placeholder="Telfonos">                                                           
@@ -184,7 +183,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                             <div class="col-lg-3 col-sm-12 col-md-3">
                                                                 <label for="" class="">Orgnanización</label>
                                                                 <input type="text" class="form-control text focusNext" maxlength="60"
-                                                                    tabindex="12" id="telefonos" name="telefonos"
+                                                                    tabindex="12" id="organizacion" name="organizacion"
                                                                     placeholder="Empresa donde labora">                                                           
                                                             </div>                                                                                                                                                                                             
                                                         </div>
@@ -208,6 +207,10 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                                                     focusNext tabindex="12" id="btnSaveAdm" accionBtn="Guardar"name="btnSaveAdm">
                                                                                     <i class="fa fa-save fa-lg" style="color:#fffefee0;"></i>Guardar
                                                                                 </button>
+                                                                                <button type="button" class="btn btn-primary form-group btnSearchAdm btn-md m-1" title="Permite localizar un el refistro de un empleado"
+                                                                                id="btnSearchAdm" focusNext tabindex="20"><i
+                                                                                    class="fa fa-search-location fa-lg"></i>Buscar
+                                                                                    </button>                                                                                
                                                                                 <button type="button" class="btn btn-primary form-group btn-md m-1" id="btnCancelAdm" title="Cancela el proceso actual y limpia cada una de las celdas"
                                                                                     focusNext tabindex="13"> <i class="fa fa-ban fa-lg"></i> Cancelar
                                                                                 </button>     
@@ -215,7 +218,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                                                 focusNext tabindex="14"><i class="fa fa-trash fa-lg"
                                                                                     style="color:#f30b0b;"></i> Anular </button>
                                     
-                                                                                    <a href="{{ URL::to('/index-chequeo-turno') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
+                                                                                    <a href="{{ URL::to('/index-medicoexterno') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
                                                                                         focusNext tabindex="15" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                                         style="color:#f30b0b;"></i> Salir</a>    
                                                                             </div>
@@ -225,7 +228,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                             </div>
 
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-                                <script src="{{ asset('../resources/views/backend/profesional_externos/medico_externo.js') }}"></script>
+                                <script src="{{ asset('../resources/views/backend/profesional_externo/medico_externo.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
                                 <script src="{{ asset('../resources/js/enter_form.js') }}"></script>
 
@@ -263,7 +266,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                 <body>
                     <div class="modal-body">
                         <div class="card-body p-2 mb-0 bg-primary text-white">
-                            <table id="tablaUserClientes" class="table table-bordered table-striped">
+                            <table id="tablaMediExterno" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -297,6 +300,47 @@ window.addEventListener('load', () => {
             //     let data = table_user.row( this ).data();
             //     // console.log(dataTemp.id)                                
             // })
+            document.getElementsByName('idFamiliar')[0].value ='0'
+            var funEvento = new Familiares();
+            let btnSearch = document.getElementById('btnSearchAdm')
+            
+            btnSearch.addEventListener('click', ()=>{
+                $("#modalBuscarExt").modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        show: true
+                    });                
+                busquedaProfesionales()
+                let formExt = document.querySelector('#formExternos')
+                $('#tablaMediExterno tbody').on('click', 'tr', function () {
+                    let data = table_user.row( this ).data();
+                    formExt.reset()
+                    // console.log(data)
+                    funEvento.showHideElement('inline')
+                    funEvento.captura_datos(data)
+                    
+                    document.getElementsByName('idFamiliar')[0].value = data.id
+                    document.querySelector('#doc_identidad').disabled = true
+                    document.querySelector('#tipodocumento_id').disabled = true
+
+                    
+                    /*Cuando se busca un registro se cambial atributo del input hidden*/
+                    let text4 =  document.querySelector("#accion").innerHTML ="Puede CONSULTAR, EDITAR O ANULAR"                     
+                    document.querySelector('#btnDeleteAdm').style.display = "inline";
+                    document.querySelector('#btnNewAdm').style.display = "none";
+                    document.querySelector('#btnSearchAdm').style.display = "inline";
+                    document.querySelector('#btnCancelAdm').style.display = "inline";
+                    document.querySelector('#btnSaveAdm').style.display = "inline";
+                    $("#modalBuscarExt").modal("toggle");
+                /*limpia la tabla */
+                    // var table = $('#tablaMediExterno').DataTable();
+                    //         //clear datatable
+                    //         table.clear().draw();
+                    //         //destroy datatable
+                    //         table.destroy();                
+    
+                })                
+            })
             document.getElementsByName('newUpdate')[0].value = " "                       
             /**************************************************************
              *Valida la existencia del documento de identidad del usuario   
@@ -308,7 +352,7 @@ window.addEventListener('load', () => {
                 
                 if (nnew8 == '1' ){  // si es nuevo registro
                     const validaReg = async () => {
-                            await axios.post("{{URL::to('/validaDoc-familiares')}}",{
+                            await axios.post("{{URL::to('/validaDoc-medicoExterno')}}",{
                                 data: { doc_identidad : nDocInput }
                             }).then((response) => {
                                 // console.log(response.data[0]['num_documento'])
@@ -336,7 +380,6 @@ window.addEventListener('load', () => {
             // return true
 
 
-            var funEvento = new Familiares();
             funEvento.showHideElement('none')
             document.querySelector('#btnNewAdm').style.display = 'inline'
 	        document.querySelector('#btnSaveAdm').style.display = 'none'
@@ -349,7 +392,7 @@ window.addEventListener('load', () => {
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
         selectorGuardar = document.querySelector('#btnSaveAdm')
-        const formEvolQ = document.querySelector('#formAddDiaPlanillas');
+        const formEvolQ = document.querySelector('#formExternos');
 
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -361,21 +404,22 @@ window.addEventListener('load', () => {
             if(valiCampos == " "){
                 /*En este código recorro la tabla, verifico los check y los input y traigo la información*/
                             const saveFamiliar = async () => {
-                                    await axios.post("{{URL::to('/store-familiares')}}",{
+                                    await axios.post("{{URL::to('/store-medicoExterno')}}",{
                                         data :{
                                             tipodocumento_id:  document.getElementsByName('tipodocumento_id')[0].value, 
-                                            num_documento : document.getElementsByName('num_documento')[0].value, 
+                                            doc_identidad : document.getElementsByName('doc_identidad')[0].value, 
                                             nombre : document.getElementsByName('nombre')[0].value, 
                                             apellidos: document.getElementsByName('apellidos')[0].value, 
                                             telefonos : document.getElementsByName('telefonos')[0].value, 
                                             email : document.getElementsByName('email')[0].value, 
-                                            direccion_res : document.getElementsByName('direccion_res')[0].value, 
+                                            direccion_residencial : document.getElementsByName('direccion_residencial')[0].value, 
+                                            direccion_laboral : document.getElementsByName('direccion_laboral')[0].value, 
                                             sexo_id : document.getElementsByName('sexo_id')[0].value, 
-                                            parentezco : document.getElementsByName('parentezco')[0].value, 
-                                            tipo_acompanante : document.getElementsByName('tipo_acompanante')[0].value, 
+                                            organizacion : document.getElementsByName('organizacion')[0].value, 
+                                            especialidad_id : document.getElementsByName('especialidad_id')[0].value, 
+                                            tprofesional : document.getElementsByName('tprofesional')[0].value ,
                                             observacion : document.getElementsByName('observacion')[0].value ,
                                             id : document.getElementsByName('idFamiliar')[0].value,
-                                            datosbasicos_id : idCliEvento,
                                             user_id : document.getElementsByName('user_id')[0].value
                                         }                                    
                                     }).then((resp) => {
@@ -415,8 +459,9 @@ window.addEventListener('load', () => {
 			botonCancel.addEventListener('click', () => {
                 formEvolQ.reset()
                 document.querySelector('#tipodocumento_id').disabled = false                       
-                document.querySelector('#num_documento').disabled = false                        
+                document.querySelector('#doc_identidad').disabled = false                        
                 document.querySelector('#btnCancelAdm').style.display = "none" 
+                document.querySelector('#btnSearchAdm').style.display = "inline" 
                 document.querySelector('#btnSaveAdm').style.display = "none"  
                 document.querySelector('#btnDeleteAdm').style.display = "none"  
                 document.querySelector('#btnNewAdm').style.display = "inline"
@@ -442,9 +487,10 @@ window.addEventListener('load', () => {
                         document.querySelector('#btnSaveAdm').style.display = "inline"
                         document.querySelector('#btnNewAdm').style.display = "none"
                         document.querySelector('#btnCancelAdm').style.display = "inline"
+                        document.querySelector('#btnSearchAdm').style.display = "none"
                         document.getElementsByName('newUpdate')[0].value = "1"
                         document.querySelector('#tipodocumento_id').disabled = false                        
-                        document.querySelector('#num_documento').disabled = false
+                        document.querySelector('#doc_identidad').disabled = false
                         let text4 =  document.querySelector("#accion").innerHTML ="Está creando un NUEVO registro"
                         document.getElementById('tipodocumento_id').focus()   
             })  
@@ -464,7 +510,7 @@ window.addEventListener('load', () => {
                         document.querySelector('#btnCancelAdm').style.display = 'inline'
                         document.querySelector('#btnDeleteAdm').style.display = 'inline'
                         document.querySelector('#tipodocumento_id').disabled = true                        
-                        document.querySelector('#num_documento').disabled = true   
+                        document.querySelector('#doc_identidad').disabled = true   
                         let text4 =  document.querySelector("#accion").innerHTML ="Puede CONSULTAR, EDITAR O ANULAR"                     
                 })
                 
@@ -487,7 +533,7 @@ window.addEventListener('load', () => {
 			}).then((result) => {
 				if (result.isConfirmed) {
                     const anulaReg = async () => {
-                            await axios.post("{{URL::to('/destroy-familiares')}}",{
+                            await axios.post("{{URL::to('/destroy-medicoExterno')}}",{
                                 data: {
                                     id:  document.getElementsByName('idFamiliar')[0].value
                                 }                
@@ -502,8 +548,8 @@ window.addEventListener('load', () => {
                                         document.querySelector('#btnCancelAdm').style.display = 'none'
                                         document.querySelector('#btnDeleteAdm').style.display = 'none'
                                         document.querySelector('#tipodocumento_id').disabled = false                        
-                                        document.querySelector('#num_documento').disabled = false
-                                        funEvento.showHideElement('inline')   
+                                        document.querySelector('#doc_identidad').disabled = false
+                                        funEvento.showHideElement('none')   
                                         fillTableNuevo(idCliEvento)
                                     Swal.fire({
                                         icon: 'success',
@@ -576,7 +622,35 @@ window.addEventListener('load', () => {
                 // })
     }
 
+    //  nobackbutton()
+    // saltarEnterFormulario()
+    /*******************************************************
+     * Llena la tabla del modal para la busqueda de clientes
+     * *****************************************************/
+     function busquedaProfesionales(){  
+                table_user = $('#tablaMediExterno').DataTable({
+                    destroy: 'true',
+                    "ajax": {
+                        "type": "POST",
+                        "dataType": 'json',
+                            "url": "{{ URL::to('/busca-medicoExterno') }}",
+                            "headers": {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            "dataSrc": ""
+                        },
+                        "columns": [
+                            {"data": "id"},
+                            {"data": "doc_identidad"},
+                            {"data": "nombre"},
+                            {"data": "apellidos"},
+                            {"data": "telefonos"},
+                        ],
+                         "destroy": true,
+                         "language":{"url": "../../resources/js/espanol.json"
+                        }
+                }).draw()
+                  
 
+        }
 </script>
 
 

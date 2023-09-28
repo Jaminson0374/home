@@ -286,7 +286,7 @@ window.addEventListener('load', () => {
             GUARDA o ACTUALIZA EL RESGISTRO, PRIMERO VERIFICA QUE NO HAYAN CAMPOS REQUERIDOS VACIOS 
         ***********************************************************************************************/
         selectorGuardar = document.querySelector('#btnSaveAdm')
-        const formEvolQ = document.querySelector('#formAddDiaPlanillas');
+        const formEvolQ = document.querySelector('#formExternos');
 
         formEvolQ.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -452,6 +452,9 @@ window.addEventListener('load', () => {
                     }
                 })
 
+
+
+            // }) 
                 $('#example1 tbody').on('click', 'tr', function () {
                     let data = table.row( this ).data();
                     // console.log(data)                                
@@ -461,14 +464,13 @@ window.addEventListener('load', () => {
                             //    CierraPopup();
                         $("#modalChequeo").modal("toggle");
                         // console.log(data)
+                        
                         funEvento.captura_datos(data)
                         document.querySelector('#btnNewAdm').style.display = 'none'
                         document.querySelector('#btnSaveAdm').style.display = 'inline'
                         document.querySelector('#btnCancelAdm').style.display = 'inline'
                         document.querySelector('#btnDeleteAdm').style.display = 'inline'                        
-                })
-
-            })             
+                })                        
    /*****************************************************
 	Elminar el registro que está en en el formulario
 	********************************************************/
@@ -529,7 +531,7 @@ window.addEventListener('load', () => {
         }) 
         return true
     }) 
- 
+})
     /***********************************************************************
      * BOTON NUEVO - Llenar la tabla con lista de chequeo - al presional el boton NUEVO
      **********************************************************************/  

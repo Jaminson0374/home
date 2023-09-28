@@ -92,8 +92,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                             <div class="row pb-2">   
                                                 <div class="col-12 col-lg-6 col-sm-12 col-md-6">                                                        
                                                     <label class=" ">*Tipo Documento</label>
-                                                    <select class="select2 select2-danger focusNext text"
-                                                    data-dropdown-css-class="select2-danger select-sm" class="my-class-drop"
+                                                    <select class="focusNext text"
                                                     style="width: 100%" tabindex="1" name="tipodocumento_id" id="tipodocumento_id">
                                                     @foreach ($tipoDocFami as $tipoDoc)
                                                         <option value={{ $tipoDoc->id }}>

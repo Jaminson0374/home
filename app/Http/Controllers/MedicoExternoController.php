@@ -14,10 +14,10 @@ class MedicoExternoController extends Controller
     public function index()
     {
         $indexFamiliar = DB::table('medicos_externos')
-        ->select('id','nombre','apellidos','organizacion','telefonos','especialidad')
+        ->select('id','nombre','apellidos','doc_identidad', 'organizacion','telefonos','especialidad_id')
         ->where("anulado", "=", NULL)
         ->get();
-         return view('backend.profesionl_externo.admin-medico_externo',compact('indexFamiliar')); 
+         return view('backend.profesional_externo.admin-medico_externo',compact('indexFamiliar')); 
     }
 
    
@@ -29,7 +29,7 @@ class MedicoExternoController extends Controller
         $generoFamiliar = SexoModell::all();
         $especialidad = EspecialidadesModel::all();
 
-        return view('backend.profesionl_externo.add-medico_externo',compact('tipoDocFami','generoFamiliar', 'createFamily','especialidad'));   
+        return view('backend.profesional_externo.add-medico_externo',compact('tipoDocFami','generoFamiliar', 'createFamily','especialidad'));   
     }
 
   
@@ -41,17 +41,18 @@ class MedicoExternoController extends Controller
             $StoreFamiliares = MedicoExternoModel::updateOrCreate(
                 ['id' => $request->data['id']],
                 ['tipodocumento_id'=>$request->data['tipodocumento_id'], 
-                'num_documento'=>$request->data['num_documento'], 
+                'doc_identidad'=>$request->data['doc_identidad'], 
                 'nombre'=>$request->data['nombre'], 
                 'apellidos'=>$request->data['apellidos'], 
                 'telefonos'=>$request->data['telefonos'], 
                 'email'=>$request->data['email'], 
-                'direccion_res'=>$request->data['direccion_res'], 
+                'direccion_residencial'=>$request->data['direccion_residencial'], 
+                'direccion_laboral'=>$request->data['direccion_laboral'], 
                 'sexo_id'=>$request->data['sexo_id'], 
-                'parentezco'=>$request->data['parentezco'], 
-                'tipo_acompanante'=>$request->data['tipo_acompanante'], 
-                'observacion'=>$request->data['observacion'],
-                'datosbasicos_id' => $request->data['datosbasicos_id']]);
+                'especialidad_id'=>$request->data['especialidad_id'], 
+                'tprofesional'=>$request->data['tprofesional'], 
+                'organizacion'=>$request->data['organizacion'], 
+                'observacion'=>$request->data['observacion']]);
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -98,4 +99,18 @@ class MedicoExternoController extends Controller
         }
         return response()->json(['message' => 'Success']);
     }
+    function buscaExternos(){
+
+        $clientesDtoBasic = DB::table('medicos_externos')
+        ->where('anulado','=',NULL)
+        ->select('id','doc_identidad','tipodocumento_id','nombre','apellidos',
+                 'telefonos','sexo_id',
+                 'especialidad_id', 'direccion_residencial', 'direccion_residencial','direccion_laboral',
+                 'email','tprofesional','organizacion','observacion')->get();
+                // DB::raw('CONCAT(nombre, " ", apellidos as profesional)')
+	
+        // $clientesBasic  = Clientes::where('estado','=','on')->get();
+       
+        return $clientesDtoBasic;        
+    } 
 }
