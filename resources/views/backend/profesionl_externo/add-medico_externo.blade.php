@@ -70,7 +70,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                 @endforeach
                                 <div class="row border border-dark border-4 m-2 rounded bg-primary">
                                     <div class="col-12 col-sm-12 col-lg-6 col-md-6">
-                                        <h3 id="textB" style="font-weight: 900; font-size: 1em;" class="card-title">Datos de Familiares y/o Acompañantes 
+                                        <h3 id="textB" style="font-weight: 900; font-size: 1em;" class="card-title">Datos del profesional o Personal Externo 
                                         </h3>
 
                                         <h3 id="accion" class="float-right m-0 p-0 bg-danger" style="font-weight: 900; font-size: 1.5em;" class="card-title"></h3>
@@ -88,110 +88,112 @@ table.dataTable tbody th, table.dataTable tbody td {
 
 
                                     <div class="row">
-                                        <div class="col-lg-4 col-sm-12 col-md-4 border bg-success">  
+                                        <div class="col-lg-12 col-sm-12 col-md-12 border bg-success">  
                                             <div class="row pb-2">   
-                                                <div class="col-12 col-lg-6 col-sm-12 col-md-6">                                                        
-                                                    <label class=" ">*Tipo Documento</label>
+                                                <div class="col-12 col-lg-2 col-sm-12 col-md-4">                                                        
+                                                    <label class=" ">*Tipo_Documento</label>
                                                     <select class="select2 select2-danger focusNext text"
                                                     data-dropdown-css-class="select2-danger select-sm" class="my-class-drop"
                                                     style="width: 100%" tabindex="1" name="tipodocumento_id" id="tipodocumento_id">
                                                     @foreach ($tipoDocFami as $tipoDoc)
                                                         <option value={{ $tipoDoc->id }}>
                                                             {{ $tipoDoc->descripcion }}
-                                                        </option>
+                                                        </option> 
                                                     @endforeach
                                                     </select> 
                                                 </div>
-                                                <div class="col-12 col-lg-6 col-sm-12 col-md-6">                                                        
+                                                <div class="col-12 col-lg-2 col-sm-12 col-md-2">                                                        
                                                     <label for="" class="">*Doc Identidad</label>
                                                     <input type="text" class="form-control text focusNext pb-2" maxlength="25"
-                                                        tabindex="2" name="num_documento" id="num_documento"
-                                                        pattern="[A-Za-z0-9]{1,25}" placeholder="Digite No. del documento"
+                                                        tabindex="2" name="doc_identidad" id="doc_identidad"
+                                                        pattern="[A-Za-z0-9]{1,25}" placeholder="#Doc. Identidad"
                                                         style="height:40px;">
-                                                </div>                                                    
+                                                </div>   
+                                                <div class="col-lg-3 col-sm-12 col-md-3">
+                                                    <label for="nombre" class="">*Nombre:</label>
+                                                    <input type="text" class="form-control text focusNext" maxlength="40"
+                                                        tabindex="3" name="nombre" id="nombre" placeholder="Nombre">                                            
+                                                </div>    
+                                                <div class="col-lg-3 col-sm-12 col-md-3">
+                                                    <label for="apellidos" class="">*Apellidos:</label>
+                                                    <input type="text" class="form-control text focusNext" maxlength="40"
+                                                    tabindex="4" name="apellidos" id="apellidos"
+                                                    placeholder="Apellidos"> 
+                                                </div>         
+                                                <div class="col-lg-2 col-sm-12 col-md-2">
+                                                    <label for="SelectSexo" class="">*Genero</label>
+                                                    <select class="form-control focusNext text" id="sexo_id" tabindex="5"
+                                                        name="sexo_id">
+                                                        <option selected disable value="">Genero</option>
+                                                        @foreach ($generoFamiliar as $datoInput)
+                                                            <option value={{ $datoInput->id }}>
+                                                                {{ $datoInput->descripcion }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>                                                         
                                             </div>
                                                         <div class="row pb-2 border">
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
-                                                                <label for="nombre" class="">*Nombre:</label>
-                                                                <input type="text" class="form-control text focusNext" maxlength="40"
-                                                                    tabindex="3" name="nombre" id="nombre" placeholder="Digite Nombre">                                            
-                                                            </div>    
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
-                                                                <label for="apellidos" class="">*Apellidos:</label>
-                                                                <input type="text" class="form-control text focusNext" maxlength="40"
-                                                                tabindex="3" name="apellidos" id="apellidos"
-                                                                placeholder="digite apellidos"> 
-                                                            </div>                                                                                                                      
-                                                        </div> <!-- cierre de row -->
-
-                                                        <div class="row pb-2 border">
-                                                            <div class="col-lg-12 col-sm-12 col-md-12">
-                                                                <label for="dirRes" class="">Dirección</label>                                                                 
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
+                                                                <label for="dirRes" class="">Dir residencial</label>                                                                 
                                                                  Residencial:</label>
                                                                 <input type="text" class="form-control text focusNext" maxlength="100"
-                                                                    name="direccion_res" tabindex="4" id="direccion_res"
-                                                                    placeholder="Digite Dirección residencial">                                               
-                                                            </div>                                                               
-                                                        </div> <!-- cierre de row -->
-                                                        <div class="row pb-2 border">
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
+                                                                    name="direccion_residencial" tabindex="6" id="direccion_residencial"
+                                                                    placeholder=" Dirección residencial">                                               
+                                                            </div>     
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
+                                                                <label for="" class="">Dir Organización</label>                                                                 
+                                                                 </label>
+                                                                <input type="text" class="form-control text focusNext" maxlength="100"
+                                                                    name="direccion_laboral" tabindex="7" id="direccion_laboral"
+                                                                    placeholder="Dirección laboral">                                               
+                                                            </div>                                                                 
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
                                                                 <label for="" class="">*Teléfonos :</label>
                                                                 <input type="text" class="form-control text focusNext" maxlength="60"
-                                                                    tabindex="5" id="telefonos" name="telefonos"
-                                                                    placeholder="Digite Telefonos del familiar">                                                           
+                                                                    tabindex="8" id="telefonos" name="telefonos"
+                                                                    placeholder="Telfonos">                                                           
                                                             </div>    
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
                                                                 <label for="" class="">*Email Usuario:</label>
                                                                 <input type="email" class="form-control text focusNext" maxlength="50"
-                                                                    tabindex="6" id="email" name="email"
-                                                                    placeholder="Digite Email existente">
-                                                            </div>                                                                                                                      
+                                                                    tabindex="9" id="email" name="email"
+                                                                    placeholder="Email de contacto">
+                                                            </div>                
                                                         </div> <!-- cierre de row -->
+ 
                                                         <div class="row pb-2 border">
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
-                                                                <label for="SelectSexo" class="">*Genero</label>
-                                                                <select class="form-control focusNext text" id="sexo_id" tabindex="7"
-                                                                    name="sexo_id">
-                                                                    <option selected disable value="">Genero</option>
-                                                                    @foreach ($generoFamiliar as $datoInput)
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
+                                                                <label for="" class="">T.P</label>
+                                                                <input type="text" class="form-control text focusNext" maxlength="60"
+                                                                    tabindex="10" id="tprofesional" name="tprofesional"
+                                                                    placeholder="T. profesional">                                                           
+                                                            </div>           
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
+                                                                <label for=" " class="">Especialidad</label>
+                                                                <select class="form-control focusNext text" id="especialidad_id" tabindex="11"
+                                                                    name="especialidad_id">
+                                                                    <option selected disable value="">Seleccione</option>
+                                                                    @foreach ($especialidad as $datoInput)
                                                                         <option value={{ $datoInput->id }}>
                                                                             {{ $datoInput->descripcion }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
-                                                            </div>
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
-                                                                <label for="SelectSexo" class="">*Tipo Acompañante</label>
-                                                                <select class="form-control focusNext text" id="tipo_acompanante" tabindex="8"
-                                                                    name="tipo_acompanante">
-                                                                    <option selected disable value="">Seleccione</option>
-                                                                        <option value="2">Familiar</option>
-                                                                        <option value="2">Curador</option>
-                                                                </select>
-                                                            </div>                                                                                                                      
-                                                        </div> <!-- cierre de row -->                                                      
-                                                        <div class="row pb-2 border">
-                                                            <div class="col-lg-6 col-sm-12 col-md-6">
-                                                                <label for="SelectSexo" class="">*Parentezco</label>
-                                                                <select class="form-control focusNext text" id="parentezco" tabindex="9"
-                                                                    name="parentezco">
-                                                                    <option selected disable value="">Seleccione</option>
-                                                                        <option value="2">Madre</option>
-                                                                        <option value="2">Padre</option>
-                                                                        option value="2">Abuelo(a)</option>
-                                                                        <option value="2">Hermano(a)</option>
-                                                                        <option value="2">Tio(a)</option>
-                                                                        <option value="2">Sobrino(a)</option>
-                                                                        <option value="2">Otro</option>
-                                                                </select>
-                                                            </div>                                                                                                                      
-                                                        </div> <!-- cierre de row -->                                                     
+                                                            </div>  
+                                                            <div class="col-lg-3 col-sm-12 col-md-3">
+                                                                <label for="" class="">Orgnanización</label>
+                                                                <input type="text" class="form-control text focusNext" maxlength="60"
+                                                                    tabindex="12" id="telefonos" name="telefonos"
+                                                                    placeholder="Empresa donde labora">                                                           
+                                                            </div>                                                                                                                                                                                             
+                                                        </div>
                                                         <div class="row pb-2 border">
                                                             <div class="col-lg-12 col-sm-12 col-md-12">
                                                                 <label for="" class=""><b>Observación</b></label>
-                                                                <textarea type="text" class="form-control text diagnostico" id="observacion" name="observacion" tabindex="10"
+                                                                <textarea type="text" class="form-control text diagnostico" id="observacion" name="observacion" tabindex="13"
                                                                     placeholder="Ingrese información relevante"
-                                                                    title="Ingrese información relevante acerca de los familiares del usuario" rows="1"></textarea>        
+                                                                    title="Ingrese información relevante acerca del profesional" rows="1"></textarea>        
                                                             </div>
                                                         </div>
                                                     <div class="row"> 
@@ -221,25 +223,9 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                         </div>
                                                     </div>                                                    
                                             </div>
-                                        <div class="col-lg-8 col-sm-12 col-md-8">
-                                                        <div class="table-wrapper col-lg-12 col-sm-12 col-md-12 bg-primary text-white "> 
-                                                            <table id="example2" class="table  table-bordered table-striped table-hover text-dark "  style="width: 100%; background-color: hsl(202, 85%, 79%)">
-                                                                <thead class="bg bg-success">
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Familiar</th>
-                                                                        <th>Telefono</th>
-                                                                        <th>E-mail</th> 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="bodyTabla" title="HAGA CLICK PARA CONSULTAR O EDITAR EL REGISTRO DE ESTE FAMILIAR">
- 
-                                                                </tbody>
-                                                             </table>                                                            
-                                                        </div>
-                                        </div>
+
                                 <script src="{{ asset('../resources/js/back_off.js') }}"></script>
-                                <script src="{{ asset('../resources/views/backend/acompanantes/familiares.js') }}"></script>
+                                <script src="{{ asset('../resources/views/backend/profesional_externos/medico_externo.js') }}"></script>
                                 <script src="{{ asset('../resources/js/funciones.js') }}"></script>
                                 <script src="{{ asset('../resources/js/enter_form.js') }}"></script>
 
@@ -253,6 +239,56 @@ table.dataTable tbody th, table.dataTable tbody td {
             </div>
         </section>
     </div>
+<!-- ******************************************************
+      MODAL PARA LA BUSQUEDA DE CLIENTES DATOS BASICOS
+      *****************************************************-->
+<!-- Modal -->
+
+
+<!-- Modal -->
+<div class="container-lg">
+    <div class="modal fade" id="modalBuscarExt" class="modalBuscar" data-backdrop="static" tabindex="-1"
+        role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Lista de usarios datos básicos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{-- tablaDtBasico --}}
+                <form action="" id="modalTable">
+
+                <body>
+                    <div class="modal-body">
+                        <div class="card-body p-2 mb-0 bg-primary text-white">
+                            <table id="tablaUserClientes" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>DocIdent</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Telefono</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyTabla">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                    </div>
+                </body>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
 @endsection
 <script>
  
@@ -265,21 +301,21 @@ window.addEventListener('load', () => {
             /**************************************************************
              *Valida la existencia del documento de identidad del usuario   
             ***************************************************************/
-            $("#num_documento").blur(function(){
+            $("#doc_identidad").blur(function(){
                 let idFamiliar = document.getElementById("'idFamiliar");
-                let nDocInput = document.getElementsByName('num_documento')[0].value 
+                let nDocInput = document.getElementsByName('doc_identidad')[0].value 
                 var nnew8 = document.getElementsByName('newUpdate')[0].value 
                 
                 if (nnew8 == '1' ){  // si es nuevo registro
                     const validaReg = async () => {
                             await axios.post("{{URL::to('/validaDoc-familiares')}}",{
-                                data: { num_documento: nDocInput }
+                                data: { doc_identidad : nDocInput }
                             }).then((response) => {
                                 // console.log(response.data[0]['num_documento'])
                                 // console.log(nDocInput)
                                 if(response.data[0]['num_documento'] == nDocInput){
-                                        document.getElementsByName('num_documento')[0].value= "";
-                                        document.getElementById('num_documento').focus()
+                                        document.getElementsByName('doc_identidad')[0].value= "";
+                                        document.getElementById('doc_identidad').focus()
                                         Swal.fire({
                                         icon: 'error',
                                         title: 'Error Duplicado de documento',

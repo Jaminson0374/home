@@ -91,6 +91,17 @@ Route::post('destroy-familiares', [App\Http\Controllers\AcompanantesController::
 Route::post('show-familiares', [App\Http\Controllers\AcompanantesController::class, 'show'])->name('ShowFamiliares');
 Route::post('validaDoc-familiares', [App\Http\Controllers\AcompanantesController::class, 'validaDoc'])->name('ValidDocFamiliares');
 
+/**************************************************************************
+MEDICOS O PERSONAL EXTERNO
+//************************************************************************* */
+
+Route::get('/index-medicoexterno', [App\Http\Controllers\MedicoExternoController::class, 'index'])->name('IndexMedicoExterno');
+Route::get('/create-medicoExterno/{idFamiliar}', [App\Http\Controllers\MedicoExternoController::class, 'create'])->name('CreateMedicoExterno');
+Route::post('/store-medicoExterno', [App\Http\Controllers\MedicoExternoController::class, 'store'])->name('StoreMedicoExterno');
+Route::post('destroy-medicoExterno', [App\Http\Controllers\MedicoExternoController::class, 'destroy'])->name('DestroyMedicoExterno');
+Route::post('show-medicoExterno', [App\Http\Controllers\MedicoExternoController::class, 'show'])->name('ShowMedicoExterno');
+Route::post('validaDoc-medicoExterno', [App\Http\Controllers\MedicoExternoController::class, 'validaDoc'])->name('ValidDoMedicoExterno');
+
 
 //*********************************************************************
 //      EMPLEADOS                                                *

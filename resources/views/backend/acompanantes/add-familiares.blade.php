@@ -213,7 +213,7 @@ table.dataTable tbody th, table.dataTable tbody td {
                                                                                 focusNext tabindex="14"><i class="fa fa-trash fa-lg"
                                                                                     style="color:#f30b0b;"></i> Anular </button>
                                     
-                                                                                    <a href="{{ URL::to('/index-chequeo-turno') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
+                                                                                    <a href="{{ URL::to('/index-familia') }}" class="btn btn-primary form-group btn-md float-righ  m-1" title="Abandonar la ventana"
                                                                                         focusNext tabindex="15" id="btnExit"><i class="fa fa-arrow-right fa-lg"
                                                                                         style="color:#f30b0b;"></i> Salir</a>    
                                                                             </div>

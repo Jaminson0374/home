@@ -9,4 +9,10 @@ class MedicoExternoModel extends Model
 {   
     protected $table = 'medicos_externos';
     use HasFactory;
+    protected $guarded = [
+        '_token',
+        'id',
+        'idFamiliar',
+        'newUpdate'
+    ];	                
 }

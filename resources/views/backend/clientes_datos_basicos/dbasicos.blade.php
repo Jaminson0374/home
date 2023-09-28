@@ -493,7 +493,6 @@
             </div> <!-- card border-2 -->
         </section>
     </div> <!--brapper -->
-@endsection
 
 <!-- ******************************************************
       MODAL PARA LA BUSQUEDA DE CLIENTES DATOS BASICOS
@@ -548,6 +547,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 <script src="{{ asset('../resources/js/datatable.js') }}"></script>
 
